@@ -293,7 +293,7 @@ set -g mode-keys vi
  bind C-a send-prefix
 
 # move status line to top
-set -g status-position top 
+set -g status-position top
 
 # copying selection vim style
 # http://jasonwryan.com/blog/2011/06/07/copy-and-paste-in-tmux/
@@ -309,3 +309,6 @@ bind-key -t vi-copy r rectangle-toggle 		# visual block toggle
 #custom mappings
 unbind c
 bind t create window
+# fish as the default shell
+set -g default-command /usr/local/bin/fish
+set -g default-shell /usr/local/bin/fish
