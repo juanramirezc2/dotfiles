@@ -295,20 +295,20 @@ set -g mode-keys vi
 # move status line to top
 set -g status-position top
 
-# copying selection vim style
-# http://jasonwryan.com/blog/2011/06/07/copy-and-paste-in-tmux/
-# https://github.com/myfreeweb/dotfiles/blob/master/tmux.conf
-bind-key Escape copy-mode			# enter copy mode; default [
-bind-key -t vi-copy Escape cancel		# exit copy mode; or hit q
-bind-key p paste-buffer				# paste; default ]
-bind-key -t vi-copy v begin-selection		# begin visual mode
-bind-key -t vi-copy V select-line		# visual line
-bind-key -t vi-copy y copy-selection		# yank
-bind-key -t vi-copy r rectangle-toggle 		# visual block toggle
-
 #custom mappings
+# window management
+unbind x
+bind q kill-pane
 unbind c
-bind t create window
+bind t new-window
 # fish as the default shell
 set -g default-command /usr/local/bin/fish
 set -g default-shell /usr/local/bin/fish
+
+# copy mode
+bind p paste-buffer
+bind-key Escape copy-mode
+bind-key -T copy-mode-vi 'v' send -X begin-selection
+bind-key -T copy-mode-vi 'V' send -X select-line
+bind-key -T copy-mode-vi 'r' send -X rectangle-toggle
+bind-key -T copy-mode-vi 'y' send -X copy-pipe-and-cancel "xclip -in -selection clipboard"
