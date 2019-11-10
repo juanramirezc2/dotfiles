@@ -225,7 +225,7 @@ tmux_conf_battery_bar_symbol_empty='◻'
 # battery bar length (in number of symbols), possible values are:
 #   - auto
 #   - a number, e.g. 5
-tmux_conf_battery_bar_length=15
+tmux_conf_battery_bar_length='auto'
 
 # battery bar palette, possible values are:
 #   - gradient (default)
@@ -294,16 +294,6 @@ set -g mode-keys vi
 
 # move status line to top
 set -g status-position top
-
-#custom mappings
-# window management
-unbind x
-bind q kill-pane
-unbind c
-bind t new-window
-# fish as the default shell
-set -g default-command /usr/local/bin/fish
-set -g default-shell /usr/local/bin/fish
 
 # copy mode
 bind p paste-buffer
