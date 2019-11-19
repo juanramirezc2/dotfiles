@@ -1,0 +1,46 @@
+snippet bye "My mail signature"
+Good bye, Sir. Hope to talk to you soon.
+- Arthur, King of Britain
+endsnippet
+snippet letter "letter snnipet"
+Dear $1,
+$0
+Yours sincerely,
+$2
+endsnippet
+snippet .respond "respondTo snippet"
+.respondTo('${1:medium}', {
+  $2
+});
+$0
+endsnippet
+snippet .respond "respondToMax"
+.respondToMax('${1:medium}', {
+  $2
+});
+$0
+endsnippet
+snippet .respond "respondToXsMax"
+.respondToXsMax({
+  $1
+});
+$0
+endsnippet
+snippet .respond "respondToSmallMax"
+.respondToSmallMax({
+  $1
+});
+$0
+endsnippet
+snippet .respond "respondToMediumMax"
+.respondToMediumMax({
+  $1
+});
+$0
+endsnippet
+snippet .respond "respondToLargeMax"
+.respondToLargeMax({
+  $1
+});
+$0
+endsnippet
