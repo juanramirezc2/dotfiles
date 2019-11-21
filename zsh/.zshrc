@@ -3,7 +3,7 @@
 export PATH=/usr/local/opt/ruby/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/gabo/.oh-my-zsh"
+export ZSH="~/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -121,3 +121,5 @@ export VISUAL=/usr/local/bin/nvim
 
 alias taoti="tmuxinator start taoti"
 alias ocx="tmuxinator start ocx"
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
