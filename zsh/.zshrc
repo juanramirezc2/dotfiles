@@ -121,3 +121,4 @@ export VISUAL=/usr/local/bin/nvim
 
 alias taoti="tmuxinator start taoti"
 alias ocx="tmuxinator start ocx"
+alias rockstar="tmuxinator start rockstart"
