@@ -674,7 +674,7 @@ nnoremap <Leader>bu :!npm run build<CR>
 "nnoremap <Leader>bu :make<CR>
 let g:prettier#exec_cmd_async = 1
 let g:prettier#autoformat = 0
-"autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html,*.twig PrettierAsync
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html,*.twig PrettierAsync
 nmap <Leader>gp <Plug>(Prettier)
 "nnoremap <Leader>gp :silent %!prettier --stdin --stdin-filepath % --trailing-comma all --single-quote<CR>
 "save file when focus is lost

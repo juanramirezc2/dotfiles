@@ -1,6 +1,6 @@
 # /Users/gabo/.config/tmuxinator/taoti.yml
 
-name: taoti
+name: upbeat
 root: ~/Work/up-beat/taoti-heart-rhythm-society-drupal-site/themes/custom/hrs
 
 # Optional tmux socket
