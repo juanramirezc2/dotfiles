@@ -118,7 +118,6 @@ LC_ALL="en_US.UTF-8"
 ctags=/usr/local/bin/ctags
 export EDITOR=/usr/local/bin/nvim
 export VISUAL=/usr/local/bin/nvim
-
 alias taoti="tmuxinator start taoti"
 alias ocx="tmuxinator start ocx"
 alias rockstar="tmuxinator start rockstart"
