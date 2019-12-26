@@ -73,14 +73,12 @@ let g:onedark_terminal_italics =  1 "allow italics in one dark colorscheme
 syntax enable
 set background=dark
 colorscheme onedark  " Activa tema onedark
-"" NerdTree configs
-let NERDTreeWinSize = 40  "estado por defecto del ancho de la barra de nerdtree 
-" NerdTree Refresh Root crashes with my <S-R> command for moving between tags
-let NERDTreeMapRefreshRoot='r'
 
 "Toggle file drawer in/out
-nmap <leader>m :NERDTreeFind<CR>
-nmap <leader>n :NERDTreeToggle<CR>
+nmap <leader>m :CocCommand explorer
+    \ --toggle
+    \ --sources=buffer+,file+
+    \ --file-columns=git,selection,clip,diagnosticError,indent,icon,filename,size,modified<CR>
 
 " so I can go up an down wrapped lines
 map j gj
@@ -642,9 +640,6 @@ let g:test#runner_commands = ['Minitest', 'Mocha']
 xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
-" disable dev icons inside denite is slower AF 
-"  " Adding the custom source to denite
-let g:webdevicons_enable_denite = 0
 "paste multiple times from the same register works for the default register
 xnoremap p pgvy
 "see actual registers
@@ -674,7 +669,7 @@ nnoremap <Leader>bu :!npm run build<CR>
 "nnoremap <Leader>bu :make<CR>
 let g:prettier#exec_cmd_async = 1
 let g:prettier#autoformat = 0
-autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html,*.twig PrettierAsync
+"autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html,*.twig PrettierAsync
 nmap <Leader>gp <Plug>(Prettier)
 "nnoremap <Leader>gp :silent %!prettier --stdin --stdin-filepath % --trailing-comma all --single-quote<CR>
 "save file when focus is lost

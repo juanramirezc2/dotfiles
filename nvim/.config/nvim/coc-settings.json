@@ -10,5 +10,7 @@
   "emmet.extensionsPath":"~/.config/nvim/emmet_custom",
   "emmet.showExpandedAbbreviation": "always",
   "emmet.showSuggestionsAsSnippets": true,
-  "emmet.includeLanguages": {"html.twig":"html"}
+  "emmet.includeLanguages": {"html.twig":"html"},
+  "explorer.icon.enableNerdfont": true,
+  "explorer.file.showHiddenFiles": true
 }
