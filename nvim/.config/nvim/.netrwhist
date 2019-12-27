@@ -1,0 +1,6 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =4
+let g:netrw_dirhist_4='/Users/gabo/Work/up-beat/taoti-heart-rhythm-society-drupal-site/themes/custom'
+let g:netrw_dirhist_3='/Users/gabo/Work/up-beat/taoti-heart-rhythm-society-drupal-site/themes/custom/hrs'
+let g:netrw_dirhist_2='/Users/gabo/Work/up-beat/taoti-heart-rhythm-society-drupal-site/themes/custom/hrs/scss'
+let g:netrw_dirhist_1='/Users/gabo/Work/up-beat/taoti-heart-rhythm-society-drupal-site/themes/custom/hrs'
