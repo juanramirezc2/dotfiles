@@ -39,7 +39,8 @@ Plug 'haya14busa/incsearch.vim' " Improved incremental searching for Vim
 "GUI customization
 Plug 'ntpeters/vim-better-whitespace' "Vim Better Whitespace Plugin
 Plug 'Shougo/echodoc.vim' "Print documents in echo area.
-Plug 'joshdick/onedark.vim' "Color scheme inspirado por el tema One Dark de Atom.
+"Plug 'joshdick/onedark.vim' "Color scheme inspirado por el tema One Dark de Atom.
+Plug 'morhetz/gruvbox' " Retro groove color scheme for Vim
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'  " Temas para airline la barra en la parte baja
 Plug 'yggdroot/indentline' " indent guides lines let's see how they goes

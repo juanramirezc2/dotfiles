@@ -72,7 +72,8 @@ set termguicolors  " Activa true colors en la terminal
 let g:onedark_terminal_italics =  1 "allow italics in one dark colorscheme
 syntax enable
 set background=dark
-colorscheme onedark  " Activa tema onedark
+colorscheme gruvbox
+"colorscheme onedark  " Activa tema onedark
 
 "Toggle file drawer in/out
 nmap <leader>m :CocCommand explorer
@@ -683,3 +684,9 @@ let g:calendar_google_calendar = 1
 let g:calendar_google_task = 1
 "vim sneak move arround with this guy
 let g:sneak#label = 1
+nmap <leader>ctl :CocList --normal todolist<CR>
+nmap <leader>ctc :CocCommand todolist.create<CR>
+nmap <leader>ctu :CocCommand todolist.upload<CR>
+nmap <leader>ctd :CocCommand todolist.download<CR>
+nmap <leader>cte :CocCommand todolist.export<CR>
+nmap <leader>ctcl :CocCommand todolist.clearNotice<CR>
