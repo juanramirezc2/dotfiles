@@ -78,8 +78,7 @@ colorscheme gruvbox
 "Toggle file drawer in/out
 nmap <leader>m :CocCommand explorer
     \ --toggle
-    \ --sources=buffer+,file+
-    \ --file-columns=git,selection,clip,diagnosticError,indent,icon,filename,size,modified<CR>
+    \ --sources=buffer+,file+<CR>
 
 " so I can go up an down wrapped lines
 map j gj
@@ -674,7 +673,7 @@ nnoremap <Leader>bu :!npm run build<CR>
 "nnoremap <Leader>bu :make<CR>
 let g:prettier#exec_cmd_async = 1
 let g:prettier#autoformat = 0
-"autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html,*.twig PrettierAsync
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
 nmap <Leader>gp <Plug>(Prettier)
 "nnoremap <Leader>gp :silent %!prettier --stdin --stdin-filepath % --trailing-comma all --single-quote<CR>
 "save file when focus is lost
@@ -694,3 +693,5 @@ nmap <leader>ctu :CocCommand todolist.upload<CR>
 nmap <leader>ctd :CocCommand todolist.download<CR>
 nmap <leader>cte :CocCommand todolist.export<CR>
 nmap <leader>ctcl :CocCommand todolist.clearNotice<CR>
+" automatically set the cwd to the parent of the actual file
+set autochdir
