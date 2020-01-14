@@ -1,6 +1,6 @@
-# /Users/gabo/.config/tmuxinator/taoti.yml
+# /Users/gabo/.config/tmuxinator/test.yml
 
-name: upbeat 
+name: test
 root: ~/
 
 # Optional tmux socket
@@ -40,15 +40,13 @@ root: ~/
 # attach: false
 
 windows:
-  - editor: nvim
-  - extras: 
-      root: ~/Work/up-beat/taoti-heart-rhythm-society-drupal-site
-      layout: even-vertical
+  - editor:
+      layout: main-vertical
       # Synchronize all panes of this window, can be enabled before or after the pane commands run.
       # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
       # synchronize: after
       panes:
-        -
-        -
-
-  - radio: 
+        - vim
+        - guard
+  - server: bundle exec rails s
+  - logs: tail -f log/development.log
