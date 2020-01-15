@@ -693,5 +693,8 @@ nmap <leader>ctu :CocCommand todolist.upload<CR>
 nmap <leader>ctd :CocCommand todolist.download<CR>
 nmap <leader>cte :CocCommand todolist.export<CR>
 nmap <leader>ctcl :CocCommand todolist.clearNotice<CR>
-" automatically set the cwd to the parent of the actual file
-set autochdir
+"disable netrw default browser explorer
+let g:loaded_netrw       = 1
+let g:loaded_netrwPlugin = 1
+au VimEnter *  :CocCommand explorer --sources=file+
+
