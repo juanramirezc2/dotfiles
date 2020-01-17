@@ -81,6 +81,9 @@ colorscheme gruvbox
 "
 " NerdTree Refresh Root crashes with my <S-R> command for moving between tags
 let NERDTreeMapRefreshRoot='r'
+let NERDTreeMapActivateNode='l'
+let NERDTreeMapCloseDir='h'
+let NERDTreeMapCloseChildren='H'
 
 "Toggle file drawer in/out
 nmap <leader>m :NERDTreeFind<CR>
