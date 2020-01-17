@@ -3,6 +3,10 @@ source ~/.config/nvim/plugins.vim
 " Luego de esta línea puedes agregar tus configuraciones y mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+"disable netrw default browser explorer
+let g:loaded_netrw       = 1
+let g:loaded_netrwPlugin = 1
+
 " Hide pointless junk at the bottom, doesn't work in .vimrc for some reason?
 :set laststatus=0
 " i'm not agains the mouse, enable it in all modes
@@ -74,11 +78,13 @@ syntax enable
 set background=dark
 colorscheme gruvbox
 "colorscheme onedark  " Activa tema onedark
+"
+" NerdTree Refresh Root crashes with my <S-R> command for moving between tags
+let NERDTreeMapRefreshRoot='r'
 
 "Toggle file drawer in/out
-nmap <leader>m :CocCommand explorer
-    \ --toggle
-    \ --sources=buffer+,file+<CR>
+nmap <leader>m :NERDTreeFind<CR>
+nmap <leader>n :NERDTreeToggle<CR>
 
 " so I can go up an down wrapped lines
 map j gj
@@ -693,8 +699,4 @@ nmap <leader>ctu :CocCommand todolist.upload<CR>
 nmap <leader>ctd :CocCommand todolist.download<CR>
 nmap <leader>cte :CocCommand todolist.export<CR>
 nmap <leader>ctcl :CocCommand todolist.clearNotice<CR>
-"disable netrw default browser explorer
-let g:loaded_netrw       = 1
-let g:loaded_netrwPlugin = 1
-au VimEnter *  :CocCommand explorer --sources=file+
 

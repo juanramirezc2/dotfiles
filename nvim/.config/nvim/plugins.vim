@@ -46,6 +46,7 @@ Plug 'vim-airline/vim-airline-themes'  " Temas para airline la barra en la parte
 Plug 'yggdroot/indentline' " indent guides lines let's see how they goes
 "File browsers
 Plug 'Shougo/denite.nvim' "Denite is a dark powered plugin for Neovim/Vim to unite all interfaces.
+Plug 'scrooloose/nerdtree' "proyect tree and structure
 Plug 'tpope/vim-projectionist' "browse to file easy
 "Git helpers
 Plug 'airblade/vim-gitgutter' " muestra los cambios en archivos en la parte izquierda donde estan los numeros de linea
@@ -81,6 +82,7 @@ Plug 'junegunn/vim-emoji'
 "distraction free let's hope this work
 Plug 'junegunn/goyo.vim'
 " file icons
+Plug 'ryanoasis/vim-devicons' " vim will become visual studio 
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight' " needed for devicons
 Plug 'rhysd/clever-f.vim' "Extended f, F, t and T key mappings for Vim. 
 Plug 'junegunn/vim-easy-align' "A Vim alignment plugin
