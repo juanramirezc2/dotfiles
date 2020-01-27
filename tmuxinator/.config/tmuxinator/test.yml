@@ -1,7 +1,6 @@
 # /Users/gabo/.config/tmuxinator/test.yml
 
-name: test
-root: ~/
+name: development
 
 # Optional tmux socket
 # socket_name: foo
