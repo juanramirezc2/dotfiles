@@ -1,19 +1,7 @@
-## honer
-```sh
-https://github.com/puffnfresh/Honer.app
-```
-## tmux 
-```sh
-brew install tmux
-```
-## install download fira code retina patched witn nerd fonts
-```sh
-git clone --depth 1 https://github.com/ryanoasis/nerd-fonts && cd nerd-fonts && ./install.sh FiraCode
-```
-
 `Preferences->Profiles->text`
 in the non-ACCII font select hack nerd font
 TODO: patch comic code using [fontforge](https://github.com/ryanoasis/nerd-fonts#option-8-patch-your-own-font)
+
 ## comic code font with ligatures
 
 in
@@ -57,84 +45,11 @@ an image tell more than a thousand worlds
 [neovim plugins](https://stsewd.dev/es/posts/neovim-plugins)
 [neovim instalation and configuration](https://stsewd.dev/es/posts/neovim-installation-configuration)
 
-## allow terminal to access the clipboard
-
-```sh
-$brew install pbcopy
-```
-
 ## coc vim
 
 ````sh
-:CocInstall coc-json coc-css coc-tsserver coc-snippets coc-eslint coc-prettier 
-```
+:CocInstall coc-json coc-css coc-tsserver coc-snippets coc-eslint coc-prettier ```
 
-## compile YCM using typescript engine
-
-run
-
-```sh
-$ youcompleteme/install.py --ts-completer
-
-````
-
-create a ~/.jsconfig.json file with
-
-```json
-{
-  "compilerOptions": {
-    "module": "commonjs",
-    "target": "ES6",
-    "allowJs": true,
-    "checkJs": true,
-    "jsx": "react",
-    "outDir": "./build",
-    "removeComments": true,
-    "noEmit": true,
-    "pretty": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "moduleResolution": "node",
-    "esModuleInterop": true
-  },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "**/node_modules/*"]
-}
-```
-
-[more info about TS semantic autocompletion](https://github.com/ycm-core/YouCompleteMe#javascript-and-typescript-semantic-completion)
-
-## ag the silver searcher
-
-ackvim support ag the silver searcher as a command so we need to install it
-
-```sh
-$brew install the_silver_searcher
-```
-
-## universal ctags needed by gutentags
-
-install ctags and use it as default local bin OSX has its own ctags package and sucks
-brew install ctags
-Afterwards, you may need to set the alias to the new version by running:
-
-```sh
-alias ctags="`brew --prefix`/bin/ctags"
-alias ctags >> ~/.zshrc
-```
-
-clone this .ctags file under `~/.ctags`
-
-```sh
-git clone https://github.com/romainl/ctags-patterns-for-javascript
-```
-
-echo "set tags=tags" >> ~/.vimrc
-ignore tags in local git repository using
-
-```sh
-$ echo "tags" >> .git/info/exclude
-```
 
 ## build neovim from source :O :O
 
@@ -227,3 +142,4 @@ for some examples and important special cases.
 
 * `yaF` to <strong>Y</strong>ank <strong>A</strong> <strong>F</strong>unction with leading or trailing blank lines, and
 * `viF` to visually select a function without leading or trailing blank lines.
+````
