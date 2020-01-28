@@ -43,6 +43,11 @@ $ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTO
 
 zsh autosuggestions
 
+```sh
+git clone https://github.com/zsh-users/zsh-autosuggestions \${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
+```
+
 ## ag the silver searcher
 
 denite uses the silver searcher for searching into the source code
