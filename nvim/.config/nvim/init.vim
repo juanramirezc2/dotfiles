@@ -2,11 +2,6 @@ scriptencoding utf-8
 source ~/.config/nvim/plugins.vim
 " Luego de esta línea puedes agregar tus configuraciones y mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-"disable netrw default browser explorer
-let g:loaded_netrw       = 1
-let g:loaded_netrwPlugin = 1
-
 " Hide pointless junk at the bottom, doesn't work in .vimrc for some reason?
 :set laststatus=0
 " i'm not agains the mouse, enable it in all modes
@@ -644,6 +639,8 @@ nnoremap <silent> <Leader>tt :TestNearest<CR>
 nnoremap <silent> <Leader>tf :TestFile<CR>
 nnoremap <silent> <Leader>ts :TestSuite<CR>
 nnoremap <silent> <Leader>tl :TestLast<CR>
+" disable dev icons inside denite is slower AF 
+let g:webdevicons_enable_denite = 0
 " karma cli setup
 "let test#javascript#karma#executable = 'karma' 
 let test#strategy = "neovim"
