@@ -1,6 +1,6 @@
 # /Users/gabo/.config/tmuxinator/taoti.yml
 
-name: upbeat 
+name: dev
 root: ~/
 
 # Optional tmux socket
