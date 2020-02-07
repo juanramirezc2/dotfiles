@@ -556,7 +556,7 @@ call denite#custom#map('insert,normal', "<C-v>", '<denite:do_action:vsplit>')
 call denite#custom#map('insert,normal', "<C-h>", '<denite:do_action:split>')
 
 " Change file/rec command to ag.
-call denite#custom#var('file/rec', 'command', ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+call denite#custom#var('file/rec', 'command', ['ag', '--follow', '--nocolor', '--nogroup','--path-to-ignore',$HOME.'/.ignore','-g', ''])
 " Ag command on grep source
 call denite#custom#var('grep', 'command', ['ag'])
 call denite#custom#var('grep', 'default_opts', ['-i', '--vimgrep'])
