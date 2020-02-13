@@ -6,10 +6,10 @@ module.exports = {
   config: {
     // choose either `'stable'` for receiving highly polished,
     // or `'canary'` for less polished but more frequent updates
-    updateChannel: 'stable',
+    updateChannel: 'canary',
 
     // default font size in pixels for all tabs
-    fontSize: 12,
+    fontSize: 13,
 
     // font family with optional fallbacks
     fontFamily: '"FuraCode Nerd Font",Menlo, "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
@@ -52,19 +52,19 @@ module.exports = {
     borderColor: '#333',
 
     // custom CSS to embed in the main window
-    css: '',
+    css: '.tabs_nav { height: 25px;} .tabs_title{ height: 25px;} .terms_terms{margin-top: 25px;}',
 
     // custom CSS to embed in the terminal window
     termCSS: '',
 
     // if you're using a Linux setup which show native menus, set to false
     // default: `true` on Linux, `true` on Windows, ignored on macOS
-    showHamburgerMenu: '',
+    showHamburgerMenu: 'false',
 
     // set to `false` (without backticks and without quotes) if you want to hide the minimize, maximize and close buttons
     // additionally, set to `'left'` if you want them on the left, like in Ubuntu
     // default: `true` (without backticks and without quotes) on Windows and Linux, ignored on macOS
-    showWindowControls: '',
+    showWindowControls: 'false',
 
     // custom padding (CSS format, i.e.: `top right bottom left`)
     padding: '0',
@@ -147,7 +147,7 @@ module.exports = {
   //   `hyperpower`
   //   `@company/project`
   //   `project#1.0.1`
-  plugins: ["hyper-one-dark","hyper-blink","hyperminimal","hyper-autohide-tabs","hyperlinks","hyperterm-focus-reporting"],
+  plugins: ["hyper-one-dark","hyper-blink","hyper-autohide-tabs","hyperlinks","hyperterm-focus-reporting"],
 
   //plugins: ["hyper-one-dark", "hyperfull", "hyper-true-fullscreen"],
   // in development, you can create a directory under
