@@ -557,6 +557,10 @@ call denite#custom#map('insert,normal', "<C-h>", '<denite:do_action:split>')
 
 " Change file/rec command to ag.
 call denite#custom#var('file/rec', 'command', ['ag', '--follow', '--nocolor', '--nogroup','--path-to-ignore',$HOME.'/.ignore','-g', ''])
+" narrow by tail path instead of full path in file/rec source.
+call denite#custom#source('file/rec', 'matchers', ['converter/tail_path', 'matcher/fuzzy'])
+" narrow by tail path instead of full path in file/old source.
+call denite#custom#source('file/old', 'matchers', ['converter/tail_path', 'matcher/fuzzy'])
 " Ag command on grep source
 call denite#custom#var('grep', 'command', ['ag', '--follow', '--nocolor', '--nogroup','--path-to-ignore',$HOME.'/.ignore'])
 call denite#custom#var('grep', 'default_opts', ['-i', '--vimgrep'])
@@ -567,12 +571,6 @@ call denite#custom#var('grep', 'final_opts', [])
 
 " Remove date from buffer list
 call denite#custom#var('buffer', 'date_format', '')
-
-" narrow by tail path instead of full path in file/rec source.
-call denite#custom#source('file/rec', 'matchers', ['converter/tail_path', 'matcher/fuzzy'])
-
-" narrow by tail path instead of full path in file/old source.
-call denite#custom#source('file/old', 'matchers', ['converter/tail_path', 'matcher/fuzzy'])
 
 " Change matchers.
 call denite#custom#source('file_mru', 'matchers', ['matcher/fuzzy', 'matcher/project_files'])
