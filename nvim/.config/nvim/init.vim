@@ -91,6 +91,15 @@ let NERDTreeMapActivateNode='l'
 let NERDTreeMapCloseDir='h'
 let NERDTreeMapCloseChildren='H'
 
+" Show hidden files/directories
+let g:NERDTreeShowHidden = 1
+" Remove bookmarks and help text from NERDTree
+let g:NERDTreeMinimalUI = 1
+
+" Custom icons for expandable/expanded directories
+let g:NERDTreeDirArrowExpandable = '⬏'
+let g:NERDTreeDirArrowCollapsible = '⬎'
+
 "Toggle file drawer in/out
 nmap <leader>m :NERDTreeFind<CR>
 nmap <leader>n :NERDTreeToggle<CR>
@@ -152,9 +161,8 @@ if has('nvim')
 endif
 
 " terminal emulator exit
+let g:airline_extensions = ['branch', 'hunks', 'coc']
 " configuracion para airline
-let g:airline#extensions#branch#enabled = 1 "TBH not sure what this means
-let g:airline#extensions#tabline#enabled = 1  " Mostrar buffers abiertos (como pestañas)
 let g:airline_statusline_ontop = 0 "no necesito mostrar el status line en la parte de arriba
 let g:airline#extensions#tabline#show_close_button = 0  " no necesito mostrar el boton de cerrar tab en la parte de arriba
 let g:airline#extensions#tabline#show_splits = 0
@@ -162,6 +170,12 @@ let g:airline#extensions#tabline#fnamemod = ':t'  " Mostrar sólo el nombre del 
 let g:airline_section_x = "%{fnamemodify(getcwd(), ':t')}"
 let g:airline_section_y = ''
 let g:airline_skip_empty_sections = 1
+
+let airline#extensions#coc#stl_format_err = '%E{[%e(#%fe)]}'
+let airline#extensions#coc#stl_format_warn = '%W{[%w(#%fw)]}'
+" Configure error/warning section to use coc.nvim
+let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
+let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
 "let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 
 " vim airline please don't show me closed buffers
@@ -332,13 +346,11 @@ nnoremap  <leader>l M
 vnoremap  <leader>l M
 " ir con el cursor al fina de la zona visible
 " easy motions vertical movements
-nmap <leader>e <Plug>(easymotion-e)
-nmap <leader>w <Plug>(easymotion-w)
-nmap <leader>j <Plug>(easymotion-j)
+nmap <leader>b <Plug>(easymotion-bd-b)
+nmap <leader>e <Plug>(easymotion-bd-e)
+nmap <leader>w <Plug>(easymotion-bd-w)
 vmap <leader>j <Plug>(easymotion-j)
 nmap <leader>k <Plug>(easymotion-k)
-vmap <leader>k <Plug>(easymotion-k)
-nmap <leader>b <Plug>(easymotion-b)
 " center cursor vertically
 nnoremap  <leader>h zz
 vnoremap  <leader>h zz
@@ -547,9 +559,10 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 "   <leader>t - Browse list of files in current directory
 "   <leader>g - Search current directory for occurences of given term and close window if no results
 "   <leader>j - Search current directory for occurences of word under cursor
-nmap ' :Denite buffer<CR>
-nmap <leader>p :Denite -start-filter file/rec:.<CR>
-nmap <leader>o :Denite -start-filter file/old:.<CR>
+"
+nnoremap ; :Denite -direction=topleft buffer<CR>
+nmap <leader>p :Denite  file/rec:.<CR>
+nmap <leader>o :Denite file/old:.<CR>
 nnoremap <leader>f :<C-u>Denite -no-empty grep:.<CR>
 vnoremap <leader>f y:<C-u>Denite -no-empty  grep:.::<C-R>=fnameescape(@")<CR><CR>
 nnoremap <leader>fw :<C-u>DeniteCursorWord grep:.<CR>
@@ -610,7 +623,6 @@ endfunction
 
 call denite#custom#option('default', {
       \ 'split': 'floating',
-      \ 'start_filter': 1,
       \ 'auto_resize': 0,
       \ 'source_names': 'short',
       \ 'prompt': 'λ:',
@@ -709,3 +721,12 @@ nmap <leader>ctd :CocCommand todolist.download<CR>
 nmap <leader>cte :CocCommand todolist.export<CR>
 nmap <leader>ctcl :CocCommand todolist.clearNotice<CR>
 
+" === Search === "
+" ignore case when searching
+set ignorecase
+
+" if the search string has an upper case letter in it, the search will be case sensitive
+set smartcase
+
+" Automaticaly close nvim if NERDTree is only thing left open
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif

@@ -26,9 +26,9 @@ Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}"
 Plug 'scrooloose/nerdcommenter' " comment lines of code using this plugin
 Plug 'alvan/vim-closetag' "Auto close (X)HTML tags
 Plug 'tpope/vim-surround' "surround plugin
+"Print function signatures in echo area
+Plug 'Shougo/echodoc.vim'
 "startup and sessions managers
-Plug 'xolox/vim-misc' " vim-sessions require this one plugin in order to work :/
-Plug 'xolox/vim-session' " vim sessions support nerd tree open panels and buffers
 Plug 'mhinz/vim-startify' "bellisima y magnifica primera pantalla para vim
 "Moving arround
 Plug 'justinmk/vim-sneak' "Jump to any location specified by two characters.
