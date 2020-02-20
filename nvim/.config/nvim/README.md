@@ -1,43 +1,3 @@
-`Preferences->Profiles->text`
-in the non-ACCII font select hack nerd font
-TODO: patch comic code using [fontforge](https://github.com/ryanoasis/nerd-fonts#option-8-patch-your-own-font)
-
-## comic code font with ligatures
-
-in
-
-```sh
-fonts/comic code with ligatures
-```
-
-install all the fonts and go to the iterm
-
-in iTerm go to
-
-`Preferences->Profiles->text`
-in Font select `Fira Code Regular`
-set Font size to `14`
-check set ligatures `on`
-an image tell more than a thousand worlds
-![iterm text settings](https://i.paste.pics/ea6ce83237ec37dc2067e52a11c5579a.png)
-
-## Iterm 2 one dark color scheme
-
-### Installation Instructions
-
-- Clone or download this repo
-
-```sh
- git clone git@github.com:nathanbuchar/atom-one-dark-terminal.git && cd atom-one-dark-terminal
-```
-
-- Go to `schemes/` folder
-
-- Double click on selected `*.itermcolors` file. It will open a new Terminal window with that
-  color scheme.
-
-- Set the scheme as the default one with `Preferences -> Profiles -> Colors -> Load Presets`
-
 # requirements
 
 ## useful links
@@ -47,9 +7,9 @@ an image tell more than a thousand worlds
 
 ## coc vim
 
-````sh
-:CocInstall coc-json coc-css coc-tsserver coc-snippets coc-eslint coc-prettier ```
-
+```sh
+:CocInstall coc-json coc-css coc-tsserver coc-snippets coc-eslint coc-prettier 
+```
 
 ## build neovim from source :O :O
 
@@ -80,8 +40,21 @@ rm -rf build
 then run
 
 ```sh
-$make CMAKE_BUILD_TYPE=Release CMAKE_INSTALL_PREFIX=/usr/local install
+$ make CMAKE_BUILD_TYPE=Release CMAKE_INSTALL_PREFIX=/usr/local install
 ```
+### add python 3 & 2 support 
+```sh
+python3 -m pip install --user --upgrade pynvim
+```
+```sh
+python2 -m pip install --user --upgrade pynvim
+```
+ if you don't have pip installed in your system please run.
+
+```sh
+sudo easy_install pip
+```
+maybe you will need to run `:UpdateRemotePlugins` in order to the plugins that use python start using your new python support
 
 run`:checkhealth` for more info ;)
 
