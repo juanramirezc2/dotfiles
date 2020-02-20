@@ -177,9 +177,11 @@ let airline#extensions#coc#stl_format_warn = '%W{[%w(#%fw)]}'
 let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
 let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
 "let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+" Smartly uniquify buffers names with similar filename, suppressing common parts of paths.
+let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 " vim airline please don't show me closed buffers
-let g:airline#extensions#tabline#show_buffers = 0
+"let g:airline#extensions#tabline#show_buffers = 0
 
 "it seems that powerline fonts need this
 set t_Co=256
@@ -561,7 +563,7 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 "   <leader>j - Search current directory for occurences of word under cursor
 "
 nnoremap ; :Denite -direction=topleft buffer<CR>
-nmap <leader>p :Denite  file/rec:.<CR>
+nmap <leader>p :Denite -start-filter file/rec:.<CR>
 nmap <leader>o :Denite file/old:.<CR>
 nnoremap <leader>f :<C-u>Denite -no-empty grep:.<CR>
 vnoremap <leader>f y:<C-u>Denite -no-empty  grep:.::<C-R>=fnameescape(@")<CR><CR>
@@ -595,6 +597,7 @@ call denite#custom#var('grep', 'final_opts', [])
 
 " Remove date from buffer list
 call denite#custom#var('buffer', 'date_format', '')
+call denite#custom#var('buffer', 'exclude_unlisted', '0')
 
 " Change matchers.
 call denite#custom#source('file_mru', 'matchers', ['matcher/fuzzy', 'matcher/project_files'])
@@ -606,7 +609,7 @@ call denite#custom#source('file_mru', 'matchers', ['matcher/fuzzy', 'matcher/pro
 autocmd FileType denite call s:denite_my_settings()
 function! s:denite_my_settings() abort
   nnoremap <silent><buffer><expr> <CR> denite#do_map('do_action')
-  nnoremap <silent><buffer><expr> o denite#do_map('do_action')
+  nnoremap <silent><buffer><expr> l denite#do_map('do_action')
   nnoremap <silent><buffer><expr> d denite#do_map('do_action', 'delete')
   nnoremap <silent><buffer><expr> p denite#do_map('do_action', 'preview')
   nnoremap <silent><buffer><expr> s denite#do_map('do_action', 'vsplit')
@@ -730,3 +733,5 @@ set smartcase
 
 " Automaticaly close nvim if NERDTree is only thing left open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+"   <leader>y - Automatically remove trailing whitespace
+nmap <leader>ss :StripWhitespace<CR>
