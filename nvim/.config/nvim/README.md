@@ -58,6 +58,10 @@ maybe you will need to run `:UpdateRemotePlugins` in order to the plugins that u
 
 run`:checkhealth` for more info ;)
 
+# coc nvim uses yarn
+```sh 
+$ npm install -g yarn
+```
 # nodejs neovim plugins support ;)
 
 `$ npm install -g neovim`

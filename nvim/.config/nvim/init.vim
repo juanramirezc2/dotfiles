@@ -9,6 +9,17 @@ source ~/.config/nvim/plugins.vim
 :set noshowmode "don't show --INSERT--
 :set noruler "don't show line numbers/column/% junk
 
+let g:coc_global_extensions = [
+\ 'coc-ultisnips',
+\ 'coc-json',
+\ 'coc-tsserver',
+\ 'coc-html',
+\ 'coc-css',
+\ 'coc-emmet',
+\ 'coc-highlight',
+\ 'coc-eslint'
+\ ]
+
 " avoid messi matchi load
 let g:loaded_matchit = 1
 
