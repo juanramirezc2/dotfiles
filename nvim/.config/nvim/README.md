@@ -8,7 +8,7 @@
 ## coc vim
 
 ```sh
-:CocInstall coc-json coc-css coc-tsserver coc-snippets coc-eslint coc-prettier 
+:CocInstall coc-json coc-css coc-tsserver coc-snippets coc-eslint coc-prettier
 ```
 
 ## build neovim from source :O :O
@@ -42,26 +42,39 @@ then run
 ```sh
 $ make CMAKE_BUILD_TYPE=Release CMAKE_INSTALL_PREFIX=/usr/local install
 ```
-### add python 3 & 2 support 
+
+### add python 3 & 2 support
+
 ```sh
 python3 -m pip install --user --upgrade pynvim
 ```
+
 ```sh
 python2 -m pip install --user --upgrade pynvim
 ```
- if you don't have pip installed in your system please run.
+
+if you don't have pip installed in your system please run.
 
 ```sh
 sudo easy_install pip
 ```
+
 maybe you will need to run `:UpdateRemotePlugins` in order to the plugins that use python start using your new python support
 
 run`:checkhealth` for more info ;)
 
 # coc nvim uses yarn
-```sh 
+
+```sh
 $ npm install -g yarn
 ```
+
+# vim prettier requires prettier
+
+```sh
+$ yarn global add prettier
+```
+
 # nodejs neovim plugins support ;)
 
 `$ npm install -g neovim`
@@ -119,4 +132,7 @@ for some examples and important special cases.
 
 * `yaF` to <strong>Y</strong>ank <strong>A</strong> <strong>F</strong>unction with leading or trailing blank lines, and
 * `viF` to visually select a function without leading or trailing blank lines.
-````
+
+```
+
+```
