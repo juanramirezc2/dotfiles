@@ -62,6 +62,10 @@ run`:checkhealth` for more info ;)
 ```sh 
 $ npm install -g yarn
 ```
+# gutentags needs universal ctags
+```sh
+brew install --HEAD universal-ctags/universal-ctags/universal-ctags
+```
 # nodejs neovim plugins support ;)
 
 `$ npm install -g neovim`
