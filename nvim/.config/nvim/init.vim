@@ -734,4 +734,4 @@ set smartcase
 " Automaticaly close nvim if NERDTree is only thing left open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 "   <leader>y - Automatically remove trailing whitespace
-nmap <leader>ss :StripWhitespace<CR>
+nmap <leader>sw :StripWhitespace<CR>

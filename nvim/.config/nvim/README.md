@@ -65,14 +65,19 @@ run`:checkhealth` for more info ;)
 
 # coc nvim uses yarn
 
-```sh
-$ npm install -g yarn
-```
+````sh
+$ npm install -g yarn ```
 
 # vim prettier requires prettier
 
 ```sh
 $ yarn global add prettier
+````
+
+# gutentags needs universal ctags
+
+```sh
+brew install --HEAD universal-ctags/universal-ctags/universal-ctags
 ```
 
 # nodejs neovim plugins support ;)
