@@ -35,7 +35,9 @@ let g:echodoc_enable_at_startup = 1
 
 " Vim >=8.0 or Neovim >= 0.1.5
 if (has("termguicolors"))
-   set termguicolors
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
 endif
 "no swap files in vim they are annoying
 set noswapfile 
