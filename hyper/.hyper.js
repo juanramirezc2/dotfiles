@@ -6,10 +6,10 @@ module.exports = {
   config: {
     // choose either `'stable'` for receiving highly polished,
     // or `'canary'` for less polished but more frequent updates
-    updateChannel: "canary",
+    updateChannel: "stable",
 
     // default font size in pixels for all tabs
-    fontSize: 13,
+    fontSize: 14,
 
     // font family with optional fallbacks
     fontFamily: '"FuraCode Nerd Font Mono", monospace',
@@ -52,8 +52,7 @@ module.exports = {
     borderColor: "#333",
 
     // custom CSS to embed in the main window
-    css:
-      ".tabs_nav { height: 25px;} .tabs_title{ height: 25px;} .terms_terms{margin-top: 25px;}",
+    css: "",
 
     // custom CSS to embed in the terminal window
     termCSS: "",
@@ -153,6 +152,7 @@ module.exports = {
     "hyper-blink",
     "hyper-autohide-tabs",
     "hyperlinks",
+    "hyperminimal",
     "hyperterm-focus-reporting"
   ],
 
