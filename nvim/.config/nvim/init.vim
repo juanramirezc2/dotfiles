@@ -10,7 +10,7 @@ source ~/.config/nvim/plugins.vim
 :set noruler "don't show line numbers/column/% junk
 
 let g:coc_global_extensions = [
-\ 'coc-ultisnips',
+\ 'coc-snippets',
 \ 'coc-json',
 \ 'coc-tsserver',
 \ 'coc-html',
@@ -95,10 +95,6 @@ let NERDTreeMapCloseChildren='H'
 let g:NERDTreeShowHidden = 1
 " Remove bookmarks and help text from NERDTree
 let g:NERDTreeMinimalUI = 1
-
-" Custom icons for expandable/expanded directories
-let g:NERDTreeDirArrowExpandable = '⬏'
-let g:NERDTreeDirArrowCollapsible = '⬎'
 
 "Toggle file drawer in/out
 nmap <leader>m :NERDTreeFind<CR>
@@ -401,21 +397,13 @@ map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
 " :h g:incsearch#auto_nohlsearch
 set hlsearch
-let g:incsearch#auto_nohlsearch = 1
-map n  <Plug>(incsearch-nohl-n)
-map N  <Plug>(incsearch-nohl-N)
-map *  <Plug>(incsearch-nohl-*)
-map #  <Plug>(incsearch-nohl-#)
-map g* <Plug>(incsearch-nohl-g*)
-map g# <Plug>(incsearch-nohl-g#)
-
 " interactive find replace preview
 set inccommand=nosplit
 " replace word under cursor, globally, with confirmation
 nnoremap <Leader>r :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
 vnoremap <Leader>r y :%s/<C-r>"//gc<Left><Left><Left>
 " clear search with shift+enter
-nnoremap <C-CR> :noh<CR>
+nnoremap <leader><CR> :noh<CR>
 "coc vim suggested settings
 " if hidden is not set, TextEdit might fail.
 set hidden
