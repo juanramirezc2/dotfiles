@@ -11,6 +11,7 @@ source ~/.config/nvim/plugins.vim
 
 let g:coc_global_extensions = [
 \ 'coc-snippets',
+\ 'coc-ultisnips',
 \ 'coc-json',
 \ 'coc-tsserver',
 \ 'coc-html',
@@ -349,8 +350,10 @@ vnoremap  <leader>l M
 nmap <leader>b <Plug>(easymotion-bd-b)
 nmap <leader>e <Plug>(easymotion-bd-e)
 nmap <leader>w <Plug>(easymotion-bd-w)
+nmap <leader>j <Plug>(easymotion-j)
 vmap <leader>j <Plug>(easymotion-j)
 nmap <leader>k <Plug>(easymotion-k)
+vmap <leader>k <Plug>(easymotion-k)
 " center cursor vertically
 nnoremap  <leader>h zz
 vnoremap  <leader>h zz
