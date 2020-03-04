@@ -14,6 +14,7 @@ let g:coc_global_extensions = [
 \ 'coc-ultisnips',
 \ 'coc-json',
 \ 'coc-tsserver',
+\ 'coc-explorer',
 \ 'coc-html',
 \ 'coc-css',
 \ 'coc-emmet',
@@ -728,3 +729,4 @@ set smartcase
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 "   <leader>y - Automatically remove trailing whitespace
 nmap <leader>sw :StripWhitespace<CR>
+:nmap <space>e :CocCommand explorer<CR>
