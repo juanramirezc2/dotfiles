@@ -349,7 +349,6 @@ vnoremap  <leader>l M
 " ir con el cursor al fina de la zona visible
 " easy motions vertical movements
 nmap <leader>b <Plug>(easymotion-bd-b)
-nmap <leader>e <Plug>(easymotion-bd-e)
 nmap <leader>w <Plug>(easymotion-bd-w)
 nmap <leader>j <Plug>(easymotion-j)
 vmap <leader>j <Plug>(easymotion-j)
