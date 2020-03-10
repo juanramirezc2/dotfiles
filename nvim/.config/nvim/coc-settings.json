@@ -2,18 +2,25 @@
   "snippets.userSnippetsDirectory": "~/.config/nvim/mycoolsnippets",
   "suggest.echodocSupport": true,
   "suggest.maxCompleteItemCount": 20,
-  "eslint.filetypes": ["javascript", "typescript", "typescriptreact", "javascriptreact", "typescript.tsx"],
-  "eslint.options":{
+  "eslint.filetypes": [
+    "javascript",
+    "typescript",
+    "typescriptreact",
+    "javascriptreact",
+    "typescript.tsx"
+  ],
+  "eslint.options": {
     "extends": "standard",
-    "rules":{"semi": 0,"space-before-blocks": 0,"quotes": 0 }},
+    "rules": { "semi": 0, "space-before-blocks": 0, "quotes": 0 }
+  },
   "less.validate": true,
   "scss.validate": true,
   "less.lint.argumentsInColorFunction": "warning",
   "coc.preferences.extensionUpdateCheck": "daily",
-  "emmet.extensionsPath":"~/.config/nvim/emmet_custom",
+  "emmet.extensionsPath": "~/.config/nvim/emmet_custom",
   "emmet.showExpandedAbbreviation": "always",
   "emmet.showSuggestionsAsSnippets": true,
-  "emmet.includeLanguages": {"html.twig":"html"},
+  "emmet.includeLanguages": { "html.twig": "html" },
   "explorer.icon.enableNerdfont": true,
   "explorer.file.showHiddenFiles": true
 }

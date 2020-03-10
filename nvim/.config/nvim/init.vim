@@ -11,7 +11,6 @@ source ~/.config/nvim/plugins.vim
 
 let g:coc_global_extensions = [
 \ 'coc-snippets',
-\ 'coc-ultisnips',
 \ 'coc-json',
 \ 'coc-tsserver',
 \ 'coc-explorer',
