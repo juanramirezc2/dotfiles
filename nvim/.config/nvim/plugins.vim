@@ -31,6 +31,7 @@ Plug 'Shougo/echodoc.vim'
 "startup and sessions managers
 Plug 'mhinz/vim-startify' "bellisima y magnifica primera pantalla para vim
 "Moving arround
+Plug 'unblevable/quick-scope' "An always-on highlight for a unique character in every word on a line to help you use f, F and family.
 Plug 'justinmk/vim-sneak' "Jump to any location specified by two characters.
 Plug 'easymotion/vim-easymotion' "movamonos un poco mas rapidin con este easymotion
 Plug 'yuttie/comfortable-motion.vim' " smooth motions and avoid get losed scrolling
