@@ -304,6 +304,8 @@ let g:mta_filetypes = {
 "user same colors for highlight as vim uses
 let g:mta_use_matchparen_group = 1
 " startify sessions and other tweaks
+let g:startify_change_to_dir = 0
+let g:startify_change_to_vcs_root = 1
 let g:startify_session_dir = '~/.vim/session'
 let g:startify_files_number = 10
 let g:startify_lists = [
@@ -728,3 +730,4 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 "   <leader>y - Automatically remove trailing whitespace
 nmap <leader>sw :StripWhitespace<CR>
 :nmap <space>e :CocCommand explorer<CR>
+
