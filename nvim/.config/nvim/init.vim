@@ -160,11 +160,13 @@ if has('nvim')
 endif
 
 " terminal emulator exit
-let g:airline_extensions = ['branch', 'hunks', 'coc']
+let g:airline_extensions = ['branch', 'hunks', 'coc', 'tabline']
 " configuracion para airline
 let g:airline_statusline_ontop = 0 "no necesito mostrar el status line en la parte de arriba
 let g:airline#extensions#tabline#show_close_button = 0  " no necesito mostrar el boton de cerrar tab en la parte de arriba
 let g:airline#extensions#tabline#show_splits = 0
+let g:airline#extensions#tabline#left_sep = ' ' "  here is how you can define 'straight' tabs
+let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#fnamemod = ':t'  " Mostrar sólo el nombre del archivo
 let g:airline_section_x = "%{fnamemodify(getcwd(), ':t')}"
 let g:airline_section_y = ''
@@ -737,5 +739,6 @@ set smartcase
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 "   <leader>y - Automatically remove trailing whitespace
 nmap <leader>sw :StripWhitespace<CR>
-:nmap <space>e :CocCommand explorer<CR>
+nmap <space>e :CocCommand explorer<CR>
 
+autocmd TabLeave *NERD_tree* :wincmd w
