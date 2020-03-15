@@ -305,7 +305,10 @@ let g:mta_filetypes = {
 let g:mta_use_matchparen_group = 1
 " startify sessions and other tweaks
 let g:startify_change_to_dir = 0
-let g:startify_change_to_vcs_root = 1
+"let g:startify_change_to_vcs_root = 1
+let g:startify_custom_header = [ ]
+let g:startify_relative_path = 1
+let g:startify_use_env = 1
 let g:startify_session_dir = '~/.vim/session'
 let g:startify_files_number = 10
 let g:startify_lists = [
@@ -314,13 +317,18 @@ let g:startify_lists = [
       \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
       \ { 'type': 'commands',  'header': ['   Commands']       },
       \ ]
-let g:startify_commands = [
-      \ ':help reference',
-      \ ['Vim Reference', 'h ref'],
-      \ {'h': 'h ref'},
-      \ {'m': ['My magical function', 'call Magic()']},
-      \ ]
+  let g:startify_commands = [
+        \   { 'up': [ 'Update Plugins', ':PlugUpdate' ] },
+        \   { 'ug': [ 'Upgrade Plugin Manager', ':PlugUpgrade' ] },
+        \   { 'ch': [ 'check Health', ':checkhealth' ] },
+        \   { 'cc': [ 'coc Config', ':CocConfig' ] },
+        \ ]
 
+        let g:startify_bookmarks = [
+            \ { 'c': '~/.config/nvim/init.vim' },
+            \ { 'g': '~/.gitconfig' },
+            \ { 'z': '~/.zshrc' }
+        \ ]
 " save file mappings
 " Iterm2 key bindings set cmd-s Send Text with 'vim' Special Chars to \<C-S>
 noremap  <silent><C-S> :update<CR>
