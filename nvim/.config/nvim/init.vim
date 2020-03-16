@@ -160,14 +160,21 @@ if has('nvim')
 endif
 
 " terminal emulator exit
-let g:airline_extensions = ['branch', 'hunks', 'coc', 'tabline']
+let g:airline_extensions = ['branch','hunks','coc','denite','tabline']
 " configuracion para airline
 let g:airline_statusline_ontop = 0 "no necesito mostrar el status line en la parte de arriba
 let g:airline#extensions#tabline#show_close_button = 0  " no necesito mostrar el boton de cerrar tab en la parte de arriba
 let g:airline#extensions#tabline#show_splits = 0
+" vim airline please don't show me closed buffers
+  let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#left_sep = ' ' "  here is how you can define 'straight' tabs
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#fnamemod = ':t'  " Mostrar sólo el nombre del archivo
+ let g:airline#extensions#tabline#show_tab_count = 0
+ let g:airline#extensions#tabline#switch_buffers_and_tabs = 1
+let g:airline#extensions#tabline#excludes = ["*NERD_tree*"]
+" Smartly uniquify buffers names with similar filename, suppressing common parts of paths.
+let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline_section_x = "%{fnamemodify(getcwd(), ':t')}"
 let g:airline_section_y = ''
 let g:airline_skip_empty_sections = 1
@@ -178,11 +185,7 @@ let airline#extensions#coc#stl_format_warn = '%W{[%w(#%fw)]}'
 let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
 let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
 "let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
-" Smartly uniquify buffers names with similar filename, suppressing common parts of paths.
-let g:airline#extensions#tabline#formatter = 'unique_tail'
 
-" vim airline please don't show me closed buffers
-"let g:airline#extensions#tabline#show_buffers = 0
 
 "it seems that powerline fonts need this
 set t_Co=256
