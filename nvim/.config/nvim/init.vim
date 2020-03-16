@@ -16,6 +16,7 @@ let g:coc_global_extensions = [
 \ 'coc-explorer',
 \ 'coc-html',
 \ 'coc-css',
+\ 'coc-todolist',
 \ 'coc-emmet',
 \ 'coc-highlight',
 \ 'coc-eslint'
@@ -453,6 +454,11 @@ inoremap <silent><expr> <TAB>
 
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
+" show available snippets
+nmap <leader>sn :CocList --normal snippets<CR>
+" show the snippets files that belong to this file type
+nmap <leader>snf :CocCommand snippets.openSnippetFiles<CR>
+
 let g:coc_snippet_next = '<tab>'
 
 function! s:check_back_space() abort
@@ -725,12 +731,12 @@ let g:calendar_google_calendar = 1
 let g:calendar_google_task = 1
 "vim sneak move arround with this guy
 let g:sneak#label = 1
-nmap <leader>ctl :CocList --normal todolist<CR>
-nmap <leader>ctc :CocCommand todolist.create<CR>
-nmap <leader>ctu :CocCommand todolist.upload<CR>
-nmap <leader>ctd :CocCommand todolist.download<CR>
-nmap <leader>cte :CocCommand todolist.export<CR>
-nmap <leader>ctcl :CocCommand todolist.clearNotice<CR>
+nmap <leader>tl :CocList --normal todolist<CR>
+nmap <leader>tc :CocCommand todolist.create<CR>
+nmap <leader>tu :CocCommand todolist.upload<CR>
+nmap <leader>td :CocCommand todolist.download<CR>
+nmap <leader>te :CocCommand todolist.export<CR>
+nmap <leader>tcl :CocCommand todolist.clearNotice<CR>
 
 " === Search === "
 " ignore case when searching
