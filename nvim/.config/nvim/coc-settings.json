@@ -23,5 +23,6 @@
   "emmet.includeLanguages": { "html.twig": "html" },
   "explorer.icon.enableNerdfont": true,
   "explorer.file.showHiddenFiles": true,
-  "todolist.autoUpload": true
+  "todolist.autoUpload": true,
+  "todolist.monitor": true
 }
