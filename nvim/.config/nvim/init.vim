@@ -238,16 +238,6 @@ set noshowmode  " No mostrar el modo actual (ya lo muestra la barra de estado)
 " Allow JSX in .js files
 let g:jsx_ext_required=0
 
-" ale configuraciones
-let g:ale_sign_column_always = 1
-let g:ale_sign_error = emoji#for('heavy_exclamation_mark') 
-let g:ale_sign_warning = emoji#for('grey_exclamation') 
-
-" Move between linting errors
-nmap <silent> ]r <Plug>(ale_previous_wrap)
-nmap <silent> [r <Plug>(ale_next_wrap)
-
-
 " better key bindings for UltiSnipsExpandTrigger
 let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
