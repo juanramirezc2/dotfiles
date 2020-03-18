@@ -43,7 +43,6 @@ Plug 'Shougo/echodoc.vim' "Print documents in echo area.
 Plug 'morhetz/gruvbox' " Retro groove color scheme for Vim
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'  " Temas para airline la barra en la parte baja
-Plug 'yggdroot/indentline' " indent guides lines let's see how they goes
 "File browsers
 Plug 'Shougo/denite.nvim' "Denite is a dark powered plugin for Neovim/Vim to unite all interfaces.
 Plug 'scrooloose/nerdtree' "proyect tree and structure

@@ -639,13 +639,6 @@ call denite#custom#option('default', {
 nmap <silent> <leader>doc <Plug>(jsdoc)
 " Set floating window to be slightly transparent
 "set winbl=10
-" vim auto save events
-"let g:auto_save        = 1
-"let g:auto_save_silent = 1
-let g:auto_save_events = ["InsertLeave", "TextChanged", "FocusLost"]
-" vim indent line
-let g:indentLine_faster = 1
-let g:indentLine_setConceal = 0
 " clever f settings
 let g:clever_f_across_no_line = 1
 let g:clever_f_fix_key_direction = 1
