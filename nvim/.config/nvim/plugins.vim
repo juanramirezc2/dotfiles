@@ -52,44 +52,46 @@ Plug 'tpope/vim-projectionist' "browse to file easy
 "Git helpers
 Plug 'airblade/vim-gitgutter' " muestra los cambios en archivos en la parte izquierda donde estan los numeros de linea
 Plug 'rhysd/git-messenger.vim' "Neovim plugin to reveal the commit messages under the cursor
-Plug 'tpope/vim-fugitive' " git on vim 
+Plug 'tpope/vim-fugitive' " git on vim
 Plug 'xuyuanp/nerdtree-git-plugin' "nerd tree git status
 Plug 'jiangmiao/auto-pairs' " automaticamente cierra comillas o llaves
-" code browser Tags managers 
+" code browser Tags managers
 Plug 'ludovicchabant/vim-gutentags' " tags for vim, makes use of Exhuberant Ctags which generates tags .ctags config file taken from   universal ctags from
-" vim snnipets 
+" syntax files
+Plug 'pangloss/vim-javascript'
+Plug 'groenewege/vim-less', { 'for': 'less' }
+Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
+Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
+Plug 'othree/yajs.vim', { 'for': [ 'javascript', 'javascript.jsx', 'html' ] }
+" Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx', 'html'] }
+Plug 'moll/vim-node', { 'for': 'javascript' }
+Plug 'MaxMEllon/vim-jsx-pretty'
+let g:vim_jsx_pretty_highlight_close_tag = 1
+"" vim snnipets
 Plug 'epilande/vim-es2015-snippets' " Custom ultisnippets for ES2015 and vim
 Plug 'epilande/vim-react-snippets' "Custom ultisnippets for react and vim
-" Syntax highlighteres 
-Plug 'sheerun/vim-polyglot'
 " Custom vim Text Objects
 Plug 'kana/vim-textobj-user' "vim-textobj-user - Create your own text objects for vim in an easy way
-Plug 'michaeljsmith/vim-indent-object' " blocks of indentation as vim text objects 
+Plug 'michaeljsmith/vim-indent-object' " blocks of indentation as vim text objects
 Plug 'wellle/targets.vim'  "Vim plugin that provides additional text objects
 Plug 'kana/vim-textobj-line' "Text objects for the current line
 Plug 'kana/vim-textobj-entire' "entire file as vim object
-"format code  "
-"yarn global add prettier --prefix /usr/local && yarn global add prettier-plugin-twig-melody --prefix /usr/local
-" not need for post install using global prettier instalation ^
-Plug 'prettier/vim-prettier'
 " other plugins
-Plug 'vim-scripts/ReplaceWithRegister' "avoid visual selection when pasting 
+Plug 'vim-scripts/ReplaceWithRegister' "avoid visual selection when pasting
 Plug 'christoomey/vim-system-copy' " copy into the system
 Plug 'machakann/vim-highlightedyank' "highlight yanked text
-Plug 'itchyny/calendar.vim' "google calendar an others
 Plug 'wakatime/vim-wakatime' "vim time tracker
 "custom caracters in vim emojis 😏
 Plug 'junegunn/vim-emoji'
-"distraction free let's hope this work
-Plug 'junegunn/goyo.vim'
+" help you read complex code by showing diff level of parentheses in diff color !!
+"Plug 'luochen1990/rainbow'
 " file icons
-Plug 'ryanoasis/vim-devicons' " vim will become visual studio 
+Plug 'ryanoasis/vim-devicons' " vim will become visual studio
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight' " needed for devicons
-Plug 'rhysd/clever-f.vim' "Extended f, F, t and T key mappings for Vim. 
+Plug 'rhysd/clever-f.vim' "Extended f, F, t and T key mappings for Vim.
 Plug 'junegunn/vim-easy-align' "A Vim alignment plugin
 Plug 'janko-m/vim-test' "Run your tests at the speed of thought
 " vim prettier
 " post install (yarn install | npm install)
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
-Plug 'sjl/vitality.vim' "restores the FocusLost and FocusGained autocommand functionality.
 call plug#end()
