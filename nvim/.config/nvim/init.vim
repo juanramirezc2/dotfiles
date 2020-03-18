@@ -27,8 +27,12 @@ let g:loaded_matchit = 1
 
 " echodoc by shouldgo
 " To use echodoc, you must increase 'cmdheight' value.
-set cmdheight=2
 let g:echodoc_enable_at_startup = 1
+
+"let g:echodoc#type = 'floating'
+" To use a custom highlight for the float window,
+" change Pmenu to your highlight group
+highlight link EchoDocFloat Pmenu
 " guicolors styles for every mode
 :set termguicolors
 :hi Cursor guifg=green guibg=green
@@ -473,15 +477,23 @@ inoremap <silent><expr> <c-space> coc#refresh()
 " Coc only does snippet and additional edit on confirm.
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
-" Use `[c` and `]c` to navigate diagnostics
-nmap <silent> [d <Plug>(coc-diagnostic-prev)
-nmap <silent> ]d <Plug>(coc-diagnostic-next)
 
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+
+" Use `[c` and `]c` to navigate diagnostics
+nmap <silent> [d <Plug>(coc-diagnostic-prev)
+nmap <silent> ]d <Plug>(coc-diagnostic-next)
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" Remap for format selected region
+xmap <leader>fm  <Plug>(coc-format-selected)
+nmap <leader>fm  <Plug>(coc-format-selected)
 
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -497,12 +509,6 @@ endfunction
 " Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
-" Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
-
-" Remap for format selected region
-xmap <leader>fm  <Plug>(coc-format-selected)
-nmap <leader>fm  <Plug>(coc-format-selected)
 
 augroup mygroup
   autocmd!
@@ -557,7 +563,7 @@ nnoremap <silent> <space>lo  :<C-u>CocList --normal location<cr>
 " registered language client services
 nnoremap <silent> <space>se  :<C-u>CocList --normal services<cr>
 " registered language client services
-nnoremap <silent> <space>ot  :<C-u>CocList --normal output<cr>
+nnoremap <silent> <space>ls  :<C-u>CocList --normal output<cr>
 " Find symbol of current document
 nnoremap <silent> <space>ou  :<C-u>CocList --normal outline<cr>
 " Search workspace symbols
@@ -752,3 +758,4 @@ nmap <leader>sw :StripWhitespace<CR>
 nmap <space>e :CocCommand explorer<CR>
 
 autocmd TabLeave *NERD_tree* :wincmd w
+

@@ -1,6 +1,7 @@
 {
-  "snippets.userSnippetsDirectory": "~/.config/nvim/mycoolsnippets",
   "suggest.echodocSupport": true,
+  "coc.preferences.triggerSignatureHelp": false,
+  "snippets.userSnippetsDirectory": "~/.config/nvim/mycoolsnippets",
   "suggest.maxCompleteItemCount": 20,
   "eslint.filetypes": [
     "javascript",
