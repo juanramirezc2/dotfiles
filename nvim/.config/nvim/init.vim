@@ -25,6 +25,7 @@ let g:coc_global_extensions = [
 let g:loaded_matchit = 1
 
 let g:vim_jsx_pretty_highlight_close_tag = 1
+let g:vim_jsx_pretty_colorful_config = 1 " default 0
 
 " echodoc by shouldgo
 " To use echodoc, you must increase 'cmdheight' value.
