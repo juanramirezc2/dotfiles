@@ -185,7 +185,6 @@ let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline_section_x = "%{fnamemodify(getcwd(), ':t')}"
 let g:airline_section_y = ''
 let g:airline_skip_empty_sections = 1
-
 let airline#extensions#coc#stl_format_err = '%E{[%e(#%fe)]}'
 let airline#extensions#coc#stl_format_warn = '%W{[%w(#%fw)]}'
 " Configure error/warning section to use coc.nvim
@@ -227,25 +226,8 @@ let g:airline_mode_map = {
 
 set noshowmode  " No mostrar el modo actual (ya lo muestra la barra de estado)
 
-" Configuracion para gitgutter
-"
-"let g:gitgutter_sign_added = emoji#for('heavy_plus_sign')
-"let g:gitgutter_sign_modified = emoji#for('small_orange_diamond')
-"let g:gitgutter_sign_removed = emoji#for('heavy_minus_sign')
-"let g:gitgutter_sign_modified_removed = emoji#for('collision')
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Allow JSX in .js files
-let g:jsx_ext_required=0
-
-" better key bindings for UltiSnipsExpandTrigger
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-
-" funciones y definiciones de variable usando f8
-nmap <F8> :TagbarToggle<CR>
-
 " fugitive git mappings 
 nnoremap <silent><leader>gs :Gstatus<CR>
 nnoremap <leader>gd :Gdiff<CR>
