@@ -24,6 +24,8 @@ let g:coc_global_extensions = [
 " avoid messi matchi load
 let g:loaded_matchit = 1
 
+let g:vim_jsx_pretty_highlight_close_tag = 1
+
 " echodoc by shouldgo
 " To use echodoc, you must increase 'cmdheight' value.
 let g:echodoc_enable_at_startup = 1

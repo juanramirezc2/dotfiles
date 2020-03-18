@@ -32,7 +32,6 @@ Plug 'Shougo/echodoc.vim'
 Plug 'mhinz/vim-startify' "bellisima y magnifica primera pantalla para vim
 "Moving arround
 Plug 'unblevable/quick-scope' "An always-on highlight for a unique character in every word on a line to help you use f, F and family.
-Plug 'justinmk/vim-sneak' "Jump to any location specified by two characters.
 Plug 'easymotion/vim-easymotion' "movamonos un poco mas rapidin con este easymotion
 Plug 'yuttie/comfortable-motion.vim' " smooth motions and avoid get losed scrolling
 Plug 'andymass/vim-matchup' " drop-in replacement for the vim plugin matchit.vim
@@ -66,7 +65,8 @@ Plug 'othree/yajs.vim', { 'for': [ 'javascript', 'javascript.jsx', 'html' ] }
 " Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx', 'html'] }
 Plug 'moll/vim-node', { 'for': 'javascript' }
 Plug 'MaxMEllon/vim-jsx-pretty'
-let g:vim_jsx_pretty_highlight_close_tag = 1
+" Syntax highlighting for javascript libraries
+Plug 'othree/javascript-libraries-syntax.vim'
 "" vim snnipets
 Plug 'epilande/vim-es2015-snippets' " Custom ultisnippets for ES2015 and vim
 Plug 'epilande/vim-react-snippets' "Custom ultisnippets for react and vim
@@ -81,8 +81,6 @@ Plug 'vim-scripts/ReplaceWithRegister' "avoid visual selection when pasting
 Plug 'christoomey/vim-system-copy' " copy into the system
 Plug 'machakann/vim-highlightedyank' "highlight yanked text
 Plug 'wakatime/vim-wakatime' "vim time tracker
-"custom caracters in vim emojis 😏
-Plug 'junegunn/vim-emoji'
 " help you read complex code by showing diff level of parentheses in diff color !!
 "Plug 'luochen1990/rainbow'
 " file icons
