@@ -93,11 +93,13 @@ set softtabstop=2"
 " tema y apariencia 
 set termguicolors  " Activa true colors en la terminal
 "Enable syntax highlighting and set colorscheme
-let g:onedark_terminal_italics =  1 "allow italics in one dark colorscheme
+"let g:onedark_terminal_italics =  1 "allow italics in one dark colorscheme
+"colorscheme onedark  " Activa tema onedark
 syntax enable
 set background=dark
+let g:gruvbox_italic=1
+let g:gruvbox_contrast_dark = 'soft'
 colorscheme gruvbox
-"colorscheme onedark  " Activa tema onedark
 "
 " NerdTree Refresh Root crashes with my <S-R> command for moving between tags
 let NERDTreeMapRefreshRoot='r'
