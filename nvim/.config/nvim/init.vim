@@ -37,6 +37,8 @@ let g:echodoc_enable_at_startup = 1
 highlight link EchoDocFloat Pmenu
 " guicolors styles for every mode
 :set termguicolors
+set cursorline        " highlight current line
+set cursorcolumn      " highlight current column
 :hi Cursor guifg=green guibg=green
 :hi Cursor2 guifg=red guibg=red
 :set guicursor=n-v-c:block-Cursor/lCursor,i-ci-ve:ver25-Cursor2/lCursor2,r-cr:hor20,o:hor50
@@ -725,3 +727,11 @@ nmap <leader>sw :StripWhitespace<CR>
 nmap <space>e :CocCommand explorer<CR>
 
 autocmd TabLeave *NERD_tree* :wincmd w
+"
+" Highlight the active window even play nice with tmux splits
+"
+hi ActiveWindow ctermbg=00 | hi InactiveWindow ctermbg=235
+set winhighlight=Normal:ActiveWindow,NormalNC:InactiveWindow
+
+au VimEnter,WinEnter,BufEnter,BufWinEnter,FocusGained * hi ActiveWindow guibg=#282828 | hi InactiveWindow guibg=#222222
+au VimLeave,WinLeave,BufLeave,BufWinLeave,FocusLost * hi ActiveWindow guibg=#222222 | hi InactiveWindow guibg=#222222
