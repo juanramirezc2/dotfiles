@@ -25,12 +25,12 @@ end
 
 # execute hook before each pomodoro
 before do
-  `terminal-notifier -title "" -message "Lets get started" -sound default -appIcon http://vjeantet.fr/images/logo.png`
+  `terminal-notifier -title "🚀" -message "Lets get started" -sound default -appIcon https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Ic_av_timer_48px.svg/48px-Ic_av_timer_48px.svg.png`
 end
 
 # execute hook after each pomodoro
 after do |seconds_left|
-  `terminal-notifier -title "" -message "Thymes Up" -sound default -appIcon http://vjeantet.fr/images/logo.png` if seconds_left == 0
+  `terminal-notifier -title "😎" -message "Thymes Up" -sound default -appIcon https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Ic_av_timer_48px.svg/48px-Ic_av_timer_48px.svg.png` if seconds_left == 0
 end
 
 # execute hook after thyme program quits

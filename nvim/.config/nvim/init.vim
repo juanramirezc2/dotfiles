@@ -82,7 +82,7 @@ let mapleader = " "
 
 " open a new terminal  in aplit of the current tab
 nmap <leader>st :12sp term://zsh<CR>I
-nmap <leader>t :tabnew term://zsh<CR>I
+nmap <leader>te :tabnew term://zsh<CR>I
 
 " no mostrar numeros de linea cuando se abre una terminal :O :O
 autocmd TermOpen * setlocal nonumber norelativenumber
@@ -739,8 +739,11 @@ au VimEnter,WinEnter,BufEnter,BufWinEnter,FocusGained * hi ActiveWindow guibg=#2
 au VimLeave,WinLeave,BufLeave,BufWinLeave,FocusLost * hi ActiveWindow guibg=#222222 | hi InactiveWindow guibg=#222222
 
 "thyme pomodoro timer commands
-nmap <leader>pt :!thyme -d<cr>
+nmap <leader>t :!thyme -d<cr>
+nmap <leader>ts :!thyme -s<cr>
+
 "shpotify commands
 nmap <leader>sp :!spotify play<cr>
 nmap <leader>spb :!spotify play uri spotify play uri spotify:playlist:37i9dQZF1DX5Tgh3tlyc3X<cr>
+nmap <leader>spbb :!spotify play uri spotify play uri spotify:playlist:37i9dQZF1DX7EF8wVxBVhG<cr>
 nmap <leader>sn :!spotify next<cr>
