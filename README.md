@@ -123,8 +123,26 @@ payment Confirmation declined not found in PPT
 $ rvm install 2.6.3
 ```
 
-##thyme pomodoro timer
+## thyme pomodoro timer
 
 ```sh
 $ gem install thyme
+```
+
+get notifications everytime the timer is up with terminal-notifier
+
+```sh
+$ gem install terminal-notifier
+```
+
+## shopify commands on the terminal
+
+```sh
+$ brew install shpotify
+```
+
+## Tmux Plugin Manager
+
+```bash
+$ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 ```

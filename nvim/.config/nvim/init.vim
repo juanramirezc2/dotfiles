@@ -737,4 +737,10 @@ set winhighlight=Normal:ActiveWindow,NormalNC:InactiveWindow
 
 au VimEnter,WinEnter,BufEnter,BufWinEnter,FocusGained * hi ActiveWindow guibg=#282828 | hi InactiveWindow guibg=#222222
 au VimLeave,WinLeave,BufLeave,BufWinLeave,FocusLost * hi ActiveWindow guibg=#222222 | hi InactiveWindow guibg=#222222
+
+"thyme pomodoro timer commands
 nmap <leader>pt :!thyme -d<cr>
+"shpotify commands
+nmap <leader>sp :!spotify play<cr>
+nmap <leader>spb :!spotify play uri spotify play uri spotify:playlist:37i9dQZF1DX5Tgh3tlyc3X<cr>
+nmap <leader>sn :!spotify next<cr>
