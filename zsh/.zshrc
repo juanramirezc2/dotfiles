@@ -131,3 +131,6 @@ funcname lazygit() {
     git commit -a -m "$1"
     git push
 }
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"

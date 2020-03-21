@@ -737,3 +737,4 @@ set winhighlight=Normal:ActiveWindow,NormalNC:InactiveWindow
 
 au VimEnter,WinEnter,BufEnter,BufWinEnter,FocusGained * hi ActiveWindow guibg=#282828 | hi InactiveWindow guibg=#222222
 au VimLeave,WinLeave,BufLeave,BufWinLeave,FocusLost * hi ActiveWindow guibg=#222222 | hi InactiveWindow guibg=#222222
+nmap <leader>pt :!thyme -d<cr>

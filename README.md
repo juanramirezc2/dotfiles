@@ -112,3 +112,19 @@ brew install neomutt  #mail https://webgefrickel.de/blog/a-modern-mutt-setup
 
 ship Confirmation template not found
 payment Confirmation declined not found in PPT
+
+### Ruby version manager
+
+```sh
+\curl -sSL https://get.rvm.io | bash -s stable
+```
+
+```sh
+$ rvm install 2.6.3
+```
+
+##thyme pomodoro timer
+
+```sh
+$ gem install thyme
+```
