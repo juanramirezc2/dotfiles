@@ -2,6 +2,7 @@ scriptencoding utf-8
 source ~/.config/nvim/plugins.vim
 " Luego de esta línea puedes agregar tus configuraciones y mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Hide pointless junk at the bottom, doesn't work in .vimrc for some reason?
 :set laststatus=0
 " i'm not agains the mouse, enable it in all modes
