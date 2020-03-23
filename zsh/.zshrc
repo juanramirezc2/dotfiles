@@ -69,7 +69,7 @@ ZSH_CUSTOM=$HOME/.config/zsh
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git z zsh-autosuggestions zsh-syntax-highlighting tmuxinator history-substring-search vi-mode common-aliases)
+plugins=(git z zsh-autosuggestions zsh-syntax-highlighting tmuxinator history-substring-search vi-mode common-aliases fzf)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -135,3 +135,10 @@ funcname lazygit() {
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
+export FZF_DEFAULT_COMMAND='ag -l --path-to-ignore $HOME/.ignore --nocolor --hidden -g ""'
+# suppose you have installed fzf to ~/.fzf, change it to what suits you
+export FZF_BASE="$HOME/.fzf"
+vf() {fzf | xargs -I % $EDITOR % ;}
