@@ -50,4 +50,4 @@ windows:
         - z
         -
 
-  - radio: 
+  - monitor: vtop

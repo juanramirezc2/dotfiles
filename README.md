@@ -162,3 +162,9 @@ ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/the
 ```
 
 Set `ZSH_THEME="spaceship"` in your `.zshrc`.
+
+## vtop monitor
+
+```
+npm install -g vtop
+```
