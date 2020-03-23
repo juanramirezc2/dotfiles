@@ -31,7 +31,7 @@ Plug 'Shougo/echodoc.vim'
 "startup and sessions managers
 Plug 'mhinz/vim-startify' "bellisima y magnifica primera pantalla para vim
 "Moving arround
-Plug 'unblevable/quick-scope' "An always-on highlight for a unique character in every word on a line to help you use f, F and family.
+"Plug 'unblevable/quick-scope' "An always-on highlight for a unique character in every word on a line to help you use f, F and family.
 Plug 'easymotion/vim-easymotion' "movamonos un poco mas rapidin con este easymotion
 Plug 'yuttie/comfortable-motion.vim' " smooth motions and avoid get losed scrolling
 Plug 'andymass/vim-matchup' " drop-in replacement for the vim plugin matchit.vim
@@ -41,6 +41,7 @@ Plug 'ntpeters/vim-better-whitespace' "Vim Better Whitespace Plugin
 Plug 'Shougo/echodoc.vim' "Print documents in echo area.
 "Plug 'joshdick/onedark.vim' "Color scheme inspirado por el tema One Dark de Atom.
 Plug 'morhetz/gruvbox' " Retro groove color scheme for Vim
+Plug 'mhartington/oceanic-next' "Oceanic-Next.vim is a neovim theme inspired
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'  " Temas para airline la barra en la parte baja
 "File browsers
@@ -70,6 +71,7 @@ Plug 'moll/vim-node', { 'for': 'javascript' }
 Plug 'MaxMEllon/vim-jsx-pretty'
 " Syntax highlighting for javascript libraries
 Plug 'othree/javascript-libraries-syntax.vim'
+Plug 'yggdroot/indentline' " indent guides lines let's see how they goes
 "" vim snnipets
 Plug 'epilande/vim-es2015-snippets' " Custom ultisnippets for ES2015 and vim
 Plug 'epilande/vim-react-snippets' "Custom ultisnippets for react and vim
