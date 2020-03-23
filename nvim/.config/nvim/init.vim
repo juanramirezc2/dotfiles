@@ -68,7 +68,7 @@ set expandtab
 " vim indent line
 let g:indentLine_enabled = 1
 let g:indentLine_faster = 1
-let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+"let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 
 " The number of spaces to use for each indent
 set shiftwidth=2
