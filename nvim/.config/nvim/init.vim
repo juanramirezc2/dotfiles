@@ -339,7 +339,7 @@ let g:mta_filetypes = {
 let g:mta_use_matchparen_group = 1
 " startify sessions and other tweaks
 let g:startify_change_to_dir = 0
-"let g:startify_change_to_vcs_root = 1
+let g:startify_change_to_vcs_root = 1
 let g:startify_custom_header = [ ]
 let g:startify_relative_path = 1
 let g:startify_use_env = 1
