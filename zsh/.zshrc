@@ -142,19 +142,6 @@ export FZF_DEFAULT_COMMAND='ag -l --path-to-ignore $HOME/.ignore --nocolor --hid
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # suppose you have installed fzf to ~/.fzf, change it to what suits you
 export FZF_BASE="$HOME/.fzf"
-vf() {fzf | xargs -I % $EDITOR % ;}
-# Cmd-Left
-bindkey "^[[e" vf
-
-# fuzzy grep open via ag with line number
-vg() {
-  local file
-  local line
-
-  read -r file line <<<"$(ag --nobreak --noheading $@ | fzf -0 -1 | awk -F: '{print $1, $2}')"
-
-  if [[ -n $file ]]
-  then
-     nvim $file +$line
-  fi
-}
+e() {fzf | xargs -I % $EDITOR % ;}
+ zle -N e{,}
+ bindkey "^h" e
