@@ -94,41 +94,6 @@ autocmd TermOpen * setlocal nonumber norelativenumber
 
 "Number of spaces to use for a <Tab> during editing operations
 set softtabstop=2"
-
-"custom color fixes
-function! s:custom_colors()
-  " coc.nvim color changes
-  hi link CocErrorSign WarningMsg
-  hi link CocWarningSign Number
-  hi link CocInfoSign Type
-
-  " Make background transparent for many things
-  hi Normal ctermbg=NONE guibg=NONE
-  hi NonText ctermbg=NONE guibg=NONE
-  hi LineNr ctermfg=NONE guibg=NONE
-  hi SignColumn ctermfg=NONE guibg=NONE
-  hi StatusLine guifg=#16252b guibg=#6699CC
-  hi StatusLineNC guifg=#16252b guibg=#16252b
-
-  " Try to hide vertical spit and end of buffer symbol
-  hi VertSplit gui=NONE guifg=#17252c guibg=#17252c
-  hi EndOfBuffer ctermbg=NONE ctermfg=NONE guibg=#17252c guifg=#17252c
-
-  " Customize NERDTree directory
-  hi NERDTreeCWD guifg=#99c794
-
-  " Make background color transparent for git changes
-  hi SignifySignAdd guibg=NONE
-  hi SignifySignDelete guibg=NONE
-  hi SignifySignChange guibg=NONE
-
-  " Highlight git change signs
-  hi SignifySignAdd guifg=#99c794
-  hi SignifySignDelete guifg=#ec5f67
-  hi SignifySignChange guifg=#c594c5
-endfunction
-" execute the function
-autocmd! ColorScheme OceanicNext call s:custom_colors()
 "Enable syntax highlighting and set colorscheme
 syntax enable
 "tell neovim that the background is dark
@@ -136,13 +101,14 @@ set background=dark
 " tema y apariencia 
 set termguicolors  " Activa true colors en la terminal
 "OceanicNext color scheme
-let g:oceanic_next_terminal_bold = 1
-let g:oceanic_next_terminal_italic = 1
-colorscheme OceanicNext
-let g:airline_theme='oceanicnext'
-"let g:gruvbox_italic=1
-"let g:gruvbox_contrast_dark = 'soft'
-"colorscheme gruvbox
+"let g:oceanic_next_terminal_bold = 1
+"let g:oceanic_next_terminal_italic = 1
+"colorscheme OceanicNext
+"let g:airline_theme='oceanicnext'
+
+let g:gruvbox_italic=1
+let g:gruvbox_italicize_strings=1
+colorscheme gruvbox
 "
 " NerdTree Refresh Root crashes with my <S-R> command for moving between tags
 let NERDTreeMapRefreshRoot='r'
@@ -340,7 +306,6 @@ let g:mta_use_matchparen_group = 1
 " startify sessions and other tweaks
 let g:startify_change_to_dir = 0
 let g:startify_change_to_vcs_root = 1
-let g:startify_custom_header = [ ]
 let g:startify_relative_path = 1
 let g:startify_use_env = 1
 let g:startify_session_dir = '~/.vim/session'
@@ -780,8 +745,8 @@ autocmd TabLeave *NERD_tree* :wincmd w
 hi ActiveWindow ctermbg=00 | hi InactiveWindow ctermbg=235
 set winhighlight=Normal:ActiveWindow,NormalNC:InactiveWindow
 
-au VimEnter,WinEnter,BufEnter,BufWinEnter,FocusGained * hi ActiveWindow guibg=#1B2B34 | hi InactiveWindow guibg=#17252c
-au VimLeave,WinLeave,BufLeave,BufWinLeave,FocusLost * hi ActiveWindow guibg=#17252c | hi InactiveWindow guibg=#17252c
+"au VimEnter,WinEnter,BufEnter,BufWinEnter,FocusGained * hi ActiveWindow guibg=#1B2B34 | hi InactiveWindow guibg=#17252c
+"au VimLeave,WinLeave,BufLeave,BufWinLeave,FocusLost * hi ActiveWindow guibg=#17252c | hi InactiveWindow guibg=#17252c
 
 "thyme pomodoro timer commands
 nmap <leader>t :!thyme -d<cr>
