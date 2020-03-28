@@ -107,7 +107,6 @@ set termguicolors  " Activa true colors en la terminal
 "let g:airline_theme='oceanicnext'
 
 let g:gruvbox_italic=1
-let g:gruvbox_italicize_strings=1
 colorscheme gruvbox
 "
 " NerdTree Refresh Root crashes with my <S-R> command for moving between tags
