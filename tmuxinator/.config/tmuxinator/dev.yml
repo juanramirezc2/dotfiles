@@ -50,4 +50,4 @@ windows:
         - z
         -
 
-  - monitor: vtop --theme gruvbox
+  - monitor: 
