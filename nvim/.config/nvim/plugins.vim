@@ -57,11 +57,7 @@ Plug 'jiangmiao/auto-pairs' " automaticamente cierra comillas o llaves
 " code browser Tags managers
 Plug 'ludovicchabant/vim-gutentags' " tags for vim, makes use of Exhuberant Ctags which generates tags .ctags config file taken from   universal ctags from
 " syntax files
-Plug 'pangloss/vim-javascript'
-Plug 'groenewege/vim-less', { 'for': 'less' }
-Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
-Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
-Plug 'othree/yajs.vim', { 'for': [ 'javascript', 'javascript.jsx', 'html' ] }
+Plug 'sheerun/vim-polyglot'
 " liquid support
 Plug 'tpope/vim-liquid'
 " html5 support
