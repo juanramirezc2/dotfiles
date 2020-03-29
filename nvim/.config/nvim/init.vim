@@ -563,6 +563,12 @@ nnoremap <silent> <space><c-k>  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
+" ==== denite custom matcher ========""
+"" optional - but recommended - see below
+let g:fruzzy#usenative = 1
+let g:fruzzy#sortonempty = 1 " default value
+" tell denite to use this matcher by default for all sources
+call denite#custom#source('_', 'matchers', ['matcher/fruzzy'])
 " === Denite shorcuts === "
 "   ;         - Browser currently open buffers
 "   <leader>t - Browse list of files in current directory
@@ -664,7 +670,7 @@ nnoremap <silent> <Leader>tf :TestFile<CR>
 nnoremap <silent> <Leader>ts :TestSuite<CR>
 nnoremap <silent> <Leader>tl :TestLast<CR>
 " disable dev icons inside denite is slower AF 
-let g:webdevicons_enable_denite = 0
+let g:webdevicons_enable_denite = 1
 " karma cli setup
 "let test#javascript#karma#executable = 'karma' 
 let test#strategy = "neovim"

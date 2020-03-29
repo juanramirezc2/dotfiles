@@ -46,6 +46,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'  " Temas para airline la barra en la parte baja
 "File browsers
 Plug 'Shougo/denite.nvim' "Denite is a dark powered plugin for Neovim/Vim to unite all interfaces.
+Plug 'raghur/fruzzy', {'do': { -> fruzzy#install()}} "Freaky fast fuzzy Denite/CtrlP matcher for vim/neovim
 Plug 'scrooloose/nerdtree' "proyect tree and structure
 Plug 'tpope/vim-projectionist' "browse to file easy
 "Git helpers
