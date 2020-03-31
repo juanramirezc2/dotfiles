@@ -372,7 +372,6 @@ nmap <leader>p <C-P>
 " vim Tags mappings are awfull
 nnoremap <C-P> g<c-]>
 nnoremap <C-U> :pop<cr>
-let g:AutoPairsMapCh = 'C-.'
 inoremap <C-h> <C-o>h
 inoremap <C-l> <C-o>a
 inoremap <C-^> <C-o><C-^> 
