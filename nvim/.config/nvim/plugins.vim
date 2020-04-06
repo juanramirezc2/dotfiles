@@ -26,8 +26,7 @@ Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}"
 Plug 'scrooloose/nerdcommenter' " comment lines of code using this plugin
 Plug 'alvan/vim-closetag' "Auto close (X)HTML tags
 Plug 'tpope/vim-surround' "surround plugin
-"Print function signatures in echo area
-Plug 'Shougo/echodoc.vim'
+Plug 'terryma/vim-multiple-cursors' " multiple cursor like sublime text
 "startup and sessions managers
 Plug 'mhinz/vim-startify' "bellisima y magnifica primera pantalla para vim
 "Moving arround
@@ -37,8 +36,7 @@ Plug 'yuttie/comfortable-motion.vim' " smooth motions and avoid get losed scroll
 Plug 'andymass/vim-matchup' " drop-in replacement for the vim plugin matchit.vim
 Plug 'haya14busa/incsearch.vim' " Improved incremental searching for Vim
 "GUI customization
-Plug 'ntpeters/vim-better-whitespace' "Vim Better Whitespace Plugin
-Plug 'Shougo/echodoc.vim' "Print documents in echo area.
+Plug 'yggdroot/indentline' " indent guides lines let's see how they goes
 "Plug 'joshdick/onedark.vim' "Color scheme inspirado por el tema One Dark de Atom.
 Plug 'morhetz/gruvbox' " Retro groove color scheme for Vim
 Plug 'mhartington/oceanic-next' "Oceanic-Next.vim is a neovim theme inspired
@@ -55,20 +53,11 @@ Plug 'rhysd/git-messenger.vim' "Neovim plugin to reveal the commit messages unde
 Plug 'tpope/vim-fugitive' " git on vim
 Plug 'xuyuanp/nerdtree-git-plugin' "nerd tree git status
 Plug 'jiangmiao/auto-pairs' " automaticamente cierra comillas o llaves
-" code browser Tags managers
-Plug 'ludovicchabant/vim-gutentags' " tags for vim, makes use of Exhuberant Ctags which generates tags .ctags config file taken from   universal ctags from
 " syntax files
 Plug 'sheerun/vim-polyglot'
 " liquid support
 Plug 'tpope/vim-liquid'
-" html5 support
-Plug 'othree/html5.vim', { 'for': 'html' }
-" Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx', 'html'] }
-Plug 'moll/vim-node', { 'for': 'javascript' }
-Plug 'MaxMEllon/vim-jsx-pretty'
 " Syntax highlighting for javascript libraries
-Plug 'othree/javascript-libraries-syntax.vim'
-Plug 'yggdroot/indentline' " indent guides lines let's see how they goes
 "" vim snnipets
 Plug 'epilande/vim-es2015-snippets' " Custom ultisnippets for ES2015 and vim
 Plug 'epilande/vim-react-snippets' "Custom ultisnippets for react and vim
@@ -79,8 +68,7 @@ Plug 'wellle/targets.vim'  "Vim plugin that provides additional text objects
 Plug 'kana/vim-textobj-line' "Text objects for the current line
 Plug 'kana/vim-textobj-entire' "entire file as vim object
 " other plugins
-Plug 'vim-scripts/ReplaceWithRegister' "avoid visual selection when pasting
-Plug 'christoomey/vim-system-copy' " copy into the system
+Plug 'ntpeters/vim-better-whitespace' "Vim Better Whitespace Plugin
 Plug 'machakann/vim-highlightedyank' "highlight yanked text
 Plug 'wakatime/vim-wakatime' "vim time tracker
 " help you read complex code by showing diff level of parentheses in diff color !!
