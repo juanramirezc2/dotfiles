@@ -9,20 +9,7 @@ source ~/.config/nvim/plugins.vim
 :set mouse=a
 :set noshowmode "don't show --INSERT--
 :set noruler "don't show line numbers/column/% junk
-
-let g:coc_global_extensions = [
-\ 'coc-snippets',
-\ 'coc-json',
-\ 'coc-tsserver',
-\ 'coc-explorer',
-\ 'coc-html',
-\ 'coc-css',
-\ 'coc-todolist',
-\ 'coc-emmet',
-\ 'coc-highlight',
-\ 'coc-eslint'
-\ ]
-
+call coc#add_extension('coc-json', 'coc-tsserver', 'coc-css' ,'coc-html','coc-emmet', 'coc-eslint', 'coc-snippets','coc-todolist','coc-tailwindcss')
 " avoid messi matchi load
 let g:loaded_matchit = 1
 

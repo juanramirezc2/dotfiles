@@ -27,7 +27,12 @@
   "emmet.extensionsPath": "~/.config/nvim/emmet_custom",
   "emmet.showExpandedAbbreviation": "always",
   "emmet.showSuggestionsAsSnippets": true,
-  "emmet.includeLanguages": { "html.twig": "html" },
+  "emmet.optimizeStylesheetParsing": true,
+  "emmet.includeLanguages": {
+    "html.twig": "html",
+    "javascript": "javascriptreact"
+  },
+  "emmet.showAbbreviationSuggestions": true,
   "explorer.icon.enableNerdfont": true,
   "explorer.file.showHiddenFiles": true,
   "todolist.autoUpload": true,
