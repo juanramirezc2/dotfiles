@@ -11,16 +11,12 @@ source ~/.config/nvim/plugins.vim
 :set noruler "don't show line numbers/column/% junk
 
 let g:coc_global_extensions = [
-\ 'coc-snippets',
-\ 'coc-json',
 \ 'coc-tsserver',
-\ 'coc-explorer',
-\ 'coc-html',
-\ 'coc-css',
-\ 'coc-todolist',
 \ 'coc-emmet',
-\ 'coc-highlight',
-\ 'coc-eslint'
+\ 'coc-css',
+\ 'coc-snippets',
+\ 'coc-eslint',
+\ 'coc-html',
 \ ]
 
 " avoid messi matchi load
