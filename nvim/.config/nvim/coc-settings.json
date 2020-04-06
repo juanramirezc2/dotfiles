@@ -29,12 +29,11 @@
   "emmet.showSuggestionsAsSnippets": true,
   "emmet.optimizeStylesheetParsing": true,
   "emmet.includeLanguages": {
+    "liquid": "html",
     "html.twig": "html",
     "javascript": "javascriptreact"
   },
   "emmet.showAbbreviationSuggestions": true,
-  "explorer.icon.enableNerdfont": true,
-  "explorer.file.showHiddenFiles": true,
   "todolist.autoUpload": true,
   "todolist.monitor": true
 }
