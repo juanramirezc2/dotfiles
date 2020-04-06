@@ -184,8 +184,8 @@ let g:airline#extensions#tabline#excludes = ["*NERD_tree*"]
 let airline#extensions#tabline#ignore_bufadd_pat = '\c\vgundo|undotree|vimfiler|tagbar|nerd_tree|*NERD_tree*'
 " Smartly uniquify buffers names with similar filename, suppressing common parts of paths.
 let g:airline#extensions#tabline#formatter = 'unique_tail'
-let g:airline_section_x = "%{fnamemodify(getcwd(), ':t')}"
-let g:airline_section_y = '%y'
+let g:airline_section_x = '%y'
+let g:airline_section_y = "%{fnamemodify(getcwd(), ':t')}"
 let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
 let g:airline_skip_empty_sections = 1
 let airline#extensions#coc#stl_format_err = '%E{[%e(#%fe)]}'
