@@ -429,6 +429,7 @@ inoremap <silent><expr> <TAB>
       \ coc#refresh()
 
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <expr><M-TAB> pumvisible() ? "\<C-n>" : "\<C-h>"
 
 let g:coc_snippet_next = '<tab>'
 
