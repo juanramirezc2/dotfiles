@@ -26,22 +26,19 @@
   "emmet.extensionsPath": "~/.config/nvim/emmet_custom",
   "emmet.showExpandedAbbreviation": "always",
   "emmet.showSuggestionsAsSnippets": true,
-  "emmet.optimizeStylesheetParsing": true,
+  "emmet.optimizeStylesheetParsing": false,
   "emmet.includeLanguages": {
     "liquid": "html",
     "html.twig": "html",
     "javascript": "javascriptreact"
   },
-  "emmet.preferences": {
-    "css.gradient.fallback": true,
-    "bem.elementSeparator": "__",
-    "bem.modifierSeparator": "--",
-    "bem.shortElementPrefix": "-"
-  },
   "emmet.syntaxProfiles": {
     "html": {
       "filters": "html, bem"
     }
+  },
+  "emmet.preferences": {
+    "bem.modifierSeparator": "--"
   },
   "emmet.showAbbreviationSuggestions": true,
   "todolist.autoUpload": true,

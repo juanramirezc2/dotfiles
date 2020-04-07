@@ -420,22 +420,15 @@ set updatetime=300
 " don't give |ins-completion-menu| messages.
 set shortmess+=c
 
-" always show signcolumns
-set signcolumn=yes
-
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
       \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh() 
+      \ coc#refresh()
 
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-" show available snippets
-nmap <leader>sn :CocList --normal snippets<CR>
-" show the snippets files that belong to this file type
-nmap <leader>snf :CocCommand snippets.openSnippetFiles<CR>
 
 let g:coc_snippet_next = '<tab>'
 
@@ -444,6 +437,19 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+" position. Coc only does snippet and additional edit on confirm.
+if has('patch8.1.1068')
+  " Use `complete_info` if your (Neo)Vim version supports it.
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+  imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
+
+" show available snippets
+nmap <leader>sn :CocList --normal snippets<CR>
+" show the snippets files that belong to this file type
+nmap <leader>snf :CocCommand snippets.openSnippetFiles<CR>
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
 
@@ -482,8 +488,6 @@ endfunction
 
 " Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')
-
-
 augroup mygroup
   autocmd!
   " Setup formatexpr specified filetype(s).
@@ -549,6 +553,12 @@ nnoremap <silent> <space><c-j>  :<C-u>CocNext<CR>
 nnoremap <silent> <space><c-k>  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+"=============== coc snippets expand key mappings =============
+
+" Use <C-j> for both expand and jump (make expand higher priority.)
+imap <C-f> <Plug>(coc-snippets-expand-jump)
+
+
 
 " ==== denite custom matcher ========""
 "" optional - but recommended - see below
