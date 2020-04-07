@@ -32,6 +32,17 @@
     "html.twig": "html",
     "javascript": "javascriptreact"
   },
+  "emmet.preferences": {
+    "css.gradient.fallback": true,
+    "bem.elementSeparator": "__",
+    "bem.modifierSeparator": "--",
+    "bem.shortElementPrefix": "-"
+  },
+  "emmet.syntaxProfiles": {
+    "html": {
+      "filters": "html, bem"
+    }
+  },
   "emmet.showAbbreviationSuggestions": true,
   "todolist.autoUpload": true,
   "todolist.monitor": true
