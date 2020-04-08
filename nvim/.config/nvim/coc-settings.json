@@ -38,7 +38,9 @@
     }
   },
   "emmet.preferences": {
-    "bem.modifierSeparator": "--"
+    "bem.elementSeparator": "__",
+    "bem.modifierSeparator": "--",
+    "bem.shortElementPrefix": "-"
   },
   "emmet.showAbbreviationSuggestions": true,
   "todolist.autoUpload": true,
