@@ -760,3 +760,17 @@ nmap <leader>sp :!spotify play<cr>
 nmap <leader>spb :!spotify play uri spotify play uri spotify:playlist:37i9dQZF1DX5Tgh3tlyc3X<cr>
 nmap <leader>spbb :!spotify play uri spotify play uri spotify:playlist:37i9dQZF1DX7EF8wVxBVhG<cr>
 nmap <leader>sn :!spotify next<cr>
+" ================= coc nvim multiple cursors ====================
+hi CocCursorRange guibg=#b16286 guifg=#ebdbb2
+nmap <silent> <C-c> <Plug>(coc-cursors-position)
+" use normal command like `<leader>xi(`
+nmap <leader>x  <Plug>(coc-cursors-operator)
+xnoremap <silent> <C-d> <Plug>(coc-cursors-range)
+"xnoremap <silent> <C-d> y/\V<C-r>=escape(@",'/\')<CR><CR>gN<Plug>(coc-cursors-range)gn
+nmap <expr> <silent> <C-d> <SID>select_current_word()
+function! s:select_current_word()
+  if !get(g:, 'coc_cursors_activated', 0)
+    return "\<Plug>(coc-cursors-word)"
+  endif
+  return "*\<Plug>(coc-cursors-word):nohlsearch\<CR>"
+endfunc

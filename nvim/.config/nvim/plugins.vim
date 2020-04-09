@@ -26,7 +26,6 @@ Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}"
 Plug 'scrooloose/nerdcommenter' " comment lines of code using this plugin
 Plug 'alvan/vim-closetag' "Auto close (X)HTML tags
 Plug 'tpope/vim-surround' "surround plugin
-Plug 'terryma/vim-multiple-cursors' " multiple cursor like sublime text
 "startup and sessions managers
 Plug 'mhinz/vim-startify' "bellisima y magnifica primera pantalla para vim
 "Moving arround
