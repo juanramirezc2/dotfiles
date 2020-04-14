@@ -398,9 +398,6 @@ map g/ <Plug>(incsearch-stay)
 set hlsearch
 " interactive find replace preview
 set inccommand=nosplit
-" replace word under cursor, globally, with confirmation
-nnoremap <Leader>r :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
-vnoremap <Leader>r y :%s/<C-r>"//gc<Left><Left><Left>
 " clear search with shift+enter
 nnoremap <leader><CR> :noh<CR>
 "coc vim suggested settings
@@ -473,11 +470,11 @@ nmap <silent> ]d <Plug>(coc-diagnostic-next)
 nmap <leader>rn <Plug>(coc-rename)
 
 " Remap for format selected region
-xmap <leader>fm  <Plug>(coc-format-selected)
-nmap <leader>fm  <Plug>(coc-format-selected)
+xmap <leader>=  <Plug>(coc-format-selected)
+nmap <leader>=  <Plug>(coc-format-selected)
 
 " Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent> D :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -513,8 +510,8 @@ omap if <Plug>(coc-funcobj-i)
 omap af <Plug>(coc-funcobj-a)
 
 " Use <C-d> for select selections ranges, needs server support, like: coc-tsserver, coc-python
-nmap <silent> <C-d> <Plug>(coc-range-select)
-xmap <silent> <C-d> <Plug>(coc-range-select)
+nmap <silent> <C-e> <Plug>(coc-range-select)
+xmap <silent> <C-e> <Plug>(coc-range-select)
 
 " Use `:Format` to format current buffer
 command! -nargs=0 Format :call CocAction('format')
@@ -748,8 +745,8 @@ autocmd TabLeave *NERD_tree* :wincmd w
 hi ActiveWindow ctermbg=00 | hi InactiveWindow ctermbg=235
 set winhighlight=Normal:ActiveWindow,NormalNC:InactiveWindow
 
-"au VimEnter,WinEnter,BufEnter,BufWinEnter,FocusGained * hi ActiveWindow guibg=#1B2B34 | hi InactiveWindow guibg=#17252c
-"au VimLeave,WinLeave,BufLeave,BufWinLeave,FocusLost * hi ActiveWindow guibg=#17252c | hi InactiveWindow guibg=#17252c
+au VimEnter,WinEnter,BufEnter,BufWinEnter,FocusGained * hi ActiveWindow guibg=#282828 | hi InactiveWindow guibg=#212121
+au VimLeave,WinLeave,BufLeave,BufWinLeave,FocusLost * hi ActiveWindow guibg=#212121 | hi InactiveWindow guibg=#212121
 
 "thyme pomodoro timer commands
 nmap <leader>t :!thyme -d<cr>
@@ -765,9 +762,12 @@ hi CocCursorRange guibg=#b16286 guifg=#ebdbb2
 nmap <silent> <C-c> <Plug>(coc-cursors-position)
 " use normal command like `<leader>xi(`
 nmap <leader>x  <Plug>(coc-cursors-operator)
+vmap <leader>r :CocCommand document.renameCurrentWord<CR>
+nmap <leader>r <Plug>(coc-refactor)
 vmap <silent> <C-d> <Plug>(coc-cursors-range)
-"xnoremap <silent> <C-d> y/\V<C-r>=escape(@",'/\')<CR><CR>gN<Plug>(coc-cursors-range)gn
+vnoremap <silent> <C-d> y/\V<C-r>=escape(@",'/\')<CR><CR><Plug>(coc-cursors-range)<CR>gn
 nmap <expr> <silent> <C-d> <SID>select_current_word()
+
 function! s:select_current_word()
   if !get(g:, 'coc_cursors_activated', 0)
     return "\<Plug>(coc-cursors-word)"
