@@ -745,7 +745,7 @@ autocmd TabLeave *NERD_tree* :wincmd w
 hi ActiveWindow ctermbg=00 | hi InactiveWindow ctermbg=235
 set winhighlight=Normal:ActiveWindow,NormalNC:InactiveWindow
 
-au VimEnter,WinEnter,BufEnter,BufWinEnter,FocusGained * hi ActiveWindow guibg=#282828 | hi InactiveWindow guibg=#212121
+au VimEnter,WinEnter,BufEnter,BufWinEnter,FocusGained * hi ActiveWindow guibg=NONE | hi InactiveWindow guibg=#212121
 au VimLeave,WinLeave,BufLeave,BufWinLeave,FocusLost * hi ActiveWindow guibg=#212121 | hi InactiveWindow guibg=#212121
 
 "thyme pomodoro timer commands
@@ -774,3 +774,4 @@ function! s:select_current_word()
   endif
   return "*\<Plug>(coc-cursors-word):nohlsearch\<CR>"
 endfunc
+set noemoji
