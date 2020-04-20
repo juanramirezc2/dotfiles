@@ -10,7 +10,7 @@ source ~/.config/nvim/plugins.vim
 :set noshowmode "don't show --INSERT--
 :set noruler "don't show line numbers/column/% junk
 " indent line overwrite conceal from user :(
-let g:indentLine_concealcursor = 'nc'
+let g:indentLine_concealcursor = 'c'
 let g:indentLine_conceallevel = 2
 call coc#add_extension('coc-json', 'coc-tsserver', 'coc-css' ,'coc-html','coc-emmet', 'coc-eslint', 'coc-snippets','coc-todolist','coc-tailwindcss')
 " avoid messi matchi load
