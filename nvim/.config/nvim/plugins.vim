@@ -36,9 +36,7 @@ Plug 'andymass/vim-matchup' " drop-in replacement for the vim plugin matchit.vim
 Plug 'haya14busa/incsearch.vim' " Improved incremental searching for Vim
 "GUI customization
 Plug 'yggdroot/indentline' " indent guides lines let's see how they goes
-"Plug 'joshdick/onedark.vim' "Color scheme inspirado por el tema One Dark de Atom.
 Plug 'morhetz/gruvbox' " Retro groove color scheme for Vim
-Plug 'mhartington/oceanic-next' "Oceanic-Next.vim is a neovim theme inspired
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'  " Temas para airline la barra en la parte baja
 "File browsers
@@ -69,9 +67,7 @@ Plug 'kana/vim-textobj-entire' "entire file as vim object
 " other plugins
 Plug 'ntpeters/vim-better-whitespace' "Vim Better Whitespace Plugin
 Plug 'machakann/vim-highlightedyank' "highlight yanked text
-Plug 'wakatime/vim-wakatime' "vim time tracker
-" help you read complex code by showing diff level of parentheses in diff color !!
-"Plug 'luochen1990/rainbow'
+Plug 'vimwiki/vimwiki' "VimWiki is a personal wiki for Vim -- a number of linked text files that have their own syntax highlighting.
 " file icons
 Plug 'ryanoasis/vim-devicons' " vim will become visual studio
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight' " needed for devicons

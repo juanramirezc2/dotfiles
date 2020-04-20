@@ -81,6 +81,9 @@ autocmd TermOpen * setlocal nonumber norelativenumber
 
 "Number of spaces to use for a <Tab> during editing operations
 set softtabstop=2"
+" vim wiki requirement
+set nocompatible
+filetype plugin on
 "Enable syntax highlighting and set colorscheme
 syntax enable
 "tell neovim that the background is dark
