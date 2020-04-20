@@ -84,6 +84,7 @@ set softtabstop=2"
 " vim wiki requirement
 set nocompatible
 filetype plugin on
+syntax on
 "Enable syntax highlighting and set colorscheme
 syntax enable
 "tell neovim that the background is dark
@@ -778,3 +779,17 @@ function! s:select_current_word()
   return "*\<Plug>(coc-cursors-word):nohlsearch\<CR>"
 endfunc
 set noemoji
+let g:vimwiki_list = [{'path': '$HOME/Google Drive/wiki', 'syntax': 'markdown','ext': '.md'}] " set path to a directory inside Dropbox
+let g:vimwiki_global_ext = 0 " make sure vimwiki doesn't own all .md files
+au FileType vimwiki setlocal shiftwidth=6 tabstop=6 noexpandtab
+command! Diary VimwikiDiaryIndex
+augroup vimwikigroup
+    autocmd!
+    " automatically update links on read diary
+    autocmd BufRead,BufNewFile diary.wiki VimwikiDiaryGenerateLinks
+augroup end
+
+let g:vimwiki_ext2syntax = {'.md': 'markdown',
+                  \ '.mkd': 'markdown',
+                  \ '.mdown': 'markdown',
+                  \ '.markdown': 'markdown'}
