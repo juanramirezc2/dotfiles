@@ -23,6 +23,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 " code auto completers and helpers
 Plug 'heavenshell/vim-jsdoc' "jsdoc.vim generates JSDoc block comments based on a function signature
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}"
+Plug 'jceb/vim-orgmode' "Org mode in vim
 Plug 'scrooloose/nerdcommenter' " comment lines of code using this plugin
 Plug 'alvan/vim-closetag' "Auto close (X)HTML tags
 Plug 'tpope/vim-surround' "surround plugin
