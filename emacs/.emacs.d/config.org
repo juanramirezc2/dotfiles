@@ -1,0 +1,48 @@
+#+TITLE: Emacs Configuration
+#+AUTHOR: Daniel Mai
+
+I've been using Emacs extensively since the summer of 2013, and along
+the way I've become accustomed to many different tweaks for it.
+
+This configuration uses the [[https://github.com/jwiegley/use-package][use-package]] package from John Wiegley, which is
+a fantastic way to manage package configurations.
+
+If you see any keybindings that seem weird to you, it's probably
+because I type with the Dvorak keyboard layout, so things'll probably
+seem strange on other keyboard layouts. I may assign a keybinding just
+because it's more on convenient on Dvorak. Though for the most part, I
+try to follow Emacs and assign bindings by mnemonics, would should
+make sense for any layout.
+
+* Installing Emacs
+
+On macOS, [[http://brew.sh/][homebrew]] is an easy way to install emacs.
+
+Here's what the parameters means.
+- ~--with-cocoa~ :: installs emacs with the macOS GUI version
+- ~--with-imagemagick~ :: installs emacs with imagemagick support for image processing
+- ~--with-gnutls~ :: installs emacs with GnuTLS for encrypted SSL and TLS connections
+
+#+begin_src sh
+brew install emacs --with-cocoa --with-imagemagick --with-gnutls
+#+end_src
+
+* Personal Information
+
+#+begin_src emacs-lisp
+(setq user-full-name "Juan Ramirez"
+      user-mail-address "tuxgabo@gmail.com")
+#+end_src
+
+* Customize settings
+
+Set up the customize file to its own separate file, instead of saving
+customize settings in [[file:init.el][init.el]].
+
+#+begin_src emacs-lisp
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(load custom-file)
+#+end_src
+
+* Theme
+** Convenient theme functions
