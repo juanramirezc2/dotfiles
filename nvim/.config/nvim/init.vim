@@ -74,7 +74,7 @@ set shiftwidth=2
 
 " set a map leader for more key combos
 let mapleader = " "
-
+let maplocalleader= ";"
 " open a new terminal  in aplit of the current tab
 nmap <leader>st :12sp term://zsh<CR>I
 nmap <leader>te :tabnew term://zsh<CR>I
@@ -796,3 +796,7 @@ let g:vimwiki_ext2syntax = {'.md': 'markdown',
                   \ '.mkd': 'markdown',
                   \ '.mdown': 'markdown',
                   \ '.markdown': 'markdown'}
+
+let g:org_todo_keywords = [['TODO(t)', '|', 'DONE(d)'],
+      \ ['REPORT(r)', 'BUG(b)', 'KNOWNCAUSE(k)', '|', 'FIXED(f)'],
+      \ ['CANCELED(c)']]
