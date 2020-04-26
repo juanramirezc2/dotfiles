@@ -711,9 +711,8 @@ autocmd WinEnter * call Preview_func()
 " Snipppets deoppet-----------------------------------------------------------------{{{
 
 imap <C-k>  <Plug>(deoppet_expand)
-	imap <C-f>  <Plug>(deoppet_jump_forward)
-	imap <C-b>  <Plug>(deoppet_jump_backward)
+imap <C-f>  <Plug>(deoppet_jump_forward)
+imap <C-b>  <Plug>(deoppet_jump_backward)
 
-	call deoppet#initialize()
-	call deoppet#custom#option('snippets_dirs',
-	\ globpath(&runtimepath, 'neosnippets', 1, 1))
+call deoppet#initialize()
+call deoppet#custom#option('snippets_dirs', globpath(&runtimepath, 'neosnippets', 1, 1))
