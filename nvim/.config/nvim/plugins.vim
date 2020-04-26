@@ -15,7 +15,8 @@ call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
 "Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}"
 call dein#add('Shougo/deoplete.nvim') "Dark powered asynchronous completion framework for neovim/Vim8
 call dein#add('Shougo/deoplete-lsp') "LSP Completion source for deoplete
-Plug 'fszymanski/deoplete-emoji'
+call dein#add('fszymanski/deoplete-emoji')
+call dein#add('Shougo/echodoc.vim')
 call dein#add('neovim/nvim-lsp') " lsp config for neovim lsp client
 call dein#add('haorenW1025/diagnostic-nvim')
 call dein#add('jceb/vim-orgmode') "Org mode in vim
