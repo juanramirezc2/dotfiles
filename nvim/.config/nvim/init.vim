@@ -2,7 +2,6 @@ scriptencoding utf-8
 source ~/.config/nvim/plugins.vim
 " Luego de esta línea puedes agregar tus configuraciones y mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 " Hide pointless junk at the bottom, doesn't work in .vimrc for some reason?
 :set laststatus=0
 " i'm not agains the mouse, enable it in all modes
@@ -12,7 +11,7 @@ source ~/.config/nvim/plugins.vim
 " indent line overwrite conceal from user :(
 let g:indentLine_concealcursor = ''
 let g:indentLine_conceallevel = 2
-call coc#add_extension('coc-json', 'coc-tsserver', 'coc-css' ,'coc-html','coc-emmet', 'coc-eslint', 'coc-snippets','coc-todolist','coc-tailwindcss')
+"call coc#add_extension('coc-json', 'coc-tsserver', 'coc-css' ,'coc-html','coc-emmet', 'coc-eslint', 'coc-snippets','coc-todolist','coc-tailwindcss')
 " avoid messi matchi load
 let g:loaded_matchit = 1
 
@@ -86,7 +85,7 @@ autocmd TermOpen * setlocal nonumber norelativenumber
 set softtabstop=2"
 " vim wiki requirement
 set nocompatible
-filetype plugin on
+filetype plugin off
 syntax on
 "Enable syntax highlighting and set colorscheme
 syntax enable
@@ -426,14 +425,14 @@ set shortmess+=c
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+"inoremap <silent><expr> <TAB>
+      "\ pumvisible() ? coc#_select_confirm() :
+      "\ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      "\ <SID>check_back_space() ? "\<TAB>" :
+      "\ coc#refresh()
 
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-inoremap <expr><M-TAB> pumvisible() ? "\<C-n>" : "\<C-h>"
+"inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+"inoremap <expr><M-TAB> pumvisible() ? "\<C-n>" : "\<C-h>"
 
 let g:coc_snippet_next = '<tab>'
 
@@ -492,14 +491,14 @@ function! s:show_documentation()
 endfunction
 
 " Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
-augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,javascript.jsx,json,css,less,sass setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
+"autocmd CursorHold * silent call CocActionAsync('highlight')
+"augroup mygroup
+  "autocmd!
+  "" Setup formatexpr specified filetype(s).
+  "autocmd FileType typescript,javascript.jsx,json,css,less,sass setl formatexpr=CocAction('formatSelected')
+  "" Update signature help on jump placeholder
+  "autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+"augroup end
 
 " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
 xmap <leader>a  <Plug>(coc-codeaction-selected)
@@ -800,3 +799,57 @@ let g:vimwiki_ext2syntax = {'.md': 'markdown',
 let g:org_todo_keywords = [['TODO(t)', '|', 'DONE(d)'],
       \ ['REPORT(r)', 'BUG(b)', 'KNOWNCAUSE(k)', '|', 'FIXED(f)'],
       \ ['CANCELED(c)']]
+" LSP -----------------------------------------------------------------------{{{
+
+" When nvim's LSP is ready...
+" lua require
+lua require("lsp_config")
+set omnifunc=v:lua.vim.lsp.omnifunc
+nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
+nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+autocmd CursorHold * silent! :lua require'util'.show_line_diagnostics()
+let g:diagnostic_enable_virtual_text = 1
+let g:diagnostic_auto_popup_while_jump = 1
+let g:LspDiagnosticsErrorSign='•'
+let g:LspDiagnosticsWarningSign='•'
+let g:LspDiagnosticsInformationSign='•'
+let g:LspDiagnosticsHintSign='•'
+let g:diagnostic_show_sign = 1
+/*autocmd CursorHold * silent! :lua require'util'.show_line_diagnostics()*/
+" Deoplete ------------------------------------------------------------------{{{
+
+" enable deoplete
+let g:deoplete#enable_at_startup = 1
+
+call deoplete#custom#option({
+      \ 'auto_complete_delay': 0,
+      \ 'smart_case': v:true,
+      \})
+call deoplete#custom#option('ignore_sources', {'_': ['buffer', 'around', 'member', 'omni']})
+let g:echodoc_enable_at_startup=1
+let g:echodoc#type="virtual"
+set splitbelow
+set completeopt+=menuone,noinsert,noselect
+set completeopt-=preview
+autocmd CompleteDone * pclose
+
+function g:Multiple_cursors_before()
+  call deoplete#custom#buffer_option('auto_complete', v:false)
+endfunction
+function g:Multiple_cursors_after()
+  call deoplete#custom#buffer_option('auto_complete', v:true)
+endfunction
+
+let g:deoplete#file#enable_buffer_path=1
+function! Preview_func()
+  if &pvw
+    setlocal nonumber norelativenumber
+  endif
+endfunction
+autocmd WinEnter * call Preview_func()
