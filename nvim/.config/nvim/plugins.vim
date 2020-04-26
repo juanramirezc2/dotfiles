@@ -48,6 +48,7 @@ call dein#add('jiangmiao/auto-pairs') " automaticamente cierra comillas o llaves
 " syntax files
 call dein#add('sheerun/vim-polyglot') " syntax hightlight for multiple languages
 "" vim snnipets
+call dein#add('Shougo/deoppet.nvim')
 call dein#add('epilande/vim-es2015-snippets') " Custom ultisnippets for ES2015 and vim
 call dein#add('epilande/vim-react-snippets') "Custom ultisnippets for react and vim
 " Custom vim Text Objects

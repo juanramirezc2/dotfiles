@@ -507,8 +507,26 @@ nnoremap <silent> <Leader>tt :TestNearest<CR>
 nnoremap <silent> <Leader>tf :TestFile<CR>
 nnoremap <silent> <Leader>ts :TestSuite<CR>
 nnoremap <silent> <Leader>tl :TestLast<CR>
-" disable dev icons inside denite is slower AF 
-let g:webdevicons_enable_denite = 1
+" Vim-Devicons --------------------------------------------------------------{{{
+
+let g:NERDTreeGitStatusNodeColorization = 1
+" 
+let g:webdevicons_enable_denite = 0
+let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = ''
+let g:DevIconsEnableFoldersOpenClose = 1
+let g:WebDevIconsOS = 'Darwin'
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+let g:WebDevIconsUnicodeDecorateFileNodesDefaultSymbol = ''
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = { } " needed
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['js'] = ''
+" let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['tsx'] = 'ﯤ'
+" let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['ts'] = 'ﯤ'
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['vim'] = ''
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['css'] = ''
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['html'] = ''
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['json'] = ''
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['md'] = ''
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['sql'] = ''
 " karma cli setup
 "let test#javascript#karma#executable = 'karma' 
 let test#strategy = "neovim"
@@ -690,3 +708,12 @@ function! Preview_func()
   endif
 endfunction
 autocmd WinEnter * call Preview_func()
+" Snipppets deoppet-----------------------------------------------------------------{{{
+
+imap <C-k>  <Plug>(deoppet_expand)
+	imap <C-f>  <Plug>(deoppet_jump_forward)
+	imap <C-b>  <Plug>(deoppet_jump_backward)
+
+	call deoppet#initialize()
+	call deoppet#custom#option('snippets_dirs',
+	\ globpath(&runtimepath, 'neosnippets', 1, 1))
