@@ -9,23 +9,14 @@ source ~/.config/nvim/plugins.vim
 :set noshowmode "don't show --INSERT--
 :set noruler "don't show line numbers/column/% junk
 " indent line overwrite conceal from user :(
-let g:indentLine_concealcursor = ''
+let g:indentLine_concealcursor = 'nc'
 let g:indentLine_conceallevel = 2
-"call coc#add_extension('coc-json', 'coc-tsserver', 'coc-css' ,'coc-html','coc-emmet', 'coc-eslint', 'coc-snippets','coc-todolist','coc-tailwindcss')
 " avoid messi matchi load
 let g:loaded_matchit = 1
 
 let g:vim_jsx_pretty_highlight_close_tag = 1
 let g:vim_jsx_pretty_colorful_config = 1 " default 0
 
-" echodoc by shouldgo
-" To use echodoc, you must increase 'cmdheight' value.
-let g:echodoc_enable_at_startup = 1
-
-"let g:echodoc#type = 'floating'
-" To use a custom highlight for the float window,
-" change Pmenu to your highlight group
-highlight link EchoDocFloat Pmenu
 " guicolors styles for every mode
 :set termguicolors
 set cursorline        " highlight current line
@@ -86,7 +77,21 @@ set softtabstop=2"
 " vim wiki requirement
 set nocompatible
 filetype plugin on
+" Themes, Commands, etc  ----------------------------------------------------{{{
 syntax on
+function SetItalics() abort
+  hi Comment gui=italic
+  hi Keyword gui=italic
+  hi Keyword gui=italic
+  hi Identifier gui=italic
+  hi StorageClass gui=italic
+  hi jsLineComment gui=italic
+  hi xmlAttrib gui=italic
+  hi htmlArg gui=italic
+  hi pythonSelf gui=italic
+  hi htmlArg gui=italic
+endfunction
+autocmd ColorScheme * call SetItalics()
 "Enable syntax highlighting and set colorscheme
 syntax enable
 "tell neovim that the background is dark
@@ -94,14 +99,14 @@ set background=dark
 " tema y apariencia 
 set termguicolors  " Activa true colors en la terminal
 "OceanicNext color scheme
+let g:one_allow_italics = 1
 let g:oceanic_next_terminal_bold = 1
 let g:oceanic_next_terminal_italic = 1
 colorscheme OceanicNext
-let g:airline_theme='oceanicnext'
 "let g:gruvbox_transparent_bg=1
 "let g:gruvbox_italic=1
 "colorscheme gruvbox
-"
+"}}}
 " NerdTree Refresh Root crashes with my <S-R> command for moving between tags
 let NERDTreeMapRefreshRoot='r'
 let NERDTreeMapActivateNode='l'
@@ -172,61 +177,71 @@ if has('nvim')
   " simulare <C-R>
   tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
 endif
-
+" vim-airline ---------------------------------------------------------------{{{
 " terminal emulator exit
 let g:airline_extensions = ['branch','hunks','coc','denite','tabline']
+let g:airline_theme='oceanicnext'
+
+" Cargar fuente Powerline y símbolos (ver nota)
+let g:webdevicons_enable_airline_statusline = 1
+let g:airline_powerline_fonts = 0
 " configuracion para airline
 let g:airline_statusline_ontop = 0 "no necesito mostrar el status line en la parte de arriba
 let g:airline#extensions#tabline#show_close_button = 0  " no necesito mostrar el boton de cerrar tab en la parte de arriba
 let g:airline#extensions#tabline#show_splits = 0
 " vim airline please don't show me closed buffers
 let g:airline#extensions#tabline#show_buffers = 0
-let g:airline#extensions#tabline#left_sep = ' ' "  here is how you can define 'straight' tabs
-let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline#extensions#tabline#left_alt_sep = ''
+let g:airline#extensions#tabline#left_sep = " "
 let g:airline#extensions#tabline#fnamemod = ':t'  " Mostrar sólo el nombre del archivo
-let g:airline#extensions#tabline#show_tab_count = 0
+let g:airline#extensions#tabline#buffer_idx_mode = 1
 let g:airline#extensions#tabline#switch_buffers_and_tabs = 1
-let g:airline#extensions#tabline#excludes = ["*NERD_tree*"]
-let airline#extensions#tabline#ignore_bufadd_pat = '\c\vgundo|undotree|vimfiler|tagbar|nerd_tree|*NERD_tree*'
-" Smartly uniquify buffers names with similar filename, suppressing common parts of paths.
+let g:airline#extensions#nvim_typescript#enabled=1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline_section_x = '%y'
 let g:airline_section_y = "%{fnamemodify(getcwd(), ':t')}"
 let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
 let g:airline_skip_empty_sections = 1
+"only display the filename in airline status 
+let g:airline_section_c = '%t'
 
+let g:airline_mode_map = {
+      \ '__' : '',
+      \ 'c'  : '',
+      \ 'i'  : '',
+      \ 'ic' : '',
+      \ 'ix' : '',
+      \ 'n'  : '',
+      \ 'ni' : '',
+      \ 'no' : '',
+      \ 'R'  : '',
+      \ 'Rv' : '',
+      \ 's'  : '',
+      \ 'S'  : '',
+      \ '' : '',
+      \ 't'  : '',
+      \ 'v'  : '',
+      \ 'V'  : '',
+      \ '' : '',
+      \ }
+
+let g:airline#extensions#tabline#buffer_idx_format = {
+      \ '0': '0 ',
+      \ '1': '1 ',
+      \ '2': '2 ',
+      \ '3': '3 ',
+      \ '4': '4 ',
+      \ '5': '5 ',
+      \ '6': '6 ',
+      \ '7': '7 ',
+      \ '8': '8 ',
+      \ '9': '9 ',
+      \}
+
+"}}}
 
 "it seems that powerline fonts need this
 set t_Co=256
-" Cargar fuente Powerline y símbolos (ver nota)
-let g:airline_powerline_fonts = 1
-
-"only display the filename in airline status 
-let g:airline_section_c = '%t'
-"let g:airline_section_c = '%-0.20t'
-" set of text to display for each mode. this time a single letter is enought
-
-let g:airline_mode_map = {
-      \ '__'     : '-',
-      \ 'c'      : 'C',
-      \ 'i'      : 'I',
-      \ 'ic'     : 'I',
-      \ 'ix'     : 'I',
-      \ 'n'      : 'N',
-      \ 'multi'  : 'M',
-      \ 'ni'     : 'N',
-      \ 'no'     : 'N',
-      \ 'R'      : 'R',
-      \ 'Rv'     : 'R',
-      \ 's'      : 'S',
-      \ 'S'      : 'S',
-      \ ''     : 'S',
-      \ 't'      : 'T',
-      \ 'v'      : 'V',
-      \ 'V'      : 'V',
-      \ ''     : 'V',
-      \ }
-
 set noshowmode  " No mostrar el modo actual (ya lo muestra la barra de estado)
 
 
@@ -428,20 +443,10 @@ call denite#custom#option('default', {
       \ 'winminheight': 1,
       \ 'vertical_preview': 1
       \ })
-"JsDoc mappings for a better coding
-nmap <silent> <leader>doc <Plug>(jsdoc)
-" Set floating window to be slightly transparent
-"set winbl=10
 " clever f settings
 let g:clever_f_across_no_line = 1
 let g:clever_f_fix_key_direction = 1
 let g:clever_f_timeout_ms = 3000
-" vim test we need more test
-let test#javascript#jest#executable = 'CI=true yarn test --colors'
-nnoremap <silent> <Leader>tt :TestNearest<CR>
-nnoremap <silent> <Leader>tf :TestFile<CR>
-nnoremap <silent> <Leader>ts :TestSuite<CR>
-nnoremap <silent> <Leader>tl :TestLast<CR>
 " Vim-Devicons --------------------------------------------------------------{{{
 
 let g:NERDTreeGitStatusNodeColorization = 1
@@ -467,8 +472,6 @@ let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['sql'] = ''
 xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
-"paste multiple times from the same register works for the default register
-xnoremap p pgvy
 "see actual registers
 nnoremap <leader>re :registers<CR>
 set autowrite
@@ -586,13 +589,31 @@ function! Preview_func()
   endif
 endfunction
 autocmd WinEnter * call Preview_func()
-" Snipppets deoppet-----------------------------------------------------------------{{{
-imap <C-z>  <Plug>(deoppet_expand)
-imap <C-f>  <Plug>(deoppet_jump_forward)
-imap <C-b>  <Plug>(deoppet_jump_backward)
+" Snipppets -----------------------------------------------------------------{{{
 
-call deoppet#initialize()
-call deoppet#custom#option('snippets_dirs', globpath(&runtimepath, 'neosnippets', 1, 1))
+" Enable snipMate compatibility feature.
+  let g:neosnippet#enable_completed_snippet=0
+  let g:neosnippet#enable_snipmate_compatibility=0
+  " let g:neosnippet#enable_conceal_markers=0
+  let g:neosnippet#snippets_directory='~/GitHub/ionic-snippets'
+  " let g:neosnippet#expand_word_boundary = 1
+  imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+  smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+  xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" " SuperTab like snippets behavior.
+"   imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+"   \ "\<Plug>(neosnippet_expand_or_jump)"
+"   \: pumvisible() ? "\<C-n>" : "\<TAB>"
+"   smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+"   \ "\<Plug>(neosnippet_expand_or_jump)"
+"   \: "\<TAB>"
+"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+"}}}
+
 " buffer mappings
 map ]q :cnext<CR>
 map [q :cprevious<CR>
