@@ -716,3 +716,10 @@ imap <C-b>  <Plug>(deoppet_jump_backward)
 
 call deoppet#initialize()
 call deoppet#custom#option('snippets_dirs', globpath(&runtimepath, 'neosnippets', 1, 1))
+" buffer mappings
+map ]q :cnext<CR>
+map [q :cprevious<CR>
+map ]b :bnext<CR>
+map [b :bprevious<CR>
+map ]t :tabnext<CR>
+map [t :tabprevious<CR>
