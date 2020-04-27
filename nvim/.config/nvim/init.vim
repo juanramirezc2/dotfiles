@@ -606,7 +606,7 @@ call deoppet#custom#option('snippets_dirs', globpath(&runtimepath, 'neosnippets'
 " buffer mappings
 map ]q :cnext<CR>
 map [q :cprevious<CR>
-map <leader><tab> :bnext<CR>
-map <leader><S-tab> :bprevious<CR>
+map <leader><tab> :bn<CR>
+map <leader><S-tab> :bp<CR>
 map ]t :tabnext<CR>
 map [t :tabprevious<CR>
