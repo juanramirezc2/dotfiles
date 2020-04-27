@@ -36,7 +36,6 @@ call dein#add('vim-airline/vim-airline') " indent guides lines let's see how the
 call dein#add('vim-airline/vim-airline-themes') " Temas para airline la barra en la parte baja
 "File browsers
 call dein#add('Shougo/denite.nvim') "Denite is a dark powered plugin for Neovim/Vim to unite all interfaces.
-call dein#add('Shougo/denite.nvim') "Denite is a dark powered plugin for Neovim/Vim to unite all interfaces.
 call dein#add('raghur/fruzzy', {'build': 'python3 ./python3/fruzzy_installer.py'}) "Freaky fast fuzzy Denite/CtrlP matcher for vim/neovim
 call dein#add('scrooloose/nerdtree') "proyect tree and structure
 "Git helpers

@@ -710,7 +710,7 @@ endfunction
 autocmd WinEnter * call Preview_func()
 " Snipppets deoppet-----------------------------------------------------------------{{{
 
-imap <C-k>  <Plug>(deoppet_expand)
+imap <C-z>  <Plug>(deoppet_expand)
 imap <C-f>  <Plug>(deoppet_jump_forward)
 imap <C-b>  <Plug>(deoppet_jump_backward)
 
