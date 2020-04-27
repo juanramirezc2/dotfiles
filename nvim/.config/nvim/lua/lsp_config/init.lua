@@ -22,5 +22,3 @@ nvim_lsp.tsserver.setup {on_attach=diagnostic.on_attach}
 nvim_lsp.cssls.setup   {on_attach=diagnostic.on_attach}
 nvim_lsp.html.setup    {on_attach=diagnostic.on_attach}
 nvim_lsp.jsonls.setup  {on_attach=diagnostic.on_attach}
-nvim_lsp.bashls.setup  {on_attach=diagnostic.on_attach}
--- nvim_lsp.tsserver.setup {}

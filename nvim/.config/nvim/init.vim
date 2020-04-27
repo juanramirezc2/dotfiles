@@ -298,8 +298,8 @@ vnoremap <C-L> g_
 nnoremap <C-O> <C-I>
 nnoremap <C-I> <C-O>
 " Store relative line number jumps in the jumplist if they exceed a threshold.
-nnoremap <expr> k (v:count > 5 ? "m'" . v:count : '') . 'k'
-nnoremap <expr> j (v:count > 5 ? "m'" . v:count : '') . 'j'
+nnoremap <expr> k (v:count > 4 ? "m'" . v:count : '') . 'k'
+nnoremap <expr> j (v:count > 4 ? "m'" . v:count : '') . 'j'
 
 " easy motions vertical movements
 nmap <leader>b <Plug>(easymotion-bd-b)
