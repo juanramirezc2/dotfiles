@@ -252,34 +252,6 @@ let g:javascript_plugin_jsdoc = 1
 "Enables some additional syntax highlighting for NGDocs. Requires JSDoc plugin to be enabled as well.
 let g:javascript_plugin_ngdoc = 1
 
-" folding code nice config
-if has('folding')
-  set foldmethod=indent               " not as cool as syntax, but faster
-  set foldlevelstart=99               " start unfolded
-endif
-" toggle fold of current position Using S-tab 
-"nnoremap <Tab> za
-"navigate between  close folds OMG taken from https://stackoverflow.com/questions/9403098/is-it-possible-to-jump-to-closed-folds-in-vim
-"nnoremap <silent> <tab>j :call NextClosedFold('j')<cr>
-"nnoremap <silent> <tab>k :call NextClosedFold('k')<cr>
-function! NextClosedFold(dir)
-  let cmd = 'norm!z' . a:dir
-  let view = winsaveview()
-  let [l0, l, open] = [0, view.lnum, 1]
-  while l != l0 && open
-    exe cmd
-    let [l0, l] = [l, line('.')]
-    let open = foldclosed(l) < 0
-  endwhile
-  if open
-    call winrestview(view)
-  endif
-endfunction
-
-" session management
-let g:session_directory = "~/.vim/session"
-let g:session_autosave = "no"
-let g:session_command_aliases = 1
 " Allow MatchTagAlways to highlight JSX
 let g:mta_filetypes = {
       \ 'html' : 1,
@@ -315,21 +287,9 @@ let g:startify_bookmarks = [
       \ { 'g': '~/.gitconfig' },
       \ { 'z': '~/.zshrc' }
       \ ]
-" save file mappings
-" Iterm2 key bindings set cmd-s Send Text with 'vim' Special Chars to \<C-S>
-noremap  <silent><C-S> :update<CR>
-vnoremap <silent><C-S> <C-C>:update<CR>
-inoremap <silent><C-S> <C-O>:update<CR>
-" muestra el numero de linea relativo hacia abajo y hacia arriba relativo a
-" donde estoy
-":set relativenumber
 " vim jumps mappings are counterintuirive
 nmap <C-G> <S-G>
 vnoremap <C-G> <S-G>
-nmap { [{
-nmap } ]}
-nmap ( [(
-nmap ) ])
 nmap <C-H> ^
 nmap <C-H> ^
 vmap <C-H> ^
@@ -337,11 +297,10 @@ nnoremap <C-L> g_
 vnoremap <C-L> g_
 nnoremap <C-O> <C-I>
 nnoremap <C-I> <C-O>
-" map  HLM  to leader
-" ir con el curso a l medio de la zona visible
-nnoremap  <leader>l M
-vnoremap  <leader>l M
-" ir con el cursor al fina de la zona visible
+" Store relative line number jumps in the jumplist if they exceed a threshold.
+nnoremap <expr> k (v:count > 5 ? "m'" . v:count : '') . 'k'
+nnoremap <expr> j (v:count > 5 ? "m'" . v:count : '') . 'j'
+
 " easy motions vertical movements
 nmap <leader>b <Plug>(easymotion-bd-b)
 nmap <leader>w <Plug>(easymotion-bd-w)
@@ -349,24 +308,6 @@ nmap <leader>j <Plug>(easymotion-j)
 vmap <leader>j <Plug>(easymotion-j)
 nmap <leader>k <Plug>(easymotion-k)
 vmap <leader>k <Plug>(easymotion-k)
-" center cursor vertically
-nnoremap  <leader>h zz
-vnoremap  <leader>h zz
-"nmap <C-D> gd
-"ctrlp conflict
-let g:ctrlp_map = '<leader>p'
-" ctrp mapping 
-nmap <leader>p <C-P>
-" vim Tags mappings are awfull
-nnoremap <C-P> g<c-]>
-nnoremap <C-U> :pop<cr>
-inoremap <C-h> <C-o>h
-inoremap <C-l> <C-o>a
-inoremap <C-^> <C-o><C-^> 
-"g*  next matching search (not whole word) pattern under cursor
-"g#  previous matching search (not whole word) pattern under cursor
-"gd  go to definition/first occurrence of the word under cursor
-"let g:comfortable_motion_no_default_key_mappings=1
 let g:comfortable_motion_scroll_down_key = "j"
 let g:comfortable_motion_scroll_up_key = "k"
 let g:comfortable_motion_no_default_key_mappings = 1
@@ -376,12 +317,6 @@ nnoremap <silent> <C-j> :call comfortable_motion#flick(g:comfortable_motion_impu
 vnoremap <silent> <C-j> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier  * 1)<CR>
 nnoremap <silent> <C-k> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier  * -1)<CR>
 vnoremap <silent> <C-k> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier  * -1)<CR>
-" Store relative line number jumps in the jumplist if they exceed a threshold.
-nnoremap <expr> k (v:count > 5 ? "m'" . v:count : '') . 'k'
-nnoremap <expr> j (v:count > 5 ? "m'" . v:count : '') . 'j'
-"nnoremap Q @q
-"Switch CWD to the directory of the open buffer
-map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " jk | Escaping!
 inoremap jk <Esc>
@@ -527,10 +462,6 @@ let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['html'] = ''
 let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['json'] = ''
 let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['md'] = ''
 let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['sql'] = ''
-" karma cli setup
-"let test#javascript#karma#executable = 'karma' 
-let test#strategy = "neovim"
-let g:test#runner_commands = ['Minitest', 'Mocha']
 "easy align mappings
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
@@ -540,51 +471,7 @@ nmap ga <Plug>(EasyAlign)
 xnoremap p pgvy
 "see actual registers
 nnoremap <leader>re :registers<CR>
-"gutentags config using exhuberant ctags 
-" gutentags out if the way
-let g:gutentags_cache_dir = $HOME .'/.cache/guten_tags'
-let g:gutentags_exclude_project_root = ['/usr/local', $HOME]
-"let g:gitroot = substitute(system('git rev-parse --show-toplevel'), '[\n\r]', '', 'g')
-"if g:gitroot !=# ''
-"let g:gutentags_cache_dir = g:gitroot .'/.git/tags'
-"else
-"let g:gutentags_cache_dir = $HOME .'/.cache/guten_tags'
-"endif
-let g:gutentags_file_list_command = {
-      \ 'markers': {
-      \ '.git': 'git ls-files',
-      \ },
-      \ }
-let g:gutentags_resolve_symlinks = 1
-let g:gutentags_generate_on_missing = 1
-let g:gutentags_generate_on_new = 1
-let g:gutentags_generate_on_write = 1
-" let's build js from vim
-"let &makeprg = "npm run build"
-nnoremap <Leader>bu :!npm run build<CR>
-"nnoremap <Leader>bu :make<CR>
-let g:prettier#exec_cmd_async = 1
-let g:prettier#autoformat = 0
-autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
-nmap <Leader>gp <Plug>(Prettier)
-"nnoremap <Leader>gp :silent %!prettier --stdin --stdin-filepath % --trailing-comma all --single-quote<CR>
-"save file when focus is lost
-let g:vitality_always_assume_iterm = 1
-
 set autowrite
-" Put this in vimrc, add custom commands in the function.
-:au FocusLost * :wa
-"vim calentar using google calendar and google tasks
-let g:calendar_google_calendar = 1
-let g:calendar_google_task = 1
-"vim sneak move arround with this guy
-let g:sneak#label = 1
-nmap <leader>tl :CocList --normal todolist<CR>
-nmap <leader>tc :CocCommand todolist.create<CR>
-nmap <leader>tu :CocCommand todolist.upload<CR>
-nmap <leader>td :CocCommand todolist.download<CR>
-nmap <leader>te :CocCommand todolist.export<CR>
-nmap <leader>tcl :CocCommand todolist.clearNotice<CR>
 
 " === Search === "
 " ignore case when searching
@@ -597,7 +484,6 @@ set smartcase
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 "   <leader>y - Automatically remove trailing whitespace
 nmap <leader>sw :StripWhitespace<CR>
-nmap <space>e :CocCommand explorer<CR>
 
 autocmd TabLeave *NERD_tree* :wincmd w
 "
@@ -720,7 +606,7 @@ call deoppet#custom#option('snippets_dirs', globpath(&runtimepath, 'neosnippets'
 " buffer mappings
 map ]q :cnext<CR>
 map [q :cprevious<CR>
-map ]b :bnext<CR>
-map [b :bprevious<CR>
+map <leader><tab> :bnext<CR>
+map <leader><S-tab> :bprevious<CR>
 map ]t :tabnext<CR>
 map [t :tabprevious<CR>
