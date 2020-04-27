@@ -351,9 +351,9 @@ call denite#custom#source('_', 'matchers', ['matcher/fruzzy'])
 nnoremap ; :Denite -direction=topleft buffer<CR>
 nmap <leader>p :Denite -start-filter file/rec:.<CR>
 nmap <leader>o :Denite file/old:.<CR>
-nnoremap <leader>f :<C-u>Denite -no-empty grep:.<CR>
-vnoremap <leader>f y:<C-u>Denite -no-empty  grep:.::<C-R>=fnameescape(@")<CR><CR>
-nnoremap <leader>fw :<C-u>DeniteCursorWord grep:.<CR>
+nnoremap <leader>/ :<C-u>Denite -no-empty grep:.<CR>
+vnoremap <leader>/ y:<C-u>Denite -no-empty  grep:.::<C-R>=fnameescape(@")<CR><CR>
+nnoremap <leader>/w :<C-u>DeniteCursorWord grep:.<CR>
 nnoremap <leader>dp :Denite -resume -cursor-pos=-1 -immediately<CR>
 nnoremap <leader>dn :Denite -resume -cursor-pos=+1 -immediately<CR>
 nnoremap <leader>dl :Denite -resume -do='normal! A;'<CR>
