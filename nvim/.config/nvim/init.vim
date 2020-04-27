@@ -180,12 +180,12 @@ let g:airline_statusline_ontop = 0 "no necesito mostrar el status line en la par
 let g:airline#extensions#tabline#show_close_button = 0  " no necesito mostrar el boton de cerrar tab en la parte de arriba
 let g:airline#extensions#tabline#show_splits = 0
 " vim airline please don't show me closed buffers
-  let g:airline#extensions#tabline#show_buffers = 0
+let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#left_sep = ' ' "  here is how you can define 'straight' tabs
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#fnamemod = ':t'  " Mostrar sólo el nombre del archivo
- let g:airline#extensions#tabline#show_tab_count = 0
- let g:airline#extensions#tabline#switch_buffers_and_tabs = 1
+let g:airline#extensions#tabline#show_tab_count = 0
+let g:airline#extensions#tabline#switch_buffers_and_tabs = 1
 let g:airline#extensions#tabline#excludes = ["*NERD_tree*"]
 let airline#extensions#tabline#ignore_bufadd_pat = '\c\vgundo|undotree|vimfiler|tagbar|nerd_tree|*NERD_tree*'
 " Smartly uniquify buffers names with similar filename, suppressing common parts of paths.
@@ -263,17 +263,17 @@ endif
 "nnoremap <silent> <tab>j :call NextClosedFold('j')<cr>
 "nnoremap <silent> <tab>k :call NextClosedFold('k')<cr>
 function! NextClosedFold(dir)
-    let cmd = 'norm!z' . a:dir
-    let view = winsaveview()
-    let [l0, l, open] = [0, view.lnum, 1]
-    while l != l0 && open
-        exe cmd
-        let [l0, l] = [l, line('.')]
-        let open = foldclosed(l) < 0
-    endwhile
-    if open
-        call winrestview(view)
-    endif
+  let cmd = 'norm!z' . a:dir
+  let view = winsaveview()
+  let [l0, l, open] = [0, view.lnum, 1]
+  while l != l0 && open
+    exe cmd
+    let [l0, l] = [l, line('.')]
+    let open = foldclosed(l) < 0
+  endwhile
+  if open
+    call winrestview(view)
+  endif
 endfunction
 
 " session management
@@ -282,11 +282,11 @@ let g:session_autosave = "no"
 let g:session_command_aliases = 1
 " Allow MatchTagAlways to highlight JSX
 let g:mta_filetypes = {
-    \ 'html' : 1,
-    \ 'xhtml' : 1,
-    \ 'xml' : 1,
-    \ 'javascript.jsx' : 1,
-    \}
+      \ 'html' : 1,
+      \ 'xhtml' : 1,
+      \ 'xml' : 1,
+      \ 'javascript.jsx' : 1,
+      \}
 
 "user same colors for highlight as vim uses
 let g:mta_use_matchparen_group = 1
@@ -303,18 +303,18 @@ let g:startify_lists = [
       \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
       \ { 'type': 'commands',  'header': ['   Commands']       },
       \ ]
-  let g:startify_commands = [
-        \   { 'up': [ 'Update Plugins', ':PlugUpdate' ] },
-        \   { 'ug': [ 'Upgrade Plugin Manager', ':PlugUpgrade' ] },
-        \   { 'ch': [ 'check Health', ':checkhealth' ] },
-        \   { 'cc': [ 'coc Config', ':CocConfig' ] },
-        \ ]
+let g:startify_commands = [
+      \   { 'up': [ 'Update Plugins', ':PlugUpdate' ] },
+      \   { 'ug': [ 'Upgrade Plugin Manager', ':PlugUpgrade' ] },
+      \   { 'ch': [ 'check Health', ':checkhealth' ] },
+      \   { 'cc': [ 'coc Config', ':CocConfig' ] },
+      \ ]
 
-        let g:startify_bookmarks = [
-            \ { 'c': '~/.config/nvim/init.vim' },
-            \ { 'g': '~/.gitconfig' },
-            \ { 'z': '~/.zshrc' }
-        \ ]
+let g:startify_bookmarks = [
+      \ { 'c': '~/.config/nvim/init.vim' },
+      \ { 'g': '~/.gitconfig' },
+      \ { 'z': '~/.zshrc' }
+      \ ]
 " save file mappings
 " Iterm2 key bindings set cmd-s Send Text with 'vim' Special Chars to \<C-S>
 noremap  <silent><C-S> :update<CR>
@@ -546,9 +546,9 @@ let g:gutentags_cache_dir = $HOME .'/.cache/guten_tags'
 let g:gutentags_exclude_project_root = ['/usr/local', $HOME]
 "let g:gitroot = substitute(system('git rev-parse --show-toplevel'), '[\n\r]', '', 'g')
 "if g:gitroot !=# ''
-  "let g:gutentags_cache_dir = g:gitroot .'/.git/tags'
+"let g:gutentags_cache_dir = g:gitroot .'/.git/tags'
 "else
-  "let g:gutentags_cache_dir = $HOME .'/.cache/guten_tags'
+"let g:gutentags_cache_dir = $HOME .'/.cache/guten_tags'
 "endif
 let g:gutentags_file_list_command = {
       \ 'markers': {
@@ -641,15 +641,15 @@ let g:vimwiki_global_ext = 0 " make sure vimwiki doesn't own all .md files
 au FileType vimwiki setlocal shiftwidth=6 tabstop=6 noexpandtab
 command! Diary VimwikiDiaryIndex
 augroup vimwikigroup
-    autocmd!
-    " automatically update links on read diary
-    autocmd BufRead,BufNewFile diary.wiki VimwikiDiaryGenerateLinks
+  autocmd!
+  " automatically update links on read diary
+  autocmd BufRead,BufNewFile diary.wiki VimwikiDiaryGenerateLinks
 augroup end
 
 let g:vimwiki_ext2syntax = {'.md': 'markdown',
-                  \ '.mkd': 'markdown',
-                  \ '.mdown': 'markdown',
-                  \ '.markdown': 'markdown'}
+      \ '.mkd': 'markdown',
+      \ '.mdown': 'markdown',
+      \ '.markdown': 'markdown'}
 
 let g:org_todo_keywords = [['TODO(t)', '|', 'DONE(d)'],
       \ ['REPORT(r)', 'BUG(b)', 'KNOWNCAUSE(k)', '|', 'FIXED(f)'],
@@ -664,11 +664,13 @@ nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <silent> <leader>k <cmd>lua vim.lsp.buf.signature_help()<CR>
 nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
 nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
-autocmd CursorHold * silent! :lua require'util'.show_line_diagnostics()
+
+"autocmd CursorHold * silent! :lua require'util'.show_line_diagnostics()
+
 let g:diagnostic_enable_virtual_text = 1
 let g:diagnostic_auto_popup_while_jump = 1
 let g:LspDiagnosticsErrorSign='•'
@@ -676,7 +678,7 @@ let g:LspDiagnosticsWarningSign='•'
 let g:LspDiagnosticsInformationSign='•'
 let g:LspDiagnosticsHintSign='•'
 let g:diagnostic_show_sign = 1
-/*autocmd CursorHold * silent! :lua require'util'.show_line_diagnostics()*/
+autocmd CursorHold * silent! :lua require'util'.show_line_diagnostics()
 " Deoplete ------------------------------------------------------------------{{{
 
 " enable deoplete
@@ -709,7 +711,6 @@ function! Preview_func()
 endfunction
 autocmd WinEnter * call Preview_func()
 " Snipppets deoppet-----------------------------------------------------------------{{{
-
 imap <C-z>  <Plug>(deoppet_expand)
 imap <C-f>  <Plug>(deoppet_jump_forward)
 imap <C-b>  <Plug>(deoppet_jump_backward)
