@@ -85,7 +85,7 @@ autocmd TermOpen * setlocal nonumber norelativenumber
 set softtabstop=2"
 " vim wiki requirement
 set nocompatible
-filetype plugin off
+filetype plugin on
 syntax on
 "Enable syntax highlighting and set colorscheme
 syntax enable
@@ -564,7 +564,6 @@ let g:LspDiagnosticsWarningSign='•'
 let g:LspDiagnosticsInformationSign='•'
 let g:LspDiagnosticsHintSign='•'
 let g:diagnostic_show_sign = 1
-autocmd CursorHold * silent! :lua require'util'.show_line_diagnostics()
 " Deoplete ------------------------------------------------------------------{{{
 
 " enable deoplete
