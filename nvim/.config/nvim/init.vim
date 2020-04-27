@@ -3,11 +3,34 @@ source ~/.config/nvim/plugins.vim
 " Luego de esta línea puedes agregar tus configuraciones y mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Hide pointless junk at the bottom, doesn't work in .vimrc for some reason?
-:set laststatus=0
+set laststatus=2
+set wrap linebreak nolist
+set hidden
 " i'm not agains the mouse, enable it in all modes
-:set mouse=a
-:set noshowmode "don't show --INSERT--
-:set noruler "don't show line numbers/column/% junk
+set mouse=a
+set noshowmode "don't show --INSERT--
+set noruler "don't show line numbers/column/% junk
+set hidden
+" Line numbers
+set number
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Keep the error column always visible (jumpy when linter runs on input)
+set signcolumn=yes
+" Indent using spaces instead of tabs
+set expandtab
+" The number of spaces to use for each indent
+set shiftwidth=2
+" split new panels down and below
+set splitbelow
+set splitright
+"Number of spaces to use for a <Tab> during editing operations
+set softtabstop=2"
+" vim wiki requirement
+set nocompatible
+"tell neovim that the background is dark
+set background=dark
+" tema y apariencia
+set termguicolors  " Activa true colors en la terminal
 " indent line overwrite conceal from user :(
 let g:indentLine_concealcursor = 'nc'
 let g:indentLine_conceallevel = 2
@@ -18,12 +41,12 @@ let g:vim_jsx_pretty_highlight_close_tag = 1
 let g:vim_jsx_pretty_colorful_config = 1 " default 0
 
 " guicolors styles for every mode
-:set termguicolors
+set termguicolors
 set cursorline        " highlight current line
 "set cursorcolumn      " highlight current column
 :hi Cursor guifg=green guibg=green
 :hi Cursor2 guifg=red guibg=red
-:set guicursor=n-v-c:block-Cursor/lCursor,i-ci-ve:ver25-Cursor2/lCursor2,r-cr:hor20,o:hor50
+set guicursor=n-v-c:block-Cursor/lCursor,i-ci-ve:ver25-Cursor2/lCursor2,r-cr:hor20,o:hor50
 
 " Vim >=8.0 or Neovim >= 0.1.5
 if (has("termguicolors"))
@@ -32,35 +55,16 @@ if (has("termguicolors"))
   set termguicolors
 endif
 "no swap files in vim they are annoying
-set noswapfile 
 "vimR only configurations
 if has("gui_vimr")
   " Font for vimR
 endif
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Keep the error column always visible (jumpy when linter runs on input)
-:set signcolumn=yes
-
-" Indent using spaces instead of tabs
-set expandtab
 
 " vim indent line
 let g:indentLine_enabled = 1
 let g:indentLine_faster = 1
 "let g:indentLine_char_list = ['|', '¦', '┆', '┊']
-
-" The number of spaces to use for each indent
-set shiftwidth=2
-
-" Line numbers
-:set number
-
-" Don't wrap lines
-:set nowrap
-" split new panels down and below
-:set splitbelow
-:set splitright
 
 " set a map leader for more key combos
 let mapleader = " "
@@ -72,10 +76,6 @@ nmap <leader>te :tabnew term://zsh<CR>I
 " no mostrar numeros de linea cuando se abre una terminal :O :O
 autocmd TermOpen * setlocal nonumber norelativenumber
 
-"Number of spaces to use for a <Tab> during editing operations
-set softtabstop=2"
-" vim wiki requirement
-set nocompatible
 filetype plugin on
 " Themes, Commands, etc  ----------------------------------------------------{{{
 syntax on
@@ -94,10 +94,6 @@ endfunction
 autocmd ColorScheme * call SetItalics()
 "Enable syntax highlighting and set colorscheme
 syntax enable
-"tell neovim that the background is dark
-set background=dark
-" tema y apariencia 
-set termguicolors  " Activa true colors en la terminal
 "OceanicNext color scheme
 let g:one_allow_italics = 1
 let g:oceanic_next_terminal_bold = 1
