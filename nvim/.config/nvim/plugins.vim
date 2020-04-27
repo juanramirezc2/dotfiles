@@ -68,6 +68,7 @@ call dein#add('ryanoasis/vim-devicons') " vim will become visual studio
 call dein#add('tiagofumo/vim-nerdtree-syntax-highlight')  " needed for devicons
 " themes
 call dein#add('morhetz/gruvbox')
+call dein#add('mhartington/oceanic-next')
 "" vim prettier
 call dein#add('sbdchd/neoformat')  " formatting code
 if dein#check_install()

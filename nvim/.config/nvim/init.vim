@@ -94,13 +94,13 @@ set background=dark
 " tema y apariencia 
 set termguicolors  " Activa true colors en la terminal
 "OceanicNext color scheme
-"let g:oceanic_next_terminal_bold = 1
-"let g:oceanic_next_terminal_italic = 1
-"colorscheme OceanicNext
-"let g:airline_theme='oceanicnext'
-let g:gruvbox_transparent_bg=1
-let g:gruvbox_italic=1
-colorscheme gruvbox
+let g:oceanic_next_terminal_bold = 1
+let g:oceanic_next_terminal_italic = 1
+colorscheme OceanicNext
+let g:airline_theme='oceanicnext'
+"let g:gruvbox_transparent_bg=1
+"let g:gruvbox_italic=1
+"colorscheme gruvbox
 "
 " NerdTree Refresh Root crashes with my <S-R> command for moving between tags
 let NERDTreeMapRefreshRoot='r'
@@ -486,15 +486,6 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 nmap <leader>sw :StripWhitespace<CR>
 
 autocmd TabLeave *NERD_tree* :wincmd w
-"
-" Highlight the active window even play nice with tmux splits
-"
-hi ActiveWindow ctermbg=00 | hi InactiveWindow ctermbg=235
-set winhighlight=Normal:ActiveWindow,NormalNC:InactiveWindow
-
-au VimEnter,WinEnter,BufEnter,BufWinEnter,FocusGained * hi ActiveWindow guibg=NONE | hi InactiveWindow guibg=#212121
-au VimLeave,WinLeave,BufLeave,BufWinLeave,FocusLost * hi ActiveWindow guibg=#212121 | hi InactiveWindow guibg=#212121
-
 "thyme pomodoro timer commands
 nmap <leader>t :!thyme -d<cr>
 nmap <leader>ts :!thyme -s<cr>
