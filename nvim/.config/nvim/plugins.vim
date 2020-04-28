@@ -8,12 +8,7 @@ call plug#begin('~/.vim/plugged')
 "startup and sessions managers
 Plug 'mhinz/vim-startify' "bellisima y magnifica primera pantalla para vim
 "code auto completers and helpers
-Plug 'Shougo/deoplete.nvim' "Dark powered asynchronous completion framework for neovim/Vim8
-Plug 'Shougo/deoplete-lsp' "LSP Completion source for deoplete
-Plug 'fszymanski/deoplete-emoji'
-Plug 'Shougo/echodoc.vim'
-Plug 'neovim/nvim-lsp' " lsp config for neovim lsp client
-Plug 'haorenW1025/diagnostic-nvim' " lsp config for neovim lsp client
+Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'jceb/vim-orgmode' "Org mode in vim
 Plug 'scrooloose/nerdcommenter' " comment lines of code using this plugin
 Plug 'alvan/vim-closetag' "Auto close (X)HTML tags
@@ -40,7 +35,6 @@ Plug 'jiangmiao/auto-pairs'  " automaticamente cierra comillas o llaves
 " syntax files
 Plug 'sheerun/vim-polyglot'  " syntax hightlight for multiple languages
 "" vim snnipets
-Plugin 'SirVer/ultisnips'
 Plug 'epilande/vim-es2015-snippets'  " Custom ultisnippets for ES2015 and vim
 Plug 'epilande/vim-react-snippets'  "Custom ultisnippets for react and vim
 " Custom vim Text Objects
