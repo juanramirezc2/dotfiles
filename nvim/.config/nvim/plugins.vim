@@ -5,6 +5,8 @@
 " - For Neovim: stdpath('data') . '/plugged'
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/plugged')
+"startup and sessions managers
+Plug 'mhinz/vim-startify' "bellisima y magnifica primera pantalla para vim
 "code auto completers and helpers
 Plug 'Shougo/deoplete.nvim' "Dark powered asynchronous completion framework for neovim/Vim8
 Plug 'Shougo/deoplete-lsp' "LSP Completion source for deoplete
@@ -16,8 +18,6 @@ Plug 'jceb/vim-orgmode' "Org mode in vim
 Plug 'scrooloose/nerdcommenter' " comment lines of code using this plugin
 Plug 'alvan/vim-closetag' "Auto close (X)HTML tags
 Plug 'tpope/vim-surround' "surround plugin
-"startup and sessions managers
-Plug 'mhinz/vim-startify' "bellisima y magnifica primera pantalla para vim
 "Moving arround
 Plug 'easymotion/vim-easymotion' "movamonos un poco mas rapidin con este easymotion
 Plug 'yuttie/comfortable-motion.vim' " smooth motions and avoid get losed scrolling
@@ -38,11 +38,9 @@ Plug 'tpope/vim-fugitive'  " git on vim
 Plug 'xuyuanp/nerdtree-git-plugin'  "nerd tree git status
 Plug 'jiangmiao/auto-pairs'  " automaticamente cierra comillas o llaves
 " syntax files
-"
 Plug 'sheerun/vim-polyglot'  " syntax hightlight for multiple languages
 "" vim snnipets
-Plug 'Shougo/neosnippet.vim'  "Neo snippets from the dark
-Plug 'Shougo/neosnippet-snippets'  "The standard snippets repository for neosnippet
+Plugin 'SirVer/ultisnips'
 Plug 'epilande/vim-es2015-snippets'  " Custom ultisnippets for ES2015 and vim
 Plug 'epilande/vim-react-snippets'  "Custom ultisnippets for react and vim
 " Custom vim Text Objects
@@ -56,7 +54,6 @@ Plug 'ntpeters/vim-better-whitespace'  "Vim Better Whitespace Plugin
 Plug 'machakann/vim-highlightedyank'  "highlight yanked text
 Plug 'vimwiki/vimwiki'  "VimWiki is a personal wiki for Vim -- a number of linked text files that have their own syntax highlighting.
 " file icons
-"
 Plug 'rhysd/clever-f.vim'  "Extended f, F, t and T key mappings for Vim.
 Plug 'junegunn/vim-easy-align'  "A Vim alignment plugin
 Plug 'ryanoasis/vim-devicons'  " vim will become visual studio
@@ -66,5 +63,7 @@ Plug 'morhetz/gruvbox'
 Plug 'mhartington/oceanic-next'
 "" vim prettier
 Plug 'sbdchd/neoformat'
+" others 
+Plug 'mg979/vim-visual-multi', { 'branch': 'master' }
 " Initialize plugin system
 call plug#end()

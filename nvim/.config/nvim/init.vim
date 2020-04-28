@@ -199,7 +199,7 @@ let g:airline_section_x = '%y'
 let g:airline_section_y = "%{fnamemodify(getcwd(), ':t')}"
 let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
 let g:airline_skip_empty_sections = 1
-"only display the filename in airline status 
+"only display the filename in airline status
 let g:airline_section_c = '%t'
 
 let g:airline_mode_map = {
@@ -243,7 +243,7 @@ set noshowmode  " No mostrar el modo actual (ya lo muestra la barra de estado)
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" fugitive git mappings 
+" fugitive git mappings
 nnoremap <silent><leader>gs :Gstatus<CR>
 nnoremap <leader>gd :Gdiff<CR>
 nnoremap <leader>gw :Gwrite<CR>
@@ -334,7 +334,7 @@ vnoremap <silent> <C-k> :call comfortable_motion#flick(g:comfortable_motion_impu
 inoremap jk <Esc>
 cnoremap jk <C-c>
 
-" maximum lenght of characters displayed in a git diff 
+" maximum lenght of characters displayed in a git diff
 highlight ColorColumn ctermbg=gray
 set colorcolumn=125
 " inc search plugin mappings
@@ -567,50 +567,14 @@ call deoplete#custom#option({
 call deoplete#custom#option('ignore_sources', {'_': ['buffer', 'around', 'member', 'omni']})
 let g:echodoc_enable_at_startup=1
 let g:echodoc#type="virtual"
-set splitbelow
-set completeopt+=menuone,noinsert,noselect
-set completeopt-=preview
-autocmd CompleteDone * pclose
+" snippets
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
-function g:Multiple_cursors_before()
-  call deoplete#custom#buffer_option('auto_complete', v:false)
-endfunction
-function g:Multiple_cursors_after()
-  call deoplete#custom#buffer_option('auto_complete', v:true)
-endfunction
-
-let g:deoplete#file#enable_buffer_path=1
-function! Preview_func()
-  if &pvw
-    setlocal nonumber norelativenumber
-  endif
-endfunction
-autocmd WinEnter * call Preview_func()
-" Snipppets -----------------------------------------------------------------{{{
-
-" Enable snipMate compatibility feature.
-  let g:neosnippet#enable_completed_snippet=0
-  let g:neosnippet#enable_snipmate_compatibility=0
-  " let g:neosnippet#enable_conceal_markers=0
-  " let g:neosnippet#expand_word_boundary = 1
-  imap <C-e>     <Plug>(neosnippet_expand_or_jump)
-  smap <C-e>     <Plug>(neosnippet_expand_or_jump)
-  xmap <C-e>     <Plug>(neosnippet_expand_target)
-
-" " SuperTab like snippets behavior.
-"   imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-"   \ "\<Plug>(neosnippet_expand_or_jump)"
-"   \: pumvisible() ? "\<C-n>" : "\<TAB>"
-"   smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-"   \ "\<Plug>(neosnippet_expand_or_jump)"
-"   \: "\<TAB>"
-"
-let g:neosnippet#snippets_directory= [globpath(&runtimepath, 'neosnippets', 1, 1), globpath(&runtimepath, 'UltiSnips', 1, 1)]
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-
-"}}}
-
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
 " buffer mappings
 map ]q :cnext<CR>
 map [q :cprevious<CR>
@@ -618,3 +582,7 @@ map <leader><tab> :bn<CR>
 map <leader><S-tab> :bp<CR>
 map ]t :tabnext<CR>
 map [t :tabprevious<CR>
+" MultiCursor ---------------------------------------------------------------{{{
+let g:multi_cursor_exit_from_visual_mode=0
+let g:multi_cursor_exit_from_insert_mode=0
+"}}}
