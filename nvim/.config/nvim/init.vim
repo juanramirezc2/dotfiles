@@ -120,7 +120,7 @@ map j gj
 map k gk
 
 " abrir vim.init en un ventana nueva love it
-nnoremap <leader>vr :tabnew $MYVIMRC<CR>
+nnoremap <leader>vr :e $MYVIMRC<CR>
 
 " Usar <líder> + y para copiar al portapapeles
 vnoremap <leader>c "+y
@@ -668,7 +668,7 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 " Do default action for previous item.
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
-nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+nnoremap <silent> <space>ll  :<C-u>CocListResume<CR>
 "}}}
 "
 " buffer mappings

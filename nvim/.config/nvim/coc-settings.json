@@ -11,6 +11,18 @@
   ],
   "eslint.options": {
     "extends": "standard",
+    "parserOptions": {
+      "ecmaVersion": 6,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    },
+    "env": {
+      "es6": true,
+      "browser": true,
+      "node": true
+    },
     "rules": {
       "semi": 0,
       "space-before-blocks": 0,

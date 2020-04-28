@@ -8,7 +8,7 @@ call plug#begin('~/.vim/plugged')
 "startup and sessions managers
 Plug 'mhinz/vim-startify' "bellisima y magnifica primera pantalla para vim
 "code auto completers and helpers
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'jceb/vim-orgmode' "Org mode in vim
 Plug 'scrooloose/nerdcommenter' " comment lines of code using this plugin
 Plug 'alvan/vim-closetag' "Auto close (X)HTML tags
