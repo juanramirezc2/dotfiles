@@ -6,6 +6,7 @@ source ~/.config/nvim/plugins.vim
 set laststatus=2
 set wrap linebreak nolist
 set hidden
+set clipboard+=unnamedplus
 " i'm not agains the mouse, enable it in all modes
 set mouse=a
 set noshowmode "don't show --INSERT--
@@ -591,11 +592,10 @@ autocmd WinEnter * call Preview_func()
   let g:neosnippet#enable_completed_snippet=0
   let g:neosnippet#enable_snipmate_compatibility=0
   " let g:neosnippet#enable_conceal_markers=0
-  let g:neosnippet#snippets_directory='~/GitHub/ionic-snippets'
   " let g:neosnippet#expand_word_boundary = 1
-  imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-  smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-  xmap <C-k>     <Plug>(neosnippet_expand_target)
+  imap <C-e>     <Plug>(neosnippet_expand_or_jump)
+  smap <C-e>     <Plug>(neosnippet_expand_or_jump)
+  xmap <C-e>     <Plug>(neosnippet_expand_target)
 
 " " SuperTab like snippets behavior.
 "   imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
@@ -605,6 +605,7 @@ autocmd WinEnter * call Preview_func()
 "   \ "\<Plug>(neosnippet_expand_or_jump)"
 "   \: "\<TAB>"
 "
+let g:neosnippet#snippets_directory= [globpath(&runtimepath, 'neosnippets', 1, 1), globpath(&runtimepath, 'UltiSnips', 1, 1)]
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
