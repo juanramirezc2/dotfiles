@@ -529,7 +529,15 @@ let g:org_todo_keywords = [['TODO(t)', '|', 'DONE(d)'],
       \ ['CANCELED(c)']]
 
 " COC CONQUER OF COMPLETION----------------------------------------------------------------------{{{
-call coc#add_extension('coc-json', 'coc-tsserver', 'coc-css' ,'coc-html','coc-emmet', 'coc-eslint', 'coc-snippets','coc-todolist','coc-tailwindcss')
+call coc#add_extension('coc-json',
+      \'coc-tsserver',
+      \'coc-css',
+      \'coc-html',
+      \'coc-emmet',
+      \'coc-eslint',
+      \'coc-snippets',
+      \'coc-todolist',
+      \'coc-tailwindcss')
 " TextEdit might fail if hidden is not set.
 set hidden
 
@@ -680,7 +688,14 @@ map <leader><tab> :bn<CR>
 map <leader><S-tab> :bp<CR>
 map ]t :tabnext<CR>
 map [t :tabprevious<CR>
-" MultiCursor ---------------------------------------------------------------{{{
-let g:multi_cursor_exit_from_visual_mode=0
-let g:multi_cursor_exit_from_insert_mode=0
-"}}}
+" Code formatting -----------------------------------------------------------{{{
+
+" ,f to format code, requires formatters: read the docs
+"
+noremap <silent> <leader>f :Neoformat<CR>
+let g:standard_prettier_settings = {
+      \ 'exe': 'prettier',
+      \ 'args': ['--stdin', '--stdin-filepath', '%:p', '--single-quote'],
+      \ 'stdin': 1,
+      \ }
+" }}}
