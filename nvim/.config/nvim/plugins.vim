@@ -24,6 +24,7 @@ Plug 'vim-airline/vim-airline' " indent guides lines let's see how they goes
 Plug 'vim-airline/vim-airline-themes'  " indent guides lines let's see how they goes
 "File browsers
 Plug 'Shougo/denite.nvim'  "Denite is a dark powered plugin for Neovim/Vim to unite all interfaces.
+Plug 'Shougo/neomru.vim' " MRU plugin includes unite.vim/denite.nvim MRU sources Most Recent Used
 Plug 'raghur/fruzzy', {'do': { -> fruzzy#install()}} "Freaky fast fuzzy Denite/CtrlP matcher for vim/neovim
 Plug 'scrooloose/nerdtree'  "proyect tree and structure
 "Git helpers
@@ -44,6 +45,8 @@ Plug 'wellle/targets.vim'  "Vim plugin that provides additional text objects
 Plug 'kana/vim-textobj-line'  "Text objects for the current line
 Plug 'kana/vim-textobj-entire'  "entire file as vim object
 " other plugins
+Plug 'rbgrouleff/bclose.vim' "The BClose Vim plugin for deleting a buffer without closing the window
+Plug 'maxbrunsfeld/vim-yankstack' "A lightweight implementation of emacs's kill-ring for vim
 Plug 'ntpeters/vim-better-whitespace'  "Vim Better Whitespace Plugin
 Plug 'machakann/vim-highlightedyank'  "highlight yanked text
 Plug 'vimwiki/vimwiki'  "VimWiki is a personal wiki for Vim -- a number of linked text files that have their own syntax highlighting.
@@ -57,7 +60,5 @@ Plug 'morhetz/gruvbox'
 Plug 'mhartington/oceanic-next'
 "" vim prettier
 Plug 'sbdchd/neoformat'
-" others 
-Plug 'mg979/vim-visual-multi', { 'branch': 'master' }
 " Initialize plugin system
 call plug#end()

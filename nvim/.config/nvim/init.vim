@@ -13,6 +13,8 @@ set noruler "don't show line numbers/column/% junk
 " Line numbers
 set number
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Set 7 lines to the cursor - when moving vertically using j/k
+set so=7
 " Indent using spaces instead of tabs
 set expandtab
 " The number of spaces to use for each indent
@@ -72,8 +74,21 @@ nmap <leader>te :tabnew term://zsh<CR>I
 
 " no mostrar numeros de linea cuando se abre una terminal :O :O
 autocmd TermOpen * setlocal nonumber norelativenumber
-
+" Enable filetype plugins
 filetype plugin on
+filetype indent on
+" Avoid garbled characters in Chinese language windows OS
+let $LANG='en' 
+set langmenu=en
+source $VIMRUNTIME/delmenu.vim
+source $VIMRUNTIME/menu.vim
+"Always show current position
+set ruler
+" Configure backspace so it acts as it should act
+set backspace=eol,start,indent
+set whichwrap+=<,>,h,l
+" For regular expressions turn magic on
+set magic
 " Themes, Commands, etc  ----------------------------------------------------{{{
 syntax on
 function SetItalics() abort
@@ -342,7 +357,7 @@ set hlsearch
 " interactive find replace preview
 set inccommand=nosplit
 " clear search with shift+enter
-nnoremap <leader><CR> :noh<CR>
+nnoremap <silent><leader><CR> :noh<CR>
 
 " ==== denite custom matcher ========""
 "" optional - but recommended - see below
@@ -358,10 +373,10 @@ call denite#custom#source('_', 'matchers', ['matcher/fruzzy'])
 "
 nnoremap ; :Denite -direction=topleft buffer<CR>
 nmap <leader>p :Denite -start-filter file/rec:.<CR>
-nmap <leader>o :Denite file/old:.<CR>
 nnoremap <leader>/ :<C-u>Denite -no-empty grep:.<CR>
 vnoremap <leader>/ y:<C-u>Denite -no-empty  grep:.::<C-R>=fnameescape(@")<CR><CR>
 nnoremap <leader>/w :<C-u>DeniteCursorWord grep:.<CR>
+nmap     <leader>do :Denite file/old:.<CR>
 nnoremap <leader>dp :Denite -resume -cursor-pos=-1 -immediately<CR>
 nnoremap <leader>dn :Denite -resume -cursor-pos=+1 -immediately<CR>
 nnoremap <leader>dl :Denite -resume -do='normal! A;'<CR>
@@ -643,8 +658,8 @@ omap af <Plug>(coc-funcobj-a)
 " Use <TAB> for selections ranges.
 " NOTE: Requires 'textDocument/selectionRange' support from the language server.
 " coc-tsserver, coc-python are the examples of servers that support it.
-nmap <silent> <C-r> <Plug>(coc-range-select)
-xmap <silent> <C-r> <Plug>(coc-range-select)
+nmap <silent> <C-s> <Plug>(coc-range-select)
+xmap <silent> <C-s> <Plug>(coc-range-select)
 
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocAction('format')
@@ -680,18 +695,30 @@ nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent> <space>ll  :<C-u>CocListResume<CR>
 "}}}
-"
-" buffer mappings
-map ]q :cnext<CR>
-map [q :cprevious<CR>
-map <leader><tab> :bn<CR>
-map <leader><S-tab> :bp<CR>
-map ]t :tabnext<CR>
-map [t :tabprevious<CR>
-" Code formatting -----------------------------------------------------------{{{
 
+"""""""""""""""""""""""""""""""
+" => YankStack
+""""""""""""""""""""""""""""""
+let g:yankstack_yank_keys = ['y', 'd']
+
+nmap <C-p> <Plug>yankstack_substitute_older_paste
+nmap <C-n> <Plug>yankstack_substitute_newer_paste
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Moving around, tabs, windows and buffers
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" buffer mappings
+" Close the current buffer
+map <leader>bd :Bclose<cr>:tabclose<cr>gT
+nnoremap <leader><tab> <C-^>;
+nnoremap <leader>l :bnext<cr>
+nnoremap <leader>h :bprevious<cr>
+" Close all the buffers
+map <leader>ba :bufdo bd<cr>
+" Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
+"map <space> /
+"map <C-space> ?
 " ,f to format code, requires formatters: read the docs
-"
+" Code formatting -----------------------------------------------------------{{{
 noremap <silent> <leader>f :Neoformat<CR>
 let g:standard_prettier_settings = {
       \ 'exe': 'prettier',
@@ -699,3 +726,17 @@ let g:standard_prettier_settings = {
       \ 'stdin': 1,
       \ }
 " }}}
+" EMACS BINDINGS in insert mode
+" " Mimic Emacs Line Editing in Insert Mode Only
+inoremap <C-A> <Home>
+inoremap <C-B> <Left>
+inoremap <C-E> <End>
+inoremap <C-F> <Right>
+" â is <Alt-B>
+inoremap â <C-Left>
+" æ is <Alt-F>
+inoremap æ <C-Right>
+inoremap <C-K> <Esc>lDa
+inoremap <C-U> <Esc>d0xi
+inoremap <C-Y> <Esc>Pa
+inoremap <C-X><C-S> <Esc>:w<CR>a
