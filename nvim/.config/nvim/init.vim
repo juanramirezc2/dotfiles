@@ -5,6 +5,8 @@ source ~/.config/nvim/plugins.vim
 " Hide pointless junk at the bottom, doesn't work in .vimrc for some reason?
 set laststatus=2
 set wrap linebreak nolist
+set ai "Auto indent
+set si "Smart indent
 set clipboard+=unnamedplus
 " i'm not agains the mouse, enable it in all modes
 set mouse=a
@@ -15,6 +17,8 @@ set number
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set 7 lines to the cursor - when moving vertically using j/k
 set so=7
+" Use Unix as the standard file type
+set ffs=unix,dos,mac
 " Indent using spaces instead of tabs
 set expandtab
 " The number of spaces to use for each indent
