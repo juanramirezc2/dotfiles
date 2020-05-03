@@ -329,22 +329,15 @@ nnoremap <expr> k (v:count > 4 ? "m'" . v:count : '') . 'k'
 nnoremap <expr> j (v:count > 4 ? "m'" . v:count : '') . 'j'
 
 " easy motions vertical movements
-nmap <leader>b <Plug>(easymotion-bd-b)
-nmap <leader>w <Plug>(easymotion-bd-w)
+nmap <leader>b <Plug>(easymotion-b)
+nmap <leader>w <Plug>(easymotion-w)
 nmap <leader>j <Plug>(easymotion-j)
 vmap <leader>j <Plug>(easymotion-j)
 nmap <leader>k <Plug>(easymotion-k)
 vmap <leader>k <Plug>(easymotion-k)
-let g:comfortable_motion_scroll_down_key = "j"
-let g:comfortable_motion_scroll_up_key = "k"
-let g:comfortable_motion_no_default_key_mappings = 1
-let g:comfortable_motion_impulse_multiplier = 100  " Feel free to increase/decrease this value.
-" scroll down and up half of the page smoothly
-nnoremap <silent> <C-j> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier  * 1)<CR>
-vnoremap <silent> <C-j> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier  * 1)<CR>
-nnoremap <silent> <C-k> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier  * -1)<CR>
-vnoremap <silent> <C-k> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier  * -1)<CR>
-
+"scrolling up and down mappings
+nnoremap <silent> <C-j> <c-d>
+nnoremap <silent> <C-k> <c-u>
 " jk | Escaping!
 inoremap jk <Esc>
 cnoremap jk <C-c>

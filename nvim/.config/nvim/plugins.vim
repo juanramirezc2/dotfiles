@@ -15,7 +15,6 @@ Plug 'alvan/vim-closetag' "Auto close (X)HTML tags
 Plug 'tpope/vim-surround' "surround plugin
 "Moving arround
 Plug 'easymotion/vim-easymotion' "movamonos un poco mas rapidin con este easymotion
-Plug 'yuttie/comfortable-motion.vim' " smooth motions and avoid get losed scrolling
 Plug 'andymass/vim-matchup' " drop-in replacement for the vim plugin matchit.vim
 Plug 'haya14busa/incsearch.vim' " Improved incremental searching for Vim
 "GUI customization
