@@ -34,9 +34,17 @@ set nocompatible
 set background=dark
 " tema y apariencia
 set termguicolors  " Activa true colors en la terminal
+"indent line ======= {{{
+" vim indent line
+let g:indentLine_enabled = 1
+let g:indentLine_faster = 1
 " indent line overwrite conceal from user :(
 let g:indentLine_concealcursor = 'nc'
 let g:indentLine_conceallevel = 2
+let g:indentLine_color_gui = '#343d46'
+"let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+ let g:indentLine_char="⎸"
+" }}}
 " avoid messi matchi load
 let g:loaded_matchit = 1
 
@@ -63,11 +71,6 @@ if has("gui_vimr")
   " Font for vimR
 endif
 
-
-" vim indent line
-let g:indentLine_enabled = 1
-let g:indentLine_faster = 1
-"let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 
 " set a map leader for more key combos
 let mapleader = " "
