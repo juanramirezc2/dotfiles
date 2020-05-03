@@ -32,9 +32,25 @@ Plug 'rhysd/git-messenger.vim'  "Neovim plugin to reveal the commit messages und
 Plug 'tpope/vim-fugitive'  " git on vim
 Plug 'xuyuanp/nerdtree-git-plugin'  "nerd tree git status
 Plug 'jiangmiao/auto-pairs'  " automaticamente cierra comillas o llaves
-" syntax files
-Plug 'sheerun/vim-polyglot'  " syntax hightlight for multiple languages
-"" vim snnipets
+" syntax highlighting files {{{
+"javascript
+Plug 'othree/yajs.vim', { 'for': [ 'javascript', 'javascript.jsx', 'html' ] }
+Plug 'moll/vim-node', { 'for': 'javascript' }
+Plug 'MaxMEllon/vim-jsx-pretty'
+Plug 'heavenshell/vim-jsdoc'
+Plug 'elzr/vim-json'
+" html
+Plug 'othree/html5.vim', { 'for': 'html' }
+" css
+Plug 'groenewege/vim-less', { 'for': 'less' }
+Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
+Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
+" TypeScript
+Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'typescript.tsx'] }
+" markdown
+Plug 'tpope/vim-markdown', { 'for': 'markdown' }
+"}}}
+" ultisnips snippets
 Plug 'epilande/vim-es2015-snippets'  " Custom ultisnippets for ES2015 and vim
 Plug 'epilande/vim-react-snippets'  "Custom ultisnippets for react and vim
 " Custom vim Text Objects

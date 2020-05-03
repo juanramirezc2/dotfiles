@@ -119,6 +119,7 @@ colorscheme OceanicNext
 "let g:gruvbox_italic=1
 "colorscheme gruvbox
 "}}}
+let g:vim_jsx_pretty_highlight_close_tag = 1
 " NerdTree Refresh Root crashes with my <S-R> command for moving between tags
 let NERDTreeMapRefreshRoot='r'
 let NERDTreeMapActivateNode='l'
@@ -543,9 +544,9 @@ let g:org_todo_keywords = [['TODO(t)', '|', 'DONE(d)'],
 " COC CONQUER OF COMPLETION----------------------------------------------------------------------{{{
 call coc#add_extension('coc-json',
       \'coc-tsserver',
+      \'coc-emmet',
       \'coc-css',
       \'coc-html',
-      \'coc-emmet',
       \'coc-eslint',
       \'coc-snippets',
       \'coc-todolist',
