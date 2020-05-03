@@ -37,7 +37,7 @@
   "coc.preferences.extensionUpdateCheck": "daily",
   "emmet.extensionsPath": "~/.config/nvim/emmet_custom",
   "emmet.showExpandedAbbreviation": "always",
-  "emmet.showSuggestionsAsSnippets": true,
+  "emmet.showSuggestionsAsSnippets": false,
   "emmet.optimizeStylesheetParsing": false,
   "emmet.includeLanguages": {
     "liquid": "html",
