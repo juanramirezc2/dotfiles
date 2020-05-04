@@ -39,7 +39,7 @@ set termguicolors  " Activa true colors en la terminal
 let g:indentLine_enabled = 1
 let g:indentLine_faster = 1
 " indent line overwrite conceal from user :(
-let g:indentLine_concealcursor = 'c'
+let g:indentLine_concealcursor = 'nc'
 let g:indentLine_conceallevel = 2
 let g:indentLine_color_gui = '#343d46'
 "let g:indentLine_char_list = ['|', '¦', '┆', '┊']
@@ -318,6 +318,7 @@ let g:startify_bookmarks = [
       \ { 'g': '~/.gitconfig' },
       \ { 'z': '~/.zshrc' }
       \ ]
+nmap <leader>st :Startify<cr>
 " vim jumps mappings are counterintuirive
 nmap <C-G> <S-G>
 vnoremap <C-G> <S-G>
@@ -377,7 +378,7 @@ nmap <leader>p :Denite -start-filter file/rec:.<CR>
 nnoremap <leader>/ :<C-u>Denite -no-empty grep:.<CR>
 vnoremap <leader>/ y:<C-u>Denite -no-empty  grep:.::<C-R>=fnameescape(@")<CR><CR>
 nnoremap <leader>/w :<C-u>DeniteCursorWord grep:.<CR>
-nmap     <leader>do :Denite file/old:.<CR>
+nmap     <leader>dm :Denite file_mru<CR>
 nnoremap <leader>dp :Denite -resume -cursor-pos=-1 -immediately<CR>
 nnoremap <leader>dn :Denite -resume -cursor-pos=+1 -immediately<CR>
 nnoremap <leader>dl :Denite -resume -do='normal! A;'<CR>
@@ -396,7 +397,7 @@ call denite#custom#var('file/rec', 'command', ['ag', '--follow', '--nocolor', '-
 " narrow by tail path instead of full path in file/rec source.
 call denite#custom#source('file/rec', 'matchers', ['converter/tail_path', 'matcher/fuzzy'])
 " narrow by tail path instead of full path in file/old source.
-call denite#custom#source('file/old', 'matchers', ['converter/tail_path', 'matcher/fuzzy'])
+call denite#custom#source('file_mru', 'matchers', ['matcher_project_files', 'matcher_fuzzy'])
 " Ag command on grep source
 call denite#custom#var('grep', 'command', ['ag', '--follow', '--nocolor', '--nogroup','--path-to-ignore',$HOME.'/.ignore'])
 call denite#custom#var('grep', 'default_opts', ['-i', '--vimgrep'])
