@@ -39,7 +39,7 @@ set termguicolors  " Activa true colors en la terminal
 let g:indentLine_enabled = 1
 let g:indentLine_faster = 1
 " indent line overwrite conceal from user :(
-let g:indentLine_concealcursor = 'nc'
+let g:indentLine_concealcursor = 'c'
 let g:indentLine_conceallevel = 2
 let g:indentLine_color_gui = '#343d46'
 "let g:indentLine_char_list = ['|', '¦', '┆', '┊']
