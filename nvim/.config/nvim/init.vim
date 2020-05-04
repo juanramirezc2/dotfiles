@@ -343,6 +343,9 @@ vmap <leader>k <Plug>(easymotion-k)
 "scrolling up and down mappings
 nnoremap <silent> <C-j> <c-d>
 nnoremap <silent> <C-k> <c-u>
+vnoremap <silent> <C-j> <c-d>
+vnoremap <silent> <C-k> <c-u>
+
 " jk | Escaping!
 inoremap jk <Esc>
 cnoremap jk <C-c>
@@ -691,9 +694,9 @@ nnoremap <silent> <space>o  :<C-u>CocList --normal outline<cr>
 " Search workspace symbols.
 nnoremap <silent> <space>s  :<C-u>CocList --normal -I symbols<cr>
 " Do default action for next item.
-nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+nnoremap <silent> <space>n  :<C-u>CocNext<CR>
 " Do default action for previous item.
-nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+nnoremap <silent> <space>p  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent> <space>ll  :<C-u>CocListResume<CR>
 "}}}
