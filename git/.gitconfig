@@ -24,6 +24,8 @@
   added = yellow
   changed = green
   untracked = cyan
+[pull]
+    rebase = true
 [core]
     excludesfile = ~/.gitignore_global
     pager = less -FXRS -x2
