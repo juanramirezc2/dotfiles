@@ -259,8 +259,6 @@ let g:airline#extensions#tabline#buffer_idx_format = {
 "it seems that powerline fonts need this
 set t_Co=256
 set noshowmode  " No mostrar el modo actual (ya lo muestra la barra de estado)
-
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " fugitive git mappings
 nnoremap <silent><leader>gs :Gstatus<CR>
@@ -354,9 +352,9 @@ cnoremap jk <C-c>
 highlight ColorColumn ctermbg=gray
 set colorcolumn=125
 " inc search plugin mappings
-map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
+"map /  <Plug>(incsearch-forward)
+"map ?  <Plug>(incsearch-backward)
+"map g/ <Plug>(incsearch-stay)
 " :h g:incsearch#auto_nohlsearch
 set hlsearch
 " interactive find replace preview
@@ -518,9 +516,10 @@ nmap <silent> <C-c> <Plug>(coc-cursors-position)
 nmap <leader>x  <Plug>(coc-cursors-operator)
 vmap <leader>r :CocCommand document.renameCurrentWord<CR>
 nmap <leader>r <Plug>(coc-refactor)
-vmap <silent> <C-d> <Plug>(coc-cursors-range)
-vnoremap <silent> <C-d> y/\V<C-r>=escape(@",'/\')<CR><CR><Plug>(coc-cursors-range)<CR>gn
-nmap <expr> <silent> <C-d> <SID>select_current_word()
+"vmap <silent> <C-d> <Plug>(coc-cursors-range)
+nmap <silent> <C-d> <Plug>(coc-cursors-word)*
+xmap <silent> <C-d> y/\V<C-r>=escape(@",'/\')<CR><CR>gN<Plug>(coc-cursors-range)gn
+nmap <expr> <silent> <C-w> <SID>select_current_word()
 
 function! s:select_current_word()
   if !get(g:, 'coc_cursors_activated', 0)
