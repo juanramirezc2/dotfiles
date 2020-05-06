@@ -97,6 +97,27 @@ set whichwrap+=<,>,h,l
 " For regular expressions turn magic on
 set magic
 " Themes, Commands, etc  ----------------------------------------------------{{{
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Random color schemes!
+function RandomColorScheme()
+  let mycolors = split(globpath(&rtp,"**/colors/*.vim"),"\n")
+  exe 'so ' . mycolors[localtime() % len(mycolors)]
+  unlet mycolors
+endfunction
+:command NewColor call RandomColorScheme()
+
+function RandomBase16()
+  let mycolors = split(globpath(&rtp,"**/colors/base16*.vim"),"\n")
+  exe 'so ' . mycolors[localtime() % len(mycolors)]
+  unlet mycolors
+endfunction
+
+:command C call RandomBase16()
+
+ "Start new windows with a random color scheme
+call RandomBase16()
+
 syntax on
 function SetItalics() abort
   hi Comment gui=italic
@@ -117,9 +138,9 @@ syntax enable
 let g:one_allow_italics = 1
 let g:oceanic_next_terminal_bold = 1
 let g:oceanic_next_terminal_italic = 1
-colorscheme OceanicNext
-"let g:gruvbox_transparent_bg=1
-"let g:gruvbox_italic=1
+"colorscheme OceanicNext
+let g:gruvbox_transparent_bg=1
+let g:gruvbox_italic=1
 "colorscheme gruvbox
 "}}}
 let g:vim_jsx_pretty_highlight_close_tag = 1
@@ -196,7 +217,7 @@ endif
 " vim-airline ---------------------------------------------------------------{{{
 " terminal emulator exit
 let g:airline_extensions = ['branch','hunks','coc','denite','tabline']
-let g:airline_theme='oceanicnext'
+"let g:airline_theme='oceanicnext'
 
 " Cargar fuente Powerline y símbolos (ver nota)
 let g:webdevicons_enable_airline_statusline = 1
@@ -383,6 +404,7 @@ nmap     <leader>dm :Denite file_mru<CR>
 nnoremap <leader>dp :Denite -resume -cursor-pos=-1 -immediately<CR>
 nnoremap <leader>dn :Denite -resume -cursor-pos=+1 -immediately<CR>
 nnoremap <leader>dl :Denite -resume -do='normal! A;'<CR>
+nmap     <leader>sc :Denite colorscheme<CR>
 
 call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
       \ [ '.git/', '.ropeproject/', '__pycache__/*', '*.pyc', 'node_modules/',
