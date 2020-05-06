@@ -604,10 +604,20 @@ set signcolumn=yes
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+
+" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<c-j>'
+
+" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<c-k>'
+
+inoremap <expr><C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
+inoremap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -752,17 +762,3 @@ let g:standard_prettier_settings = {
       \ 'stdin': 1,
       \ }
 " }}}
-" EMACS BINDINGS in insert mode
-" " Mimic Emacs Line Editing in Insert Mode Only
-inoremap <C-A> <Home>
-inoremap <C-B> <Left>
-inoremap <C-E> <End>
-inoremap <C-F> <Right>
-" â is <Alt-B>
-inoremap â <C-Left>
-" æ is <Alt-F>
-inoremap æ <C-Right>
-inoremap <C-K> <Esc>lDa
-inoremap <C-U> <Esc>d0xi
-inoremap <C-Y> <Esc>Pa
-inoremap <C-X><C-S> <Esc>:w<CR>a

@@ -56,5 +56,7 @@
   },
   "emmet.showAbbreviationSuggestions": true,
   "todolist.autoUpload": true,
-  "todolist.monitor": true
+  "todolist.monitor": true,
+  "tailwindCSS.trace.server": "verbose",
+  "tailwindCSS.emmetCompletions": true
 }
