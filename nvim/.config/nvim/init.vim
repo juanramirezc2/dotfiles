@@ -102,15 +102,15 @@ set magic
 " Random color schemes!
 function RandomColorScheme()
   let mycolors = split(globpath(&rtp,"**/colors/*.vim"),"\n")
-  exe 'so ' . mycolors[localtime() % len(mycolors)]
-  unlet mycolors
+  let colorsname = fnamemodify(mycolors[localtime() % len(mycolors)], ":t:r")
+  sil exe 'colorscheme ' . colorsname
 endfunction
 :command NewColor call RandomColorScheme()
 
 function RandomBase16()
   let mycolors = split(globpath(&rtp,"**/colors/base16*.vim"),"\n")
-  exe 'so ' . mycolors[localtime() % len(mycolors)]
-  unlet mycolors
+  let colorsname = fnamemodify(mycolors[localtime() % len(mycolors)], ":t:r")
+  sil exe 'colorscheme ' . colorsname
 endfunction
 
 :command C call RandomBase16()
