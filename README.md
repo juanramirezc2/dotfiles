@@ -21,11 +21,11 @@ brew cask install kitty
 ## file explorer 
 ranger is the file explorer that i used, is a vim based file explorer very flexible
 ```sh
-brew install ranger
+pip install ranger-fm
 ```
 ranger allow to preview image inside the console with the help of pillow python3 library
 ```sh
-pip3 install Pillow
+pip install pillow 
 ```
 ## (zsh) fuzzy files finder
 i use fzf for fuzzy find files, command history and more
