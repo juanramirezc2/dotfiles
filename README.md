@@ -13,17 +13,39 @@ $ cd ~/.dotfiles
 $ stow fish neovim tmux # plus whatever else you'd like
 $ stow * # if you want them all :O
 ```
-
-## allow terminal to access the clipboard
+## terminal emulators
+i use kitty term as my primary terminal emulator
+```sh
+brew cask install kitty
+```
+## file explorer 
+ranger is the file explorer that i used, is a vim based file explorer very flexible
+```sh
+brew install ranger
+```
+ranger allow to preview image inside the console with the help of pillow python3 library
+```sh
+pip3 install Pillow
+```
+## (zsh) fuzzy files finder
+i use fzf for fuzzy find files, command history and more
 
 ```sh
-$brew install pbcopy
+brew install fzf
 ```
 
-## install download fira code retina patched witn nerd fonts
+## ag the silver searcher
+ag is a tool similar to grep that let you find files recursively and find strings inside files some libraries in my dotfiles are configure to use it 
+by default (denite vim plugin, fzf)
 
 ```sh
-git clone --depth 1 https://github.com/ryanoasis/nerd-fonts && cd nerd-fonts && ./install.sh FiraCode
+brew install the_silver_searcher
+```
+## terminal multiplexor (tmux)
+i use tmux as a way to show multiple terminals in panels and tabs
+
+```sh
+brew install tmux
 ```
 
 ## oh my zsh
@@ -34,57 +56,19 @@ $ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/instal
 
 ### some zsh plugins
 
-zsh syntax highlighting
+* zsh syntax highlighting
 
 ```sh
-$ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 ```
 
-zsh autosuggestions
+* zsh autosuggestions
 
 ```sh
 git clone https://github.com/zsh-users/zsh-autosuggestions \${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
 ```
 
-## ag the silver searcher
-
-denite uses the silver searcher for searching into the source code
-
-```sh
-$brew install the_silver_searcher
-```
-
-## tmux
-
-```sh
-brew install tmux
-```
-
-## universal ctags needed by gutentags
-
-install ctags and use it as default local bin OSX has its own ctags package and sucks
-brew install ctags
-Afterwards, you may need to set the alias to the new version by running:
-
-```sh
-alias ctags="`brew --prefix`/bin/ctags"
-alias ctags >> ~/.zshrc
-```
-
-clone this .ctags file under `~/.ctags`
-
-```sh
-git clone https://github.com/romainl/ctags-patterns-for-javascript
-```
-
-echo "set tags=tags" >> ~/.vimrc
-ignore tags in local git repository using
-
-```sh
-$ echo "tags" >> .git/info/exclude
-```
 
 ## License
 
