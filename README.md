@@ -21,6 +21,9 @@ brew cask install kitty
 ## file explorer 
 ranger is the file explorer that i used, is a vim based file explorer very flexible
 ```sh
+brew install ranger
+```
+```sh
 pip install ranger-fm
 ```
 ranger allow to preview image inside the console with the help of pillow python3 library
