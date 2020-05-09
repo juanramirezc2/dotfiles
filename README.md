@@ -13,6 +13,14 @@ $ cd ~/.dotfiles
 $ stow fish neovim tmux # plus whatever else you'd like
 $ stow * # if you want them all :O
 ```
+## keyboard advanced mappings (karabiner elements)
+
+i use karabiner elements to perform some advanced keyboard like using the capslock as control is pressed with other key or perform as escape is pressed alone
+
+```sh
+brew cask install karabiner-elements
+```
+
 ## terminal emulators
 i use kitty term as my primary terminal emulator
 ```sh
@@ -30,6 +38,10 @@ ranger allow to preview image inside the console with the help of pillow python3
 ```sh
 pip install pillow 
 ```
+## text editor (neovim)
+i use neovim (vim fork) for my text and code editing i usually install from source code bellow more information about it
+[how to install](https://github.com/jg-rc/dotfiles/blob/lsp-deoplete/nvim/.config/nvim/README.md)
+
 ## (zsh) fuzzy files finder
 i use fzf for fuzzy find files, command history and more
 
