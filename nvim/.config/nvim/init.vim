@@ -5,8 +5,8 @@ source ~/.config/nvim/plugins.vim
 " Hide pointless junk at the bottom, doesn't work in .vimrc for some reason?
 set laststatus=2
 set wrap linebreak nolist
+set cpo+=n " show linebreak symbol were line numbers are
 set showbreak=↪\ \ \   " show this symbol when line was broken
-set cpo=n " show linebreak symbol were line numbers are
 set ai "Auto indent
 set si "Smart indent
 set clipboard+=unnamedplus
@@ -766,4 +766,3 @@ let g:standard_prettier_settings = {
 " }}}
 " Show break string same color as the line numbers
 hi! link NonText LineNr
-
