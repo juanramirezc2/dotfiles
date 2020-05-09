@@ -48,51 +48,54 @@ i use tmux as a way to show multiple terminals in panels and tabs
 brew install tmux
 ```
 
-## oh my zsh
+## Tmux Plugin Manager
 
+```bash
+$ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+```
+
+## comunity driven zsh configuration (oh my zsh) 
+i use oh my zsh as a zsh config is a bit bloated i know but it's a quick start, i'm planning to create my own `zshrc` with only the minimal
 ```sh
 $ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
 ### some zsh plugins
 
-* zsh syntax highlighting
+zsh is a wonderfull shell because of the broad number of plugins the comunity has built
+
+* zsh syntax highlighting - prompt highlighting for existing commands and directories
 
 ```sh
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 ```
 
-* zsh autosuggestions
+* zsh autosuggestions - fish like inline autosuggestions
 
 ```sh
 git clone https://github.com/zsh-users/zsh-autosuggestions \${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
 ```
 
+## zsh prompt (Spaceship) 
 
-## License
+i use Spaceship zsh as the prompt it show vital information like node/ruby/npm version, sometimes is a bit slow but it works
 
-[MIT](http://opensource.org/licenses/MIT).
+*this installation is for oh my zsh users*
+Clone this repo:
 
-```sh
-brew install mplayer
-brew install thefuck
-brew install tree
-brew install cmus #musix
-brew install moc #music
-brew install newsboat #rss reader
-brew install calcurse #calendar
-pip3 install howdoi # search in stack overflow
-gem install soundcloud2000 #soundcloud client
-pip3 install gcalcli # google calendar
-brew install googler # google from here
-brew install ranger #file browser
-brew install rtv # reddit
-brew install weechat  #slack and irc usa wee-slack https://github.com/wee-slack/wee-slack
-lsappinfo info -only bundleid kitty retorna bundle id  para usar con notification_Center
-
-brew install neomutt  #mail https://webgefrickel.de/blog/a-modern-mutt-setup
+```zsh
+git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt"
 ```
+
+Symlink `spaceship.zsh-theme` to your oh-my-zsh custom themes directory:
+
+```zsh
+ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
+```
+
+Set `ZSH_THEME="spaceship"` in your `.zshrc`.
+
 
 ship Confirmation template not found
 payment Confirmation declined not found in PPT
@@ -125,30 +128,32 @@ $ gem install terminal-notifier
 $ brew install shpotify
 ```
 
-## Tmux Plugin Manager
-
-```bash
-$ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-```
-
-## Spaceship ZSH
-
-Clone this repo:
-
-```zsh
-git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt"
-```
-
-Symlink `spaceship.zsh-theme` to your oh-my-zsh custom themes directory:
-
-```zsh
-ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
-```
-
-Set `ZSH_THEME="spaceship"` in your `.zshrc`.
-
-## vtop monitor
+## (vtop monitor)
 
 ```
 npm install -g vtop
+```
+
+## License
+
+[MIT](http://opensource.org/licenses/MIT).
+
+```sh
+brew install mplayer
+brew install thefuck
+brew install tree
+brew install cmus #musix
+brew install moc #music
+brew install newsboat #rss reader
+brew install calcurse #calendar
+pip3 install howdoi # search in stack overflow
+gem install soundcloud2000 #soundcloud client
+pip3 install gcalcli # google calendar
+brew install googler # google from here
+brew install ranger #file browser
+brew install rtv # reddit
+brew install weechat  #slack and irc usa wee-slack https://github.com/wee-slack/wee-slack
+lsappinfo info -only bundleid kitty retorna bundle id  para usar con notification_Center
+
+brew install neomutt  #mail https://webgefrickel.de/blog/a-modern-mutt-setup
 ```
