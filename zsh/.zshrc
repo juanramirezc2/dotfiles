@@ -51,7 +51,7 @@ alias gs='git status'
 alias gl='git log --graph --oneline --all'
 alias gc='git commit -m'
 alias ga='git add'
-alias ga='git push'
+alias gp='git push'
 
 # change cwd on ranger exit
 export RANGER_LOAD_DEFAULT_RC=false
