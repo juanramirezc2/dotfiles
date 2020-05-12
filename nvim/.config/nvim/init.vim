@@ -136,14 +136,7 @@ endfunction
 autocmd ColorScheme * call SetItalics()
 "Enable syntax highlighting and set colorscheme
 syntax enable
-"OceanicNext color scheme
-let g:one_allow_italics = 1
-let g:oceanic_next_terminal_bold = 1
-let g:oceanic_next_terminal_italic = 1
-"colorscheme OceanicNext
-let g:gruvbox_transparent_bg=1
-let g:gruvbox_italic=1
-"colorscheme gruvbox
+colorscheme base16-irblack
 "}}}
 let g:vim_jsx_pretty_highlight_close_tag = 1
 " NerdTree Refresh Root crashes with my <S-R> command for moving between tags
