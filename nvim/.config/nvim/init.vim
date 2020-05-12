@@ -486,7 +486,7 @@ let g:clever_f_timeout_ms = 3000
 
 let g:NERDTreeGitStatusNodeColorization = 1
 " 
-let g:webdevicons_enable_denite = 0
+"let g:webdevicons_enable_denite = 0
 let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = ''
 let g:DevIconsEnableFoldersOpenClose = 1
 let g:WebDevIconsOS = 'Darwin'
