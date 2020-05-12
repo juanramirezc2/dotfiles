@@ -617,9 +617,10 @@ let g:coc_snippet_next = '<c-j>'
 
 " Use <C-k> for jump to previous placeholder, it's default of coc.nvim
 let g:coc_snippet_prev = '<c-k>'
-
+" Using Control - j k l for moving between completions
 inoremap <expr><C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
 inoremap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
+inoremap <expr><C-l> pumvisible() ? "\<C-y>" : "\<C-l>"
 
 function! s:check_back_space() abort
   let col = col('.') - 1
