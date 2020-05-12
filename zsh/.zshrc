@@ -47,6 +47,11 @@ alias tx="tmuxinator start"
 alias t='todo.sh'
 alias r='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'
 alias ag='ag --path-to-ignore ~/.ignore'
+alias gs='git status'
+alias gl='git log --graph --oneline --all'
+alias gc='git commit -m'
+alias ga='git add'
+
 
 # change cwd on ranger exit
 export RANGER_LOAD_DEFAULT_RC=false
