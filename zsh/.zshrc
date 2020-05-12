@@ -38,7 +38,7 @@ plugins=(git z zsh-autosuggestions zsh-syntax-highlighting tmuxinator history-su
 
 # aliases
 alias zshconfig="nvim ~/.zshrc"
-alias ohmyzsh="nvim ~/.oh-my-zsh"
+alias record="asciinema rec"
 alias canary="/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary --ignore-certificate-errors &> /dev/null &"
 alias tmux="tmux -u"
 alias caracol="mplayer http://15363.live.streamtheworld.com/CARACOL_RADIOAAC_SC"
