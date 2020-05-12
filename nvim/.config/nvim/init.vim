@@ -397,7 +397,7 @@ call denite#custom#source('_', 'matchers', ['matcher/fruzzy'])
 "   <leader>g - Search current directory for occurences of given term and close window if no results
 "   <leader>j - Search current directory for occurences of word under cursor
 "
-nnoremap ; :Denite -direction=topleft buffer<CR>
+nnoremap ; :Denite -start-filter -direction=topleft buffer<CR>
 nmap <leader>p :Denite -start-filter file/rec:.<CR>
 nnoremap <leader>/ :<C-u>Denite -no-empty grep:.<CR>
 vnoremap <leader>/ y:<C-u>Denite -no-empty  grep:.::<C-R>=fnameescape(@")<CR><CR>
