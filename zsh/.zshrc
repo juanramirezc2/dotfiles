@@ -28,7 +28,7 @@ bindkey -v '^?' backward-delete-char
 #------------------- Plugins {{{
 #installed with git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-bindkey '^ ' autosuggest-accept
+bindkey '^e' autosuggest-accept
 #installed with git clone https://github.com/rupa/z ~/.zsh/z
 source ~/.zsh/z/z.sh
 # installed with git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh/zsh-syntax-highlighting
@@ -51,7 +51,7 @@ alias gs='git status'
 alias gl='git log --graph --oneline --all'
 alias gc='git commit -m'
 alias ga='git add'
-
+alias ga='git push'
 
 # change cwd on ranger exit
 export RANGER_LOAD_DEFAULT_RC=false
