@@ -29,8 +29,8 @@ bindkey -v '^?' backward-delete-char
 #installed with git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 bindkey '^ ' autosuggest-accept
-#installed with git clone https://github.com/agkozak/zsh-z ~/.zsh/zsh-z
-source ~/.zsh/zsh-z/zsh-z.plugin.zsh
+#installed with git clone https://github.com/rupa/z ~/.zsh/z
+source ~/.zsh/z/z.sh
 # installed with git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh/zsh-syntax-highlighting
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 #}}}
