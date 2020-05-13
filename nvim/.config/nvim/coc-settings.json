@@ -11,6 +11,18 @@
   ],
   "eslint.options": {
     "extends": "standard",
+    "parserOptions": {
+      "ecmaVersion": 6,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    },
+    "env": {
+      "es6": true,
+      "browser": true,
+      "node": true
+    },
     "rules": {
       "semi": 0,
       "space-before-blocks": 0,
@@ -25,7 +37,7 @@
   "coc.preferences.extensionUpdateCheck": "daily",
   "emmet.extensionsPath": "~/.config/nvim/emmet_custom",
   "emmet.showExpandedAbbreviation": "always",
-  "emmet.showSuggestionsAsSnippets": true,
+  "emmet.showSuggestionsAsSnippets": false,
   "emmet.optimizeStylesheetParsing": false,
   "emmet.includeLanguages": {
     "liquid": "html",
@@ -44,5 +56,7 @@
   },
   "emmet.showAbbreviationSuggestions": true,
   "todolist.autoUpload": true,
-  "todolist.monitor": true
+  "todolist.monitor": true,
+  "tailwindCSS.trace.server": "verbose",
+  "tailwindCSS.emmetCompletions": true
 }
