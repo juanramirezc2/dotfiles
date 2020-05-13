@@ -136,7 +136,7 @@ endfunction
 autocmd ColorScheme * call SetItalics()
 "Enable syntax highlighting and set colorscheme
 syntax enable
-colorscheme base16-irblack
+colorscheme gruvbox
 "}}}
 let g:vim_jsx_pretty_highlight_close_tag = 1
 " NerdTree Refresh Root crashes with my <S-R> command for moving between tags
@@ -451,6 +451,16 @@ endfunction
 autocmd FileType denite-filter call s:denite_filter_my_settings()
 function! s:denite_filter_my_settings() abort
   imap <silent><buffer> <C-o> <Plug>(denite_filter_quit)
+  inoremap <silent><buffer><expr> <c-l> denite#do_map('do_action')
+  inoremap <silent><buffer><expr> <CR> denite#do_map('do_action')
+  inoremap <silent><buffer> <C-j> <Esc>
+        \:call denite#move_to_parent()<CR>
+        \:call cursor(line('.')+1,0)<CR>
+        \:call denite#move_to_filter()<CR>A
+  inoremap <silent><buffer> <C-k> <Esc>
+	        \:call denite#move_to_parent()<CR>
+	        \:call cursor(line('.')-1,0)<CR>
+	        \:call denite#move_to_filter()<CR>A
 endfunction
 
 call denite#custom#option('default', {
