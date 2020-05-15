@@ -212,11 +212,6 @@ endif
 " vim-airline ---------------------------------------------------------------{{{
 " terminal emulator exit
 let g:airline_extensions = ['branch','hunks','coc','denite','tabline']
-"let g:airline_theme='oceanicnext'
-
-" Cargar fuente Powerline y símbolos (ver nota)
-let g:webdevicons_enable_airline_statusline = 1
-let g:airline_powerline_fonts = 0
 " configuracion para airline
 let g:airline_statusline_ontop = 0 "no necesito mostrar el status line en la parte de arriba
 let g:airline#extensions#tabline#show_close_button = 0  " no necesito mostrar el boton de cerrar tab en la parte de arriba
@@ -235,40 +230,40 @@ let g:airline_section_y = "%{fnamemodify(getcwd(), ':t')}"
 let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
 let g:airline_skip_empty_sections = 1
 "only display the filename in airline status
-let g:airline_section_c = '%t'
+"let g:airline_section_c = '%t'
 
-let g:airline_mode_map = {
-      \ '__' : '',
-      \ 'c'  : '',
-      \ 'i'  : '',
-      \ 'ic' : '',
-      \ 'ix' : '',
-      \ 'n'  : '',
-      \ 'ni' : '',
-      \ 'no' : '',
-      \ 'R'  : '',
-      \ 'Rv' : '',
-      \ 's'  : '',
-      \ 'S'  : '',
-      \ '' : '',
-      \ 't'  : '',
-      \ 'v'  : '',
-      \ 'V'  : '',
-      \ '' : '',
-      \ }
+"let g:airline_mode_map = {
+      "\ '__' : '',
+      "\ 'c'  : '',
+      "\ 'i'  : '',
+      "\ 'ic' : '',
+      "\ 'ix' : '',
+      "\ 'n'  : '',
+      "\ 'ni' : '',
+      "\ 'no' : '',
+      "\ 'R'  : '',
+      "\ 'Rv' : '',
+      "\ 's'  : '',
+      "\ 'S'  : '',
+      "\ '' : '',
+      "\ 't'  : '',
+      "\ 'v'  : '',
+      "\ 'V'  : '',
+      "\ '' : '',
+      "\ }
 
-let g:airline#extensions#tabline#buffer_idx_format = {
-      \ '0': '0 ',
-      \ '1': '1 ',
-      \ '2': '2 ',
-      \ '3': '3 ',
-      \ '4': '4 ',
-      \ '5': '5 ',
-      \ '6': '6 ',
-      \ '7': '7 ',
-      \ '8': '8 ',
-      \ '9': '9 ',
-      \}
+"let g:airline#extensions#tabline#buffer_idx_format = {
+      "\ '0': '0 ',
+      "\ '1': '1 ',
+      "\ '2': '2 ',
+      "\ '3': '3 ',
+      "\ '4': '4 ',
+      "\ '5': '5 ',
+      "\ '6': '6 ',
+      "\ '7': '7 ',
+      "\ '8': '8 ',
+      "\ '9': '9 ',
+      "\}
 
 "}}}
 
@@ -555,7 +550,7 @@ function! s:select_current_word()
   return "*\<Plug>(coc-cursors-word):nohlsearch\<CR>"
 endfunc
 set noemoji
-let g:vimwiki_list = [{'path': '$HOME/Google Drive/wiki', 'syntax': 'markdown','ext': '.md'}] " set path to a directory inside Dropbox
+let g:vimwiki_list = [{'path': '$HOME/wiki', 'syntax': 'markdown','ext': '.md'}] " set path to a directory inside Dropbox
 let g:vimwiki_global_ext = 0 " make sure vimwiki doesn't own all .md files
 au FileType vimwiki setlocal shiftwidth=6 tabstop=6 noexpandtab
 command! Diary VimwikiDiaryIndex
