@@ -221,14 +221,14 @@ let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#left_alt_sep = ''
 let g:airline#extensions#tabline#left_sep = " "
 let g:airline#extensions#tabline#fnamemod = ':t'  " Mostrar sólo el nombre del archivo
-let g:airline#extensions#tabline#buffer_idx_mode = 1
-let g:airline#extensions#tabline#switch_buffers_and_tabs = 1
-let g:airline#extensions#nvim_typescript#enabled=1
+"let g:airline#extensions#tabline#buffer_idx_mode = 1
+"let g:airline#extensions#tabline#switch_buffers_and_tabs = 1
+"let g:airline#extensions#nvim_typescript#enabled=1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline_section_x = '%y'
 let g:airline_section_y = "%{fnamemodify(getcwd(), ':t')}"
 let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
-let g:airline_skip_empty_sections = 1
+"let g:airline_skip_empty_sections = 1
 "only display the filename in airline status
 "let g:airline_section_c = '%t'
 
