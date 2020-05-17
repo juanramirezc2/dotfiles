@@ -456,12 +456,12 @@ call denite#custom#option('default', {
       \ 'split': 'floating',
       \ 'direction': 'rightbelow',
       \ 'winminheight': '10',
-      \ 'highlight_window_background': 'Normal',
       \ 'highlight_filter_background': 'TermCursor',
       \ 'prompt': 'λ:',
       \ 'prompt_highlight': 'Function'
       \ })
 
+      "\ 'highlight_window_background': 'Normal',
 "call denite#custom#option('default', {
       "\ 'split': 'floating',
       "\ 'auto_resize': 0,
@@ -481,6 +481,16 @@ call denite#custom#option('default', {
       "\ 'highlight_filter_background': 'TermCursor',
       "\ 'highlight_prompt': 'Special',
       "\ })
+
+" Set cursorline hl
+augroup ps_denite_cursorline
+    au!
+    au WinEnter * if &filetype ==# 'denite'
+        \ |   highlight CursorLineDenite guibg=#282c34 gui=bold
+        \ |   highlight! link CursorLine CursorLineDenite
+        \ | endif
+augroup END
+
 " clever f settings
 let g:clever_f_across_no_line = 1
 let g:clever_f_fix_key_direction = 1
