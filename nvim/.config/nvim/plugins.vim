@@ -73,6 +73,7 @@ Plug 'ryanoasis/vim-devicons'  " vim will become visual studio
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'  " needed for devicons
 " themes
 Plug 'morhetz/gruvbox'
+Plug 'arcticicestudio/nord-vim'
 Plug 'dracula/vim', { 'name': 'dracula' }
 Plug 'mhartington/oceanic-next'
 Plug 'lifepillar/vim-solarized8'

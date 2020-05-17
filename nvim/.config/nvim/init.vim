@@ -87,7 +87,7 @@ autocmd TermOpen * setlocal nonumber norelativenumber
 filetype plugin on
 filetype indent on
 " Avoid garbled characters in Chinese language windows OS
-let $LANG='en' 
+let $LANG='en'
 set langmenu=en
 source $VIMRUNTIME/delmenu.vim
 source $VIMRUNTIME/menu.vim
@@ -136,7 +136,7 @@ endfunction
 autocmd ColorScheme * call SetItalics()
 "Enable syntax highlighting and set colorscheme
 syntax enable
-colorscheme gruvbox
+colorscheme base16-irblack
 "}}}
 let g:vim_jsx_pretty_highlight_close_tag = 1
 " NerdTree Refresh Root crashes with my <S-R> command for moving between tags
@@ -213,21 +213,21 @@ endif
 " terminal emulator exit
 let g:airline_extensions = ['branch','hunks','coc','denite','tabline']
 " configuracion para airline
+let g:airline#extensions#tabline#show_buffers = 0
 let g:airline_statusline_ontop = 0 "no necesito mostrar el status line en la parte de arriba
 let g:airline#extensions#tabline#show_close_button = 0  " no necesito mostrar el boton de cerrar tab en la parte de arriba
 let g:airline#extensions#tabline#show_splits = 0
-" vim airline please don't show me closed buffers
-let g:airline#extensions#tabline#show_buffers = 0
-let g:airline#extensions#tabline#left_alt_sep = ''
-let g:airline#extensions#tabline#left_sep = " "
 let g:airline#extensions#tabline#fnamemod = ':t'  " Mostrar sólo el nombre del archivo
+let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]' "solo muestra encoding si es diferente de utf-8
+"let g:airline#extensions#tabline#left_alt_sep = ''
+"let g:airline#extensions#tabline#left_sep = ''
+"let g:airline#extensions#tabline#formatter = 'unique_tail'
+"let g:airline_section_x = '%y'
+"let g:airline_section_y = "%{fnamemodify(getcwd(), ':t')}"
+" vim airline please don't show me closed buffers
 "let g:airline#extensions#tabline#buffer_idx_mode = 1
 "let g:airline#extensions#tabline#switch_buffers_and_tabs = 1
 "let g:airline#extensions#nvim_typescript#enabled=1
-let g:airline#extensions#tabline#formatter = 'unique_tail'
-let g:airline_section_x = '%y'
-let g:airline_section_y = "%{fnamemodify(getcwd(), ':t')}"
-let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
 "let g:airline_skip_empty_sections = 1
 "only display the filename in airline status
 "let g:airline_section_c = '%t'
@@ -379,12 +379,6 @@ let g:fruzzy#usenative = 1
 let g:fruzzy#sortonempty = 1 " default value
 " tell denite to use this matcher by default for all sources
 call denite#custom#source('_', 'matchers', ['matcher/fruzzy'])
-" === Denite shorcuts === "
-"   ;         - Browser currently open buffers
-"   <leader>t - Browse list of files in current directory
-"   <leader>g - Search current directory for occurences of given term and close window if no results
-"   <leader>j - Search current directory for occurences of word under cursor
-"
 nnoremap ; :Denite -start-filter -direction=topleft buffer<CR>
 nmap <leader>p :Denite -start-filter file/rec:.<CR>
 nnoremap <leader>/ :<C-u>Denite -no-empty grep:.<CR>
@@ -442,7 +436,6 @@ function! s:denite_my_settings() abort
   nnoremap <silent><buffer><expr> i denite#do_map('open_filter_buffer')
   nnoremap <silent><buffer><expr> <Space> denite#do_map('toggle_select').'j'
 endfunction
-
 autocmd FileType denite-filter call s:denite_filter_my_settings()
 function! s:denite_filter_my_settings() abort
   imap <silent><buffer> <C-o> <Plug>(denite_filter_quit)
@@ -459,23 +452,35 @@ function! s:denite_filter_my_settings() abort
 endfunction
 
 call denite#custom#option('default', {
+      \ 'auto_resize': 1,
       \ 'split': 'floating',
-      \ 'auto_resize': 0,
-      \ 'source_names': 'short',
-      \ 'prompt': 'λ:',
-      \ 'statusline': 0,
-      \ 'highlight_matched_char': 'WildMenu',
-      \ 'highlight_matched_range': 'Visual',
-      \ 'highlight_window_background': 'NormalFloat',
+      \ 'direction': 'rightbelow',
+      \ 'winminheight': '10',
+      \ 'highlight_window_background': 'Normal',
       \ 'highlight_filter_background': 'TermCursor',
-      \ 'highlight_prompt': 'Special',
-      \ 'wincol': &columns / 10 ,
-      \ 'winheight': 20 ,
-      \ 'winrow': &lines / 2 - 10 ,
-      \ 'winwidth': &columns * 8/10,
-      \ 'winminheight': 1,
-      \ 'vertical_preview': 1
+      \ 'prompt': 'λ:',
+      \ 'prompt_highlight': 'Function'
       \ })
+
+"call denite#custom#option('default', {
+      "\ 'split': 'floating',
+      "\ 'auto_resize': 0,
+      "\ 'source_names': 'short',
+      "\ 'statusline': 0,
+      "\ 'wincol': &columns / 10 ,
+      "\ 'winheight': 20 ,
+      "\ 'winrow': &lines / 2 - 10 ,
+      "\ 'winwidth': &columns * 8/10,
+      "\ 'winminheight': 1,
+      "\ 'vertical_preview': 1,
+      "\ 'highlight_mode_normal': 'TermCursor',
+      "\ 'highlight_mode_insert': 'TermCursor',
+      "\ 'highlight_matched_char': 'Function',
+      "\ 'highlight_matched_range': 'Function',
+      "\ 'highlight_window_background': 'NormalFloat',
+      "\ 'highlight_filter_background': 'TermCursor',
+      "\ 'highlight_prompt': 'Special',
+      "\ })
 " clever f settings
 let g:clever_f_across_no_line = 1
 let g:clever_f_fix_key_direction = 1
@@ -709,8 +714,8 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
-" provide custom statusline: lightline.vim, vim-airline.
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+ "provide custom statusline: lightline.vim, vim-airline.
+"set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Mappings using CoCList:
 " Show all diagnostics.
@@ -763,5 +768,6 @@ let g:standard_prettier_settings = {
       \ 'stdin': 1,
       \ }
 " }}}
-" Show break string same color as the line numbers
-hi! link NonText LineNr
+" Show break string same color as the line numbers i dont know if i like it of
+" i hate it
+"hi! link NonText LineNr
