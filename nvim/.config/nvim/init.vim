@@ -176,9 +176,10 @@ let g:airline#extensions#tabline#show_splits = 0
 let g:airline#extensions#tabline#fnamemod = ':t'  " Mostrar sólo el nombre del archivo
 let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]' "solo muestra encoding si es diferente de utf-8
 let g:airline_section_y = "%{fnamemodify(getcwd(), ':t')}"
+let g:airline_section_c = '%t' "filename only in bottom part
+let g:airline#extensions#tabline#formatter = 'unique_tail'
 "let g:airline#extensions#tabline#left_alt_sep = ''
 "let g:airline#extensions#tabline#left_sep = ''
-"let g:airline#extensions#tabline#formatter = 'unique_tail'
 "let g:airline_section_x = '%y'
 " vim airline please don't show me closed buffers
 "let g:airline#extensions#tabline#buffer_idx_mode = 1
@@ -186,7 +187,6 @@ let g:airline_section_y = "%{fnamemodify(getcwd(), ':t')}"
 "let g:airline#extensions#nvim_typescript#enabled=1
 "let g:airline_skip_empty_sections = 1
 "only display the filename in airline status
-"let g:airline_section_c = '%t'
 
 "let g:airline_mode_map = {
       "\ '__' : '',
