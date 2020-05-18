@@ -175,11 +175,11 @@ let g:airline#extensions#tabline#show_close_button = 0  " no necesito mostrar el
 let g:airline#extensions#tabline#show_splits = 0
 let g:airline#extensions#tabline#fnamemod = ':t'  " Mostrar sólo el nombre del archivo
 let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]' "solo muestra encoding si es diferente de utf-8
+let g:airline_section_y = "%{fnamemodify(getcwd(), ':t')}"
 "let g:airline#extensions#tabline#left_alt_sep = ''
 "let g:airline#extensions#tabline#left_sep = ''
 "let g:airline#extensions#tabline#formatter = 'unique_tail'
 "let g:airline_section_x = '%y'
-"let g:airline_section_y = "%{fnamemodify(getcwd(), ':t')}"
 " vim airline please don't show me closed buffers
 "let g:airline#extensions#tabline#buffer_idx_mode = 1
 "let g:airline#extensions#tabline#switch_buffers_and_tabs = 1
