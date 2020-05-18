@@ -454,14 +454,15 @@ endfunction
 call denite#custom#option('default', {
       \ 'auto_resize': 1,
       \ 'split': 'floating',
-      \ 'direction': 'rightbelow',
       \ 'winminheight': '10',
+      \ 'reversed': 1,
+      \ 'match_highlight': 1,
       \ 'highlight_filter_background': 'TermCursor',
+      \ 'highlight_window_background': 'Normal',
       \ 'prompt': 'λ:',
       \ 'prompt_highlight': 'Function'
       \ })
 
-      "\ 'highlight_window_background': 'Normal',
 "call denite#custom#option('default', {
       "\ 'split': 'floating',
       "\ 'auto_resize': 0,
@@ -483,13 +484,13 @@ call denite#custom#option('default', {
       "\ })
 
 " Set cursorline hl
-augroup ps_denite_cursorline
-    au!
-    au WinEnter * if &filetype ==# 'denite'
-        \ |   highlight CursorLineDenite guibg=#282c34 gui=bold
-        \ |   highlight! link CursorLine CursorLineDenite
-        \ | endif
-augroup END
+"augroup ps_denite_cursorline
+    "au!
+    "au WinEnter * if &filetype ==# 'denite'
+        "\ |   highlight CursorLineDenite guibg=#282c34 gui=bold
+        "\ |   highlight! link CursorLine CursorLineDenite
+        "\ | endif
+"augroup END
 
 " clever f settings
 let g:clever_f_across_no_line = 1
