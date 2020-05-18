@@ -115,16 +115,40 @@ Set `ZSH_THEME="spaceship"` in your `.zshrc`.
 ship Confirmation template not found
 payment Confirmation declined not found in PPT
 
+### node version manager
+
+```sh
+$ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+```
+
+```sh
+$ nvm install stable
+```
+```sh 
+$ nvm use stable
+```
+
 ### Ruby version manager
 
 ```sh
-\curl -sSL https://get.rvm.io | bash -s stable
+$ curl -sSL https://get.rvm.io | bash -s stable
 ```
 
 ```sh
 $ rvm install 2.6.3
 ```
+### python version manager
+```sh
+$ brew install pyenv
+```
 
+```sh
+$ pyenv install 3.8.8
+```
+
+```sh
+$ pyenv global 3.8.8
+```
 ## thyme pomodoro timer
 
 ```sh
