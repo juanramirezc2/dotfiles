@@ -15,8 +15,6 @@ Plug 'alvan/vim-closetag' "Auto close (X)HTML tags
 Plug 'tpope/vim-surround' "surround plugin
 "Moving arround
 Plug 'easymotion/vim-easymotion' "movamonos un poco mas rapidin con este easymotion
-Plug 'andymass/vim-matchup' " drop-in replacement for the vim plugin matchit.vim
-Plug 'haya14busa/incsearch.vim' " Improved incremental searching for Vim
 "GUI customization
 Plug 'yggdroot/indentline' " indent guides lines let's see how they goes
 Plug 'vim-airline/vim-airline' " indent guides lines let's see how they goes

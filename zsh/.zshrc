@@ -65,9 +65,6 @@ export LC_TIME="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
 export EDITOR=/usr/local/bin/nvim
 export VISUAL=/usr/local/bin/nvim
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 # todo.sh alias
 export TODOTXT_DEFAULT_ACTION=ls
 funcname lazygit() {
@@ -89,3 +86,11 @@ export FZF_BASE="$HOME/.fzf"
 e() {fzf | xargs -I % $EDITOR % ;}
  zle -N e{,}
  bindkey "^h" e
+## enable pyenv auto completion for managing python versions
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
+# NVM for managing node versions
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

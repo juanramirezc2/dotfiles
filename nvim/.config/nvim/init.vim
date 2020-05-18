@@ -47,11 +47,7 @@ let g:indentLine_color_gui = '#343d46'
 "let g:indentLine_char_list = ['|', '¦', '┆', '┊']
  let g:indentLine_char="⎸"
 " }}}
-" avoid messi matchi load
-let g:loaded_matchit = 1
 
-let g:vim_jsx_pretty_highlight_close_tag = 1
-let g:vim_jsx_pretty_colorful_config = 1 " default 0
 
 " guicolors styles for every mode
 set termguicolors
@@ -63,22 +59,12 @@ set guicursor=n-v-c:block-Cursor/lCursor,i-ci-ve:ver25-Cursor2/lCursor2,r-cr:hor
 
 " Vim >=8.0 or Neovim >= 0.1.5
 if (has("termguicolors"))
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
   set termguicolors
 endif
-"no swap files in vim they are annoying
-"vimR only configurations
-if has("gui_vimr")
-  " Font for vimR
-endif
-
-
 " set a map leader for more key combos
 let mapleader = " "
 let maplocalleader= ";"
 " open a new terminal  in aplit of the current tab
-nmap <leader>st :12sp term://zsh<CR>I
 nmap <leader>te :tabnew term://zsh<CR>I
 
 " no mostrar numeros de linea cuando se abre una terminal :O :O
@@ -117,10 +103,6 @@ endfunction
 
 :command C call RandomBase16()
 
- "Start new windows with a random color scheme
-call RandomBase16()
-
-syntax on
 function SetItalics() abort
   hi Comment gui=italic
   hi Keyword gui=italic
@@ -138,7 +120,9 @@ autocmd ColorScheme * call SetItalics()
 syntax enable
 colorscheme base16-irblack
 "}}}
+
 let g:vim_jsx_pretty_highlight_close_tag = 1
+let g:vim_jsx_pretty_colorful_config = 1 " default 0
 " NerdTree Refresh Root crashes with my <S-R> command for moving between tags
 let NERDTreeMapRefreshRoot='r'
 let NERDTreeMapActivateNode='l'
@@ -181,34 +165,6 @@ nnoremap <S-E> gT
 " moverme entre los diferentes paneles con Shift-w
 nnoremap <S-w>   <c-w>w
 
-if has('nvim')
-  " Terminal mode:
-  tnoremap <M-h> <c-\><c-n><c-w>h
-  tnoremap <M-j> <c-\><c-n><c-w>j
-  tnoremap <M-k> <c-\><c-n><c-w>k
-  tnoremap <M-l> <c-\><c-n><c-w>l
-  " Insert mode:
-  inoremap <M-h> <Esc><c-w>h
-  inoremap <M-j> <Esc><c-w>j
-  inoremap <M-k> <Esc><c-w>k
-  inoremap <M-l> <Esc><c-w>l
-  " Visual mode:
-  vnoremap <M-h> <Esc><c-w>h
-  vnoremap <M-j> <Esc><c-w>j
-  vnoremap <M-k> <Esc><c-w>k
-  vnoremap <M-l> <Esc><c-w>l
-  " Normal mode:
-  nnoremap <M-h> <c-w>h
-  nnoremap <M-j> <c-w>j
-  nnoremap <M-k> <c-w>k
-  nnoremap <M-l> <c-w>l
-  "some terminal mappings
-  tnoremap jk <C-\><C-n>
-  tnoremap <M-[> <Esc>
-  tnoremap <C-v><Esc> <Esc>
-  " simulare <C-R>
-  tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
-endif
 " vim-airline ---------------------------------------------------------------{{{
 " terminal emulator exit
 let g:airline_extensions = ['branch','hunks','coc','denite','tabline']
@@ -283,25 +239,6 @@ nmap <silent><leader>gb :Gblame<cr>
 " buscar en el documento lo que este visualmente seleccionado
 vnoremap // y/\V<C-r>=escape(@",'/\')<CR><CR>
 
-" siempre abre un archivo bajo el cursor en un nuevo tab
-nmap gf <c-w>gf
-
-" enable jsdocs syntax highlight
-let g:javascript_plugin_jsdoc = 1
-
-"Enables some additional syntax highlighting for NGDocs. Requires JSDoc plugin to be enabled as well.
-let g:javascript_plugin_ngdoc = 1
-
-" Allow MatchTagAlways to highlight JSX
-let g:mta_filetypes = {
-      \ 'html' : 1,
-      \ 'xhtml' : 1,
-      \ 'xml' : 1,
-      \ 'javascript.jsx' : 1,
-      \}
-
-"user same colors for highlight as vim uses
-let g:mta_use_matchparen_group = 1
 " startify sessions and other tweaks
 let g:startify_change_to_dir = 0
 let g:startify_change_to_vcs_root = 1
@@ -362,11 +299,7 @@ cnoremap jk <C-c>
 " maximum lenght of characters displayed in a git diff
 highlight ColorColumn ctermbg=gray
 set colorcolumn=125
-" inc search plugin mappings
-"map /  <Plug>(incsearch-forward)
-"map ?  <Plug>(incsearch-backward)
-"map g/ <Plug>(incsearch-stay)
-" :h g:incsearch#auto_nohlsearch
+" highlight search
 set hlsearch
 " interactive find replace preview
 set inccommand=nosplit
@@ -499,7 +432,6 @@ let g:clever_f_timeout_ms = 3000
 " Vim-Devicons --------------------------------------------------------------{{{
 
 let g:NERDTreeGitStatusNodeColorization = 1
-" 
 "let g:webdevicons_enable_denite = 0
 let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = ''
 let g:DevIconsEnableFoldersOpenClose = 1
