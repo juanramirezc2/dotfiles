@@ -388,7 +388,6 @@ call denite#custom#option('default', {
       \ 'auto_resize': 1,
       \ 'split': 'floating',
       \ 'winminheight': '10',
-      \ 'reversed': 1,
       \ 'match_highlight': 1,
       \ 'highlight_filter_background': 'TermCursor',
       \ 'highlight_window_background': 'Normal',
