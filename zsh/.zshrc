@@ -30,7 +30,7 @@ bindkey '^e' autosuggest-accept
 #installed with git clone https://github.com/rupa/z ~/.zsh/z
 source ~/.zsh/z/z.sh
 # installed with git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh/zsh-syntax-highlighting
-source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+#source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 #}}}
 
 # aliases
