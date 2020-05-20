@@ -1,5 +1,3 @@
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-export PATH=/usr/local/opt/ruby/bin:$PATH
 # Enable colors and change prompt:
 autoload -U colors && colors
 PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
@@ -34,7 +32,6 @@ source ~/.zsh/z/z.sh
 # installed with git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh/zsh-syntax-highlighting
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 #}}}
-plugins=(git z zsh-autosuggestions zsh-syntax-highlighting tmuxinator history-substring-search vi-mode common-aliases fzf)
 
 # aliases
 alias zshconfig="nvim ~/.zshrc"
