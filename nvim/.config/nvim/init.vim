@@ -318,8 +318,8 @@ nnoremap <leader>/ :<C-u>Denite -no-empty grep:.<CR>
 vnoremap <leader>/ y:<C-u>Denite -no-empty  grep:.::<C-R>=fnameescape(@")<CR><CR>
 nnoremap <leader>/w :<C-u>DeniteCursorWord grep:.<CR>
 nmap     <leader>dm :Denite file_mru<CR>
-nnoremap <leader>dp :Denite -resume -cursor-pos=-1 -immediately<CR>
-nnoremap <leader>dn :Denite -resume -cursor-pos=+1 -immediately<CR>
+nnoremap <leader>h :Denite -resume -cursor-pos=-1 -immediately<CR>
+nnoremap <leader>l :Denite -resume -cursor-pos=+1 -immediately<CR>
 nnoremap <leader>dl :Denite -resume -do='normal! A;'<CR>
 nmap     <leader>sc :Denite colorscheme<CR>
 
@@ -694,8 +694,8 @@ nmap <C-n> <Plug>yankstack_substitute_newer_paste
 " Close the current buffer
 map <leader>bd :Bclose<cr>:tabclose<cr>gT
 nnoremap <leader><tab> <C-^>;
-nnoremap <leader>l :bnext<cr>
-nnoremap <leader>h :bprevious<cr>
+"nnoremap <leader>l :bnext<cr>
+"nnoremap <leader>h :bprevious<cr>
 " Close all the buffers
 map <leader>ba :bufdo bd<cr>
 " Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
