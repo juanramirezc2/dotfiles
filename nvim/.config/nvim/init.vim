@@ -266,35 +266,35 @@ let g:startify_bookmarks = [
       \ ]
 nmap <leader>st :Startify<cr>
 " vim jumps mappings are counterintuirive
-nmap <C-G> <S-G>
-vnoremap <C-G> <S-G>
-nmap <C-H> ^
-nmap <C-H> ^
-vmap <C-H> ^
-nnoremap <C-L> g_
-vnoremap <C-L> g_
-nnoremap <C-O> <C-I>
-nnoremap <C-I> <C-O>
+"nmap <C-G> <S-G>
+"vnoremap <C-G> <S-G>
+"nmap <C-H> ^
+"nmap <C-H> ^
+"vmap <C-H> ^
+"nnoremap <C-L> g_
+"vnoremap <C-L> g_
+"nnoremap <C-O> <C-I>
+"nnoremap <C-I> <C-O>
 " Store relative line number jumps in the jumplist if they exceed a threshold.
-nnoremap <expr> k (v:count > 4 ? "m'" . v:count : '') . 'k'
-nnoremap <expr> j (v:count > 4 ? "m'" . v:count : '') . 'j'
+"nnoremap <expr> k (v:count > 4 ? "m'" . v:count : '') . 'k'
+"nnoremap <expr> j (v:count > 4 ? "m'" . v:count : '') . 'j'
 
 " easy motions vertical movements
-nmap <leader>b <Plug>(easymotion-b)
-nmap <leader>w <Plug>(easymotion-w)
-nmap <leader>j <Plug>(easymotion-j)
-vmap <leader>j <Plug>(easymotion-j)
-nmap <leader>k <Plug>(easymotion-k)
-vmap <leader>k <Plug>(easymotion-k)
+"nmap <leader>b <Plug>(easymotion-b)
+"nmap <leader>w <Plug>(easymotion-w)
+"nmap <leader>j <Plug>(easymotion-j)
+"vmap <leader>j <Plug>(easymotion-j)
+"nmap <leader>k <Plug>(easymotion-k)
+"vmap <leader>k <Plug>(easymotion-k)
 "scrolling up and down mappings
-nnoremap <silent> <C-j> <c-d>
-nnoremap <silent> <C-k> <c-u>
-vnoremap <silent> <C-j> <c-d>
-vnoremap <silent> <C-k> <c-u>
+"nnoremap <silent> <C-j> <c-d>
+"nnoremap <silent> <C-k> <c-u>
+"vnoremap <silent> <C-j> <c-d>
+"vnoremap <silent> <C-k> <c-u>
 
 " jk | Escaping!
-inoremap jk <Esc>
-cnoremap jk <C-c>
+"inoremap jk <Esc>
+"cnoremap jk <C-c>
 
 " maximum lenght of characters displayed in a git diff
 highlight ColorColumn ctermbg=gray
@@ -485,9 +485,9 @@ nmap <silent> <C-c> <Plug>(coc-cursors-position)
 nmap <leader>x  <Plug>(coc-cursors-operator)
 vmap <leader>r :CocCommand document.renameCurrentWord<CR>
 nmap <leader>r <Plug>(coc-refactor)
-"vmap <silent> <C-d> <Plug>(coc-cursors-range)
-nmap <silent> <C-d> <Plug>(coc-cursors-word)*
-xmap <silent> <C-d> y/\V<C-r>=escape(@",'/\')<CR><CR>gN<Plug>(coc-cursors-range)gn
+" multiple cursors disabled by now
+"nmap <silent> <C-d> <Plug>(coc-cursors-word)*
+"xmap <silent> <C-d> y/\V<C-r>=escape(@",'/\')<CR><CR>gN<Plug>(coc-cursors-range)gn
 nmap <expr> <silent> <C-w> <SID>select_current_word()
 
 function! s:select_current_word()
