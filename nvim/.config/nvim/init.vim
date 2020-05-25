@@ -10,6 +10,8 @@ set showbreak=↪\ \ \   " show this symbol when line was broken
 set ai "Auto indent
 set si "Smart indent
 set clipboard+=unnamedplus
+" show the number lines relative
+set relativenumber
 " i'm not agains the mouse, enable it in all modes
 set mouse=a
 set noshowmode "don't show --INSERT--
