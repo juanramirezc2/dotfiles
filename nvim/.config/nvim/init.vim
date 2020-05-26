@@ -11,7 +11,7 @@ set ai "Auto indent
 set si "Smart indent
 set clipboard+=unnamedplus
 " show the number lines relative
-set relativenumber
+set relativenumber number
 " i'm not agains the mouse, enable it in all modes
 set mouse=a
 set noshowmode "don't show --INSERT--
@@ -38,6 +38,9 @@ set nocompatible
 set background=dark
 " tema y apariencia
 set termguicolors  " Activa true colors en la terminal
+"it seems that powerline fonts need this
+set t_Co=256
+set noshowmode  " No mostrar el modo actual (ya lo muestra la barra de estado)
 "indent line ======= {{{
 " vim indent line
 let g:indentLine_enabled = 1
@@ -147,22 +150,8 @@ map k gk
 " abrir vim.init en un ventana nueva love it
 nnoremap <leader>vr :e $MYVIMRC<CR>
 
-" Usar <líder> + y para copiar al portapapeles
-vnoremap <leader>c "+y
-nnoremap <leader>c "+y
-vnoremap <leader>v "+p
-nnoremap <leader>v "+P
-
-" Usar <líder> + d para cortar al portapapeles
-vnoremap <leader>x "+d
-nnoremap <leader>x "+d
-
 " Cerrar el buffer actual con <líder> + q
 nnoremap <silent><S-Q> :q<CR>
-
-" pestanaiguiente  y pesana anterior
-nnoremap <S-R> gt
-nnoremap <S-E> gT
 
 " moverme entre los diferentes paneles con Shift-w
 nnoremap <S-w>   <c-w>w
@@ -180,6 +169,7 @@ let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]' "solo muestra encod
 let g:airline_section_y = "%{fnamemodify(getcwd(), ':t')}"
 let g:airline_section_c = '%t' "filename only in bottom part
 let g:airline#extensions#tabline#formatter = 'unique_tail'
+let g:airline_skip_empty_sections = 1
 "let g:airline#extensions#tabline#left_alt_sep = ''
 "let g:airline#extensions#tabline#left_sep = ''
 "let g:airline_section_x = '%y'
@@ -187,7 +177,6 @@ let g:airline#extensions#tabline#formatter = 'unique_tail'
 "let g:airline#extensions#tabline#buffer_idx_mode = 1
 "let g:airline#extensions#tabline#switch_buffers_and_tabs = 1
 "let g:airline#extensions#nvim_typescript#enabled=1
-"let g:airline_skip_empty_sections = 1
 "only display the filename in airline status
 
 "let g:airline_mode_map = {
@@ -225,9 +214,6 @@ let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 "}}}
 
-"it seems that powerline fonts need this
-set t_Co=256
-set noshowmode  " No mostrar el modo actual (ya lo muestra la barra de estado)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " fugitive git mappings
 nnoremap <silent><leader>gs :Gstatus<CR>
@@ -267,36 +253,9 @@ let g:startify_bookmarks = [
       \ { 'z': '~/.zshrc' }
       \ ]
 nmap <leader>st :Startify<cr>
-" vim jumps mappings are counterintuirive
-"nmap <C-G> <S-G>
-"vnoremap <C-G> <S-G>
-"nmap <C-H> ^
-"nmap <C-H> ^
-"vmap <C-H> ^
-"nnoremap <C-L> g_
-"vnoremap <C-L> g_
-"nnoremap <C-O> <C-I>
-"nnoremap <C-I> <C-O>
 " Store relative line number jumps in the jumplist if they exceed a threshold.
-"nnoremap <expr> k (v:count > 4 ? "m'" . v:count : '') . 'k'
-"nnoremap <expr> j (v:count > 4 ? "m'" . v:count : '') . 'j'
-
-" easy motions vertical movements
-"nmap <leader>b <Plug>(easymotion-b)
-"nmap <leader>w <Plug>(easymotion-w)
-"nmap <leader>j <Plug>(easymotion-j)
-"vmap <leader>j <Plug>(easymotion-j)
-"nmap <leader>k <Plug>(easymotion-k)
-"vmap <leader>k <Plug>(easymotion-k)
-"scrolling up and down mappings
-"nnoremap <silent> <C-j> <c-d>
-"nnoremap <silent> <C-k> <c-u>
-"vnoremap <silent> <C-j> <c-d>
-"vnoremap <silent> <C-k> <c-u>
-
-" jk | Escaping!
-"inoremap jk <Esc>
-"cnoremap jk <C-c>
+nnoremap <expr> k (v:count > 3 ? "m'" . v:count : '') . 'k'
+nnoremap <expr> j (v:count > 3 ? "m'" . v:count : '') . 'j'
 
 " maximum lenght of characters displayed in a git diff
 highlight ColorColumn ctermbg=gray
@@ -547,7 +506,12 @@ set shortmess+=c
 
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
-set signcolumn=yes
+if has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
@@ -560,14 +524,10 @@ inoremap <silent><expr> <TAB>
 
 
 " Use <C-j> for jump to next placeholder, it's default of coc.nvim
-let g:coc_snippet_next = '<c-j>'
+let g:coc_snippet_next = '<c-n>'
 
 " Use <C-k> for jump to previous placeholder, it's default of coc.nvim
-let g:coc_snippet_prev = '<c-k>'
-" Using Control - j k l for moving between completions
-inoremap <expr><C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
-inoremap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
-inoremap <expr><C-l> pumvisible() ? "\<C-y>" : "\<C-l>"
+let g:coc_snippet_prev = '<c-p>'
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -640,6 +600,10 @@ xmap if <Plug>(coc-funcobj-i)
 xmap af <Plug>(coc-funcobj-a)
 omap if <Plug>(coc-funcobj-i)
 omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
 
 " Use <TAB> for selections ranges.
 " NOTE: Requires 'textDocument/selectionRange' support from the language server.
@@ -675,9 +639,9 @@ nnoremap <silent> <space>o  :<C-u>CocList --normal outline<cr>
 " Search workspace symbols.
 nnoremap <silent> <space>s  :<C-u>CocList --normal -I symbols<cr>
 " Do default action for next item.
-nnoremap <silent> <space>n  :<C-u>CocNext<CR>
+nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 " Do default action for previous item.
-"nnoremap <silent> <space>p  :<C-u>CocPrev<CR>
+nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent> <space>ll  :<C-u>CocListResume<CR>
 "}}}
