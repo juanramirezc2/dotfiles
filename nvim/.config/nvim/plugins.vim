@@ -30,7 +30,7 @@ Plug 'xuyuanp/nerdtree-git-plugin'  "nerd tree git status
 Plug 'jiangmiao/auto-pairs'  " automaticamente cierra comillas o llaves
 " syntax highlighting files {{{
 "javascript
-Plug 'othree/yajs.vim', { 'for': [ 'javascript', 'javascript.jsx', 'html' ] }
+Plug 'othree/yajs.vim'
 Plug 'moll/vim-node', { 'for': 'javascript' }
 Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'heavenshell/vim-jsdoc'
