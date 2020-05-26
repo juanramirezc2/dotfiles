@@ -63,7 +63,6 @@ Plug 'ntpeters/vim-better-whitespace'  "Vim Better Whitespace Plugin
 Plug 'machakann/vim-highlightedyank'  "highlight yanked text
 Plug 'vimwiki/vimwiki'  "VimWiki is a personal wiki for Vim -- a number of linked text files that have their own syntax highlighting.
 " file icons
-Plug 'rhysd/clever-f.vim'  "Extended f, F, t and T key mappings for Vim.
 Plug 'junegunn/vim-easy-align'  "A Vim alignment plugin
 Plug 'ryanoasis/vim-devicons'  " vim will become visual studio
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'  " needed for devicons
@@ -78,5 +77,6 @@ Plug 'chriskempson/base16-vim'
 Plug 'joshdick/onedark.vim'
 "" vim prettier
 Plug 'sbdchd/neoformat'
-" Initialize plugin system
+" key mappings
+Plug 'tpope/vim-unimpaired'  "Pairs of handy bracket mappings
 call plug#end()

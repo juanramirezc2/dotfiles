@@ -660,15 +660,10 @@ nmap <C-n> <Plug>yankstack_substitute_newer_paste
 " Close the current buffer
 map <leader>bd :Bclose<cr>:tabclose<cr>gT
 nnoremap <leader><tab> <C-^>;
-"nnoremap <leader>l :bnext<cr>
-"nnoremap <leader>h :bprevious<cr>
 " Close all the buffers
 map <leader>ba :bufdo bd<cr>
-" Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
-"map <space> /
-"map <C-space> ?
-" ,f to format code, requires formatters: read the docs
 " Code formatting -----------------------------------------------------------{{{
+" ,f to format code, requires formatters: read the docs
 noremap <silent> <leader>f :Neoformat<CR>
 let g:standard_prettier_settings = {
       \ 'exe': 'prettier',
