@@ -30,19 +30,19 @@ Plug 'xuyuanp/nerdtree-git-plugin'  "nerd tree git status
 Plug 'jiangmiao/auto-pairs'  " automaticamente cierra comillas o llaves
 " syntax highlighting files {{{
 "javascript
-Plug 'othree/yajs.vim'
-Plug 'moll/vim-node', { 'for': 'javascript' }
+"Plug 'othree/yajs.vim'
+"Plug 'moll/vim-node', { 'for': 'javascript' }
 Plug 'MaxMEllon/vim-jsx-pretty'
-Plug 'heavenshell/vim-jsdoc'
-Plug 'elzr/vim-json'
+"Plug 'heavenshell/vim-jsdoc'
+"Plug 'elzr/vim-json'
 " html
-Plug 'othree/html5.vim', { 'for': 'html' }
+"Plug 'othree/html5.vim', { 'for': 'html' }
 " css
-Plug 'groenewege/vim-less', { 'for': 'less' }
-Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
-Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
+"Plug 'groenewege/vim-less', { 'for': 'less' }
+"Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
+"Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
 " TypeScript
-Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'typescript.tsx'] }
+"Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'typescript.tsx'] }
 " markdown
 Plug 'tpope/vim-markdown', { 'for': 'markdown' }
 "}}}
