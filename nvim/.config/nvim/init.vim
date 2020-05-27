@@ -123,7 +123,7 @@ endfunction
 autocmd ColorScheme * call SetItalics()
 "Enable syntax highlighting and set colorscheme
 syntax enable
-colorscheme base16-irblack
+colorscheme gruvbox
 "}}}
 
 let g:vim_jsx_pretty_highlight_close_tag = 1
