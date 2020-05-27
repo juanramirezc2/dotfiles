@@ -591,6 +591,7 @@ nmap <leader>a  <Plug>(coc-codeaction-selected)
 
 " Remap keys for applying codeAction to the current line.
 nmap <leader>ac  <Plug>(coc-codeaction)
+nmap <leader>le  <Plug>(coc-codelens-action)
 " Apply AutoFix to problem on the current line.
 nmap <leader>qf  <Plug>(coc-fix-current)
 
@@ -674,3 +675,11 @@ let g:standard_prettier_settings = {
 " Show break string same color as the line numbers i dont know if i like it of
 " i hate it
 "hi! link NonText LineNr
+let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
+
+" avoid rainbow in nerdtree
+let g:rainbow_conf = {
+      \	'separately': {
+      \		'nerdtree': 0,
+      \	}
+      \}
