@@ -125,7 +125,7 @@ function SetCursorLine() abort
     let bg  = ['#383838', 237]
     "let bg  = ['#3c3836', 237]
   else
-    let bg  = ['#ebdbb2', 223]
+    let bg  = ['#dbdbdb', 223]
   endif
   echo s:is_dark
   let histring = [ 'hi', 'CursorLine',
@@ -366,12 +366,15 @@ endfunction
 call denite#custom#option('default', {
       \ 'auto_resize': 1,
       \ 'split': 'floating',
+      \ 'source_names': 'short',
       \ 'winminheight': '10',
       \ 'match_highlight': 1,
       "\ 'highlight_window_background': 'Pmenu',
       \ 'highlight_filter_background': 'TermCursor',
       \ 'prompt': 'λ:',
-      \ 'prompt_highlight': 'Function'
+      \ 'prompt_highlight': 'Function',
+      \ 'highlight_matched_char': 'Function',
+      \ 'highlight_matched_range': 'Function'
       \ })
 
 "call denite#custom#option('default', {

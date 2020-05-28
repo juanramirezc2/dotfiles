@@ -1,5 +1,3 @@
 node_modules
 dist
-*.min.
-Library
-git
+.git
