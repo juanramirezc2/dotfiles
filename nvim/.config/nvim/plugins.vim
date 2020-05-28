@@ -70,13 +70,17 @@ Plug 'ryanoasis/vim-devicons'  " vim will become visual studio
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'  " needed for devicons
 " themes
 Plug 'morhetz/gruvbox'
+Plug 'ayu-theme/ayu-vim' " or other package manager
+Plug 'tomasiser/vim-code-dark'
 Plug 'arcticicestudio/nord-vim'
 Plug 'dracula/vim', { 'name': 'dracula' }
 Plug 'mhartington/oceanic-next'
 Plug 'lifepillar/vim-solarized8'
 Plug 'patstockwell/vim-monokai-tasty'
-Plug 'chriskempson/base16-vim'
+"Plug 'chriskempson/base16-vim'
 Plug 'joshdick/onedark.vim'
+Plug 'drewtempelmeyer/palenight.vim'
+Plug 'rakr/vim-one'
 "" vim prettier
 Plug 'sbdchd/neoformat'
 " key mappings

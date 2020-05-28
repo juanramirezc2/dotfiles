@@ -34,8 +34,6 @@ set splitright
 set softtabstop=2"
 " vim wiki requirement
 set nocompatible
-"tell neovim that the background is dark
-set background=dark
 " tema y apariencia
 set termguicolors  " Activa true colors en la terminal
 "it seems that powerline fonts need this
@@ -124,16 +122,12 @@ endfunction
 function SetCursorLine() abort
   let s:is_dark=(&background == 'dark')
   if s:is_dark
-    set background=dark
-  else
-    set background=light
-  endif
-
-  if s:is_dark
-    let bg  = ['#3c3836', 237]
+    let bg  = ['#383838', 237]
+    "let bg  = ['#3c3836', 237]
   else
     let bg  = ['#ebdbb2', 223]
   endif
+  echo s:is_dark
   let histring = [ 'hi', 'CursorLine',
         \ 'guifg=' . 'NONE', 'ctermfg=' . 'NONE',
         \ 'guibg=' . bg[0], 'ctermbg=' . bg[1],
@@ -374,6 +368,7 @@ call denite#custom#option('default', {
       \ 'split': 'floating',
       \ 'winminheight': '10',
       \ 'match_highlight': 1,
+      "\ 'highlight_window_background': 'Pmenu',
       \ 'highlight_filter_background': 'TermCursor',
       \ 'prompt': 'λ:',
       \ 'prompt_highlight': 'Function'
