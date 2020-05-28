@@ -126,7 +126,6 @@ function SetCursorLine() abort
   else
     let bg  = ['#dbdbdb']
   endif
-  echo s:is_dark
   let histring = [ 'hi', 'CursorLine',
         \ 'guifg=' . 'NONE',
         \ 'guibg=' . bg[0],
