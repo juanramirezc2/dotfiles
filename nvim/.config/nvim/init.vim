@@ -122,15 +122,14 @@ endfunction
 function SetCursorLine() abort
   let s:is_dark=(&background == 'dark')
   if s:is_dark
-    let bg  = ['#383838', 237]
-    "let bg  = ['#3c3836', 237]
+    let bg  = ['#383838']
   else
-    let bg  = ['#dbdbdb', 223]
+    let bg  = ['#dbdbdb']
   endif
   echo s:is_dark
   let histring = [ 'hi', 'CursorLine',
-        \ 'guifg=' . 'NONE', 'ctermfg=' . 'NONE',
-        \ 'guibg=' . bg[0], 'ctermbg=' . bg[1],
+        \ 'guifg=' . 'NONE',
+        \ 'guibg=' . bg[0],
         \ 'gui=' . 'NONE', 'cterm=' . 'NONE'
         \ ]
   execute join(histring, ' ')
@@ -141,7 +140,7 @@ autocmd ColorScheme * call SetItalics()
 autocmd ColorScheme * call SetCursorLine()
 "Enable syntax highlighting and set colorscheme
 syntax enable
-colorscheme vim-monokai-tasty
+colorscheme monokai
 "}}}
 
 let g:vim_jsx_pretty_highlight_close_tag = 1

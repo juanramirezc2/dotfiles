@@ -68,6 +68,10 @@ Plug 'vimwiki/vimwiki'  "VimWiki is a personal wiki for Vim -- a number of linke
 Plug 'junegunn/vim-easy-align'  "A Vim alignment plugin
 Plug 'ryanoasis/vim-devicons'  " vim will become visual studio
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'  " needed for devicons
+"" vim prettier
+Plug 'sbdchd/neoformat'
+" key mappings
+Plug 'tpope/vim-unimpaired'  "Pairs of handy bracket mappings
 " themes
 Plug 'morhetz/gruvbox'
 Plug 'ayu-theme/ayu-vim' " or other package manager
@@ -81,8 +85,5 @@ Plug 'patstockwell/vim-monokai-tasty'
 Plug 'joshdick/onedark.vim'
 Plug 'drewtempelmeyer/palenight.vim'
 Plug 'rakr/vim-one'
-"" vim prettier
-Plug 'sbdchd/neoformat'
-" key mappings
-Plug 'tpope/vim-unimpaired'  "Pairs of handy bracket mappings
+Plug 'sickill/vim-monokai'
 call plug#end()
