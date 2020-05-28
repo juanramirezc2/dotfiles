@@ -33,7 +33,8 @@ Plug 'jiangmiao/auto-pairs'  " automaticamente cierra comillas o llaves
 "Plug 'othree/yajs.vim'
 "Plug 'moll/vim-node', { 'for': 'javascript' }
 Plug 'MaxMEllon/vim-jsx-pretty'
-"Plug 'heavenshell/vim-jsdoc'
+Plug 'liuchengxu/vista.vim' "View and search LSP symbols, tags in Vim/NeoVim.
+Plug 'heavenshell/vim-jsdoc'
 "Plug 'elzr/vim-json'
 " html
 "Plug 'othree/html5.vim', { 'for': 'html' }

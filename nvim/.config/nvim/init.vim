@@ -120,10 +120,34 @@ function SetItalics() abort
   hi pythonSelf gui=italic
   hi htmlArg gui=italic
 endfunction
+
+function SetCursorLine() abort
+  let s:is_dark=(&background == 'dark')
+  if s:is_dark
+    set background=dark
+  else
+    set background=light
+  endif
+
+  if s:is_dark
+    let bg  = ['#3c3836', 237]
+  else
+    let bg  = ['#ebdbb2', 223]
+  endif
+  let histring = [ 'hi', 'CursorLine',
+        \ 'guifg=' . 'NONE', 'ctermfg=' . 'NONE',
+        \ 'guibg=' . bg[0], 'ctermbg=' . bg[1],
+        \ 'gui=' . 'NONE', 'cterm=' . 'NONE'
+        \ ]
+  execute join(histring, ' ')
+  hi! link CursorColumn CursorLine
+endfunction
+
 autocmd ColorScheme * call SetItalics()
+autocmd ColorScheme * call SetCursorLine()
 "Enable syntax highlighting and set colorscheme
 syntax enable
-colorscheme gruvbox
+colorscheme vim-monokai-tasty
 "}}}
 
 let g:vim_jsx_pretty_highlight_close_tag = 1
@@ -351,7 +375,6 @@ call denite#custom#option('default', {
       \ 'winminheight': '10',
       \ 'match_highlight': 1,
       \ 'highlight_filter_background': 'TermCursor',
-      \ 'highlight_window_background': 'Normal',
       \ 'prompt': 'λ:',
       \ 'prompt_highlight': 'Function'
       \ })
@@ -376,19 +399,6 @@ call denite#custom#option('default', {
       "\ 'highlight_prompt': 'Special',
       "\ })
 
-" Set cursorline hl
-"augroup ps_denite_cursorline
-    "au!
-    "au WinEnter * if &filetype ==# 'denite'
-        "\ |   highlight CursorLineDenite guibg=#282c34 gui=bold
-        "\ |   highlight! link CursorLine CursorLineDenite
-        "\ | endif
-"augroup END
-
-" clever f settings
-let g:clever_f_across_no_line = 1
-let g:clever_f_fix_key_direction = 1
-let g:clever_f_timeout_ms = 3000
 " Vim-Devicons --------------------------------------------------------------{{{
 
 let g:NERDTreeGitStatusNodeColorization = 1
@@ -413,6 +423,7 @@ let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['sql'] = ''
 xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
+
 "see actual registers
 nnoremap <leader>re :registers<CR>
 set autowrite
@@ -675,11 +686,22 @@ let g:standard_prettier_settings = {
 " Show break string same color as the line numbers i dont know if i like it of
 " i hate it
 "hi! link NonText LineNr
+" rainbow brackets {{{
 let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
-
 " avoid rainbow in nerdtree
 let g:rainbow_conf = {
       \	'separately': {
       \		'nerdtree': 0,
       \	}
       \}
+" }}}
+" vista.vim sidebar with LSP symbols {{{
+let g:vista#renderer#enable_icon = 1
+let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+let g:vista_default_executive = 'coc'
+let g:vista#renderer#icons = {
+\   "function": "\uf794",
+\   "variable": "\uf71b",
+\  }
+nmap <leader>vi :Vista!!<CR>
+" }}}
