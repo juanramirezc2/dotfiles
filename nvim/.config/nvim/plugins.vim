@@ -80,7 +80,6 @@ Plug 'arcticicestudio/nord-vim'
 Plug 'dracula/vim', { 'name': 'dracula' }
 Plug 'mhartington/oceanic-next'
 Plug 'lifepillar/vim-solarized8'
-Plug 'patstockwell/vim-monokai-tasty'
 "Plug 'chriskempson/base16-vim'
 Plug 'joshdick/onedark.vim'
 Plug 'drewtempelmeyer/palenight.vim'
