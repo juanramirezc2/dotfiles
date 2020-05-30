@@ -9,6 +9,7 @@ set cpo+=n " show linebreak symbol were line numbers are
 set showbreak=↪\ \ \   " show this symbol when line was broken
 set ai "Auto indent
 set si "Smart indent
+set noswapfile
 set clipboard+=unnamedplus
 " show the number lines relative
 set relativenumber number
