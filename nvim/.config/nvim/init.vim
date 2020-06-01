@@ -140,7 +140,7 @@ autocmd ColorScheme * call SetCursor()
 
 "Enable syntax highlighting and set colorscheme
 syntax enable
-colorscheme monokai
+colorscheme gruvbox
 "}}}
 
 let g:vim_jsx_pretty_highlight_close_tag = 1
