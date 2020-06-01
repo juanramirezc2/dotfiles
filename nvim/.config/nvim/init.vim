@@ -57,8 +57,6 @@ let g:indentLine_color_gui = '#343d46'
 set termguicolors
 set cursorline        " highlight current line
 "set cursorcolumn      " highlight current column
-:hi Cursor guifg=green guibg=green
-:hi Cursor2 guifg=red guibg=red
 set guicursor=n-v-c:block-Cursor/lCursor,i-ci-ve:ver25-Cursor2/lCursor2,r-cr:hor20,o:hor50
 
 " Vim >=8.0 or Neovim >= 0.1.5
@@ -120,7 +118,7 @@ function SetItalics() abort
   hi htmlArg gui=italic
 endfunction
 
-function SetCursorLine() abort
+function SetCursor() abort
   let s:is_dark=(&background == 'dark')
   if s:is_dark
     let bg  = ['#383838']
@@ -133,14 +131,16 @@ function SetCursorLine() abort
         \ 'gui=' . 'NONE', 'cterm=' . 'NONE'
         \ ]
   execute join(histring, ' ')
-  hi! link CursorColumn CursorLine
+  hi! Cursor cterm=NONE gui=NONE guifg=green guibg=green
+  hi! Cursor2 guifg=red guibg=red
 endfunction
 
 autocmd ColorScheme * call SetItalics()
-autocmd ColorScheme * call SetCursorLine()
+autocmd ColorScheme * call SetCursor()
+
 "Enable syntax highlighting and set colorscheme
 syntax enable
-colorscheme gruvbox
+colorscheme monokai
 "}}}
 
 let g:vim_jsx_pretty_highlight_close_tag = 1
