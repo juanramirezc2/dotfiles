@@ -1,5 +1,5 @@
 {
-  "codeLens.enable": true,
+  "codeLens.enable": false,
   "suggest.enablePreview": true,
   "diagnostic.virtualText": false,
   "snippets.userSnippetsDirectory": "~/.config/nvim/mycoolsnippets",
