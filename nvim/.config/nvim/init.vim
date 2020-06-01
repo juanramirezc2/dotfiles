@@ -290,12 +290,12 @@ let g:fruzzy#usenative = 1
 let g:fruzzy#sortonempty = 1 " default value
 " tell denite to use this matcher by default for all sources
 call denite#custom#source('_', 'matchers', ['matcher/fruzzy'])
-nnoremap ; :Denite -start-filter -direction=topleft buffer<CR>
-nmap <leader>p :Denite -start-filter file/rec:.<CR>
+nnoremap <leader>b :Denite -start-filter -direction=topleft buffer<CR>
+nmap     <leader>p :Denite -start-filter file/rec:.<CR>
 nnoremap <leader>/ :<C-u>Denite -no-empty grep:.<CR>
 vnoremap <leader>/ y:<C-u>Denite -no-empty  grep:.::<C-R>=fnameescape(@")<CR><CR>
 nnoremap <leader>/w :<C-u>DeniteCursorWord grep:.<CR>
-nmap     <leader>dm :Denite file_mru<CR>
+nmap     <leader>mr :Denite file_mru<CR>
 nnoremap <leader>h :Denite -resume -cursor-pos=-1 -immediately<CR>
 nnoremap <leader>l :Denite -resume -cursor-pos=+1 -immediately<CR>
 nnoremap <leader>dl :Denite -resume -do='normal! A;'<CR>
@@ -434,19 +434,8 @@ set smartcase
 
 " Automaticaly close nvim if NERDTree is only thing left open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-"   <leader>y - Automatically remove trailing whitespace
 nmap <leader>sw :StripWhitespace<CR>
-
 autocmd TabLeave *NERD_tree* :wincmd w
-"thyme pomodoro timer commands
-nmap <leader>t :!thyme -d<cr>
-nmap <leader>ts :!thyme -s<cr>
-
-"shpotify commands
-nmap <leader>sp :!spotify play<cr>
-nmap <leader>spb :!spotify play uri spotify play uri spotify:playlist:37i9dQZF1DX5Tgh3tlyc3X<cr>
-nmap <leader>spbb :!spotify play uri spotify play uri spotify:playlist:37i9dQZF1DX7EF8wVxBVhG<cr>
-nmap <leader>sn :!spotify next<cr>
 " ================= coc nvim multiple cursors ====================
 hi CocCursorRange guibg=#b16286 guifg=#ebdbb2
 nmap <silent> <C-c> <Plug>(coc-cursors-position)
