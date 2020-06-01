@@ -107,15 +107,15 @@ endfunction
 
 function SetItalics() abort
   hi Comment gui=italic
-  hi Keyword gui=italic
-  hi Keyword gui=italic
-  hi Identifier gui=italic
-  hi StorageClass gui=italic
   hi jsLineComment gui=italic
-  hi xmlAttrib gui=italic
-  hi htmlArg gui=italic
-  hi pythonSelf gui=italic
-  hi htmlArg gui=italic
+  "hi Keyword gui=italic
+  "hi Keyword gui=italic
+  "hi Identifier gui=italic
+  "hi StorageClass gui=italic
+  "hi xmlAttrib gui=italic
+  "hi htmlArg gui=italic
+  "hi pythonSelf gui=italic
+  "hi htmlArg gui=italic
 endfunction
 
 function SetCursor() abort
