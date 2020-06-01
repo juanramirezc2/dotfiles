@@ -131,7 +131,7 @@ function SetCursor() abort
         \ 'gui=' . 'NONE', 'cterm=' . 'NONE'
         \ ]
   execute join(histring, ' ')
-  hi! Cursor cterm=NONE gui=NONE guifg=green guibg=green
+  hi! Cursor cterm=NONE gui=NONE guifg=#a4f644 guibg=#a4f644
   hi! Cursor2 guifg=red guibg=red
 endfunction
 
