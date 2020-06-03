@@ -9,8 +9,9 @@ set cpo+=n " show linebreak symbol were line numbers are
 set showbreak=↪\ \ \   " show this symbol when line was broken
 set ai "Auto indent
 set si "Smart indent
-set noswapfile
-set clipboard+=unnamedplus
+set tw=500
+" Turn on the Wild menu
+set wildmenu
 " show the number lines relative
 set relativenumber number
 " i'm not agains the mouse, enable it in all modes
@@ -19,6 +20,15 @@ set noshowmode "don't show --INSERT--
 set noruler "don't show line numbers/column/% junk
 " Line numbers
 set number
+" Add a bit extra margin to the left
+set foldcolumn=1
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Files, backups and undo
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Turn backup off, since most stuff is in SVN, git etc. anyway...
+set nobackup
+set nowb
+set noswapfile
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set 7 lines to the cursor - when moving vertically using j/k
 set so=7
@@ -26,13 +36,14 @@ set so=7
 set ffs=unix,dos,mac
 " Indent using spaces instead of tabs
 set expandtab
-" The number of spaces to use for each indent
-set shiftwidth=2
-" split new panels down and below
-set splitbelow
-set splitright
+" Be smart when using tabs ;)
+set smarttab
 "Number of spaces to use for a <Tab> during editing operations
+set shiftwidth=2
 set softtabstop=2"
+" Linebreak on 500 characters
+set lbr
+set tw=500
 " vim wiki requirement
 set nocompatible
 " tema y apariencia
