@@ -29,6 +29,9 @@ set foldcolumn=1
 set nobackup
 set nowb
 set noswapfile
+" split new panels down and below
+set splitbelow
+set splitright
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set 7 lines to the cursor - when moving vertically using j/k
 set so=7
@@ -117,8 +120,8 @@ endfunction
 :command C call RandomBase16()
 
 function SetItalics() abort
-  hi Comment gui=italic
-  hi jsLineComment gui=italic
+  "hi Comment gui=italic
+  "hi jsLineComment gui=italic
   "hi Keyword gui=italic
   "hi Keyword gui=italic
   "hi Identifier gui=italic
