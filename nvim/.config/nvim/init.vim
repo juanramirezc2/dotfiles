@@ -366,11 +366,11 @@ function! s:denite_filter_my_settings() abort
   imap <silent><buffer> <C-o> <Plug>(denite_filter_quit)
   inoremap <silent><buffer><expr> <c-l> denite#do_map('do_action')
   inoremap <silent><buffer><expr> <CR> denite#do_map('do_action')
-  inoremap <silent><buffer> <C-j> <Esc>
+  inoremap <silent><buffer> <C-n> <Esc>
         \:call denite#move_to_parent()<CR>
         \:call cursor(line('.')+1,0)<CR>
         \:call denite#move_to_filter()<CR>A
-  inoremap <silent><buffer> <C-k> <Esc>
+  inoremap <silent><buffer> <C-p> <Esc>
 	        \:call denite#move_to_parent()<CR>
 	        \:call cursor(line('.')-1,0)<CR>
 	        \:call denite#move_to_filter()<CR>A
