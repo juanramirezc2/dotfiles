@@ -469,7 +469,7 @@ function! s:select_current_word()
   return "*\<Plug>(coc-cursors-word):nohlsearch\<CR>"
 endfunc
 set noemoji
-let g:vimwiki_list = [{'path': '$HOME/wiki', 'syntax': 'markdown','ext': '.md'}] " set path to a directory inside Dropbox
+let g:vimwiki_list = [{'path': '$HOME/Library/Mobile\ Documents/com~apple~CloudDocs/wiki', 'syntax': 'markdown','ext': '.md'}] " set path to a directory inside Dropbox
 let g:vimwiki_global_ext = 0 " make sure vimwiki doesn't own all .md files
 au FileType vimwiki setlocal shiftwidth=6 tabstop=6 noexpandtab
 command! Diary VimwikiDiaryIndex
