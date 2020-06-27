@@ -304,7 +304,7 @@ let g:fruzzy#usenative = 1
 let g:fruzzy#sortonempty = 1 " default value
 " tell denite to use this matcher by default for all sources
 call denite#custom#source('_', 'matchers', ['matcher/fruzzy'])
-nnoremap <leader>b :Denite -start-filter -direction=topleft buffer<CR>
+nnoremap <leader>; :Denite -start-filter -direction=topleft buffer<CR>
 nmap     <leader>p :Denite -start-filter file/rec:.<CR>
 nnoremap <leader>/ :<C-u>Denite -no-empty grep:.<CR>
 vnoremap <leader>/ y:<C-u>Denite -no-empty  grep:.::<C-R>=fnameescape(@")<CR><CR>
@@ -381,13 +381,16 @@ call denite#custom#option('default', {
       \ 'split': 'floating',
       \ 'source_names': 'short',
       \ 'winminheight': '10',
+      \ 'auto_action': 'preview',
       \ 'match_highlight': 1,
       "\ 'highlight_window_background': 'Pmenu',
       \ 'highlight_filter_background': 'TermCursor',
       \ 'prompt': 'λ:',
       \ 'prompt_highlight': 'Function',
       \ 'highlight_matched_char': 'Function',
-      \ 'highlight_matched_range': 'Function'
+      \ 'highlight_matched_range': 'Function',
+      \ 'vertical_preview': v:false,
+      \ 'floating_preview': v:true
       \ })
 
 "call denite#custom#option('default', {
