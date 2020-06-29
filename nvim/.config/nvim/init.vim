@@ -81,7 +81,7 @@ endif
 let mapleader = " "
 let maplocalleader= ";"
 " open a new terminal  in aplit of the current tab
-nmap <leader>te :tabnew term://zsh<CR>I
+nmap <leader>te :e term://zsh<CR>I
 
 " no mostrar numeros de linea cuando se abre una terminal :O :O
 autocmd TermOpen * setlocal nonumber norelativenumber
@@ -201,49 +201,6 @@ let g:airline_section_y = "%{fnamemodify(getcwd(), ':t')}"
 let g:airline_section_c = '%t' "filename only in bottom part
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline_skip_empty_sections = 1
-"let g:airline#extensions#tabline#left_alt_sep = ''
-"let g:airline#extensions#tabline#left_sep = ''
-"let g:airline_section_x = '%y'
-" vim airline please don't show me closed buffers
-"let g:airline#extensions#tabline#buffer_idx_mode = 1
-"let g:airline#extensions#tabline#switch_buffers_and_tabs = 1
-"let g:airline#extensions#nvim_typescript#enabled=1
-"only display the filename in airline status
-
-"let g:airline_mode_map = {
-      "\ '__' : '',
-      "\ 'c'  : '',
-      "\ 'i'  : '',
-      "\ 'ic' : '',
-      "\ 'ix' : '',
-      "\ 'n'  : '',
-      "\ 'ni' : '',
-      "\ 'no' : '',
-      "\ 'R'  : '',
-      "\ 'Rv' : '',
-      "\ 's'  : '',
-      "\ 'S'  : '',
-      "\ '' : '',
-      "\ 't'  : '',
-      "\ 'v'  : '',
-      "\ 'V'  : '',
-      "\ '' : '',
-      "\ }
-
-"let g:airline#extensions#tabline#buffer_idx_format = {
-      "\ '0': '0 ',
-      "\ '1': '1 ',
-      "\ '2': '2 ',
-      "\ '3': '3 ',
-      "\ '4': '4 ',
-      "\ '5': '5 ',
-      "\ '6': '6 ',
-      "\ '7': '7 ',
-      "\ '8': '8 ',
-      "\ '9': '9 ',
-      "\}
-
-"}}}
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " fugitive git mappings
@@ -300,12 +257,13 @@ nnoremap <silent><leader><CR> :noh<CR>
 
 " ==== denite custom matcher ========""
 "" optional - but recommended - see below
-nnoremap <leader>; :Denite -start-filter -direction=topleft buffer<CR>
-nmap     <leader>p :Denite -start-filter file/rec:.<CR>
+nnoremap <leader>; :Denite -start-filter -no-auto-action buffer<CR>
+nmap     <leader>p :Denite -start-filter -no-auto-action file/rec:.<CR>
+nmap     <leader>me :Denite -no-auto-action menu<CR>
 nnoremap <leader>/ :<C-u>Denite -no-empty grep:.<CR>
 vnoremap <leader>/ y:<C-u>Denite -no-empty  grep:.::<C-R>=fnameescape(@")<CR><CR>
 nnoremap <leader>/w :<C-u>DeniteCursorWord grep:.<CR>
-nmap     <leader>mr :Denite file_mru<CR>
+nmap     <leader>mr :Denite -no-auto-action file_mru<CR>
 nnoremap <leader>h :Denite -resume -cursor-pos=-1 -immediately<CR>
 nnoremap <leader>l :Denite -resume -cursor-pos=+1 -immediately<CR>
 nnoremap <leader>dl :Denite -resume -do='normal! A;'<CR>
@@ -358,7 +316,6 @@ call denite#custom#var('buffer', {
 
 call denite#custom#source('file/rec', 'matchers', ['converter/tail_path'])
 
-"call denite#custom#source('_', 'converters', [,'converter/abbr_word','converter/relative_word','converter/tail_path','converter/truncate_abbr'])
 
 " Denite mappings quickfix panel action
 autocmd FileType denite call s:denite_my_settings()
