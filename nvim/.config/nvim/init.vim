@@ -300,10 +300,6 @@ nnoremap <silent><leader><CR> :noh<CR>
 
 " ==== denite custom matcher ========""
 "" optional - but recommended - see below
-let g:fruzzy#usenative = 1
-let g:fruzzy#sortonempty = 1 " default value
-" tell denite to use this matcher by default for all sources
-call denite#custom#source('_', 'matchers', ['matcher/fruzzy'])
 nnoremap <leader>; :Denite -start-filter -direction=topleft buffer<CR>
 nmap     <leader>p :Denite -start-filter file/rec:.<CR>
 nnoremap <leader>/ :<C-u>Denite -no-empty grep:.<CR>
@@ -315,38 +311,54 @@ nnoremap <leader>l :Denite -resume -cursor-pos=+1 -immediately<CR>
 nnoremap <leader>dl :Denite -resume -do='normal! A;'<CR>
 nmap     <leader>sc :Denite colorscheme<CR>
 
-call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
-      \ [ '.git/', '.ropeproject/', '__pycache__/*', '*.pyc', 'node_modules/',
-      \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/', '*.png'])
-
-" Open file commands
-call denite#custom#map('insert,normal', "<C-t>", '<denite:do_action:tabopen>')
-call denite#custom#map('insert,normal', "<C-v>", '<denite:do_action:vsplit>')
-call denite#custom#map('insert,normal', "<C-h>", '<denite:do_action:split>')
-
 " Change file/rec command to ag.
 call denite#custom#var('file/rec', 'command', ['ag', '--follow', '--nocolor', '--nogroup','--path-to-ignore',$HOME.'/.ignore','-g', ''])
-" narrow by tail path instead of full path in file/rec source.
-call denite#custom#source('file/rec', 'matchers', ['converter/tail_path', 'matcher/fuzzy'])
-" narrow by tail path instead of full path in file/old source.
-call denite#custom#source('file_mru', 'matchers', ['matcher_project_files', 'matcher_fuzzy'])
-" Ag command on grep source
-call denite#custom#var('grep', 'command', ['ag', '--follow', '--nocolor', '--nogroup','--path-to-ignore',$HOME.'/.ignore'])
-call denite#custom#var('grep', 'default_opts', ['-i', '--vimgrep'])
-call denite#custom#var('grep', 'recursive_opts', [])
-call denite#custom#var('grep', 'pattern_opt', [])
-call denite#custom#var('grep', 'separator', ['--'])
-call denite#custom#var('grep', 'final_opts', [])
 
-" Remove date from buffer list
-call denite#custom#var('buffer', 'date_format', '')
-call denite#custom#var('buffer', 'exclude_unlisted', '0')
+call denite#custom#var('grep', {
+      \ 'command': ['ag', '--follow', '--nocolor', '--nogroup','--path-to-ignore',$HOME.'/.ignore'],
+      \ 'default_opts': ['-i', '--vimgrep'],
+      \ 'recursive_opts': [],
+      \ 'pattern_opt': [],
+      \ 'separator': ['--'],
+      \ 'final_opts': [],
+      \ })
+" Add custom menus
+let s:menus = {}
+
+let s:menus.zsh = {
+      \ 'description': 'Edit your import zsh configuration'
+      \ }
+let s:menus.zsh.file_candidates = [
+      \ ['zshrc', '~/.config/zsh/.zshrc'],
+      \ ['zshenv', '~/.zshenv'],
+      \ ]
+
+let s:menus.my_commands = {
+      \ 'description': 'Example commands'
+      \ }
+let s:menus.my_commands.command_candidates = [
+      \ ['Split the window', 'vnew'],
+      \ ['Open zsh menu', 'Denite menu:zsh'],
+      \ ['Format code', 'FormatCode', 'go,python'],
+      \ ]
+
+
+call denite#custom#var('menu', 'menus', s:menus)
 
 " Change matchers.
 call denite#custom#source('file_mru', 'matchers', ['matcher/fuzzy', 'matcher/project_files'])
+" Change sorters.
+call denite#custom#source('file/rec', 'sorters', ['sorter/sublime'])
 
-" narrow by path in grep source
-"call denite#custom#source('grep','converters', ['converter/abbr_word'])
+" Remove date from buffer list
+call denite#custom#var('buffer', {
+      \ 'date_format': 'buffer',
+      \ 'exclude_unlisted': '0'
+      \})
+
+call denite#custom#source('file/rec', 'matchers', ['converter/tail_path'])
+
+"call denite#custom#source('_', 'converters', [,'converter/abbr_word','converter/relative_word','converter/tail_path','converter/truncate_abbr'])
 
 " Denite mappings quickfix panel action
 autocmd FileType denite call s:denite_my_settings()
@@ -383,14 +395,14 @@ call denite#custom#option('default', {
       \ 'winminheight': '10',
       \ 'auto_action': 'preview',
       \ 'match_highlight': 1,
-      "\ 'highlight_window_background': 'Pmenu',
       \ 'highlight_filter_background': 'TermCursor',
       \ 'prompt': 'λ:',
       \ 'prompt_highlight': 'Function',
       \ 'highlight_matched_char': 'Function',
       \ 'highlight_matched_range': 'Function',
-      \ 'vertical_preview': v:false,
-      \ 'floating_preview': v:true
+      \ 'vertical_preview': 0,
+      \ 'expand': 1,
+      \ 'floating_preview': 1
       \ })
 
 "call denite#custom#option('default', {
