@@ -314,9 +314,6 @@ call denite#custom#var('buffer', {
       \ 'exclude_unlisted': '0'
       \})
 
-call denite#custom#source('file/rec', 'matchers', ['converter/tail_path'])
-
-
 " Denite mappings quickfix panel action
 autocmd FileType denite call s:denite_my_settings()
 function! s:denite_my_settings() abort
