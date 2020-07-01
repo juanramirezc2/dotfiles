@@ -66,7 +66,7 @@ Plug 'vimwiki/vimwiki'  "VimWiki is a personal wiki for Vim -- a number of linke
 " file icons
 Plug 'junegunn/vim-easy-align'  "A Vim alignment plugin
 Plug 'ryanoasis/vim-devicons'  " vim will become visual studio
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'  " needed for devicons
+"Plug 'tiagofumo/vim-nerdtree-syntax-highlight'  " needed for devicons
 "" vim prettier
 Plug 'sbdchd/neoformat'
 " key mappings

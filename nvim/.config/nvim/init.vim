@@ -164,6 +164,9 @@ let NERDTreeMapRefreshRoot='r'
 let NERDTreeMapActivateNode='l'
 let NERDTreeMapCloseDir='h'
 let NERDTreeMapCloseChildren='H'
+" icons looking weird in nerdtree this might fix it
+autocmd FileType nerdtree setlocal nolist
+let g:WebDevIconsNerdTreeAfterGlyphPadding = '  '
 
 " Show hidden files/directories
 let g:NERDTreeShowHidden = 1
