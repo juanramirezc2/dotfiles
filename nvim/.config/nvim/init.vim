@@ -304,7 +304,7 @@ let s:menus.my_commands.command_candidates = [
 call denite#custom#var('menu', 'menus', s:menus)
 
 " Change matchers.
-call denite#custom#source('file_mru', 'matchers', ['matcher/fuzzy', 'matcher/project_files'])
+call denite#custom#source('file_mru', 'matchers', ['matcher/project_files'])
 " Change sorters.
 call denite#custom#source('file/rec', 'sorters', ['sorter/sublime'])
 

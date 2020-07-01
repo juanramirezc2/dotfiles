@@ -20,7 +20,6 @@ Plug 'vim-airline/vim-airline-themes'  " indent guides lines let's see how they 
 "File browsers
 Plug 'Shougo/denite.nvim'  "Denite is a dark powered plugin for Neovim/Vim to unite all interfaces.
 Plug 'Shougo/neomru.vim' " MRU plugin includes unite.vim/denite.nvim MRU sources Most Recent Used
-Plug 'raghur/fruzzy', {'do': { -> fruzzy#install()}} "Freaky fast fuzzy Denite/CtrlP matcher for vim/neovim
 Plug 'scrooloose/nerdtree'  "proyect tree and structure
 "Git helpers
 "Plug 'airblade/vim-gitgutter'  " muestra los cambios en archivos en la parte izquierda donde estan los numeros de linea

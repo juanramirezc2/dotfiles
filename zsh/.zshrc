@@ -106,6 +106,9 @@ export FZF_BASE="$HOME/.fzf"
 e() {fzf | xargs -I % $EDITOR % ;}
  zle -N e{,}
  bindkey "^h" e
+ # pyenv added to the path
+ export PYENV_ROOT="$HOME/.pyenv"
+ export PATH="$PYENV_ROOT/bin:$PATH"
 ## enable pyenv auto completion for managing python versions
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
