@@ -66,6 +66,33 @@ let g:indentLine_color_gui = '#343d46'
  let g:indentLine_char="⎸"
 " }}}
 
+if has('nvim')
+  " Terminal mode:
+  tnoremap <M-h> <c-\><c-n><c-w>h
+  tnoremap <M-j> <c-\><c-n><c-w>j
+  tnoremap <M-k> <c-\><c-n><c-w>k
+  tnoremap <M-l> <c-\><c-n><c-w>l
+  " Insert mode:
+  inoremap <M-h> <Esc><c-w>h
+  inoremap <M-j> <Esc><c-w>j
+  inoremap <M-k> <Esc><c-w>k
+  inoremap <M-l> <Esc><c-w>l
+  " Visual mode:
+  vnoremap <M-h> <Esc><c-w>h
+  vnoremap <M-j> <Esc><c-w>j
+  vnoremap <M-k> <Esc><c-w>k
+  vnoremap <M-l> <Esc><c-w>l
+  " Normal mode:
+  nnoremap <M-h> <c-w>h
+  nnoremap <M-j> <c-w>j
+  nnoremap <M-k> <c-w>k
+  nnoremap <M-l> <c-w>l
+  "some terminal mappings
+  tnoremap <M-[> <Esc>
+  tnoremap <C-v><Esc> <Esc>
+  " simulare <C-R>
+  tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
+endif
 
 " guicolors styles for every mode
 set termguicolors
@@ -310,6 +337,8 @@ call denite#custom#var('menu', 'menus', s:menus)
 call denite#custom#source('file_mru', 'matchers', ['matcher/project_files'])
 " Change sorters.
 call denite#custom#source('file/rec', 'sorters', ['sorter/sublime'])
+
+call denite#custom#source('file/rec', 'matchers', ['converter/tail_path'])
 
 " Remove date from buffer list
 call denite#custom#var('buffer', {
