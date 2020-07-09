@@ -393,8 +393,8 @@ nnoremap <silent> <leader>di    <cmd>lua vim.lsp.util.show_line_diagnostics()<CR
   "-- vim.api.nvim_command [[autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()]]
   "-- vim.api.nvim_command [[autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()]]
 
-" completion nvim ----------------------------------------------------{{{
-let g:completion_enable_auto_popup = 0
+"Completion nvim ----------------------------------------------------{{{
+let g:completion_enable_auto_popup = 1
 inoremap <silent><expr> <c-p> completion#trigger_completion()
 let g:completion_enable_snippet = 'UltiSnips'
 " Use <Tab> and <S-Tab> to navigate through popup menu
@@ -405,7 +405,12 @@ set completeopt=menuone,noinsert,noselect
 " Avoid showing message extra message when using completion
 set shortmess+=c
 "" }}}
-
+" Diagnostic Nvim -----------------------------------------------------{{
+"
+nnoremap <silent> [d :PrevDiagnosticCycle<CR>
+nnoremap <silent> ]d :NextDiagnosticCycle<CR>
+nnoremap <silent> <leader>di :OpenDiagnostic<CR>
+" }}
 " nvim tree lua ------------------------------------------------------{{{
 let g:lua_tree_size = 40 "30 by default
 let g:lua_tree_ignore = [ '.git', 'node_modules', '.cache' ] "empty by default
