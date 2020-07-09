@@ -391,26 +391,6 @@ call denite#custom#option('default', {
       \ 'floating_preview': 1
       \ })
 
-"call denite#custom#option('default', {
-      "\ 'split': 'floating',
-      "\ 'auto_resize': 0,
-      "\ 'source_names': 'short',
-      "\ 'statusline': 0,
-      "\ 'wincol': &columns / 10 ,
-      "\ 'winheight': 20 ,
-      "\ 'winrow': &lines / 2 - 10 ,
-      "\ 'winwidth': &columns * 8/10,
-      "\ 'winminheight': 1,
-      "\ 'vertical_preview': 1,
-      "\ 'highlight_mode_normal': 'TermCursor',
-      "\ 'highlight_mode_insert': 'TermCursor',
-      "\ 'highlight_matched_char': 'Function',
-      "\ 'highlight_matched_range': 'Function',
-      "\ 'highlight_window_background': 'NormalFloat',
-      "\ 'highlight_filter_background': 'TermCursor',
-      "\ 'highlight_prompt': 'Special',
-      "\ })
-
 " Vim-Devicons --------------------------------------------------------------{{{
 
 let g:NERDTreeGitStatusNodeColorization = 1
@@ -638,25 +618,23 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
  "provide custom statusline: lightline.vim, vim-airline.
 "set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
-" Mappings using CoCList:
+" Mappings for CoCList
 " Show all diagnostics.
-nnoremap <silent> <space>di  :<C-u>CocList --normal --auto-preview diagnostics<cr>
+nnoremap <silent><nowait> <space>di  :<C-u>CocList --normal --auto-preview diagnostics<cr>
 " Manage extensions.
-nnoremap <silent> <space>ex  :<C-u>CocList --normal extensions<cr>
+nnoremap <silent><nowait> <space>ex  :<C-u>CocList --normal extensions<cr>
 " Show commands.
-nnoremap <silent> <space>co  :<C-u>CocList --normal commands<cr>
-" latest jump locations
-nnoremap <silent> <space>lo  :<C-u>CocList --normal location<cr>
+nnoremap <silent><nowait> <space>co  :<C-u>CocList --normal commands<cr>
 " Find symbol of current document.
-nnoremap <silent> <space>o  :<C-u>CocList --normal outline<cr>
+nnoremap <silent><nowait> <space>lo  :<C-u>CocList --normal outline<cr>
 " Search workspace symbols.
-nnoremap <silent> <space>s  :<C-u>CocList --normal -I symbols<cr>
+nnoremap <silent><nowait> <space>sy  :<C-u>CocList --normal -I symbols<cr>
 " Do default action for next item.
-nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 " Do default action for previous item.
-nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
-nnoremap <silent> <space>ll  :<C-u>CocListResume<CR>
+nnoremap <silent><nowait> <space>ll  :<C-u>CocListResume<CR>
 "}}}
 
 """""""""""""""""""""""""""""""
@@ -677,7 +655,8 @@ nnoremap <leader><tab> <C-^>;
 map <leader>ba :bufdo bd<cr>
 " Code formatting -----------------------------------------------------------{{{
 " ,f to format code, requires formatters: read the docs
-noremap <silent> <leader>f :Neoformat<CR>
+noremap <silent> <leader>f :Format<CR>
+
 let g:standard_prettier_settings = {
       \ 'exe': 'prettier',
       \ 'args': ['--stdin', '--stdin-filepath', '%:p', '--single-quote'],
