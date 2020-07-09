@@ -666,15 +666,6 @@ let g:standard_prettier_settings = {
 " Show break string same color as the line numbers i dont know if i like it of
 " i hate it
 "hi! link NonText LineNr
-" rainbow brackets {{{
-let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
-" avoid rainbow in nerdtree
-let g:rainbow_conf = {
-      \	'separately': {
-      \		'nerdtree': 0,
-      \	}
-      \}
-" }}}
 " vista.vim sidebar with LSP symbols {{{
 let g:vista#renderer#enable_icon = 1
 let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
