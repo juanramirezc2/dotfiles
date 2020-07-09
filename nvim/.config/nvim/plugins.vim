@@ -7,12 +7,15 @@
 call plug#begin('~/.vim/plugged')
 "startup and sessions managers
 Plug 'mhinz/vim-startify' "bellisima y magnifica primera pantalla para vim
-" Or build from source code by use yarn: https://yarnpkg.com
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+"Code helpers {{{
+Plug 'neovim/nvim-lsp'
+Plug 'nvim-lua/completion-nvim'
+Plug 'nvim-lua/diagnostic-nvim'
 Plug 'jceb/vim-orgmode' "Org mode in vim
 Plug 'scrooloose/nerdcommenter' " comment lines of code using this plugin
 Plug 'alvan/vim-closetag' "Auto close (X)HTML tags
 Plug 'tpope/vim-surround' "surround plugin
+"}}}
 "GUI customization
 Plug 'yggdroot/indentline' " indent guides lines let's see how they goes
 Plug 'vim-airline/vim-airline' " indent guides lines let's see how they goes
@@ -20,7 +23,8 @@ Plug 'vim-airline/vim-airline-themes'  " indent guides lines let's see how they 
 "File browsers
 Plug 'Shougo/denite.nvim'  "Denite is a dark powered plugin for Neovim/Vim to unite all interfaces.
 Plug 'Shougo/neomru.vim' " MRU plugin includes unite.vim/denite.nvim MRU sources Most Recent Used
-Plug 'scrooloose/nerdtree'  "proyect tree and structure
+Plug 'kyazdani42/nvim-web-devicons' " for file icons
+Plug 'kyazdani42/nvim-tree.lua'
 "Git helpers
 "Plug 'airblade/vim-gitgutter'  " muestra los cambios en archivos en la parte izquierda donde estan los numeros de linea
 Plug 'rhysd/git-messenger.vim'  "Neovim plugin to reveal the commit messages under the cursor
@@ -28,23 +32,15 @@ Plug 'tpope/vim-fugitive'  " git on vim
 Plug 'xuyuanp/nerdtree-git-plugin'  "nerd tree git status
 Plug 'jiangmiao/auto-pairs'  " automaticamente cierra comillas o llaves
 " syntax highlighting files {{{
+" colorize hexa
+Plug 'norcalli/nvim-colorizer.lua'
 "javascript
 Plug 'othree/yajs.vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
-"Plug 'moll/vim-node', { 'for': 'javascript' }
 Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'liuchengxu/vista.vim' "View and search LSP symbols, tags in Vim/NeoVim.
 Plug 'heavenshell/vim-jsdoc'
-"Plug 'elzr/vim-json'
-" html
-"Plug 'othree/html5.vim', { 'for': 'html' }
-" css
-"Plug 'groenewege/vim-less', { 'for': 'less' }
-"Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
-"Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
-" TypeScript
-"Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'typescript.tsx'] }
 " markdown
 Plug 'tpope/vim-markdown', { 'for': 'markdown' }
 "}}}
@@ -67,8 +63,6 @@ Plug 'machakann/vim-highlightedyank'  "highlight yanked text
 Plug 'vimwiki/vimwiki'  "VimWiki is a personal wiki for Vim -- a number of linked text files that have their own syntax highlighting.
 " file icons
 Plug 'junegunn/vim-easy-align'  "A Vim alignment plugin
-Plug 'ryanoasis/vim-devicons'  " vim will become visual studio
-"Plug 'tiagofumo/vim-nerdtree-syntax-highlight'  " needed for devicons
 "" vim prettier
 Plug 'sbdchd/neoformat'
 " key mappings
@@ -81,7 +75,6 @@ Plug 'arcticicestudio/nord-vim'
 Plug 'dracula/vim', { 'name': 'dracula' }
 Plug 'mhartington/oceanic-next'
 Plug 'lifepillar/vim-solarized8'
-"Plug 'chriskempson/base16-vim'
 Plug 'joshdick/onedark.vim'
 Plug 'drewtempelmeyer/palenight.vim'
 Plug 'rakr/vim-one'

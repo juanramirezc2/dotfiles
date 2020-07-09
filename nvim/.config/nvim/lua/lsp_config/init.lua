@@ -1,24 +1,20 @@
+local vim = vim
 local nvim_lsp = require "nvim_lsp"
-local diagnostic = require'diagnostic'
--- local configs = require'nvim_lsp/config'
 
+local on_attach = function(_, bufnr)
 
--- -- Check if it's already defined for when I reload this file.
--- configs.sourcekit_lsp = {
---   default_config = {
---     cmd = {'sourcekit-lsp'};
---     filetypes = {'swift'};
---     root_dir = function(fname)
---       return nvim_lsp.util.find_git_ancestor(fname) or vim.loop.os_homedir()
---     end;
---     log_level = vim.lsp.protocol.MessageType.Warning;
---     settings = {};
---   };
--- }
--- nvim_lsp.sourcekit_lsp.setup{}
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
+  require'completion'.on_attach()
+  require'diagnostic'.on_attach()
 
-nvim_lsp.tsserver.setup {on_attach=diagnostic.on_attach}
-nvim_lsp.cssls.setup   {on_attach=diagnostic.on_attach}
-nvim_lsp.html.setup    {on_attach=diagnostic.on_attach}
-nvim_lsp.jsonls.setup  {on_attach=diagnostic.on_attach}
+  local opts = { noremap=true, silent=true }
+end
+
+local servers = {'cssls', 'html', 'tsserver', 'vimls','jsonls'}
+
+for _, lsp in ipairs(servers) do
+  nvim_lsp[lsp].setup {
+    on_attach = on_attach,
+  }
+end
