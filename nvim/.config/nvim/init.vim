@@ -298,7 +298,6 @@ let s:menus.my_commands.command_candidates = [
       \ ['Format code', 'FormatCode', 'go,python'],
       \ ]
 
-
 call denite#custom#var('menu', 'menus', s:menus)
 
 " Change matchers.
@@ -362,10 +361,10 @@ call denite#custom#option('default', {
 
 "LSP ----------------------------------------------{{
 lua require("lsp_config")
-"call sign_define('LspDiagnosticsErrorSign',       {'text': '・'})
-"call sign_define('LspDiagnosticsWarningSign',     {'text': '・'})
-"call sign_define('LspDiagnosticsInformationSign', {'text': '・'})
-"call sign_define('LspDiagnosticsHintSign',        {'text': '・'})
+call sign_define('LspDiagnosticsErrorSign',       {'text': '・'})
+call sign_define('LspDiagnosticsWarningSign',     {'text': '・'})
+call sign_define('LspDiagnosticsInformationSign', {'text': '・'})
+call sign_define('LspDiagnosticsHintSign',        {'text': '・'})
 nnoremap <silent> gdc    <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
