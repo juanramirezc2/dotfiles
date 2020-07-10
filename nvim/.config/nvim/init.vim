@@ -407,20 +407,20 @@ set completeopt=menuone,noinsert,noselect
 set shortmess+=c
 "" }}}
 " Diagnostic Nvim -----------------------------------------------------{{
-" Always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved.
+" Always show the signcolumn
 if has("patch-8.1.1564")
   " Recently vim can merge signcolumn and number column into one
   set signcolumn=number
 else
   set signcolumn=yes
 endif
-
 nnoremap <silent> [d :PrevDiagnosticCycle<CR>
 nnoremap <silent> ]d :NextDiagnosticCycle<CR>
 nnoremap <silent> <leader>di :OpenDiagnostic<CR>
+let g:diagnostic_enable_virtual_text = 1
 let g:diagnostic_trimmed_virtual_text = '20'
 " }}
+
 " nvim tree lua ------------------------------------------------------{{{
 let g:lua_tree_size = 40 "30 by default
 let g:lua_tree_ignore = [ '.git', 'node_modules', '.cache' ] "empty by default
