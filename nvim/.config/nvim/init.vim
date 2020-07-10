@@ -4,6 +4,7 @@ source ~/.config/nvim/plugins.vim
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Hide pointless junk at the bottom, doesn't work in .vimrc for some reason?
 set laststatus=2
+set hidden
 set nowrap
 set sidescroll=16
 set ai "Auto indent
@@ -373,7 +374,7 @@ nnoremap <silent> gs <cmd>lua vim.lsp.buf.signature_help()<CR>
 nnoremap <silent> gtd   <cmd>lua vim.lsp.buf.type_definition()<CR>
 nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> <leader>rn    <cmd>lua vim.lsp.buf.rename()<CR>
-nnoremap <silent> <leader>ca    <cmd>lua vim.lsp.buf.code_action()<CR>
+nnoremap <silent> ca    <cmd>lua vim.lsp.buf.code_action()<CR>
 nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 
