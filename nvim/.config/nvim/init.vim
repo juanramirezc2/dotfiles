@@ -362,20 +362,19 @@ call denite#custom#option('default', {
 
 "LSP ----------------------------------------------{{
 lua require("lsp_config")
-call sign_define('LspDiagnosticsErrorSign',       {'text': '・'})
-call sign_define('LspDiagnosticsWarningSign',     {'text': '・'})
-call sign_define('LspDiagnosticsInformationSign', {'text': '・'})
-call sign_define('LspDiagnosticsHintSign',        {'text': '・'})
-nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
-nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
+"call sign_define('LspDiagnosticsErrorSign',       {'text': '・'})
+"call sign_define('LspDiagnosticsWarningSign',     {'text': '・'})
+"call sign_define('LspDiagnosticsInformationSign', {'text': '・'})
+"call sign_define('LspDiagnosticsHintSign',        {'text': '・'})
+nnoremap <silent> gdc    <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <silent> gi    <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> gs <cmd>lua vim.lsp.buf.signature_help()<CR>
 nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
 nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-nnoremap <silent> <leader>di    <cmd>lua vim.lsp.util.show_line_diagnostics()<CR>
 
 "}}
   "vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gdc', '<Cmd>lua vim.lsp.buf.declaration()<CR>',     opts)
@@ -406,10 +405,19 @@ set completeopt=menuone,noinsert,noselect
 set shortmess+=c
 "" }}}
 " Diagnostic Nvim -----------------------------------------------------{{
-"
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+if has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
+
 nnoremap <silent> [d :PrevDiagnosticCycle<CR>
 nnoremap <silent> ]d :NextDiagnosticCycle<CR>
 nnoremap <silent> <leader>di :OpenDiagnostic<CR>
+let g:diagnostic_trimmed_virtual_text = '20'
 " }}
 " nvim tree lua ------------------------------------------------------{{{
 let g:lua_tree_size = 40 "30 by default
