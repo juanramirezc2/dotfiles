@@ -21,12 +21,11 @@ Plug 'yggdroot/indentline' " indent guides lines let's see how they goes
 Plug 'vim-airline/vim-airline' " indent guides lines let's see how they goes
 Plug 'vim-airline/vim-airline-themes'  " indent guides lines let's see how they goes
 "File browsers
+Plug 'preservim/nerdtree' "file browsing panel
 Plug 'Shougo/denite.nvim'  "Denite is a dark powered plugin for Neovim/Vim to unite all interfaces.
+Plug 'Shougo/echodoc.vim'
 Plug 'Shougo/neomru.vim' " MRU plugin includes unite.vim/denite.nvim MRU sources Most Recent Used
-Plug 'kyazdani42/nvim-web-devicons' " for file icons
-Plug 'kyazdani42/nvim-tree.lua'
 "Git helpers
-"Plug 'airblade/vim-gitgutter'  " muestra los cambios en archivos en la parte izquierda donde estan los numeros de linea
 Plug 'rhysd/git-messenger.vim'  "Neovim plugin to reveal the commit messages under the cursor
 Plug 'tpope/vim-fugitive'  " git on vim
 Plug 'xuyuanp/nerdtree-git-plugin'  "nerd tree git status
@@ -63,6 +62,7 @@ Plug 'machakann/vim-highlightedyank'  "highlight yanked text
 Plug 'vimwiki/vimwiki'  "VimWiki is a personal wiki for Vim -- a number of linked text files that have their own syntax highlighting.
 " file icons
 Plug 'junegunn/vim-easy-align'  "A Vim alignment plugin
+Plug 'ryanoasis/vim-devicons'  " vim will become visual studio
 "" vim prettier
 Plug 'sbdchd/neoformat'
 " key mappings

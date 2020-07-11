@@ -397,6 +397,9 @@ nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 "Completion nvim ----------------------------------------------------{{{
 let g:completion_enable_auto_popup = 1
 inoremap <silent><expr> <c-p> completion#trigger_completion()
+hi LspReferenceRead guibg='#343d46'
+hi LspReferenceText guibg='#343d46'
+hi LspReferenceWrite guibg='#343d46'
 let g:completion_enable_snippet = 'UltiSnips'
 " Use <Tab> and <S-Tab> to navigate through popup menu
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
@@ -418,66 +421,7 @@ nnoremap <silent> [d :PrevDiagnosticCycle<CR>
 nnoremap <silent> ]d :NextDiagnosticCycle<CR>
 nnoremap <silent> <leader>di :OpenDiagnostic<CR>
 let g:diagnostic_enable_virtual_text = 1
-let g:diagnostic_trimmed_virtual_text = '20'
 " }}
-
-" nvim tree lua ------------------------------------------------------{{{
-let g:lua_tree_size = 40 "30 by default
-let g:lua_tree_ignore = [ '.git', 'node_modules', '.cache' ] "empty by default
-let g:lua_tree_auto_open = 1 "0 by default, opens the tree when typing `vim $DIR` or `vim`
-let g:lua_tree_auto_close = 1 "0 by default, closes the tree when it's the last window
-let g:lua_tree_follow = 1 "0 by default, this option allows the cursor to be updated when entering a buffer
-let g:lua_tree_indent_markers = 1 "0 by default, this option shows indent markers when folders are open
-let g:lua_tree_show_icons = {
-    \ 'git': 1,
-    \ 'folders': 0,
-    \ 'files': 0,
-    \}
-"If 0, do not show the icons for one of 'git' 'folder' and 'files'
-"1 by default, notice that if 'files' is 1, it will only display
-"if nvim-web-devicons is installed and on your runtimepath
-
-" You can edit keybindings be defining this variable
-" You don't have to define all keys.
-" NOTE: the 'edit' key will wrap/unwrap a folder and open a file
-let g:lua_tree_bindings = {
-      \ 'edit':        '<CR>',
-      \ 'edit_vsplit': '<C-v>',
-      \ 'edit_split':  '<C-x>',
-      \ 'edit_tab':    '<C-t>',
-      \ 'preview':     '<Tab>',
-      \ 'cd':          '<C-]>',
-      \}
-
-" Disable default mappings by plugin
-" Bindings are enable by default, disabled on any non-zero value
-" let lua_tree_disable_keybindings=1
-
-" default will show icon by default if no icon is provided
-" default shows no icon by default
-let g:lua_tree_icons = {
-    \ 'default': '',
-    \ 'git': {
-    \   'unstaged': "✗",
-    \   'staged': "✓",
-    \   'unmerged': "═",
-    \   'renamed': "➜",
-    \   'untracked': "★"
-    \   },
-    \ 'folder': {
-    \   'default': "",
-    \   'open': ""
-    \   }
-    \ }
-
-nnoremap <C-n> :LuaTreeToggle<CR>
-nnoremap <leader>r :LuaTreeRefresh<CR>
-nnoremap <leader>n :LuaTreeFindFile<CR>
-" LuaTreeOpen and LuaTreeClose are also available if you need them
-set termguicolors " this variable must be enabled for colors to be applied properly
-" a list of groups can be found at `:help lua_tree_highlight`
-highlight LuaTreeFolderIcon guibg=blue
-"" }}}
 
 " Vim-Devicons --------------------------------------------------------------{{{
 
@@ -591,3 +535,32 @@ let g:vista#renderer#icons = {
       \  }
 nmap <leader>vi :Vista!!<CR>
 " }}}
+" Or, you could use neovim's virtual virtual text feature.
+let g:echodoc#enable_at_startup = 1
+let g:echodoc#type = 'virtual'
+
+"Netrw file explorer in neovim
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
+let g:netrw_altv = 1
+let g:netrw_winsize = 25
+"Nerd Tree ---------------------------------------------------------------------{{{
+map <C-n> :NERDTreeToggle<CR>
+map <C-m> :NERDTreeFind<CR>
+" Close Nerdtree if is the only window left
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" NerdTree Refresh Root crashes with my <S-R> command for moving between tags
+let NERDTreeMapRefreshRoot='r'
+let NERDTreeMapActivateNode='l'
+let NERDTreeMapCloseDir='h'
+let NERDTreeMapCloseChildren='H'
+" icons looking weird in nerdtree this might fix it
+autocmd FileType nerdtree setlocal nolist
+let g:WebDevIconsNerdTreeAfterGlyphPadding = '  '
+
+" Show hidden files/directories
+let g:NERDTreeShowHidden = 1
+" Remove bookmarks and help text from NERDTree
+let g:NERDTreeMinimalUI = 1
+"}}}
