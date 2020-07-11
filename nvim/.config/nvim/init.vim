@@ -268,17 +268,6 @@ nnoremap <leader>l :Denite -resume -cursor-pos=+1 -immediately<CR>
 nnoremap <leader>dl :Denite -resume -do='normal! A;'<CR>
 nmap     <leader>sc :Denite colorscheme<CR>
 
-" Change file/rec command to ag.
-call denite#custom#var('file/rec', 'command', ['ag', '--follow', '--nocolor', '--nogroup','--path-to-ignore',$HOME.'/.ignore','-g', ''])
-
-call denite#custom#var('grep', {
-      \ 'command': ['ag', '--follow', '--nocolor', '--nogroup','--path-to-ignore',$HOME.'/.ignore'],
-      \ 'default_opts': ['-i', '--vimgrep'],
-      \ 'recursive_opts': [],
-      \ 'pattern_opt': [],
-      \ 'separator': ['--'],
-      \ 'final_opts': [],
-      \ })
 " Add custom menus
 let s:menus = {}
 
@@ -286,7 +275,7 @@ let s:menus.zsh = {
       \ 'description': 'Edit your import zsh configuration'
       \ }
 let s:menus.zsh.file_candidates = [
-      \ ['zshrc', '~/.config/zsh/.zshrc'],
+      \ ['zshrc', '~/.zshrc'],
       \ ['zshenv', '~/.zshenv'],
       \ ]
 
@@ -298,6 +287,20 @@ let s:menus.my_commands.command_candidates = [
       \ ['Open zsh menu', 'Denite menu:zsh'],
       \ ['Format code', 'FormatCode', 'go,python'],
       \ ]
+
+" Change file/rec command.
+call denite#custom#var('file/rec', 'command',
+      \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+
+" Ag command on grep source
+call denite#custom#var('grep', {
+      \ 'command': ['ag'],
+      \ 'default_opts': ['-i', '--vimgrep'],
+      \ 'recursive_opts': [],
+      \ 'pattern_opt': [],
+      \ 'separator': ['--'],
+      \ 'final_opts': [],
+      \ })
 
 call denite#custom#var('menu', 'menus', s:menus)
 
@@ -367,7 +370,7 @@ call sign_define('LspDiagnosticsWarningSign',     {'text': '・'})
 call sign_define('LspDiagnosticsInformationSign', {'text': '・'})
 call sign_define('LspDiagnosticsHintSign',        {'text': '・'})
 nnoremap <silent> <leader>gdc    <cmd>lua vim.lsp.buf.declaration()<CR>
-nnoremap <silent> <leader>gd <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <silent> gi    <cmd>lua vim.lsp.buf.implementation()<CR>
 nnoremap <silent> gs <cmd>lua vim.lsp.buf.signature_help()<CR>
@@ -426,7 +429,7 @@ let g:diagnostic_enable_virtual_text = 1
 " Vim-Devicons --------------------------------------------------------------{{{
 
 let g:NERDTreeGitStatusNodeColorization = 1
-"let g:webdevicons_enable_denite = 0
+let g:webdevicons_enable_denite = 0
 let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = ''
 let g:DevIconsEnableFoldersOpenClose = 1
 let g:WebDevIconsOS = 'Darwin'
@@ -546,8 +549,7 @@ let g:netrw_browse_split = 4
 let g:netrw_altv = 1
 let g:netrw_winsize = 25
 "Nerd Tree ---------------------------------------------------------------------{{{
-map <C-n> :NERDTreeToggle<CR>
-map <C-m> :NERDTreeFind<CR>
+map <C-n> :NERDTreeFind<CR>
 " Close Nerdtree if is the only window left
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " NerdTree Refresh Root crashes with my <S-R> command for moving between tags
