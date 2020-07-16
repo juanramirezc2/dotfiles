@@ -202,7 +202,7 @@ let g:airline_section_c = '%t' "filename only in bottom part
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline_skip_empty_sections = 1
 " escaping normal mode
-imap jk <Esc>
+inoremap jk <Esc>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " fugitive git mappings
 nnoremap <silent><leader>gs :Gstatus<CR>
