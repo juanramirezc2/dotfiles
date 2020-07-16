@@ -305,7 +305,7 @@ call denite#custom#var('grep', {
 call denite#custom#var('menu', 'menus', s:menus)
 
 " Change matchers.
-call denite#custom#source('file_mru', 'matchers', ['matcher/project_files'])
+call denite#custom#source('file_mru', 'matchers', ['matcher/fuzzy', 'matcher/project_files'])
 " Change sorters.
 call denite#custom#source('file/rec', 'sorters', ['sorter/sublime'])
 
@@ -349,13 +349,17 @@ call denite#custom#option('default', {
       \ 'auto_resize': 1,
       \ 'split': 'floating',
       \ 'source_names': 'short',
-      \ 'winminheight': '10',
+      \ 'direction': 'dynamicbottom',
       \ 'auto_action': 'preview',
       \ 'match_highlight': 1,
+      \ 'smartcase': 1,
       \ 'highlight_filter_background': 'TermCursor',
       \ 'prompt': 'λ:',
       \ 'prompt_highlight': 'Function',
       \ 'highlight_matched_char': 'Function',
+      \ 'wincol': &columns / 20 ,
+      \ 'winwidth': &columns * 18/20,
+      \ 'winminheight': 10,
       \ 'highlight_matched_range': 'Function',
       \ 'vertical_preview': 0,
       \ 'expand': 1,
@@ -423,7 +427,7 @@ endif
 nnoremap <silent> [d :PrevDiagnosticCycle<CR>
 nnoremap <silent> ]d :NextDiagnosticCycle<CR>
 nnoremap <silent> <leader>di :OpenDiagnostic<CR>
-let g:diagnostic_enable_virtual_text = 1
+let g:diagnostic_enable_virtual_text = 0
 " }}
 
 " Vim-Devicons --------------------------------------------------------------{{{
