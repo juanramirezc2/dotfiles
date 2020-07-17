@@ -548,7 +548,6 @@ let g:netrw_browse_split = 4
 let g:netrw_altv = 1
 let g:netrw_winsize = 25
 "Nerd Tree ---------------------------------------------------------------------{{{
-map <C-n> :NERDTreeFind<CR>
 " Close Nerdtree if is the only window left
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " NerdTree Refresh Root crashes with my <S-R> command for moving between tags
@@ -559,11 +558,15 @@ let NERDTreeMapCloseChildren='H'
 " icons looking weird in nerdtree this might fix it
 autocmd FileType nerdtree setlocal nolist
 let g:WebDevIconsNerdTreeAfterGlyphPadding = '  '
-
-" Show hidden files/directories
-let g:NERDTreeShowHidden = 1
 " Remove bookmarks and help text from NERDTree
 let g:NERDTreeMinimalUI = 1
+let g:NERDTreeWinPos = "right"
+let NERDTreeShowHidden=0
+let NERDTreeIgnore = ['\.pyc$', '__pycache__']
+let g:NERDTreeWinSize=35
+map <leader>nn :NERDTreeToggle<cr>
+map <leader>nb :NERDTreeFromBookmark<Space>
+map <leader>nf :NERDTreeFind<cr>
 "}}}
 "Match Tags Always
 let g:mta_filetypes = {
@@ -574,3 +577,23 @@ let g:mta_filetypes = {
     \ 'typescript.tsx' : 1,
     \ 'twig' : 1,
     \}
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => vim-multiple-cursors
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:multi_cursor_use_default_mapping=0
+
+" Default mapping
+let g:multi_cursor_start_word_key      = '<C-s>'
+let g:multi_cursor_select_all_word_key = '<A-s>'
+let g:multi_cursor_start_key           = 'g<C-s>'
+let g:multi_cursor_select_all_key      = 'g<A-s>'
+let g:multi_cursor_next_key            = '<C-s>'
+let g:multi_cursor_prev_key            = '<C-p>'
+let g:multi_cursor_skip_key            = '<C-x>'
+let g:multi_cursor_quit_key            = '<Esc>'
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => surround.vim config
+" Annotate strings with gettext 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+vmap Si S(i_<esc>f)
+au FileType mako vmap Si S"i${ _(<esc>2f"a) }<esc>
