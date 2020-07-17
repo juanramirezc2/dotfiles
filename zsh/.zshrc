@@ -73,6 +73,7 @@ alias gc='git commit -m'
 alias ga='git add'
 alias gp='git push'
 alias ls='ls -FHG'
+alias n='nvim'
 # change cwd on ranger exit
 export RANGER_LOAD_DEFAULT_RC=false
 export LANG="en_US.UTF-8"
