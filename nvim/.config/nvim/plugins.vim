@@ -17,7 +17,8 @@ Plug 'alvan/vim-closetag' "Auto close (X)HTML tags
 Plug 'tpope/vim-surround' "surround plugin
 "}}}
 "GUI customization
-Plug 'yggdroot/indentline' " indent guides lines let's see how they goes
+Plug 'Valloric/MatchTagAlways' "highlight tags for easy html 
+Plug 'nathanaelkane/vim-indent-guides'
 Plug 'vim-airline/vim-airline' " indent guides lines let's see how they goes
 Plug 'vim-airline/vim-airline-themes'  " indent guides lines let's see how they goes
 "File browsers

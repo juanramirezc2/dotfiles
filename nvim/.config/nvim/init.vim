@@ -55,15 +55,9 @@ set termguicolors  " Activa true colors en la terminal
 set t_Co=256
 set noshowmode  " No mostrar el modo actual (ya lo muestra la barra de estado)
 "indent line ======= {{{
-" vim indent line
-let g:indentLine_enabled = 1
-let g:indentLine_faster = 1
-" indent line overwrite conceal from user :(
-let g:indentLine_concealcursor = 'nc'
-let g:indentLine_conceallevel = 2
-let g:indentLine_color_gui = '#343d46'
-"let g:indentLine_char_list = ['|', '¦', '┆', '┊']
- let g:indentLine_char="⎸"
+let g:indent_guides_guide_size = 1
+let g:indent_guides_color_change_percent = 3
+let g:indent_guides_enable_on_vim_startup = 1
 " }}}
 
 if has('nvim')
@@ -571,3 +565,12 @@ let g:NERDTreeShowHidden = 1
 " Remove bookmarks and help text from NERDTree
 let g:NERDTreeMinimalUI = 1
 "}}}
+"Match Tags Always
+let g:mta_filetypes = {
+    \ 'html' : 1,
+    \ 'xhtml' : 1,
+    \ 'xml' : 1,
+    \ 'javascript' : 1,
+    \ 'typescript.tsx' : 1,
+    \ 'twig' : 1,
+    \}
