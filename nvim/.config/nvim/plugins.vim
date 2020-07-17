@@ -15,6 +15,7 @@ Plug 'jceb/vim-orgmode' "Org mode in vim
 Plug 'scrooloose/nerdcommenter' " comment lines of code using this plugin
 Plug 'alvan/vim-closetag' "Auto close (X)HTML tags
 Plug 'tpope/vim-surround' "surround plugin
+Plug 'andymass/vim-matchup' "jumping between opening and closing symbols
 "}}}
 "GUI customization
 Plug 'Valloric/MatchTagAlways' "highlight tags for easy html 

@@ -20,8 +20,15 @@ set noshowmode "don't show --INSERT--
 set noruler "don't show line numbers/column/% junk
 " Line numbers
 set number
+"FOLDING SETTINGS======================={{{
 " Add a bit extra margin to the left
 set foldcolumn=1
+set foldmethod=indent               " not as cool as syntax, but faster
+set foldlevelstart=99               " start unfolded
+"Toggle fold mapping
+" Toggle fold at current position.
+nnoremap <Tab> za
+"}}}
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -597,3 +604,9 @@ let g:multi_cursor_quit_key            = '<Esc>'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 vmap Si S(i_<esc>f)
 au FileType mako vmap Si S"i${ _(<esc>2f"a) }<esc>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => vim indent Guides
+" 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:indent_guides_exclude_filetypes = ['nerdtree','startify']
