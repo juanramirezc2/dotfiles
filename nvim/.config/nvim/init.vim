@@ -128,6 +128,15 @@ set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
 " For regular expressions turn magic on
 set magic
+" Usar Control + y para copiar al portapapeles
+vnoremap <C-c> "+y
+nnoremap <C-c>c "+y
+vnoremap <C-v> "+p
+nnoremap <C-v> "+P
+" Usar <líder> + d para cortar al portapapeles
+vnoremap <C-x> "+d
+nnoremap <C-x> "+d
+
 " Themes, Commands, etc  ----------------------------------------------------{{{
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
