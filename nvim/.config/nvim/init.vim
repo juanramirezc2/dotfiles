@@ -62,48 +62,6 @@ set termguicolors  " Activa true colors en la terminal
 set t_Co=256
 set noshowmode  " No mostrar el modo actual (ya lo muestra la barra de estado)
 
-if has('nvim')
-  " Terminal mode:
-  tnoremap <M-h> <c-\><c-n><c-w>h
-  tnoremap <M-j> <c-\><c-n><c-w>j
-  tnoremap <M-k> <c-\><c-n><c-w>k
-  tnoremap <M-l> <c-\><c-n><c-w>l
-  " Insert mode:
-  inoremap <M-h> <Esc><c-w>h
-  inoremap <M-j> <Esc><c-w>j
-  inoremap <M-k> <Esc><c-w>k
-  inoremap <M-l> <Esc><c-w>l
-  " Visual mode:
-  vnoremap <M-h> <Esc><c-w>h
-  vnoremap <M-j> <Esc><c-w>j
-  vnoremap <M-k> <Esc><c-w>k
-  vnoremap <M-l> <Esc><c-w>l
-  " Normal mode:
-  nnoremap <M-h> <c-w>h
-  nnoremap <M-j> <c-w>j
-  nnoremap <M-k> <c-w>k
-  nnoremap <M-l> <c-w>l
-  "some terminal mappings
-  tnoremap <M-[> <Esc>
-  tnoremap <C-v><Esc> <Esc>
-  " simulare <C-R>
-  tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
-endif
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Misc
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Remove the Windows ^M - when the encodings gets messed up
-noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
-
-" Quickly open a buffer for scribble
-map <leader>q :e ~/buffer<cr>
-
-" Quickly open a markdown buffer for scribble
-map <leader>x :e ~/buffer.md<cr>
-
-" Toggle paste mode on and off
-map <leader>pp :setlocal paste!<cr>
-
 " guicolors styles for every mode
 set termguicolors
 set cursorline        " highlight current line
@@ -117,9 +75,6 @@ endif
 " set a map leader for more key combos
 let mapleader = " "
 let maplocalleader= ";"
-" open a new terminal  in aplit of the current tab
-nmap <leader>te :e term://zsh<CR>I
-
 " no mostrar numeros de linea cuando se abre una terminal :O :O
 autocmd TermOpen * setlocal nonumber norelativenumber
 " Enable filetype plugins
@@ -146,6 +101,29 @@ nnoremap <C-v> "+P
 vnoremap <C-x> "+d
 nnoremap <C-x> "+d
 
+if has('nvim')
+  tnoremap jk <C-\><C-n>
+  tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
+endif
+" open a new terminal  in aplit of the current tab
+noremap <leader>te :e term://zsh<CR>I
+noremap <leader>tes :12split term://zsh<CR>I
+noremap <leader>tev  :vsplit term://zsh<CR>I
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Misc
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Remove the Windows ^M - when the encodings gets messed up
+noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+
+" Quickly open a buffer for scribble
+map <leader>q :e ~/buffer<cr>
+
+" Quickly open a markdown buffer for scribble
+map <leader>x :e ~/buffer.md<cr>
+
+" Toggle paste mode on and off
+map <leader>pp :setlocal paste!<cr>
 " Themes, Commands, etc  ----------------------------------------------------{{{
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -291,12 +269,13 @@ nmap     <leader>sc :Denite colorscheme<CR>
 " Add custom menus
 let s:menus = {}
 
-let s:menus.zsh = {
-      \ 'description': 'Edit your import zsh configuration'
+let s:menus.dotfiles = {
+      \ 'description': 'Edit your dotfiles'
       \ }
-let s:menus.zsh.file_candidates = [
+let s:menus.dotfiles.file_candidates = [
       \ ['zshrc', '~/.zshrc'],
       \ ['zshenv', '~/.zshenv'],
+      \ ['kitty', '~/.config/kitty/kitty.conf'],
       \ ]
 
 let s:menus.my_commands = {
@@ -655,20 +634,39 @@ let g:user_emmet_settings = webapi#json#decode(join(readfile(expand('~/.config/n
 " => Lint
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let eslint = neomake#makers#ft#javascript#eslint()
-call remove(eslint, 'cwd')
-let eslint.exe = 'eslint'
-let g:neomake_javascript_eslintcustom_maker = eslint
 let g:airline#extensions#neomake#error_symbol='• '
 let g:airline#extensions#neomake#warning_symbol='•  '
 let g:neomake_warning_sign = {'text': '•'}
 let g:neomake_error_sign = {'text': '•'}
 let g:neomake_info_sign = {'text': '•'}
 let g:neomake_message_sign = {'text': '•'}
-let g:neomake_verbose = 3
+"let g:neomake_verbose = 3
 " mappings
-nmap <Leader><Space>o :lopen<CR>      " open location window
+nmap <Leader>er :lopen<CR>      " open location window
 nmap <Leader><Space>c :lclose<CR>     " close location window
 nmap <Leader><Space>, :ll<CR>         " go to current error/warning
-nmap <Leader><Space>n :lnext<CR>      " next error/warning
-nmap <Leader><Space>p :lprev<CR>      " previous error/warning
+nmap [e :lprev<CR>      " previous error/warning
+nmap ]e :lnext<CR>      " next error/warning
+"----- run neomake
+" When writing a buffer (no delay), and on normal mode changes (after 750ms).
+"call neomake#configure#automake('nw', 750)
+" Full config: when writing or reading a buffer, and on changes in insert and
+" normal mode (after 500ms; no delay when writing).
+call neomake#configure#automake('nrwi', 500)
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Test
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" these "Ctrl mappings" work well when Caps Lock is mapped to Ctrl
+nmap <silent> t<C-n> :TestNearest<CR>
+nmap <silent> t<C-f> :TestFile<CR>
+nmap <silent> t<C-s> :TestSuite<CR>
+nmap <silent> t<C-l> :TestLast<CR>
+nmap <silent> t<C-g> :TestVisit<CR>
+"testing strategies
+let test#strategy = {
+  \ 'nearest': 'neovim',
+  \ 'file':    'neovim',
+  \ 'suite':   'neovim',
+\}
