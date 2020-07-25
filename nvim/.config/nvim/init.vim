@@ -27,7 +27,7 @@ set foldmethod=indent               " not as cool as syntax, but faster
 set foldlevelstart=99               " start unfolded
 "Toggle fold mapping
 " Toggle fold at current position.
-nnoremap <Tab> za
+nnoremap <C-f> za
 "}}}
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
@@ -61,11 +61,6 @@ set termguicolors  " Activa true colors en la terminal
 "it seems that powerline fonts need this
 set t_Co=256
 set noshowmode  " No mostrar el modo actual (ya lo muestra la barra de estado)
-"indent line ======= {{{
-let g:indent_guides_guide_size = 1
-let g:indent_guides_color_change_percent = 3
-let g:indent_guides_enable_on_vim_startup = 1
-" }}}
 
 if has('nvim')
   " Terminal mode:
@@ -94,6 +89,20 @@ if has('nvim')
   " simulare <C-R>
   tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
 endif
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Misc
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Remove the Windows ^M - when the encodings gets messed up
+noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+
+" Quickly open a buffer for scribble
+map <leader>q :e ~/buffer<cr>
+
+" Quickly open a markdown buffer for scribble
+map <leader>x :e ~/buffer.md<cr>
+
+" Toggle paste mode on and off
+map <leader>pp :setlocal paste!<cr>
 
 " guicolors styles for every mode
 set termguicolors
@@ -619,3 +628,25 @@ au FileType mako vmap Si S"i${ _(<esc>2f"a) }<esc>
 " 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:indent_guides_exclude_filetypes = ['nerdtree','startify']
+let g:indent_guides_guide_size = 1
+let g:indent_guides_color_change_percent = 3
+let g:indent_guides_enable_on_vim_startup = 1
+" }}}
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Ultisnips
+" 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Emmet
+" 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:user_emmet_leader_key=','
+let g:user_emmet_settings = webapi#json#decode(join(readfile(expand('~/.config/nvim/emmet_custom/snippets.json')), "\n"))

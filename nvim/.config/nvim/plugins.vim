@@ -8,6 +8,7 @@ call plug#begin('~/.vim/plugged')
 "startup and sessions managers
 Plug 'mhinz/vim-startify' "bellisima y magnifica primera pantalla para vim
 "Code helpers {{{
+Plug 'terryma/vim-multiple-cursors' "multiple cursors made easier
 Plug 'neovim/nvim-lsp'
 Plug 'nvim-lua/completion-nvim'
 Plug 'nvim-lua/diagnostic-nvim'
@@ -18,7 +19,7 @@ Plug 'tpope/vim-surround' "surround plugin
 Plug 'andymass/vim-matchup' "jumping between opening and closing symbols
 "}}}
 "GUI customization
-Plug 'Valloric/MatchTagAlways' "highlight tags for easy html 
+Plug 'Valloric/MatchTagAlways' "highlight tags for easy html
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'vim-airline/vim-airline' " indent guides lines let's see how they goes
 Plug 'vim-airline/vim-airline-themes'  " indent guides lines let's see how they goes
@@ -46,9 +47,12 @@ Plug 'heavenshell/vim-jsdoc'
 Plug 'tpope/vim-markdown', { 'for': 'markdown' }
 "}}}
 " ultisnips snippets
+Plug 'SirVer/ultisnips'
 Plug 'epilande/vim-es2015-snippets'  " Custom ultisnippets for ES2015 and vim
 Plug 'epilande/vim-react-snippets'  "Custom ultisnippets for react and vim
-" Custom vim Text Objects
+Plug 'mattn/webapi-vim' "Needed for emmet custom
+Plug 'mattn/emmet-vim' "emmet for vim
+"Custom vim Text Objects
 Plug 'kana/vim-textobj-user'  "vim-textobj-user - Create your own text objects for vim in an easy way
 Plug 'michaeljsmith/vim-indent-object'  " blocks of indentation as vim text objects
 Plug 'wellle/targets.vim'  "Vim plugin that provides additional text objects
