@@ -618,14 +618,14 @@ let g:multi_cursor_skip_key            = '<C-x>'
 let g:multi_cursor_quit_key            = '<Esc>'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => surround.vim config
-" Annotate strings with gettext 
+" Annotate strings with gettext
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 vmap Si S(i_<esc>f)
 au FileType mako vmap Si S"i${ _(<esc>2f"a) }<esc>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => vim indent Guides
-" 
+"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:indent_guides_exclude_filetypes = ['nerdtree','startify']
 let g:indent_guides_guide_size = 1
@@ -634,19 +634,19 @@ let g:indent_guides_enable_on_vim_startup = 1
 " }}}
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Ultisnips
-" 
+"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsJumpForwardTrigger="<c-n>"
+let g:UltiSnipsJumpBackwardTrigger="<c-p>"
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Emmet
-" 
+"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:user_emmet_leader_key=','
 let g:user_emmet_settings = webapi#json#decode(join(readfile(expand('~/.config/nvim/emmet_custom/snippets.json')), "\n"))
