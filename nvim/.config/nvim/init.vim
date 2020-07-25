@@ -666,3 +666,9 @@ let g:neomake_error_sign = {'text': '•'}
 let g:neomake_info_sign = {'text': '•'}
 let g:neomake_message_sign = {'text': '•'}
 let g:neomake_verbose = 3
+" mappings
+nmap <Leader><Space>o :lopen<CR>      " open location window
+nmap <Leader><Space>c :lclose<CR>     " close location window
+nmap <Leader><Space>, :ll<CR>         " go to current error/warning
+nmap <Leader><Space>n :lnext<CR>      " next error/warning
+nmap <Leader><Space>p :lprev<CR>      " previous error/warning
