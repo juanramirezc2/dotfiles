@@ -650,3 +650,19 @@ let g:UltiSnipsEditSplit="vertical"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:user_emmet_leader_key=','
 let g:user_emmet_settings = webapi#json#decode(join(readfile(expand('~/.config/nvim/emmet_custom/snippets.json')), "\n"))
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Lint
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let eslint = neomake#makers#ft#javascript#eslint()
+call remove(eslint, 'cwd')
+let eslint.exe = 'eslint'
+let g:neomake_javascript_eslintcustom_maker = eslint
+let g:airline#extensions#neomake#error_symbol='• '
+let g:airline#extensions#neomake#warning_symbol='•  '
+let g:neomake_warning_sign = {'text': '•'}
+let g:neomake_error_sign = {'text': '•'}
+let g:neomake_info_sign = {'text': '•'}
+let g:neomake_message_sign = {'text': '•'}
+let g:neomake_verbose = 3
