@@ -527,7 +527,6 @@ let g:neoformat_enabled_html = ['prettier']
 
 let g:neoformat_scss_prettier = g:standard_prettier_settings
 let g:neoformat_enabled_scss = ['prettier']
-let g:neomake_scss_enabled_makers = ['stylelint']
 lua require 'colorizer'.setup()
 
 "}}}
@@ -634,6 +633,7 @@ let g:user_emmet_settings = webapi#json#decode(join(readfile(expand('~/.config/n
 " => Lint
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:neomake_scss_enabled_makers = ['stylelint']
 let g:airline#extensions#neomake#error_symbol='• '
 let g:airline#extensions#neomake#warning_symbol='•  '
 let g:neomake_warning_sign = {'text': '•'}
