@@ -383,7 +383,7 @@ call sign_define('LspDiagnosticsWarningSign',     {'text': '・'})
 call sign_define('LspDiagnosticsInformationSign', {'text': '・'})
 call sign_define('LspDiagnosticsHintSign',        {'text': '・'})
 nnoremap <silent> <leader>gdc    <cmd>lua vim.lsp.buf.declaration()<CR>
-nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> <leader>gd <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <silent> gi    <cmd>lua vim.lsp.buf.implementation()<CR>
 nnoremap <silent> gs <cmd>lua vim.lsp.buf.signature_help()<CR>
@@ -393,6 +393,7 @@ nnoremap <silent> <leader>rn    <cmd>lua vim.lsp.buf.rename()<CR>
 nnoremap <silent> ca    <cmd>lua vim.lsp.buf.code_action()<CR>
 nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+nnoremap <silent> <leader>or    <cmd>lua vim.lsp.buf.code_action({ source = { organizeImports = true } })<CR>
 
 "}}
   "vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gdc', '<Cmd>lua vim.lsp.buf.declaration()<CR>',     opts)
