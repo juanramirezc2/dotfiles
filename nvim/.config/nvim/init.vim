@@ -238,6 +238,14 @@ let g:startify_bookmarks = [
       \ { 'z': '~/.zshrc' }
       \ ]
 nmap <leader>st :Startify<cr>
+
+"move lines up and down
+nnoremap <C-j> :m .+1<CR>==
+nnoremap <C-k> :m .-2<CR>==
+inoremap <C-j> <Esc>:m .+1<CR>==gi
+inoremap <C-k> <Esc>:m .-2<CR>==gi
+vnoremap <C-j> :m '>+1<CR>gv=gv
+vnoremap <C-k> :m '<-2<CR>gv=gv
 " Store relative line number jumps in the jumplist if they exceed a threshold.
 nnoremap <expr> k (v:count > 3 ? "m'" . v:count : '') . 'k'
 nnoremap <expr> j (v:count > 3 ? "m'" . v:count : '') . 'j'
