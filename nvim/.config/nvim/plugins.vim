@@ -62,6 +62,7 @@ Plug 'wellle/targets.vim'  "Vim plugin that provides additional text objects
 Plug 'kana/vim-textobj-line'  "Text objects for the current line
 Plug 'kana/vim-textobj-entire'  "entire file as vim object
 " other plugins
+Plug 'bkad/CamelCaseMotion' "camel case word motions
 Plug 'rbgrouleff/bclose.vim' "The BClose Vim plugin for deleting a buffer without closing the window
 "Plug 'luochen1990/rainbow' "Rainbow Parentheses Improved, shorter code, no level limit, smooth
 Plug 'mattn/vim-gist' "The BClose Vim plugin for deleting a buffer without closing the window

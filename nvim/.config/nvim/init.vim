@@ -681,3 +681,12 @@ let test#strategy = {
   \ 'file':    'neovim',
   \ 'suite':   'neovim',
 \}
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => camel case motions
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map <silent> <C-w> <Plug>CamelCaseMotion_w
+map <silent> <C-b> <Plug>CamelCaseMotion_b
+map <silent> <C-e> <Plug>CamelCaseMotion_e
+map <silent> ge <Plug>CamelCaseMotion_ge
