@@ -658,6 +658,10 @@ nmap <Leader><Space>c :lclose<CR>     " close location window
 nmap <Leader><Space>, :ll<CR>         " go to current error/warning
 nmap [e :lprev<CR>      " previous error/warning
 nmap ]e :lnext<CR>      " next error/warning
+nnoremap [l :Lprevious
+nnoremap ]l :Lnext
+nnoremap [L :Lfirst
+nnoremap ]L :Llast
 "----- run neomake
 " When writing a buffer (no delay), and on normal mode changes (after 750ms).
 "call neomake#configure#automake('nw', 750)

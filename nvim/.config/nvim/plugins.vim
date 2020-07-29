@@ -9,6 +9,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'mhinz/vim-startify' "bellisima y magnifica primera pantalla para vim
 "Code helpers {{{
 Plug 'terryma/vim-multiple-cursors' "multiple cursors made easier
+Plug 'msrose/vim-perpetuloc' "Cursor-based location list jumping for vim.
 Plug 'neomake/neomake' "linters and others
 Plug 'neovim/nvim-lsp'
 Plug 'nvim-lua/completion-nvim'
