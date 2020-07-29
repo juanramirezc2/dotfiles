@@ -434,10 +434,10 @@ if has("patch-8.1.1564")
 else
   set signcolumn=yes
 endif
-nnoremap <silent> [d :PrevDiagnosticCycle<CR>
-nnoremap <silent> ]d :NextDiagnosticCycle<CR>
-nnoremap <silent> <leader>di :OpenDiagnostic<CR>
-let g:diagnostic_enable_virtual_text = 0
+"nnoremap <silent> [d :PrevDiagnosticCycle<CR>
+"nnoremap <silent> ]d :NextDiagnosticCycle<CR>
+"nnoremap <silent> <leader>di :OpenDiagnostic<CR>
+"let g:diagnostic_enable_virtual_text = 0
 " }}
 
 " Vim-Devicons --------------------------------------------------------------{{{
@@ -658,8 +658,8 @@ nmap <Leader><Space>c :lclose<CR>     " close location window
 nmap <Leader><Space>, :ll<CR>         " go to current error/warning
 nmap [e :lprev<CR>      " previous error/warning
 nmap ]e :lnext<CR>      " next error/warning
-nnoremap [l :Lprevious
-nnoremap ]l :Lnext
+nnoremap [g :Lprevious<CR>
+nnoremap ]g :Lnext<CR>
 nnoremap [L :Lfirst
 nnoremap ]L :Llast
 "----- run neomake

@@ -13,7 +13,7 @@ Plug 'msrose/vim-perpetuloc' "Cursor-based location list jumping for vim.
 Plug 'neomake/neomake' "linters and others
 Plug 'neovim/nvim-lsp'
 Plug 'nvim-lua/completion-nvim'
-Plug 'nvim-lua/diagnostic-nvim'
+"Plug 'nvim-lua/diagnostic-nvim'
 Plug 'jceb/vim-orgmode' "Org mode in vim
 Plug 'scrooloose/nerdcommenter' " comment lines of code using this plugin
 Plug 'alvan/vim-closetag' "Auto close (X)HTML tags
