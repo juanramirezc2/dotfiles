@@ -12,8 +12,12 @@ Plug 'terryma/vim-multiple-cursors' "multiple cursors made easier
 Plug 'msrose/vim-perpetuloc' "Cursor-based location list jumping for vim.
 Plug 'neomake/neomake' "linters and others
 Plug 'neovim/nvim-lsp'
+Plug 'dsznajder/vscode-es7-javascript-react-snippets' "vscode react snippets
+Plug 'xabikos/vscode-javascript' "vscode snippets
+Plug 'hrsh7th/vim-vsnip' "VSCode(LSP)'s snippet feature in vim.
+Plug 'hrsh7th/vim-vsnip-integ' "This plugin provides some plugins integration.
 Plug 'nvim-lua/completion-nvim'
-"Plug 'nvim-lua/diagnostic-nvim'
+Plug 'nvim-lua/diagnostic-nvim'
 Plug 'jceb/vim-orgmode' "Org mode in vim
 Plug 'scrooloose/nerdcommenter' " comment lines of code using this plugin
 Plug 'alvan/vim-closetag' "Auto close (X)HTML tags
@@ -51,9 +55,6 @@ Plug 'heavenshell/vim-jsdoc'
 Plug 'tpope/vim-markdown', { 'for': 'markdown' }
 "}}}
 " ultisnips snippets
-Plug 'SirVer/ultisnips'
-Plug 'epilande/vim-es2015-snippets'  " Custom ultisnippets for ES2015 and vim
-Plug 'epilande/vim-react-snippets'  "Custom ultisnippets for react and vim
 Plug 'mattn/webapi-vim' "Needed for emmet custom
 Plug 'mattn/emmet-vim' "emmet for vim
 "Custom vim Text Objects

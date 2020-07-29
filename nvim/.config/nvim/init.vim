@@ -412,15 +412,24 @@ nnoremap <silent> <leader>or    <cmd>lua vim.lsp.buf.code_action({ source = { or
   "-- vim.api.nvim_command [[autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()]]
 
 "Completion nvim ----------------------------------------------------{{{
+"
+" Use <Tab> and <S-Tab> to navigate through popup menu
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap <silent><expr> <TAB>
+  \ pumvisible() ? "\<C-n>" :
+  \ <SID>check_back_space() ? "\<TAB>" :
+  \ completion#trigger_completion()
+
+
 let g:completion_enable_auto_popup = 1
-inoremap <silent><expr> <c-p> completion#trigger_completion()
 hi LspReferenceRead guibg='#343d46'
 hi LspReferenceText guibg='#343d46'
 hi LspReferenceWrite guibg='#343d46'
-let g:completion_enable_snippet = 'UltiSnips'
-" Use <Tab> and <S-Tab> to navigate through popup menu
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+let g:completion_enable_snippet = 'vim-vsnip'
 " Set completeopt to have a better completion experience
 set completeopt=menuone,noinsert,noselect
 " Avoid showing message extra message when using completion
@@ -527,20 +536,17 @@ let g:standard_prettier_settings = {
       \ 'stdin': 1,
       \ }
 " }}}
-"
-"
 " HTML ----------------------------------------------------------------------{{{
 let g:neoformat_html_prettier = g:standard_prettier_settings
 let g:neoformat_enabled_html = ['prettier']
 " }}}
 
 " CSS -----------------------------------------------------------------------{{{
-
 let g:neoformat_scss_prettier = g:standard_prettier_settings
 let g:neoformat_enabled_scss = ['prettier']
 lua require 'colorizer'.setup()
-
 "}}}
+
 " vista.vim sidebar with LSP symbols {{{
 let g:vista#renderer#enable_icon = 1
 let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
@@ -554,13 +560,6 @@ nmap <leader>vi :Vista!!<CR>
 " Or, you could use neovim's virtual virtual text feature.
 let g:echodoc#enable_at_startup = 1
 let g:echodoc#type = 'virtual'
-
-"Netrw file explorer in neovim
-let g:netrw_banner = 0
-let g:netrw_liststyle = 3
-let g:netrw_browse_split = 4
-let g:netrw_altv = 1
-let g:netrw_winsize = 25
 "Nerd Tree ---------------------------------------------------------------------{{{
 " Close Nerdtree if is the only window left
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -622,16 +621,32 @@ let g:indent_guides_color_change_percent = 3
 let g:indent_guides_enable_on_vim_startup = 1
 " }}}
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Ultisnips
+" => VSsnips
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-n>"
-let g:UltiSnipsJumpBackwardTrigger="<c-p>"
+" You can use other key to expand snippet.
+imap <expr> <C-j>   vsnip#available(1)  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+" Expand selected placeholder with <C-j> (see https://github.com/hrsh7th/vim-vsnip/pull/51)
+smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+" Jump to the next placeholder with <C-l>
+smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+imap <expr> <Tab>   vsnip#available(1)  ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+smap <expr> <Tab>   vsnip#available(1)  ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+imap <expr> <S-Tab> vsnip#available(-1) ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+smap <expr> <S-Tab> vsnip#available(-1) ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+" Select text to use as $TM_SELECTED_TEXT in the next snippet.
+" See https://github.com/hrsh7th/vim-vsnip/pull/50
+" These mappings will behave like normal `c`. They select the text, remove it
+" and place you in insert mode.
+nmap        <C-j>   <Plug>(vsnip-cut-text)
+xmap        <C-j>   <Plug>(vsnip-cut-text)
+smap        <C-j>   <Plug>(vsnip-cut-text)
+" This will select the text and your in the exact same mode as before.
+nmap        <C-l>   <Plug>(vsnip-select-text)
+xmap        <C-l>   <Plug>(vsnip-select-text)
+smap        <C-l>   <Plug>(vsnip-select-text)
 
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Emmet
@@ -652,6 +667,7 @@ let g:neomake_error_sign = {'text': '•'}
 let g:neomake_info_sign = {'text': '•'}
 let g:neomake_message_sign = {'text': '•'}
 "let g:neomake_verbose = 3
+
 " mappings
 nmap <Leader>er :lopen<CR>      " open location window
 nmap <Leader><Space>c :lclose<CR>     " close location window
@@ -694,3 +710,9 @@ map <silent> <C-w> <Plug>CamelCaseMotion_w
 map <silent> <C-b> <Plug>CamelCaseMotion_b
 map <silent> <C-e> <Plug>CamelCaseMotion_e
 map <silent> ge <Plug>CamelCaseMotion_ge
+
+
+let g:completion_confirm_key = ""
+imap <expr> <cr>  pumvisible() ? complete_info()["selected"] != "-1" ?
+      \ "\<Plug>(completion_confirm_completion)"  : "\<c-e>\<CR>" :  "\<CR>"
+
