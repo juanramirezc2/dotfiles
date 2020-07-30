@@ -443,10 +443,10 @@ if has("patch-8.1.1564")
 else
   set signcolumn=yes
 endif
-"nnoremap <silent> [d :PrevDiagnosticCycle<CR>
-"nnoremap <silent> ]d :NextDiagnosticCycle<CR>
-"nnoremap <silent> <leader>di :OpenDiagnostic<CR>
-"let g:diagnostic_enable_virtual_text = 0
+nnoremap <silent> [d :PrevDiagnosticCycle<CR>
+nnoremap <silent> ]d :NextDiagnosticCycle<CR>
+nnoremap <silent> <leader>di :OpenDiagnostic<CR>
+let g:diagnostic_enable_virtual_text = 1
 " }}
 
 " Vim-Devicons --------------------------------------------------------------{{{
@@ -669,15 +669,15 @@ let g:neomake_message_sign = {'text': '•'}
 "let g:neomake_verbose = 3
 
 " mappings
-nmap <Leader>er :lopen<CR>      " open location window
-nmap <Leader><Space>c :lclose<CR>     " close location window
-nmap <Leader><Space>, :ll<CR>         " go to current error/warning
-nmap [e :lprev<CR>      " previous error/warning
-nmap ]e :lnext<CR>      " next error/warning
-nnoremap [g :Lprevious<CR>
-nnoremap ]g :Lnext<CR>
-nnoremap [L :Lfirst
-nnoremap ]L :Llast
+"nmap <Leader>er :lopen<CR>      "open location window
+"nmap <Leader><Space>c :lclose<CR>     " close location window
+"nmap <Leader><Space>, :ll<CR>         " go to current error/warning
+"nmap [e :lprev<CR>      " previous error/warning
+"nmap ]e :lnext<CR>      " next error/warning
+"nnoremap [g :Lprevious<CR>
+"nnoremap ]g :Lnext<CR>
+"nnoremap [L :Lfirst
+"nnoremap ]L :Llast
 "----- run neomake
 " When writing a buffer (no delay), and on normal mode changes (after 750ms).
 "call neomake#configure#automake('nw', 750)
@@ -716,3 +716,4 @@ let g:completion_confirm_key = ""
 imap <expr> <cr>  pumvisible() ? complete_info()["selected"] != "-1" ?
       \ "\<Plug>(completion_confirm_completion)"  : "\<c-e>\<CR>" :  "\<CR>"
 
+autocmd BufWritePre *.js lua vim.lsp.buf.formatting_sync(nil, 1000)
