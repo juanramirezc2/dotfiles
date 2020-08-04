@@ -179,10 +179,10 @@ map k gk
 nnoremap <leader>vr :e $MYVIMRC<CR>
 
 " Cerrar el buffer actual con <líder> + q
-nnoremap <silent><S-Q> :q<CR>
+"nnoremap <silent><S-Q> :q<CR>
 
 " moverme entre los diferentes paneles con Shift-w
-nnoremap <S-w>   <c-w>w
+"nnoremap <S-w>   <c-w>w
 
 " vim-airline ---------------------------------------------------------------{{{
 " terminal emulator exit
@@ -616,11 +616,13 @@ au FileType mako vmap Si S"i${ _(<esc>2f"a) }<esc>
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:indent_guides_exclude_filetypes = ['nerdtree','startify']
-let g:indent_guides_guide_size = 1
-let g:indent_guides_color_change_percent = 3
-let g:indent_guides_enable_on_vim_startup = 1
+"let g:indent_guides_guide_size = 1
+"let g:indent_guides_color_change_percent = 3
+"let g:indent_guides_enable_on_vim_startup = 1
 " }}}
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:indentLine_char = "▏"
+"let g:indentLine_char_list = ['', '', '¦', '┆', '┊']
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VSsnips
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -706,9 +708,9 @@ let test#strategy = {
 " => camel case motions
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <silent> <C-w> <Plug>CamelCaseMotion_w
-map <silent> <C-b> <Plug>CamelCaseMotion_b
-map <silent> <C-e> <Plug>CamelCaseMotion_e
+map <silent> <A-w> <Plug>CamelCaseMotion_w
+map <silent> <A-b> <Plug>CamelCaseMotion_b
+map <silent> <A-e> <Plug>CamelCaseMotion_e
 map <silent> ge <Plug>CamelCaseMotion_ge
 
 

@@ -28,7 +28,7 @@ Plug 'vim-test/vim-test' "test runner
 "}}}
 "GUI customization
 Plug 'Valloric/MatchTagAlways' "highlight tags for easy html
-Plug 'nathanaelkane/vim-indent-guides'
+Plug 'Yggdroot/indentLine'
 Plug 'vim-airline/vim-airline' " indent guides lines let's see how they goes
 Plug 'vim-airline/vim-airline-themes'  " indent guides lines let's see how they goes
 "File browsers
