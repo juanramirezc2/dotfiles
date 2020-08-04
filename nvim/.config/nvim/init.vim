@@ -22,7 +22,6 @@ set noruler "don't show line numbers/column/% junk
 set number
 "FOLDING SETTINGS======================={{{
 " Add a bit extra margin to the left
-set foldcolumn=1
 set foldmethod=indent               " not as cool as syntax, but faster
 set foldlevelstart=99               " start unfolded
 "Toggle fold mapping
