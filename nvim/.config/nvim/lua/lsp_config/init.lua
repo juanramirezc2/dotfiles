@@ -5,6 +5,10 @@ local completion = require "completion"
 -- Register the progress callback
 lsp_status.register_progress()
 
+lsp_status.config {
+  status_symbol = ''
+}
+
 local on_attach = function(_, bufnr)
 
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
