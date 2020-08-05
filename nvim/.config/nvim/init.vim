@@ -452,9 +452,9 @@ if has("patch-8.1.1564")
 else
   set signcolumn=yes
 endif
-"nnoremap <silent> [g :PrevDiagnosticCycle<CR>
-"nnoremap <silent> ]g :NextDiagnosticCycle<CR>
-"nnoremap <silent> <leader>di :OpenDiagnostic<CR>
+nnoremap <silent> [g :PrevDiagnosticCycle<CR>
+nnoremap <silent> ]g :NextDiagnosticCycle<CR>
+nnoremap <silent> <leader>di :OpenDiagnostic<CR>
 let g:diagnostic_enable_virtual_text = 1
 " }}
 
@@ -685,16 +685,16 @@ let g:neomake_message_sign = {'text': '•'}
 "nmap <Leader><Space>, :ll<CR>         " go to current error/warning
 "nmap [e :lprev<CR>      " previous error/warning
 "nmap ]e :lnext<CR>      " next error/warning
-nnoremap [g :Lprevious<CR>
-nnoremap ]g :Lnext<CR>
-nnoremap [L :Lfirst
-nnoremap ]L :Llast
+"nnoremap [g :Lprevious<CR>
+"nnoremap ]g :Lnext<CR>
+"nnoremap [L :Lfirst
+"nnoremap ]L :Llast
 "----- run neomake
 " When writing a buffer (no delay), and on normal mode changes (after 750ms).
 "call neomake#configure#automake('nw', 750)
 " Full config: when writing or reading a buffer, and on changes in insert and
 " normal mode (after 500ms; no delay when writing).
-call neomake#configure#automake('nrwi', 500)
+"call neomake#configure#automake('nrwi', 500)
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Test
@@ -727,4 +727,3 @@ let g:completion_confirm_key = ""
 imap <expr> <cr>  pumvisible() ? complete_info()["selected"] != "-1" ?
       \ "\<Plug>(completion_confirm_completion)"  : "\<c-e>\<CR>" :  "\<CR>"
 
-autocmd BufWritePre *.js lua vim.lsp.buf.formatting_sync(nil, 1000)
