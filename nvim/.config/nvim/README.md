@@ -65,10 +65,10 @@ run`:checkhealth` for more info ;)
 
 # LSP npm modules
 
-tsserver Javascript/typescript server
+tsserver ts language server typescript server
 
 ```sh
-$ npm install -g typescript
+$ npm install -g typescript-language-server
 ```
 
 Diagnostics Language server

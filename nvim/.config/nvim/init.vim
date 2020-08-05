@@ -183,6 +183,14 @@ nnoremap <leader>vr :e $MYVIMRC<CR>
 " moverme entre los diferentes paneles con Shift-w
 "nnoremap <S-w>   <c-w>w
 
+"LSP Statusline ---------------------------------------------------------------{{{
+function! LspStatus() abort
+  if luaeval('#vim.lsp.buf_get_clients() > 0')
+    return luaeval("require('lsp-status').status()")
+  endif
+  return ''
+endfunction
+" }}}
 " vim-airline ---------------------------------------------------------------{{{
 " terminal emulator exit
 let g:airline_extensions = ['branch','denite','tabline']
@@ -197,6 +205,8 @@ let g:airline_section_y = "%{fnamemodify(getcwd(), ':t')}"
 let g:airline_section_c = '%t' "filename only in bottom part
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline_skip_empty_sections = 1
+call airline#parts#define_function('lsp', 'LspStatus')
+let g:airline_section_z = airline#section#create_right(['lsp'])
 " escaping normal mode
 inoremap jk <Esc>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -442,9 +452,9 @@ if has("patch-8.1.1564")
 else
   set signcolumn=yes
 endif
-nnoremap <silent> [g :PrevDiagnosticCycle<CR>
-nnoremap <silent> ]g :NextDiagnosticCycle<CR>
-nnoremap <silent> <leader>di :OpenDiagnostic<CR>
+"nnoremap <silent> [g :PrevDiagnosticCycle<CR>
+"nnoremap <silent> ]g :NextDiagnosticCycle<CR>
+"nnoremap <silent> <leader>di :OpenDiagnostic<CR>
 let g:diagnostic_enable_virtual_text = 1
 " }}
 
@@ -675,10 +685,10 @@ let g:neomake_message_sign = {'text': '•'}
 "nmap <Leader><Space>, :ll<CR>         " go to current error/warning
 "nmap [e :lprev<CR>      " previous error/warning
 "nmap ]e :lnext<CR>      " next error/warning
-"nnoremap [g :Lprevious<CR>
-"nnoremap ]g :Lnext<CR>
-"nnoremap [L :Lfirst
-"nnoremap ]L :Llast
+nnoremap [g :Lprevious<CR>
+nnoremap ]g :Lnext<CR>
+nnoremap [L :Lfirst
+nnoremap ]L :Llast
 "----- run neomake
 " When writing a buffer (no delay), and on normal mode changes (after 750ms).
 "call neomake#configure#automake('nw', 750)
