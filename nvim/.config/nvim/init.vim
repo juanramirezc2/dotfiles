@@ -217,6 +217,7 @@ inoremap jk <Esc>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " fugitive git mappings
 nnoremap <silent><leader>gs :Gstatus<CR>
+nnoremap <leader>gp :Gpush<CR>
 nnoremap <leader>gd :Gdiff<CR>
 nnoremap <leader>gw :Gwrite<CR>
 nnoremap <silent><leader>gr :Gread<CR>
