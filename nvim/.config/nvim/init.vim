@@ -158,6 +158,10 @@ function SetCursor() abort
   execute join(histring, ' ')
   hi! Cursor cterm=NONE gui=NONE guifg=#a4f644 guibg=#a4f644
   hi! Cursor2 guifg=red guibg=red
+  hi! link LspDiagnosticsError WarningMsg
+  hi! link LspDiagnosticsWarning LineNr
+  hi! link LspDiagnosticsInformation Number
+  hi! link LspDiagnosticsHint Identifier
 endfunction
 
 autocmd ColorScheme * call SetCursor()
