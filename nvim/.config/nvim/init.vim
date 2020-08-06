@@ -49,8 +49,8 @@ set expandtab
 set smarttab
 "Number of spaces to use for a <Tab> during editing operations
 set shiftwidth=2
-set softtabstop=2"
-" Linebreak on 500 characters
+set softtabstop=2
+"Linebreak on 500 characters
 set lbr
 set tw=500
 " vim wiki requirement
