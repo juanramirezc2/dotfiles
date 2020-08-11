@@ -58,6 +58,7 @@ Plug 'tpope/vim-markdown', { 'for': 'markdown' }
 " ultisnips snippets
 Plug 'mattn/webapi-vim' "Needed for emmet custom
 Plug 'mattn/emmet-vim' "emmet for vim
+Plug 'AndrewRadev/tagalong.vim' " change tags in pairs
 "Custom vim Text Objects
 Plug 'kana/vim-textobj-user'  "vim-textobj-user - Create your own text objects for vim in an easy way
 Plug 'michaeljsmith/vim-indent-object'  " blocks of indentation as vim text objects
