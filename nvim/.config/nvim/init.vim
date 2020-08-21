@@ -373,7 +373,6 @@ call denite#custom#option('default', {
       \ 'auto_resize': 1,
       \ 'split': 'floating',
       \ 'source_names': 'short',
-      \ 'direction': 'dynamicbottom',
       \ 'auto_action': 'preview',
       \ 'match_highlight': 1,
       \ 'smartcase': 1,
@@ -381,16 +380,16 @@ call denite#custom#option('default', {
       \ 'prompt': 'λ:',
       \ 'prompt_highlight': 'Function',
       \ 'highlight_matched_char': 'Function',
+      \ 'highlight_matched_range': 'Function',
+      \ 'expand': 1,
       \ 'wincol': &columns / 16 ,
       \ 'winwidth': &columns * 14/16,
-      \ 'winminheight': 10,
-      \ 'highlight_matched_range': 'Function',
-      \ 'vertical_preview': 0,
-      \ 'expand': 1,
-      \ 'floating_preview': 1
+      \ 'winminheight': 10
       \ })
 
-
+      "\ 'floating_preview': 1,
+      "\ 'direction': 'dynamicbottom',
+      "\ 'vertical_preview': 1
 "LSP ----------------------------------------------{{
 lua require("lsp_config")
 call sign_define('LspDiagnosticsErrorSign',       {'text': '・'})
