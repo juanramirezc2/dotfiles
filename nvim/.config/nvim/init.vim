@@ -461,6 +461,7 @@ nnoremap <silent> [g :PrevDiagnosticCycle<CR>
 nnoremap <silent> ]g :NextDiagnosticCycle<CR>
 nnoremap <silent> <leader>di :OpenDiagnostic<CR>
 let g:diagnostic_enable_virtual_text = 1
+let g:diagnostic_trimmed_virtual_text = '30'
 " }}
 
 " Vim-Devicons --------------------------------------------------------------{{{
