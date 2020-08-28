@@ -95,4 +95,6 @@ Plug 'sickill/vim-monokai'
 Plug 'tomasr/molokai'
 Plug 'nanotech/jellybeans.vim'
 Plug 'kristijanhusak/vim-hybrid-material'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'cocopon/iceberg.vim'
 call plug#end()

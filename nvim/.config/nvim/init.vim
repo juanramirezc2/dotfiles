@@ -428,6 +428,9 @@ nnoremap <silent> <leader>or    <cmd>lua vim.lsp.buf.code_action({ source = { or
 "Completion nvim ----------------------------------------------------{{{
 "
 " Use <Tab> and <S-Tab> to navigate through popup menu
+let g:completion_enable_auto_popup = 0
+
+inoremap <silent><expr> <c-space> completion#trigger_completion()
 function! s:check_back_space() abort
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~ '\s'
@@ -439,7 +442,6 @@ inoremap <silent><expr> <TAB>
   \ completion#trigger_completion()
 
 
-let g:completion_enable_auto_popup = 1
 hi LspReferenceRead guibg='#343d46'
 hi LspReferenceText guibg='#343d46'
 hi LspReferenceWrite guibg='#343d46'
@@ -461,7 +463,6 @@ nnoremap <silent> [g :PrevDiagnosticCycle<CR>
 nnoremap <silent> ]g :NextDiagnosticCycle<CR>
 nnoremap <silent> <leader>di :OpenDiagnostic<CR>
 let g:diagnostic_enable_virtual_text = 1
-let g:diagnostic_trimmed_virtual_text = '30'
 " }}
 
 " Vim-Devicons --------------------------------------------------------------{{{
@@ -585,7 +586,7 @@ let NERDTreeMapCloseDir='h'
 let NERDTreeMapCloseChildren='H'
 " icons looking weird in nerdtree this might fix it
 autocmd FileType nerdtree setlocal nolist
-let g:WebDevIconsNerdTreeAfterGlyphPadding = '  '
+"let g:WebDevIconsNerdTreeAfterGlyphPadding = '  '
 " Remove bookmarks and help text from NERDTree
 let g:NERDTreeMinimalUI = 1
 let g:NERDTreeWinPos = "right"
