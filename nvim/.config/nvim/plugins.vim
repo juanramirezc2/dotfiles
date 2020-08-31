@@ -73,7 +73,11 @@ Plug 'maxbrunsfeld/vim-yankstack' "A lightweight implementation of emacs's kill-
 Plug 'ntpeters/vim-better-whitespace'  "Vim Better Whitespace Plugin
 Plug 'machakann/vim-highlightedyank'  "highlight yanked text
 Plug 'vimwiki/vimwiki'  "VimWiki is a personal wiki for Vim -- a number of linked text files that have their own syntax highlighting.
-" file icons
+" moving around
+Plug 'easymotion/vim-easymotion'
+Plug 'haya14busa/incsearch.vim'
+Plug 'haya14busa/incsearch-easymotion.vim'
+"file icons
 Plug 'junegunn/vim-easy-align'  "A Vim alignment plugin
 Plug 'ryanoasis/vim-devicons'  " vim will become visual studio
 "" vim prettier

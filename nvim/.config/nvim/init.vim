@@ -428,7 +428,7 @@ nnoremap <silent> <leader>or    <cmd>lua vim.lsp.buf.code_action({ source = { or
 "Completion nvim ----------------------------------------------------{{{
 "
 " Use <Tab> and <S-Tab> to navigate through popup menu
-let g:completion_enable_auto_popup = 0
+"let g:completion_enable_auto_popup = 0
 
 inoremap <silent><expr> <c-space> completion#trigger_completion()
 function! s:check_back_space() abort
@@ -448,6 +448,10 @@ hi LspReferenceWrite guibg='#343d46'
 let g:completion_enable_snippet = 'vim-vsnip'
 " Set completeopt to have a better completion experience
 set completeopt=menuone,noinsert,noselect
+"Trigger keyword length
+let g:completion_trigger_keyword_length = 3 " default = 1
+"Sorting completion items
+let g:completion_sorting = "none"
 " Avoid showing message extra message when using completion
 set shortmess+=c
 "" }}}
@@ -463,6 +467,7 @@ nnoremap <silent> [g :PrevDiagnosticCycle<CR>
 nnoremap <silent> ]g :NextDiagnosticCycle<CR>
 nnoremap <silent> <leader>di :OpenDiagnostic<CR>
 let g:diagnostic_enable_virtual_text = 1
+let g:diagnostic_insert_delay = 1
 " }}
 
 " Vim-Devicons --------------------------------------------------------------{{{
@@ -572,6 +577,7 @@ let g:vista#renderer#icons = {
       \   "variable": "\uf71b",
       \  }
 nmap <leader>vi :Vista!!<CR>
+autocmd FileType vista,vista_kind nnoremap <buffer> <silent> \ :<c-u>call vista#finder#fzf#Run()<CR>
 " }}}
 " Or, you could use neovim's virtual virtual text feature.
 let g:echodoc#enable_at_startup = 1
@@ -734,3 +740,37 @@ let g:completion_confirm_key = ""
 imap <expr> <cr>  pumvisible() ? complete_info()["selected"] != "-1" ?
       \ "\<Plug>(completion_confirm_completion)"  : "\<c-e>\<CR>" :  "\<CR>"
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Core mappings changed
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap [[ []
+nnoremap ]] ][
+nnoremap <C-H> ^
+vnoremap <C-H> ^
+nnoremap <C-L> g_
+vnoremap <C-L> g_
+nnoremap <silent> <C-j> <c-d>
+nnoremap <silent> <C-k> <c-u>
+vnoremap <silent> <C-j> <c-d>
+vnoremap <silent> <C-k> <c-u>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Inc search
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set hlsearch
+let g:incsearch#auto_nohlsearch = 1
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+map z/ <Plug>(incsearch-easymotion-/)
+map z? <Plug>(incsearch-easymotion-?)
+map zg/ <Plug>(incsearch-easymotion-stay)
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Easy motion
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nmap <leader>j <Plug>(easymotion-j)
+vmap <leader>j <Plug>(easymotion-j)
+nmap <leader>k <Plug>(easymotion-k)
+vmap <leader>k <Plug>(easymotion-k)
+map <Leader>l <Plug>(easymotion-bd-jk)
+nmap <Leader>l <Plug>(easymotion-overwin-line)
