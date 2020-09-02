@@ -270,8 +270,6 @@ nnoremap <expr> j (v:count > 3 ? "m'" . v:count : '') . 'j'
 " maximum lenght of characters displayed in a git diff
 highlight ColorColumn ctermbg=gray
 set colorcolumn=125
-" highlight search
-set hlsearch
 " interactive find replace preview
 set inccommand=nosplit
 " clear search with shift+enter
