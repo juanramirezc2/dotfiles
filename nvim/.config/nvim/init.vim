@@ -256,12 +256,12 @@ nmap <leader>st :Startify<cr>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Mappings for moving lines and preserving indentation
 " http://vim.wikia.com/wiki/Moving_lines_up_or_down
-nnoremap <C-j> :m .+1<CR>==
-nnoremap <C-k> :m .-2<CR>==
-inoremap <C-j> <Esc>:m .+1<CR>==gi
-inoremap <C-k> <Esc>:m .-2<CR>==gi
-vnoremap <C-j> :m '>+1<CR>gv=gv
-vnoremap <C-k> :m '<-2<CR>gv=gv
+"nnoremap <C-j> :m .+1<CR>==
+"nnoremap <C-k> :m .-2<CR>==
+"inoremap <C-j> <Esc>:m .+1<CR>==gi
+"inoremap <C-k> <Esc>:m .-2<CR>==gi
+"vnoremap <C-j> :m '>+1<CR>gv=gv
+"vnoremap <C-k> :m '<-2<CR>gv=gv
 
 " Store relative line number jumps in the jumplist if they exceed a threshold.
 nnoremap <expr> k (v:count > 3 ? "m'" . v:count : '') . 'k'
@@ -357,11 +357,11 @@ function! s:denite_filter_my_settings() abort
   imap <silent><buffer> <C-o> <Plug>(denite_filter_quit)
   inoremap <silent><buffer><expr> <c-l> denite#do_map('do_action')
   inoremap <silent><buffer><expr> <CR> denite#do_map('do_action')
-  inoremap <silent><buffer> <C-n> <Esc>
+  inoremap <silent><buffer> <C-j> <Esc>
         \:call denite#move_to_parent()<CR>
         \:call cursor(line('.')+1,0)<CR>
         \:call denite#move_to_filter()<CR>A
-  inoremap <silent><buffer> <C-p> <Esc>
+  inoremap <silent><buffer> <C-k> <Esc>
 	        \:call denite#move_to_parent()<CR>
 	        \:call cursor(line('.')-1,0)<CR>
 	        \:call denite#move_to_filter()<CR>A
@@ -635,24 +635,22 @@ au FileType mako vmap Si S"i${ _(<esc>2f"a) }<esc>
 " => vim indent Guides
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:indent_guides_exclude_filetypes = ['nerdtree','startify']
-"let g:indent_guides_guide_size = 1
-"let g:indent_guides_color_change_percent = 3
-"let g:indent_guides_enable_on_vim_startup = 1
-" }}}
 let g:indentLine_char = "▏"
+"Disable IndentLine for Json files
+autocmd Filetype json let g:indentLine_enabled = 0
 "let g:indentLine_char_list = ['', '', '¦', '┆', '┊']
+" }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VSsnips
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " You can use other key to expand snippet.
-imap <expr> <C-j>   vsnip#available(1)  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+"imap <expr> <C-j>   vsnip#available(1)  ? '<Plug>(vsnip-expand)'         : '<C-j>'
 " Expand selected placeholder with <C-j> (see https://github.com/hrsh7th/vim-vsnip/pull/51)
-smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
-imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+"smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+"imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
 " Jump to the next placeholder with <C-l>
-smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+"smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
 "imap <expr> <Tab>   vsnip#available(1)  ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
 "smap <expr> <Tab>   vsnip#available(1)  ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
 "imap <expr> <S-Tab> vsnip#available(-1) ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
@@ -661,13 +659,13 @@ smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l
 " See https://github.com/hrsh7th/vim-vsnip/pull/50
 " These mappings will behave like normal `c`. They select the text, remove it
 " and place you in insert mode.
-nmap        <C-j>   <Plug>(vsnip-cut-text)
-xmap        <C-j>   <Plug>(vsnip-cut-text)
-smap        <C-j>   <Plug>(vsnip-cut-text)
+"nmap        <C-j>   <Plug>(vsnip-cut-text)
+"xmap        <C-j>   <Plug>(vsnip-cut-text)
+"smap        <C-j>   <Plug>(vsnip-cut-text)
 " This will select the text and your in the exact same mode as before.
-nmap        <C-l>   <Plug>(vsnip-select-text)
-xmap        <C-l>   <Plug>(vsnip-select-text)
-smap        <C-l>   <Plug>(vsnip-select-text)
+"nmap        <C-l>   <Plug>(vsnip-select-text)
+"xmap        <C-l>   <Plug>(vsnip-select-text)
+"smap        <C-l>   <Plug>(vsnip-select-text)
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
