@@ -92,10 +92,10 @@ set whichwrap+=<,>,h,l
 " For regular expressions turn magic on
 set magic
 " Usar Control + y para copiar al portapapeles
-vnoremap <C-c> "+y
-nnoremap <C-c>c "+y
-vnoremap <C-v> "+p
-nnoremap <C-v> "+P
+"vnoremap <C-c> "+y
+"nnoremap <C-c>c "+y
+"vnoremap <C-v> "+p
+"nnoremap <C-v> "+P
 " Usar <líder> + d para cortar al portapapeles
 vnoremap <C-x> "+d
 nnoremap <C-x> "+d
@@ -216,13 +216,15 @@ let g:airline_section_z = airline#section#create_right(['lsp'])
 inoremap jk <Esc>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " fugitive git mappings
-nnoremap <silent><leader>gs :Gstatus<CR>
+nnoremap <silent><leader>gs :Git<CR>
 nnoremap <leader>gp :Gpush<CR>
 nnoremap <leader>gd :Gdiff<CR>
 nnoremap <leader>gw :Gwrite<CR>
 nnoremap <silent><leader>gr :Gread<CR>
 nnoremap <leader>ge :Gedit<CR>
 nnoremap <leader>gc :Gcommit -v -q<CR>
+nnoremap <leader>gre :Git rebase --interactive HEAD~20<CR>
+
 nmap <silent><leader>gb :Gblame<cr>
 
 " buscar en el documento lo que este visualmente seleccionado
