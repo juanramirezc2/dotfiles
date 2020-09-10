@@ -92,10 +92,10 @@ set whichwrap+=<,>,h,l
 " For regular expressions turn magic on
 set magic
 " Usar Control + y para copiar al portapapeles
-"vnoremap <C-c> "+y
-"nnoremap <C-c>c "+y
-"vnoremap <C-v> "+p
-"nnoremap <C-v> "+P
+vnoremap <leader>c "+y
+nnoremap <leader>c "+y
+vnoremap <leader>v "+p
+nnoremap <leader>v "+P
 " Usar <líder> + d para cortar al portapapeles
 vnoremap <C-x> "+d
 nnoremap <C-x> "+d
@@ -497,6 +497,7 @@ nmap ga <Plug>(EasyAlign)
 
 "see actual registers
 nnoremap <leader>re :registers<CR>
+nnoremap <leader>ma :marks<CR>
 set autowrite
 
 " === Search === "
@@ -550,7 +551,11 @@ nnoremap <leader><tab> <C-^>;
 map <leader>ba :bufdo bd<cr>
 " Code formatting -----------------------------------------------------------{{{
 noremap <silent> <leader>f :Neoformat<CR>
-
+"format on file save
+augroup fmt
+  autocmd!
+  autocmd BufWritePre * undojoin | Neoformat
+augroup END
 let g:standard_prettier_settings = {
       \ 'exe': 'prettier',
       \ 'args': ['--stdin', '--stdin-filepath', '%:p', '--single-quote'],
@@ -678,36 +683,6 @@ let g:user_emmet_leader_key=','
 let g:user_emmet_settings = webapi#json#decode(join(readfile(expand('~/.config/nvim/emmet_custom/snippets.json')), "\n"))
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Lint
-"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:neomake_scss_enabled_makers = ['stylelint']
-let g:airline#extensions#neomake#error_symbol='• '
-let g:airline#extensions#neomake#warning_symbol='•  '
-let g:neomake_warning_sign = {'text': '•'}
-let g:neomake_error_sign = {'text': '•'}
-let g:neomake_info_sign = {'text': '•'}
-let g:neomake_message_sign = {'text': '•'}
-"let g:neomake_verbose = 3
-
-" mappings
-"nmap <Leader>er :lopen<CR>      "open location window
-"nmap <Leader><Space>c :lclose<CR>     " close location window
-"nmap <Leader><Space>, :ll<CR>         " go to current error/warning
-"nmap [e :lprev<CR>      " previous error/warning
-"nmap ]e :lnext<CR>      " next error/warning
-"nnoremap [g :Lprevious<CR>
-"nnoremap ]g :Lnext<CR>
-"nnoremap [L :Lfirst
-"nnoremap ]L :Llast
-"----- run neomake
-" When writing a buffer (no delay), and on normal mode changes (after 750ms).
-"call neomake#configure#automake('nw', 750)
-" Full config: when writing or reading a buffer, and on changes in insert and
-" normal mode (after 500ms; no delay when writing).
-"call neomake#configure#automake('nrwi', 500)
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Test
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -751,7 +726,8 @@ nnoremap <silent> <C-j> <c-d>
 nnoremap <silent> <C-k> <c-u>
 vnoremap <silent> <C-j> <c-d>
 vnoremap <silent> <C-k> <c-u>
-
+inoremap <silent> <C-j> <c-n>
+inoremap <silent> <C-k> <c-p>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Inc search
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
