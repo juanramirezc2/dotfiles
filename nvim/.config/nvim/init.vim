@@ -553,7 +553,7 @@ map <leader>ba :bufdo bd<cr>
 noremap <silent> <leader>f :Neoformat<CR>
 "format on file save
 augroup fmt
-  autocmd! FileType javascript,css,scss,html autocmd BufWritePre <buffer> undojoin | Neoformat
+  autocmd FileType javascript,css,scss,html autocmd! BufWritePre <buffer> undojoin | Neoformat
   "autocmd BufWritePre * undojoin | Neoformat
 augroup END
 let g:standard_prettier_settings = {
