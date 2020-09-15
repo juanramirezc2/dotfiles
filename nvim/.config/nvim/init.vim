@@ -12,8 +12,6 @@ set si "Smart indent
 set tw=500
 " Turn on the Wild menu
 set wildmenu
-" show the number lines relative
-set relativenumber number
 " i'm not agains the mouse, enable it in all modes
 set mouse=a
 set noshowmode "don't show --INSERT--
