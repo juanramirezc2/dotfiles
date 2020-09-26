@@ -1,11 +1,9 @@
 "Add italics to group
 function italics#AddItalicToGroup(group)
   redir => GroupDetails
-    execute "try | silent hi ".a:group." | catch |  | endtry"
+    execute "try | silent hi ".a:group." | catch | silent echo 'error'  | endtry"
   redir END
-  echo empty(GroupDetails)
-  if empty(GroupDetails)
-    echoerr "no output"
+  if stridx(GroupDetails, "error")
   else
     " Resolve linked groups to find the root highlighting scheme
     while GroupDetails =~ "links to"
