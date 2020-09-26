@@ -170,7 +170,6 @@ function SetItalics() abort
   call italics#AddItalicToGroup("StorageClass")
   call italics#AddItalicToGroup("jsLineComment")
   call italics#AddItalicToGroup("xmlAttrib")
-  call italics#AddItalicToGroup("htmlArg")
   call italics#AddItalicToGroup("pythonSelf")
   call italics#AddItalicToGroup("htmlArg")
 endfunction

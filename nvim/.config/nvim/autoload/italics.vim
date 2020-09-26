@@ -3,8 +3,8 @@ function italics#AddItalicToGroup(group)
   redir => GroupDetails
     execute "try | silent hi ".a:group." | catch | silent echo 'error'  | endtry"
   redir END
-  if stridx(GroupDetails, "error")
-  else
+
+  if GroupDetails !~ "\.error"
     " Resolve linked groups to find the root highlighting scheme
     while GroupDetails =~ "links to"
       let index = stridx(GroupDetails, "links to") + len("links to")
