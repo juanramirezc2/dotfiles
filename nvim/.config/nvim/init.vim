@@ -164,17 +164,17 @@ endfunction
 autocmd ColorScheme * call SetCursor()
 
 function SetItalics() abort
-  hi Comment gui=italic
-  hi Keyword gui=italic
-  hi Keyword gui=italic
-  hi Identifier gui=italic
-  hi StorageClass gui=italic
-  hi jsLineComment gui=italic
-  hi xmlAttrib gui=italic
-  hi htmlArg gui=italic
-  hi pythonSelf gui=italic
-  hi htmlArg gui=italic
+  call italics#AddItalicToGroup("Comment")
+  call italics#AddItalicToGroup("Keyword")
+  call italics#AddItalicToGroup("Identifier")
+  call italics#AddItalicToGroup("StorageClass")
+  call italics#AddItalicToGroup("jsLineComment")
+  call italics#AddItalicToGroup("xmlAttrib")
+  call italics#AddItalicToGroup("htmlArg")
+  call italics#AddItalicToGroup("pythonSelf")
+  call italics#AddItalicToGroup("htmlArg")
 endfunction
+
 autocmd ColorScheme * call SetItalics()
 
 "Enable syntax highlighting and set colorscheme
