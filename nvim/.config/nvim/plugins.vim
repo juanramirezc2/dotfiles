@@ -8,7 +8,7 @@ call plug#begin('~/.vim/plugged')
 "startup and sessions managers
 Plug 'mhinz/vim-startify' "bellisima y magnifica primera pantalla para vim
 "Code helpers {{{
-Plug 'terryma/vim-multiple-cursors' "multiple cursors made easier
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'nvim-lua/lsp-status.nvim' " statusline lsp messages and status
 Plug 'neovim/nvim-lsp'
 Plug 'dsznajder/vscode-es7-javascript-react-snippets' "vscode react snippets
@@ -83,6 +83,8 @@ Plug 'ryanoasis/vim-devicons'  " vim will become visual studio
 Plug 'sbdchd/neoformat'
 " key mappings
 Plug 'tpope/vim-unimpaired'  "Pairs of handy bracket mappings
+" others
+Plug 'mcchrish/extend-highlight.vim' "extend hightlighting groups
 " themes
 Plug 'morhetz/gruvbox'
 Plug 'ayu-theme/ayu-vim' " or other package manager

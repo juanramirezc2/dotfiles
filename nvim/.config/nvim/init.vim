@@ -161,8 +161,21 @@ function SetCursor() abort
   hi! link LspDiagnosticsInformation Number
   hi! link LspDiagnosticsHint Identifier
 endfunction
-
 autocmd ColorScheme * call SetCursor()
+
+function SetItalics() abort
+  hi Comment gui=italic
+  hi Keyword gui=italic
+  hi Keyword gui=italic
+  hi Identifier gui=italic
+  hi StorageClass gui=italic
+  hi jsLineComment gui=italic
+  hi xmlAttrib gui=italic
+  hi htmlArg gui=italic
+  hi pythonSelf gui=italic
+  hi htmlArg gui=italic
+endfunction
+autocmd ColorScheme * call SetItalics()
 
 "Enable syntax highlighting and set colorscheme
 syntax enable
@@ -618,17 +631,9 @@ let g:mta_filetypes = {
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => vim-multiple-cursors
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:multi_cursor_use_default_mapping=0
 
-" Default mapping
-let g:multi_cursor_start_word_key      = '<C-s>'
-let g:multi_cursor_select_all_word_key = '<A-s>'
-let g:multi_cursor_start_key           = 'g<C-s>'
-let g:multi_cursor_select_all_key      = 'g<A-s>'
-let g:multi_cursor_next_key            = '<C-s>'
-let g:multi_cursor_prev_key            = '<C-p>'
-let g:multi_cursor_skip_key            = '<C-x>'
-let g:multi_cursor_quit_key            = '<Esc>'
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => surround.vim config
 " Annotate strings with gettext
@@ -746,3 +751,4 @@ nmap <leader>k <Plug>(easymotion-k)
 vmap <leader>k <Plug>(easymotion-k)
 map <Leader>l <Plug>(easymotion-bd-jk)
 nmap <Leader>l <Plug>(easymotion-overwin-line)
+
