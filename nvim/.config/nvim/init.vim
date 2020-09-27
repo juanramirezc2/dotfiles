@@ -170,6 +170,7 @@ function SetItalics() abort
   call italics#AddItalicToGroup("StorageClass")
   call italics#AddItalicToGroup("xmlAttrib")
   call italics#AddItalicToGroup("htmlArg")
+  call italics#AddItalicToGroup("jsxAttrib")
 endfunction
 
 autocmd ColorScheme * call SetItalics()
@@ -748,4 +749,9 @@ nmap <leader>k <Plug>(easymotion-k)
 vmap <leader>k <Plug>(easymotion-k)
 map <Leader>l <Plug>(easymotion-bd-jk)
 nmap <Leader>l <Plug>(easymotion-overwin-line)
-
+function! Syn()
+  for id in synstack(line("."), col("."))
+    echo synIDattr(id, "name")
+  endfor
+endfunction
+command! -nargs=0 Syn call Syn()
