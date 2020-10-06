@@ -172,6 +172,7 @@ function SetItalics() abort
   call italics#AddItalicToGroup("htmlArg")
   call italics#AddItalicToGroup("jsxAttrib")
   call italics#AddItalicToGroup("tsxAttrib")
+  call italics#AddItalicToGroup("typeScriptReserved")
 endfunction
 
 autocmd ColorScheme * call SetItalics()
