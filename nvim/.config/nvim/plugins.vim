@@ -32,7 +32,7 @@ Plug 'Shougo/neomru.vim' " MRU plugin includes unite.vim/denite.nvim MRU sources
 Plug 'rhysd/git-messenger.vim'  "Neovim plugin to reveal the commit messages under the cursor
 Plug 'tpope/vim-fugitive'  " git on vim
 Plug 'xuyuanp/nerdtree-git-plugin'  "nerd tree git status
-"Plug 'jiangmiao/auto-pairs'  " automaticamente cierra comillas o llaves
+Plug 'jiangmiao/auto-pairs'  " automaticamente cierra comillas o llaves
 " syntax highlighting files {{{
 " colorize hexa
 Plug 'norcalli/nvim-colorizer.lua'
