@@ -158,10 +158,6 @@ function SetCursor() abort
   execute join(histring, ' ')
   hi! Cursor cterm=NONE gui=NONE guifg=#a4f644 guibg=#a4f644
   hi! Cursor2 guifg=red guibg=red
-  hi! link LspDiagnosticsError Keyword
-  hi! link LspDiagnosticsWarning Number
-  hi! link LspDiagnosticsInformation Number
-  hi! link LspDiagnosticsHint Identifier
 endfunction
 autocmd ColorScheme * call SetCursor()
 
@@ -201,17 +197,9 @@ nnoremap <leader>vr :e $MYVIMRC<CR>
 " moverme entre los diferentes paneles con Shift-w
 "nnoremap <S-w>   <c-w>w
 
-"LSP Statusline ---------------------------------------------------------------{{{
-function! LspStatus() abort
-  if luaeval('#vim.lsp.buf_get_clients() > 0')
-    return luaeval("require('lsp-status').status()")
-  endif
-  return ''
-endfunction
-" }}}
 " vim-airline ---------------------------------------------------------------{{{
 " terminal emulator exit
-let g:airline_extensions = ['branch','denite','tabline']
+let g:airline_extensions = ['branch','coc','denite','tabline']
 " configuracion para airline
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline_statusline_ontop = 0 "no necesito mostrar el status line en la parte de arriba
@@ -223,8 +211,6 @@ let g:airline_section_y = "%{fnamemodify(getcwd(), ':t')}"
 let g:airline_section_c = '%t' "filename only in bottom part
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline_skip_empty_sections = 1
-call airline#parts#define_function('lsp', 'LspStatus')
-let g:airline_section_z = airline#section#create_right(['lsp'])
 " escaping normal mode
 inoremap jk <Esc>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -403,89 +389,169 @@ call denite#custom#option('default', {
       "\ 'floating_preview': 1,
       "\ 'direction': 'dynamicbottom',
       "\ 'vertical_preview': 1
-"LSP ----------------------------------------------{{
-lua require("lsp_config")
-call sign_define('LspDiagnosticsErrorSign',       {'text': '・'})
-call sign_define('LspDiagnosticsWarningSign',     {'text': '・'})
-call sign_define('LspDiagnosticsInformationSign', {'text': '・'})
-call sign_define('LspDiagnosticsHintSign',        {'text': '・'})
-nnoremap <silent> <leader>gdc    <cmd>lua vim.lsp.buf.declaration()<CR>
-nnoremap <silent> <leader>gd <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> gi    <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> gs <cmd>lua vim.lsp.buf.signature_help()<CR>
-nnoremap <silent> gtd   <cmd>lua vim.lsp.buf.type_definition()<CR>
-nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> <leader>rn    <cmd>lua vim.lsp.buf.rename()<CR>
-nnoremap <silent> ca    <cmd>lua vim.lsp.buf.code_action()<CR>
-nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
-nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-nnoremap <silent> <leader>or    <cmd>lua vim.lsp.buf.code_action({ source = { organizeImports = true } })<CR>
 
-"}}
-  "vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gdc', '<Cmd>lua vim.lsp.buf.declaration()<CR>',     opts)
-  "vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gd',  '<Cmd>lua vim.lsp.buf.definition()<CR>',      opts)
-  "vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gt',  '<Cmd>lua vim.lsp.buf.hover()<CR>',           opts)
-  "vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gi',  '<cmd>lua vim.lsp.buf.implementation()<CR>',  opts)
-  "vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gs',  '<cmd>lua vim.lsp.buf.signature_help()<CR>',  opts)
-  "vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gtd',   '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  "vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>rn',  '<cmd>lua vim.lsp.buf.rename()<CR>',          opts)
-  "vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gr',  '<cmd>lua vim.lsp.buf.references()<CR>',      opts)
-  "vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ca',  '<cmd>lua vim.lsp.buf.code_action()<CR>',     opts)
+"COC CONQUER OF COMPLETION nvim ----------------------------------------------------{{{
+call coc#add_extension('coc-json',
+      \'coc-tsserver',
+      \'coc-emmet',
+      \'coc-css',
+      \'coc-html',
+      \'coc-eslint',
+      \'coc-snippets',
+      \'coc-todolist',
+      \'coc-tailwindcss')
 
-  "vim.api.nvim_command [[autocmd CursorHold  <buffer> ]]
-  "-- vim.api.nvim_command [[autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()]]
-  "-- vim.api.nvim_command [[autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()]]
-  "-- vim.api.nvim_command [[autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()]]
+set nowritebackup
 
-"Completion nvim ----------------------------------------------------{{{
-"
-" Use <Tab> and <S-Tab> to navigate through popup menu
-"let g:completion_enable_auto_popup = 0
+" Give more space for displaying messages.
+set cmdheight=2
 
-inoremap <silent><expr> <c-space> completion#trigger_completion()
-function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
 
-inoremap <silent><expr> <TAB>
-  \ pumvisible() ? "\<C-n>" :
-  \ <SID>check_back_space() ? "\<TAB>" :
-  \ completion#trigger_completion()
-
-hi LspReferenceRead guibg='#343d46'
-hi LspReferenceText guibg='#343d46'
-hi LspReferenceWrite guibg='#343d46'
-let g:completion_enable_snippet = 'vim-vsnip'
-" Set completeopt to have a better completion experience
-set completeopt=menuone,noinsert,noselect
-"Trigger keyword length
-let g:completion_trigger_keyword_length = 3 " default = 1
-"Sorting completion items
-
-let g:completion_confirm_key = ""
-imap <expr> <cr>  pumvisible() ? complete_info()["selected"] != "-1" ?
-                 \ "\<Plug>(completion_confirm_completion)"  : "\<c-e>\<CR>" :  "\<CR>"
-let g:completion_sorting = "none"
-" Avoid showing message extra message when using completion
+" Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
-"" }}}
-" Diagnostic Nvim -----------------------------------------------------{{
-" Always show the signcolumn
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
 if has("patch-8.1.1564")
   " Recently vim can merge signcolumn and number column into one
   set signcolumn=number
 else
   set signcolumn=yes
 endif
-nnoremap <silent> [g :PrevDiagnosticCycle<CR>
-nnoremap <silent> ]g :NextDiagnosticCycle<CR>
-nnoremap <silent> <leader>di :OpenDiagnostic<CR>
-let g:diagnostic_enable_virtual_text = 1
-let g:diagnostic_insert_delay = 1
-let g:diagnostic_show_sign = 1
-" }}
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<c-j>'
+
+" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<c-k>'
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocActionAsync('doHover')
+  endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder.
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Applying codeAction to the selected region.
+" Example: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap keys for applying codeAction to the current buffer.
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Map function and class text objects
+" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
+
+" Use CTRL-S for selections ranges.
+" Requires 'textDocument/selectionRange' support of language server.
+nmap <silent> <C-s> <Plug>(coc-range-select)
+xmap <silent> <C-s> <Plug>(coc-range-select)
+
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
+
+" Add `:Fold` command to fold current buffer.
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" Add `:OR` command for organize imports of the current buffer.
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" Add (Neo)Vim's native statusline support.
+" NOTE: Please see `:h coc-status` for integrations with external plugins that
+" provide custom statusline: lightline.vim, vim-airline.
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" Mappings for CoCList
+" Show all diagnostics.
+nnoremap <silent><nowait> <space>di  :<C-u>CocList --normal --auto-preview --top diagnostics<cr>
+" Manage extensions.
+nnoremap <silent><nowait> <space>ex  :<C-u>CocList --normal extensions<cr>
+" Show commands.
+nnoremap <silent><nowait> <space>c  :<C-u>CocList --normal commands<cr>
+" Find symbol of current document.
+nnoremap <silent><nowait> <space>o  :<C-u>CocList --normal outline<cr>
+" Search workspace symbols.
+nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list.
+nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+"" }}}
 
 " Vim-Devicons --------------------------------------------------------------{{{
 
@@ -593,7 +659,7 @@ lua require 'colorizer'.setup()
 " vista.vim sidebar with LSP symbols {{{
 let g:vista#renderer#enable_icon = 1
 let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
-let g:vista_default_executive = 'nvim_lsp'
+let g:vista_default_executive = 'coc'
 let g:vista#renderer#icons = {
       \   "function": "\uf794",
       \   "variable": "\uf71b",
@@ -635,12 +701,6 @@ let g:mta_filetypes = {
     \ 'twig' : 1,
     \}
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => vim-multiple-cursors
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => surround.vim config
 " Annotate strings with gettext
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -648,48 +708,13 @@ vmap Si S(i_<esc>f)
 au FileType mako vmap Si S"i${ _(<esc>2f"a) }<esc>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => vim indent Guides
+" => vim indent Line
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:indentLine_char = "▏"
 "Disable IndentLine for Json files
 autocmd Filetype json let g:indentLine_enabled = 0
-"let g:indentLine_char_list = ['', '', '¦', '┆', '┊']
 " }}}
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => VSsnips
-"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" You can use other key to expand snippet.
-"imap <expr> <C-j>   vsnip#available(1)  ? '<Plug>(vsnip-expand)'         : '<C-j>'
-" Expand selected placeholder with <C-j> (see https://github.com/hrsh7th/vim-vsnip/pull/51)
-"smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
-"imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-" Jump to the next placeholder with <C-l>
-"smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-"imap <expr> <Tab>   vsnip#available(1)  ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-"smap <expr> <Tab>   vsnip#available(1)  ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-"imap <expr> <S-Tab> vsnip#available(-1) ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-"smap <expr> <S-Tab> vsnip#available(-1) ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-" Select text to use as $TM_SELECTED_TEXT in the next snippet.
-" See https://github.com/hrsh7th/vim-vsnip/pull/50
-" These mappings will behave like normal `c`. They select the text, remove it
-" and place you in insert mode.
-"nmap        <C-j>   <Plug>(vsnip-cut-text)
-"xmap        <C-j>   <Plug>(vsnip-cut-text)
-"smap        <C-j>   <Plug>(vsnip-cut-text)
-" This will select the text and your in the exact same mode as before.
-"nmap        <C-l>   <Plug>(vsnip-select-text)
-"xmap        <C-l>   <Plug>(vsnip-select-text)
-"smap        <C-l>   <Plug>(vsnip-select-text)
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Emmet
-"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:user_emmet_leader_key=','
-let g:user_emmet_settings = webapi#json#decode(join(readfile(expand('~/.config/nvim/emmet_custom/snippets.json')), "\n"))
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Test
@@ -759,4 +784,21 @@ function! Syn()
   endfor
 endfunction
 command! -nargs=0 Syn call Syn()
+" ================= coc nvim multiple cursors ====================
+hi CocCursorRange guibg=#b16286 guifg=#ebdbb2
+nmap <silent> <C-c> <Plug>(coc-cursors-position)
+" use normal command like `<leader>xi(`
+nmap <leader>x  <Plug>(coc-cursors-operator)
+vmap <leader>r :CocCommand document.renameCurrentWord<CR>
+nmap <leader>r <Plug>(coc-refactor)
+" multiple cursors disabled by now
+"nmap <silent> <C-d> <Plug>(coc-cursors-word)*
+"xmap <silent> <C-d> y/\V<C-r>=escape(@",'/\')<CR><CR>gN<Plug>(coc-cursors-range)gn
+nmap <expr> <silent> <C-m> <SID>select_current_word()
 
+function! s:select_current_word()
+  if !get(g:, 'coc_cursors_activated', 0)
+    return "\<Plug>(coc-cursors-word)"
+  endif
+  return "*\<Plug>(coc-cursors-word):nohlsearch\<CR>"
+endfunc
