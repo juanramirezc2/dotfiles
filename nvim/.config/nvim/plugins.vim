@@ -11,8 +11,6 @@ Plug 'mhinz/vim-startify' "bellisima y magnifica primera pantalla para vim
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'nvim-lua/lsp-status.nvim' " statusline lsp messages and status
 Plug 'neovim/nvim-lsp'
-Plug 'dsznajder/vscode-es7-javascript-react-snippets' "vscode react snippets
-Plug 'xabikos/vscode-javascript' "vscode snippets
 Plug 'hrsh7th/vim-vsnip' "VSCode(LSP)'s snippet feature in vim.
 Plug 'hrsh7th/vim-vsnip-integ' "This plugin provides some plugins integration.
 Plug 'nvim-lua/completion-nvim'
@@ -39,7 +37,7 @@ Plug 'Shougo/neomru.vim' " MRU plugin includes unite.vim/denite.nvim MRU sources
 Plug 'rhysd/git-messenger.vim'  "Neovim plugin to reveal the commit messages under the cursor
 Plug 'tpope/vim-fugitive'  " git on vim
 Plug 'xuyuanp/nerdtree-git-plugin'  "nerd tree git status
-Plug 'jiangmiao/auto-pairs'  " automaticamente cierra comillas o llaves
+"Plug 'jiangmiao/auto-pairs'  " automaticamente cierra comillas o llaves
 " syntax highlighting files {{{
 " colorize hexa
 Plug 'norcalli/nvim-colorizer.lua'

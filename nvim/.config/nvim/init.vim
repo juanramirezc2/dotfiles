@@ -1,8 +1,10 @@
+
 scriptencoding utf-8
 source ~/.config/nvim/plugins.vim
 " Luego de esta línea puedes agregar tus configuraciones y mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Hide pointless junk at the bottom, doesn't work in .vimrc for some reason?
+"
 set laststatus=2
 set hidden
 set nowrap
@@ -452,7 +454,6 @@ inoremap <silent><expr> <TAB>
   \ <SID>check_back_space() ? "\<TAB>" :
   \ completion#trigger_completion()
 
-
 hi LspReferenceRead guibg='#343d46'
 hi LspReferenceText guibg='#343d46'
 hi LspReferenceWrite guibg='#343d46'
@@ -462,6 +463,10 @@ set completeopt=menuone,noinsert,noselect
 "Trigger keyword length
 let g:completion_trigger_keyword_length = 3 " default = 1
 "Sorting completion items
+
+let g:completion_confirm_key = ""
+imap <expr> <cr>  pumvisible() ? complete_info()["selected"] != "-1" ?
+                 \ "\<Plug>(completion_confirm_completion)"  : "\<c-e>\<CR>" :  "\<CR>"
 let g:completion_sorting = "none"
 " Avoid showing message extra message when using completion
 set shortmess+=c
@@ -479,6 +484,7 @@ nnoremap <silent> ]g :NextDiagnosticCycle<CR>
 nnoremap <silent> <leader>di :OpenDiagnostic<CR>
 let g:diagnostic_enable_virtual_text = 1
 let g:diagnostic_insert_delay = 1
+let g:diagnostic_show_sign = 1
 " }}
 
 " Vim-Devicons --------------------------------------------------------------{{{
@@ -712,10 +718,6 @@ map <silent> <A-e> <Plug>CamelCaseMotion_e
 map <silent> ge <Plug>CamelCaseMotion_ge
 
 
-let g:completion_confirm_key = ""
-imap <expr> <cr>  pumvisible() ? complete_info()["selected"] != "-1" ?
-      \ "\<Plug>(completion_confirm_completion)"  : "\<c-e>\<CR>" :  "\<CR>"
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Core mappings changed
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -757,3 +759,4 @@ function! Syn()
   endfor
 endfunction
 command! -nargs=0 Syn call Syn()
+
