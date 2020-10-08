@@ -33,7 +33,6 @@ nnoremap <C-f> za
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Turn backup off, since most stuff is in SVN, git etc. anyway...
 set nobackup
-set nowb
 set noswapfile
 " split new panels down and below
 set splitbelow
