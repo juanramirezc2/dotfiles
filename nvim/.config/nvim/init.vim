@@ -191,12 +191,6 @@ map k gk
 " abrir vim.init en un ventana nueva love it
 nnoremap <leader>vr :e $MYVIMRC<CR>
 
-" Cerrar el buffer actual con <líder> + q
-"nnoremap <silent><S-Q> :q<CR>
-
-" moverme entre los diferentes paneles con Shift-w
-"nnoremap <S-w>   <c-w>w
-
 " vim-airline ---------------------------------------------------------------{{{
 " terminal emulator exit
 let g:airline_extensions = ['branch','coc','denite','tabline']
@@ -246,6 +240,7 @@ let g:startify_commands = [
       \   { 'up': [ 'Update Plugins', ':PlugUpdate' ] },
       \   { 'ug': [ 'Upgrade Plugin Manager', ':PlugUpgrade' ] },
       \   { 'ch': [ 'check Health', ':checkhealth' ] },
+      \   { 'cc': [ 'coc Config', ':CocConfig' ] },
       \ ]
 
 let g:startify_bookmarks = [
@@ -386,10 +381,6 @@ call denite#custom#option('default', {
       \ 'winminheight': 10
       \ })
 
-      "\ 'floating_preview': 1,
-      "\ 'direction': 'dynamicbottom',
-      "\ 'vertical_preview': 1
-
 "COC CONQUER OF COMPLETION nvim ----------------------------------------------------{{{
 call coc#add_extension('coc-json',
       \'coc-tsserver',
@@ -426,16 +417,15 @@ endif
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
+
+let g:coc_snippet_next = '<tab>'
+let g:coc_snippet_prev = '<c-p>'
+
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-" Use <C-j> for jump to next placeholder, it's default of coc.nvim
-let g:coc_snippet_next = '<c-j>'
-
-" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
-let g:coc_snippet_prev = '<c-k>'
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -556,7 +546,7 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 " Vim-Devicons --------------------------------------------------------------{{{
 
 let g:NERDTreeGitStatusNodeColorization = 1
-let g:webdevicons_enable_denite = 0
+let g:webdevicons_enable_denite = 1
 let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = ''
 let g:DevIconsEnableFoldersOpenClose = 1
 let g:WebDevIconsOS = 'Darwin'
@@ -637,8 +627,8 @@ noremap <silent> <leader>f :Neoformat<CR>
 "format on file save
 augroup fmt
   autocmd FileType javascript*,css,scss,html,typescript* autocmd! BufWritePre <buffer> undojoin | Neoformat
-  "autocmd BufWritePre * undojoin | Neoformat
 augroup END
+
 let g:standard_prettier_settings = {
       \ 'exe': 'prettier',
       \ 'args': ['--stdin', '--stdin-filepath', '%:p', '--single-quote'],
@@ -667,9 +657,6 @@ let g:vista#renderer#icons = {
 nmap <leader>vi :Vista!!<CR>
 autocmd FileType vista,vista_kind nnoremap <buffer> <silent> \ :<c-u>call vista#finder#fzf#Run()<CR>
 " }}}
-" Or, you could use neovim's virtual virtual text feature.
-let g:echodoc#enable_at_startup = 1
-let g:echodoc#type = 'virtual'
 "Nerd Tree ---------------------------------------------------------------------{{{
 " Close Nerdtree if is the only window left
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -734,16 +721,6 @@ let test#strategy = {
 \}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => camel case motions
-"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <silent> <A-w> <Plug>CamelCaseMotion_w
-map <silent> <A-b> <Plug>CamelCaseMotion_b
-map <silent> <A-e> <Plug>CamelCaseMotion_e
-map <silent> ge <Plug>CamelCaseMotion_ge
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Core mappings changed
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap [[ []
@@ -778,12 +755,17 @@ nmap <leader>k <Plug>(easymotion-k)
 vmap <leader>k <Plug>(easymotion-k)
 map <Leader>l <Plug>(easymotion-bd-jk)
 nmap <Leader>l <Plug>(easymotion-overwin-line)
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => highlight groups helpers
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! Syn()
   for id in synstack(line("."), col("."))
     echo synIDattr(id, "name")
   endfor
 endfunction
 command! -nargs=0 Syn call Syn()
+
 " ================= coc nvim multiple cursors ====================
 hi CocCursorRange guibg=#b16286 guifg=#ebdbb2
 nmap <silent> <C-c> <Plug>(coc-cursors-position)

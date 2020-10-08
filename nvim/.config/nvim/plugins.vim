@@ -26,7 +26,6 @@ Plug 'vim-airline/vim-airline-themes'  " indent guides lines let's see how they 
 "File browsers
 Plug 'preservim/nerdtree' "file browsing panel
 Plug 'Shougo/denite.nvim'  "Denite is a dark powered plugin for Neovim/Vim to unite all interfaces.
-Plug 'Shougo/echodoc.vim'
 Plug 'Shougo/neomru.vim' " MRU plugin includes unite.vim/denite.nvim MRU sources Most Recent Used
 "Git helpers
 Plug 'rhysd/git-messenger.vim'  "Neovim plugin to reveal the commit messages under the cursor
@@ -57,7 +56,6 @@ Plug 'wellle/targets.vim'  "Vim plugin that provides additional text objects
 Plug 'kana/vim-textobj-line'  "Text objects for the current line
 Plug 'kana/vim-textobj-entire'  "entire file as vim object
 " other plugins
-Plug 'bkad/CamelCaseMotion' "camel case word motions
 Plug 'rbgrouleff/bclose.vim' "The BClose Vim plugin for deleting a buffer without closing the window
 "Plug 'luochen1990/rainbow' "Rainbow Parentheses Improved, shorter code, no level limit, smooth
 Plug 'mattn/vim-gist' "The BClose Vim plugin for deleting a buffer without closing the window
