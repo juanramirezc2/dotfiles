@@ -420,10 +420,11 @@ inoremap <silent><expr> <C-l>
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
 
-let g:coc_snippet_next = '<C-l>'
-let g:coc_snippet_prev = '<c-h>'
+let g:coc_snippet_next = '<C-j>'
+let g:coc_snippet_prev = '<C-k>'
 
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <expr><C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
+inoremap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -731,8 +732,6 @@ nnoremap <silent> <C-j> <c-d>
 nnoremap <silent> <C-k> <c-u>
 vnoremap <silent> <C-j> <c-d>
 vnoremap <silent> <C-k> <c-u>
-inoremap <silent> <C-j> <c-n>
-inoremap <silent> <C-k> <c-p>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Inc search
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
