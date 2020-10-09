@@ -185,12 +185,12 @@ tmux_conf_theme_status_right='#{prefix}#{pairing}#{synchronized} #{?battery_stat
 
 # status left style
 tmux_conf_theme_status_left_fg='#ebdbb2,#282828,#e4e4e4'  # black, white , white
-tmux_conf_theme_status_left_bg='#504945,#928374,#00afff'  # yellow, pink, white blue
+tmux_conf_theme_status_left_bg='#504945,#a89984,#00afff'  # yellow, pink, white blue
 tmux_conf_theme_status_left_attr='bold,none,none'
 
 # status right style
 tmux_conf_theme_status_right_fg='#ebdbb2,#282828,#ebdbb2' # light gray, white, black
-tmux_conf_theme_status_right_bg='#3c3836,#83a598,#504945' # dark gray, red, white
+tmux_conf_theme_status_right_bg='#3c3836,#458588,#504945' # dark gray, red, white
 tmux_conf_theme_status_right_attr='none,none,bold'
 
 # pairing indicator
