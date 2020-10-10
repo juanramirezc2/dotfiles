@@ -60,5 +60,12 @@
   "todolist.autoUpload": true,
   "todolist.monitor": true,
   "tailwindCSS.trace.server": "verbose",
-  "tailwindCSS.emmetCompletions": true
+  "tailwindCSS.emmetCompletions": true,
+  "tailwindCSS.jsLanguages": [
+    "javascript",
+    "javascriptreact",
+    "reason",
+    "typescriptreact",
+    "typescript.tsx"
+  ]
 }
