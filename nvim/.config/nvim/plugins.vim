@@ -36,12 +36,7 @@ Plug 'jiangmiao/auto-pairs'  " automaticamente cierra comillas o llaves
 " colorize hexa
 Plug 'norcalli/nvim-colorizer.lua'
 "javascript
-"Plug 'othree/yajs.vim'
-Plug 'leafgarland/typescript-vim'
-Plug 'peitalin/vim-jsx-typescript'
-"Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'liuchengxu/vista.vim' "View and search LSP symbols, tags in Vim/NeoVim.
-Plug 'heavenshell/vim-jsdoc'
 " markdown
 Plug 'tpope/vim-markdown', { 'for': 'markdown' }
 "}}}

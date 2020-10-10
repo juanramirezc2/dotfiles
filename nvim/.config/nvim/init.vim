@@ -160,16 +160,17 @@ endfunction
 autocmd ColorScheme * call SetCursor()
 
 function SetItalics() abort
+  call italics#AddItalicToGroup("Special")
   call italics#AddItalicToGroup("Comment")
   call italics#AddItalicToGroup("Keyword")
   call italics#AddItalicToGroup("Identifier")
   call italics#AddItalicToGroup("StorageClass")
   call italics#AddItalicToGroup("xmlAttrib")
   call italics#AddItalicToGroup("htmlArg")
-  call italics#AddItalicToGroup("jsxAttrib")
-  call italics#AddItalicToGroup("tsxAttrib")
-  call italics#AddItalicToGroup("typeScriptReserved")
+  "call italics#AddItalicToGroup("jsxAttrib")
+  "call italics#AddItalicToGroup("tsxAttrib")
 endfunction
+
 
 autocmd ColorScheme * call SetItalics()
 
@@ -178,6 +179,7 @@ syntax enable
 let g:gruvbox_contrast_dark = "soft"
 colorscheme gruvbox
 "}}}
+
 
 let g:vim_jsx_pretty_highlight_close_tag = 1
 let g:vim_jsx_pretty_colorful_config = 1 " default 0

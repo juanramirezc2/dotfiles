@@ -13,7 +13,11 @@
 #   - and iTerm2 is configured to send [1;9A -> [1;9D for option + arrow keys
 # then uncomment the following line to make Meta + arrow keys mapping work
 #set -ga terminal-overrides "*:kUP3=\e[1;9A,*:kDN3=\e[1;9B,*:kRIT3=\e[1;9C,*:kLFT3=\e[1;9D"
+#-- terminal overrides ---------------------------------------------------------
 
+set -g default-terminal $TERM
+set-option -ga terminal-overrides ",$TERM:Tc"
+set -as terminal-overrides ',*:Smulx=\E[4::%p1%dm'
 
 # -- windows & pane creation ---------------------------------------------------
 
