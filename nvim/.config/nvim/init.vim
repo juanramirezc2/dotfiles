@@ -225,7 +225,7 @@ vnoremap // y/\V<C-r>=escape(@",'/\')<CR><CR>
 
 " startify sessions and other tweaks
 let g:startify_change_to_dir = 0
-let g:startify_change_to_vcs_root = 1
+let g:startify_change_to_vcs_root = 0
 let g:startify_relative_path = 1
 let g:startify_use_env = 1
 let g:startify_session_dir = '~/.vim/session'
