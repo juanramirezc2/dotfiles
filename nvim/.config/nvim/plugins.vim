@@ -33,6 +33,7 @@ Plug 'tpope/vim-fugitive'  " git on vim
 Plug 'xuyuanp/nerdtree-git-plugin'  "nerd tree git status
 Plug 'jiangmiao/auto-pairs'  " automaticamente cierra comillas o llaves
 " syntax highlighting files {{{
+Plug 'maxmellon/vim-jsx-pretty'
 " colorize hexa
 Plug 'norcalli/nvim-colorizer.lua'
 "javascript
