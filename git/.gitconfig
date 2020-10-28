@@ -1,6 +1,8 @@
 # gitconfig
 [user]
-    name = Juan Gabriel Ramirez
+	name = juan gabriel ramirez
+	email = tuxgabo@gmail.com
+	username = juangabrielr4
 [alias]
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
   st = status
