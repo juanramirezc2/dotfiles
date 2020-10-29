@@ -389,7 +389,6 @@ call coc#add_extension('coc-json',
       \'coc-html',
       \'coc-eslint',
       \'coc-snippets',
-      \'coc-todolist',
       \'coc-tailwindcss')
 
 set nowritebackup
@@ -466,6 +465,29 @@ function! s:show_documentation()
     call CocActionAsync('doHover')
   endif
 endfunction
+
+"Flow config instead of having ~/.vim/coc-settings.json
+let s:LSP_CONFIG = {
+\  'flow': {
+\    'command': exepath('flow'),
+\    'args': ['lsp'],
+\    'filetypes': ['javascriptreact'],
+\    'initializationOptions': {},
+\    'requireRootPattern': 1,
+\    'settings': {},
+\    'rootPatterns': ['.flowconfig']
+\  }
+\}
+
+let s:languageservers = {}
+for [lsp, config] in items(s:LSP_CONFIG)
+  let s:not_empty_cmd = !empty(get(config, 'command'))
+  if s:not_empty_cmd | let s:languageservers[lsp] = config | endif
+endfor
+
+if !empty(s:languageservers)
+  call coc#config('languageserver', s:languageservers)
+endif
 
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')

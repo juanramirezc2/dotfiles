@@ -68,25 +68,7 @@ run`:checkhealth` for more info ;)
 tsserver ts language server typescript server
 
 ```sh
-$ npm install -g typescript-language-server
-```
-
-Diagnostics Language server
-
-```sh
-$ npm install -g diagnostic-languageserver
-```
-
-cssls css language server
-
-```sh
-$ npm install -g vscode-css-languageserver-bin
-```
-
-jsonls json language server
-
-```sh
-$ npm install -g vscode-json-languageserver
+$ npm install -g flow-bin
 ```
 
 # vim prettier requires prettier

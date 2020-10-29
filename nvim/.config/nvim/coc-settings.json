@@ -4,6 +4,7 @@
   "diagnostic.virtualText": false,
   "snippets.userSnippetsDirectory": "~/.config/nvim/snippets",
   "suggest.maxCompleteItemCount": 20,
+  "tsserver.enableJavascript": false,
   "eslint.filetypes": [
     "javascript",
     "typescript",
