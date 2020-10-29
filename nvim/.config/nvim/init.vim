@@ -466,27 +466,53 @@ function! s:show_documentation()
   endif
 endfunction
 
-"Flow config instead of having ~/.vim/coc-settings.json
-let s:LSP_CONFIG = {
-\  'flow': {
-\    'command': exepath('flow'),
-\    'args': ['lsp'],
-\    'filetypes': ['javascriptreact'],
-\    'initializationOptions': {},
-\    'requireRootPattern': 1,
-\    'settings': {},
-\    'rootPatterns': ['.flowconfig']
-\  }
-\}
+" lookup local flow executable
+" and turn on flow for coc is executable exists
+function! SetFlow() abort
+    let flow_path = 'node_modules/.bin/flow'
+    let has_flow = filereadable(flow_path)
+    if (!has_flow)
+        return 0
+    endif
+    let flow_bin = getcwd() . '/' . flow_path
+    let flow_config = {
+    \    'command': flow_bin,
+    \    'args': ['lsp'],
+    \    'filetypes': ['javascript', 'javascriptreact'],
+    \    'initializationOptions': {},
+    \    'requireRootPattern': 1,
+    \    'settings': {},
+    \    'rootPatterns': ['.flowconfig']
+    \}
+    call coc#config('languageserver.flow', flow_config)
+endfunction
 
-let s:languageservers = {}
-for [lsp, config] in items(s:LSP_CONFIG)
-  let s:not_empty_cmd = !empty(get(config, 'command'))
-  if s:not_empty_cmd | let s:languageservers[lsp] = config | endif
-endfor
+function! HasEslintConfig()
+  for name in ['.eslintrc.js', '.eslintrc.json', '.eslintrc']
+    if globpath('.', name) != ''
+      return 1
+    endif
+  endfor
+endfunction
 
-if !empty(s:languageservers)
-  call coc#config('languageserver', s:languageservers)
+function! SetupCocStuff()
+    call SetFlow()
+
+    let eslint_config_found = HasEslintConfig()
+    " turn off eslint when cannot find eslintrc
+    call coc#config('eslint.enable', eslint_config_found)
+    call coc#config('eslint.autoFixOnSave', eslint_config_found)
+
+    " essentially avoid turning on typescript in a flow project
+    call coc#config('tsserver.enableJavascript', filereadable('.flowconfig') == 0)
+    redraw!
+endfunction
+
+" delay file system calls until something is on the screen
+if has('nvim') || has('patch-8.2.18.12')
+    autocmd! CursorHold * ++once silent call SetupCocStuff()
+else
+    call SetupCocStuff()
 endif
 
 " Highlight the symbol and its references when holding the cursor.
