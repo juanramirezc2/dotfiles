@@ -176,8 +176,10 @@ autocmd ColorScheme * call SetItalics()
 
 "Enable syntax highlighting and set colorscheme
 syntax enable
-let g:gruvbox_contrast_dark = "soft"
-colorscheme gruvbox
+" Start new windows with a random color scheme
+call RandomBase16()
+"let g:gruvbox_contrast_dark = "soft"
+"colorscheme gruvbox
 "}}}
 
 
@@ -673,10 +675,11 @@ nnoremap <leader><tab> <C-^>;
 map <leader>ba :bufdo bd<cr>
 " Code formatting -----------------------------------------------------------{{{
 noremap <silent> <leader>f :Neoformat<CR>
+
 "format on file save
-augroup fmt
-  autocmd FileType javascript*,css,scss,html,typescript* autocmd! BufWritePre <buffer> undojoin | Neoformat
-augroup END
+"augroup fmt
+  "autocmd FileType javascript*,css,scss,html,typescript* autocmd! BufWritePre <buffer> undojoin | Neoformat
+"augroup END
 
 let g:standard_prettier_settings = {
       \ 'exe': 'prettier',

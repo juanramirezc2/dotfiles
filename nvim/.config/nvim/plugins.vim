@@ -52,6 +52,8 @@ Plug 'wellle/targets.vim'  "Vim plugin that provides additional text objects
 Plug 'kana/vim-textobj-line'  "Text objects for the current line
 Plug 'kana/vim-textobj-entire'  "entire file as vim object
 " other plugins
+" dims inactive splits
+Plug 'blueyed/vim-diminactive'
 Plug 'rbgrouleff/bclose.vim' "The BClose Vim plugin for deleting a buffer without closing the window
 "Plug 'luochen1990/rainbow' "Rainbow Parentheses Improved, shorter code, no level limit, smooth
 Plug 'mattn/vim-gist' "The BClose Vim plugin for deleting a buffer without closing the window
@@ -74,6 +76,7 @@ Plug 'tpope/vim-unimpaired'  "Pairs of handy bracket mappings
 Plug 'mcchrish/extend-highlight.vim' "extend hightlighting groups
 " themes
 Plug 'morhetz/gruvbox'
+Plug 'chriskempson/base16-vim'
 Plug 'ayu-theme/ayu-vim' " or other package manager
 Plug 'tomasiser/vim-code-dark'
 Plug 'arcticicestudio/nord-vim'
