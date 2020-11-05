@@ -99,15 +99,6 @@ vnoremap <C-x> "+d
 nnoremap <C-x> "+d
 " draw less
 set lazyredraw
-" persistent undo
-set undofile
-
-" store undo files awat from the project
-if $XDG_DATA_HOME != ''
-    set undodir="$XDG_DATA_HOME/nvim/undo"
-else
-    set undodir="$HOME/.vim/undo-dir"
-endif
 
 if has('nvim')
   tnoremap jk <C-\><C-n>
