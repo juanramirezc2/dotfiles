@@ -284,8 +284,8 @@ nnoremap <leader>/ :<C-u>Denite -no-empty grep:.<CR>
 vnoremap <leader>/ y:<C-u>Denite -no-empty  grep:.::<C-R>=fnameescape(@")<CR><CR>
 nnoremap <leader>/w :<C-u>DeniteCursorWord grep:.<CR>
 nmap     <leader>mr :Denite -no-auto-action file_mru<CR>
-nnoremap <leader>h :Denite -resume -cursor-pos=-1 -immediately<CR>
-nnoremap <leader>l :Denite -resume -cursor-pos=+1 -immediately<CR>
+nnoremap <leader>dp :Denite -resume -cursor-pos=-1 -immediately<CR>
+nnoremap <leader>dn :Denite -resume -cursor-pos=+1 -immediately<CR>
 nnoremap <leader>dl :Denite -resume -do='normal! A;'<CR>
 nmap     <leader>sc :Denite colorscheme<CR>
 
