@@ -60,7 +60,8 @@
   "coc.preferences.formatOnSaveFiletypes": [
     "css",
     "json",
-    "typescriptreact"
+    "typescriptreact",
+    "typescript"
   ],
   "tailwindCSS.trace.server": "verbose",
   "tailwindCSS.emmetCompletions": true,
