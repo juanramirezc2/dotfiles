@@ -57,8 +57,11 @@
     "bem.shortElementPrefix": "-"
   },
   "emmet.showAbbreviationSuggestions": true,
-  "todolist.autoUpload": true,
-  "todolist.monitor": true,
+  "coc.preferences.formatOnSaveFiletypes": [
+    "css",
+    "json",
+    "typescriptreact"
+  ],
   "tailwindCSS.trace.server": "verbose",
   "tailwindCSS.emmetCompletions": true,
   "tailwindCSS.jsLanguages": [

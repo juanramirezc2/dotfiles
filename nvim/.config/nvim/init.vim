@@ -61,7 +61,7 @@ set noshowmode  " No mostrar el modo actual (ya lo muestra la barra de estado)
 
 " guicolors styles for every mode
 set termguicolors
-set cursorline        " highlight current line
+"set cursorline        " highlight current line
 "set cursorcolumn      " highlight current column
 set guicursor=n-v-c:block-Cursor/lCursor,i-ci-ve:ver25-Cursor2/lCursor2,r-cr:hor20,o:hor50
 
@@ -159,7 +159,7 @@ function SetCursor() abort
   hi! Cursor cterm=NONE gui=NONE guifg=#a4f644 guibg=#a4f644
   hi! Cursor2 guifg=red guibg=red
 endfunction
-autocmd ColorScheme * call SetCursor()
+"autocmd ColorScheme * call SetCursor()
 
 function SetItalics() abort
   call italics#AddItalicToGroup("Special")
@@ -392,6 +392,7 @@ call coc#add_extension('coc-json',
       \'coc-css',
       \'coc-html',
       \'coc-eslint',
+      \'coc-prettier',
       \'coc-snippets',
       \'coc-tailwindcss')
 
@@ -526,8 +527,8 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 nmap <leader>rn <Plug>(coc-rename)
 
 " Formatting selected code.
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+"xmap <leader>f  <Plug>(coc-format-selected)
+"nmap <leader>f  <Plug>(coc-format-selected)
 
 augroup mygroup
   autocmd!
@@ -676,29 +677,9 @@ nnoremap <leader><tab> <C-^>;
 " Close all the buffers
 map <leader>ba :bufdo bd<cr>
 " Code formatting -----------------------------------------------------------{{{
-noremap <silent> <leader>f :Neoformat<CR>
-
-"format on file save
-"augroup fmt
-  "autocmd FileType javascript*,css,scss,html,typescript* autocmd! BufWritePre <buffer> undojoin | Neoformat
-"augroup END
-
-let g:standard_prettier_settings = {
-      \ 'exe': 'prettier',
-      \ 'args': ['--stdin', '--stdin-filepath', '%:p', '--single-quote'],
-      \ 'stdin': 1,
-      \ }
-" }}}
-" HTML ----------------------------------------------------------------------{{{
-let g:neoformat_html_prettier = g:standard_prettier_settings
-let g:neoformat_enabled_html = ['prettier']
-" }}}
-
-" CSS -----------------------------------------------------------------------{{{
-let g:neoformat_scss_prettier = g:standard_prettier_settings
-let g:neoformat_enabled_scss = ['prettier']
-lua require 'colorizer'.setup()
-"}}}
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
+vmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
 
 " vista.vim sidebar with LSP symbols {{{
 let g:vista#renderer#enable_icon = 1

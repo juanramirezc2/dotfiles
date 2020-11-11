@@ -68,8 +68,6 @@ Plug 'haya14busa/incsearch-easymotion.vim'
 "file icons
 Plug 'junegunn/vim-easy-align'  "A Vim alignment plugin
 Plug 'ryanoasis/vim-devicons'  " vim will become visual studio
-"" vim prettier
-Plug 'sbdchd/neoformat'
 " key mappings
 Plug 'tpope/vim-unimpaired'  "Pairs of handy bracket mappings
 " others
