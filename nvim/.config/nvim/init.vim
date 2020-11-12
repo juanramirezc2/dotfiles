@@ -156,10 +156,11 @@ function SetCursor() abort
         \ 'gui=' . 'NONE', 'cterm=' . 'NONE'
         \ ]
   execute join(histring, ' ')
+  "set cursor colors for normal and insert mode
   hi! Cursor cterm=NONE gui=NONE guifg=#a4f644 guibg=#a4f644
   hi! Cursor2 guifg=red guibg=red
 endfunction
-"autocmd ColorScheme * call SetCursor()
+autocmd ColorScheme * call SetCursor()
 
 function SetItalics() abort
   call italics#AddItalicToGroup("Special")
