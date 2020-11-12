@@ -9,7 +9,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'mhinz/vim-startify' "bellisima y magnifica primera pantalla para vim
 "Code helpers {{{
 " Or build from source code by using yarn: https://yarnpkg.com
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': ':CocInstall'}
 Plug 'jceb/vim-orgmode' "Org mode in vim
 Plug 'scrooloose/nerdcommenter' " comment lines of code using this plugin
 Plug 'alvan/vim-closetag' "Auto close (X)HTML tags
