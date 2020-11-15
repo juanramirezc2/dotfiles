@@ -332,7 +332,7 @@ call denite#custom#source('file_mru', 'matchers', ['matcher/fuzzy', 'matcher/pro
 " Change sorters.
 call denite#custom#source('file/rec', 'sorters', ['sorter/sublime'])
 
-call denite#custom#source('file/rec', 'matchers', ['converter/tail_path'])
+"call denite#custom#source('file/rec', 'matchers', ['converter/tail_path'])
 
 " Remove date from buffer list
 call denite#custom#var('buffer', {
