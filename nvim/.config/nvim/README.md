@@ -63,10 +63,13 @@ maybe you will need to run `:UpdateRemotePlugins` in order to the plugins that u
 
 run`:checkhealth` for more info ;)
 
-# coc nvim uses yarn
+# LSP npm modules
 
-````sh
-$ npm install -g yarn ```
+tsserver ts language server typescript server
+
+```sh
+$ npm install -g flow-bin
+```
 
 # vim prettier requires prettier
 

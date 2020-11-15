@@ -2,7 +2,7 @@
   "codeLens.enable": false,
   "suggest.enablePreview": true,
   "diagnostic.virtualText": false,
-  "snippets.userSnippetsDirectory": "~/.config/nvim/mycoolsnippets",
+  "snippets.userSnippetsDirectory": "~/.config/nvim/snippets",
   "suggest.maxCompleteItemCount": 20,
   "eslint.filetypes": [
     "javascript",
@@ -57,8 +57,19 @@
     "bem.shortElementPrefix": "-"
   },
   "emmet.showAbbreviationSuggestions": true,
-  "todolist.autoUpload": true,
-  "todolist.monitor": true,
+  "coc.preferences.formatOnSaveFiletypes": [
+    "css",
+    "json",
+    "typescriptreact",
+    "typescript"
+  ],
   "tailwindCSS.trace.server": "verbose",
-  "tailwindCSS.emmetCompletions": true
+  "tailwindCSS.emmetCompletions": true,
+  "tailwindCSS.jsLanguages": [
+    "javascript",
+    "javascriptreact",
+    "reason",
+    "typescriptreact",
+    "typescript.tsx"
+  ]
 }

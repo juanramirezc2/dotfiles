@@ -3,31 +3,35 @@ source ~/.config/nvim/plugins.vim
 " Luego de esta línea puedes agregar tus configuraciones y mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Hide pointless junk at the bottom, doesn't work in .vimrc for some reason?
+"
 set laststatus=2
-set wrap linebreak nolist
-set cpo+=n " show linebreak symbol were line numbers are
-set showbreak=↪\ \ \   " show this symbol when line was broken
+set hidden
+set nowrap
+set sidescroll=16
 set ai "Auto indent
 set si "Smart indent
 set tw=500
 " Turn on the Wild menu
 set wildmenu
-" show the number lines relative
-set relativenumber number
 " i'm not agains the mouse, enable it in all modes
 set mouse=a
 set noshowmode "don't show --INSERT--
 set noruler "don't show line numbers/column/% junk
 " Line numbers
 set number
+"FOLDING SETTINGS======================={{{
 " Add a bit extra margin to the left
-set foldcolumn=1
+set foldmethod=indent               " not as cool as syntax, but faster
+set foldlevelstart=99               " start unfolded
+"Toggle fold mapping
+" Toggle fold at current position.
+nnoremap <C-f> za
+"}}}
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Turn backup off, since most stuff is in SVN, git etc. anyway...
 set nobackup
-set nowb
 set noswapfile
 " split new panels down and below
 set splitbelow
@@ -43,8 +47,8 @@ set expandtab
 set smarttab
 "Number of spaces to use for a <Tab> during editing operations
 set shiftwidth=2
-set softtabstop=2"
-" Linebreak on 500 characters
+set softtabstop=2
+"Linebreak on 500 characters
 set lbr
 set tw=500
 " vim wiki requirement
@@ -54,49 +58,10 @@ set termguicolors  " Activa true colors en la terminal
 "it seems that powerline fonts need this
 set t_Co=256
 set noshowmode  " No mostrar el modo actual (ya lo muestra la barra de estado)
-"indent line ======= {{{
-" vim indent line
-let g:indentLine_enabled = 1
-let g:indentLine_faster = 1
-" indent line overwrite conceal from user :(
-let g:indentLine_concealcursor = 'nc'
-let g:indentLine_conceallevel = 2
-let g:indentLine_color_gui = '#343d46'
-"let g:indentLine_char_list = ['|', '¦', '┆', '┊']
- let g:indentLine_char="⎸"
-" }}}
-
-if has('nvim')
-  " Terminal mode:
-  tnoremap <M-h> <c-\><c-n><c-w>h
-  tnoremap <M-j> <c-\><c-n><c-w>j
-  tnoremap <M-k> <c-\><c-n><c-w>k
-  tnoremap <M-l> <c-\><c-n><c-w>l
-  " Insert mode:
-  inoremap <M-h> <Esc><c-w>h
-  inoremap <M-j> <Esc><c-w>j
-  inoremap <M-k> <Esc><c-w>k
-  inoremap <M-l> <Esc><c-w>l
-  " Visual mode:
-  vnoremap <M-h> <Esc><c-w>h
-  vnoremap <M-j> <Esc><c-w>j
-  vnoremap <M-k> <Esc><c-w>k
-  vnoremap <M-l> <Esc><c-w>l
-  " Normal mode:
-  nnoremap <M-h> <c-w>h
-  nnoremap <M-j> <c-w>j
-  nnoremap <M-k> <c-w>k
-  nnoremap <M-l> <c-w>l
-  "some terminal mappings
-  tnoremap <M-[> <Esc>
-  tnoremap <C-v><Esc> <Esc>
-  " simulare <C-R>
-  tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
-endif
 
 " guicolors styles for every mode
 set termguicolors
-set cursorline        " highlight current line
+"set cursorline        " highlight current line
 "set cursorcolumn      " highlight current column
 set guicursor=n-v-c:block-Cursor/lCursor,i-ci-ve:ver25-Cursor2/lCursor2,r-cr:hor20,o:hor50
 
@@ -107,9 +72,6 @@ endif
 " set a map leader for more key combos
 let mapleader = " "
 let maplocalleader= ";"
-" open a new terminal  in aplit of the current tab
-nmap <leader>te :e term://zsh<CR>I
-
 " no mostrar numeros de linea cuando se abre una terminal :O :O
 autocmd TermOpen * setlocal nonumber norelativenumber
 " Enable filetype plugins
@@ -127,6 +89,40 @@ set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
 " For regular expressions turn magic on
 set magic
+" Usar Control + y para copiar al portapapeles
+vnoremap <leader>c "*y
+nnoremap <leader>c "*y
+vnoremap <leader>v "*p
+nnoremap <leader>v "*p
+" Usar <líder> + d para cortar al portapapeles
+vnoremap <C-x> "+d
+nnoremap <C-x> "+d
+" draw less
+set lazyredraw
+
+if has('nvim')
+  tnoremap jk <C-\><C-n>
+  tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
+endif
+" open a new terminal  in aplit of the current tab
+noremap <leader>te :e term://zsh<CR>I
+noremap <leader>tes :12split term://zsh<CR>I
+noremap <leader>tev  :vsplit term://zsh<CR>I
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Misc
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Remove the Windows ^M - when the encodings gets messed up
+noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+
+" Quickly open a buffer for scribble
+map <leader>q :e ~/buffer<cr>
+
+" Quickly open a markdown buffer for scribble
+map <leader>no :e ~/buffer.md<cr>
+
+" Toggle paste mode on and off
+map <leader>pp :setlocal paste!<cr>
 " Themes, Commands, etc  ----------------------------------------------------{{{
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -146,18 +142,6 @@ endfunction
 
 :command C call RandomBase16()
 
-function SetItalics() abort
-  "hi Comment gui=italic
-  "hi jsLineComment gui=italic
-  "hi Keyword gui=italic
-  "hi Keyword gui=italic
-  "hi Identifier gui=italic
-  "hi StorageClass gui=italic
-  "hi xmlAttrib gui=italic
-  "hi htmlArg gui=italic
-  "hi pythonSelf gui=italic
-  "hi htmlArg gui=italic
-endfunction
 
 function SetCursor() abort
   let s:is_dark=(&background == 'dark')
@@ -172,37 +156,38 @@ function SetCursor() abort
         \ 'gui=' . 'NONE', 'cterm=' . 'NONE'
         \ ]
   execute join(histring, ' ')
+  "set cursor colors for normal and insert mode
   hi! Cursor cterm=NONE gui=NONE guifg=#a4f644 guibg=#a4f644
   hi! Cursor2 guifg=red guibg=red
 endfunction
+autocmd ColorScheme * call SetCursor()
+
+function SetItalics() abort
+  call italics#AddItalicToGroup("Special")
+  call italics#AddItalicToGroup("Comment")
+  call italics#AddItalicToGroup("Keyword")
+  call italics#AddItalicToGroup("Identifier")
+  call italics#AddItalicToGroup("StorageClass")
+  call italics#AddItalicToGroup("xmlAttrib")
+  call italics#AddItalicToGroup("htmlArg")
+  "call italics#AddItalicToGroup("jsxAttrib")
+  "call italics#AddItalicToGroup("tsxAttrib")
+endfunction
+
 
 autocmd ColorScheme * call SetItalics()
-autocmd ColorScheme * call SetCursor()
 
 "Enable syntax highlighting and set colorscheme
 syntax enable
-colorscheme gruvbox
+" Start new windows with a random color scheme
+call RandomBase16()
+"let g:gruvbox_contrast_dark = "soft"
+"colorscheme gruvbox
 "}}}
+
 
 let g:vim_jsx_pretty_highlight_close_tag = 1
 let g:vim_jsx_pretty_colorful_config = 1 " default 0
-" NerdTree Refresh Root crashes with my <S-R> command for moving between tags
-let NERDTreeMapRefreshRoot='r'
-let NERDTreeMapActivateNode='l'
-let NERDTreeMapCloseDir='h'
-let NERDTreeMapCloseChildren='H'
-" icons looking weird in nerdtree this might fix it
-autocmd FileType nerdtree setlocal nolist
-let g:WebDevIconsNerdTreeAfterGlyphPadding = '  '
-
-" Show hidden files/directories
-let g:NERDTreeShowHidden = 1
-" Remove bookmarks and help text from NERDTree
-let g:NERDTreeMinimalUI = 1
-
-"Toggle file drawer in/out
-nmap <leader>m :NERDTreeFind<CR>
-nmap <leader>n :NERDTreeToggle<CR>
 
 " so I can go up an down wrapped lines
 map j gj
@@ -211,15 +196,9 @@ map k gk
 " abrir vim.init en un ventana nueva love it
 nnoremap <leader>vr :e $MYVIMRC<CR>
 
-" Cerrar el buffer actual con <líder> + q
-nnoremap <silent><S-Q> :q<CR>
-
-" moverme entre los diferentes paneles con Shift-w
-nnoremap <S-w>   <c-w>w
-
 " vim-airline ---------------------------------------------------------------{{{
 " terminal emulator exit
-let g:airline_extensions = ['branch','hunks','coc','denite','tabline']
+let g:airline_extensions = ['branch','coc','denite','tabline']
 " configuracion para airline
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline_statusline_ontop = 0 "no necesito mostrar el status line en la parte de arriba
@@ -231,15 +210,19 @@ let g:airline_section_y = "%{fnamemodify(getcwd(), ':t')}"
 let g:airline_section_c = '%t' "filename only in bottom part
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline_skip_empty_sections = 1
-
+" escaping normal mode
+inoremap jk <Esc>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " fugitive git mappings
-nnoremap <silent><leader>gs :Gstatus<CR>
+nnoremap <silent><leader>gs :Git<CR>
+nnoremap <leader>gp :Gpush<CR>
 nnoremap <leader>gd :Gdiff<CR>
 nnoremap <leader>gw :Gwrite<CR>
 nnoremap <silent><leader>gr :Gread<CR>
 nnoremap <leader>ge :Gedit<CR>
 nnoremap <leader>gc :Gcommit -v -q<CR>
+nnoremap <leader>gre :Git rebase --interactive HEAD~20<CR>
+
 nmap <silent><leader>gb :Gblame<cr>
 
 " buscar en el documento lo que este visualmente seleccionado
@@ -247,7 +230,7 @@ vnoremap // y/\V<C-r>=escape(@",'/\')<CR><CR>
 
 " startify sessions and other tweaks
 let g:startify_change_to_dir = 0
-let g:startify_change_to_vcs_root = 1
+let g:startify_change_to_vcs_root = 0
 let g:startify_relative_path = 1
 let g:startify_use_env = 1
 let g:startify_session_dir = '~/.vim/session'
@@ -271,6 +254,16 @@ let g:startify_bookmarks = [
       \ { 'z': '~/.zshrc' }
       \ ]
 nmap <leader>st :Startify<cr>
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Mappings for moving lines and preserving indentation
+" http://vim.wikia.com/wiki/Moving_lines_up_or_down
+"nnoremap <C-j> :m .+1<CR>==
+"nnoremap <C-k> :m .-2<CR>==
+"inoremap <C-j> <Esc>:m .+1<CR>==gi
+"inoremap <C-k> <Esc>:m .-2<CR>==gi
+"vnoremap <C-j> :m '>+1<CR>gv=gv
+"vnoremap <C-k> :m '<-2<CR>gv=gv
+
 " Store relative line number jumps in the jumplist if they exceed a threshold.
 nnoremap <expr> k (v:count > 3 ? "m'" . v:count : '') . 'k'
 nnoremap <expr> j (v:count > 3 ? "m'" . v:count : '') . 'j'
@@ -278,8 +271,6 @@ nnoremap <expr> j (v:count > 3 ? "m'" . v:count : '') . 'j'
 " maximum lenght of characters displayed in a git diff
 highlight ColorColumn ctermbg=gray
 set colorcolumn=125
-" highlight search
-set hlsearch
 " interactive find replace preview
 set inccommand=nosplit
 " clear search with shift+enter
@@ -294,31 +285,21 @@ nnoremap <leader>/ :<C-u>Denite -no-empty grep:.<CR>
 vnoremap <leader>/ y:<C-u>Denite -no-empty  grep:.::<C-R>=fnameescape(@")<CR><CR>
 nnoremap <leader>/w :<C-u>DeniteCursorWord grep:.<CR>
 nmap     <leader>mr :Denite -no-auto-action file_mru<CR>
-nnoremap <leader>h :Denite -resume -cursor-pos=-1 -immediately<CR>
-nnoremap <leader>l :Denite -resume -cursor-pos=+1 -immediately<CR>
+nnoremap <leader>dp :Denite -resume -cursor-pos=-1 -immediately<CR>
+nnoremap <leader>dn :Denite -resume -cursor-pos=+1 -immediately<CR>
 nnoremap <leader>dl :Denite -resume -do='normal! A;'<CR>
 nmap     <leader>sc :Denite colorscheme<CR>
 
-" Change file/rec command to ag.
-call denite#custom#var('file/rec', 'command', ['ag', '--follow', '--nocolor', '--nogroup','--path-to-ignore',$HOME.'/.ignore','-g', ''])
-
-call denite#custom#var('grep', {
-      \ 'command': ['ag', '--follow', '--nocolor', '--nogroup','--path-to-ignore',$HOME.'/.ignore'],
-      \ 'default_opts': ['-i', '--vimgrep'],
-      \ 'recursive_opts': [],
-      \ 'pattern_opt': [],
-      \ 'separator': ['--'],
-      \ 'final_opts': [],
-      \ })
 " Add custom menus
 let s:menus = {}
 
-let s:menus.zsh = {
-      \ 'description': 'Edit your import zsh configuration'
+let s:menus.dotfiles = {
+      \ 'description': 'Edit your dotfiles'
       \ }
-let s:menus.zsh.file_candidates = [
-      \ ['zshrc', '~/.config/zsh/.zshrc'],
+let s:menus.dotfiles.file_candidates = [
+      \ ['zshrc', '~/.zshrc'],
       \ ['zshenv', '~/.zshenv'],
+      \ ['kitty', '~/.config/kitty/kitty.conf'],
       \ ]
 
 let s:menus.my_commands = {
@@ -330,15 +311,28 @@ let s:menus.my_commands.command_candidates = [
       \ ['Format code', 'FormatCode', 'go,python'],
       \ ]
 
+" Change file/rec command.
+call denite#custom#var('file/rec', 'command',
+      \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+
+" Ag command on grep source
+call denite#custom#var('grep', {
+      \ 'command': ['ag'],
+      \ 'default_opts': ['-i', '--vimgrep'],
+      \ 'recursive_opts': [],
+      \ 'pattern_opt': [],
+      \ 'separator': ['--'],
+      \ 'final_opts': [],
+      \ })
 
 call denite#custom#var('menu', 'menus', s:menus)
 
 " Change matchers.
-call denite#custom#source('file_mru', 'matchers', ['matcher/project_files'])
+call denite#custom#source('file_mru', 'matchers', ['matcher/fuzzy', 'matcher/project_files'])
 " Change sorters.
 call denite#custom#source('file/rec', 'sorters', ['sorter/sublime'])
 
-call denite#custom#source('file/rec', 'matchers', ['converter/tail_path'])
+"call denite#custom#source('file/rec', 'matchers', ['converter/tail_path'])
 
 " Remove date from buffer list
 call denite#custom#var('buffer', {
@@ -364,11 +358,11 @@ function! s:denite_filter_my_settings() abort
   imap <silent><buffer> <C-o> <Plug>(denite_filter_quit)
   inoremap <silent><buffer><expr> <c-l> denite#do_map('do_action')
   inoremap <silent><buffer><expr> <CR> denite#do_map('do_action')
-  inoremap <silent><buffer> <C-n> <Esc>
+  inoremap <silent><buffer> <C-j> <Esc>
         \:call denite#move_to_parent()<CR>
         \:call cursor(line('.')+1,0)<CR>
         \:call denite#move_to_filter()<CR>A
-  inoremap <silent><buffer> <C-p> <Esc>
+  inoremap <silent><buffer> <C-k> <Esc>
 	        \:call denite#move_to_parent()<CR>
 	        \:call cursor(line('.')-1,0)<CR>
 	        \:call denite#move_to_filter()<CR>A
@@ -378,112 +372,31 @@ call denite#custom#option('default', {
       \ 'auto_resize': 1,
       \ 'split': 'floating',
       \ 'source_names': 'short',
-      \ 'winminheight': '10',
       \ 'auto_action': 'preview',
       \ 'match_highlight': 1,
+      \ 'smartcase': 1,
       \ 'highlight_filter_background': 'TermCursor',
       \ 'prompt': 'λ:',
       \ 'prompt_highlight': 'Function',
       \ 'highlight_matched_char': 'Function',
       \ 'highlight_matched_range': 'Function',
-      \ 'vertical_preview': 0,
       \ 'expand': 1,
-      \ 'floating_preview': 1
+      \ 'wincol': &columns / 16 ,
+      \ 'winwidth': &columns * 14/16,
+      \ 'winminheight': 10
       \ })
 
-" Vim-Devicons --------------------------------------------------------------{{{
-
-let g:NERDTreeGitStatusNodeColorization = 1
-"let g:webdevicons_enable_denite = 0
-let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = ''
-let g:DevIconsEnableFoldersOpenClose = 1
-let g:WebDevIconsOS = 'Darwin'
-let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-let g:WebDevIconsUnicodeDecorateFileNodesDefaultSymbol = ''
-let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = { } " needed
-let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['js'] = ''
-" let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['tsx'] = 'ﯤ'
-" let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['ts'] = 'ﯤ'
-let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['vim'] = ''
-let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['css'] = ''
-let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['html'] = ''
-let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['json'] = ''
-let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['md'] = ''
-let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['sql'] = ''
-"easy align mappings
-" Start interactive EasyAlign in visual mode (e.g. vipga)
-xmap ga <Plug>(EasyAlign)
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
-
-"see actual registers
-nnoremap <leader>re :registers<CR>
-set autowrite
-
-" === Search === "
-" ignore case when searching
-set ignorecase
-
-" if the search string has an upper case letter in it, the search will be case sensitive
-set smartcase
-
-" Automaticaly close nvim if NERDTree is only thing left open
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-nmap <leader>sw :StripWhitespace<CR>
-autocmd TabLeave *NERD_tree* :wincmd w
-" ================= coc nvim multiple cursors ====================
-hi CocCursorRange guibg=#b16286 guifg=#ebdbb2
-nmap <silent> <C-c> <Plug>(coc-cursors-position)
-" use normal command like `<leader>xi(`
-nmap <leader>x  <Plug>(coc-cursors-operator)
-vmap <leader>r :CocCommand document.renameCurrentWord<CR>
-nmap <leader>r <Plug>(coc-refactor)
-" multiple cursors disabled by now
-"nmap <silent> <C-d> <Plug>(coc-cursors-word)*
-"xmap <silent> <C-d> y/\V<C-r>=escape(@",'/\')<CR><CR>gN<Plug>(coc-cursors-range)gn
-nmap <expr> <silent> <C-w> <SID>select_current_word()
-
-function! s:select_current_word()
-  if !get(g:, 'coc_cursors_activated', 0)
-    return "\<Plug>(coc-cursors-word)"
-  endif
-  return "*\<Plug>(coc-cursors-word):nohlsearch\<CR>"
-endfunc
-set noemoji
-let g:vimwiki_list = [{'path': '$HOME/Library/Mobile\ Documents/com~apple~CloudDocs/wiki', 'syntax': 'markdown','ext': '.md'}] " set path to a directory inside Dropbox
-let g:vimwiki_global_ext = 0 " make sure vimwiki doesn't own all .md files
-au FileType vimwiki setlocal shiftwidth=6 tabstop=6 noexpandtab
-command! Diary VimwikiDiaryIndex
-augroup vimwikigroup
-  autocmd!
-  " automatically update links on read diary
-  autocmd BufRead,BufNewFile diary.wiki VimwikiDiaryGenerateLinks
-augroup end
-
-let g:vimwiki_ext2syntax = {'.md': 'markdown',
-      \ '.mkd': 'markdown',
-      \ '.mdown': 'markdown',
-      \ '.markdown': 'markdown'}
-
-let g:org_todo_keywords = [['TODO(t)', '|', 'DONE(d)'],
-      \ ['REPORT(r)', 'BUG(b)', 'KNOWNCAUSE(k)', '|', 'FIXED(f)'],
-      \ ['CANCELED(c)']]
-
-" COC CONQUER OF COMPLETION----------------------------------------------------------------------{{{
+"COC CONQUER OF COMPLETION nvim ----------------------------------------------------{{{
 call coc#add_extension('coc-json',
       \'coc-tsserver',
       \'coc-emmet',
       \'coc-css',
       \'coc-html',
       \'coc-eslint',
+      \'coc-prettier',
       \'coc-snippets',
-      \'coc-todolist',
       \'coc-tailwindcss')
-" TextEdit might fail if hidden is not set.
-set hidden
 
-" Some servers have issues with backup files, see #649.
-set nobackup
 set nowritebackup
 
 " Give more space for displaying messages.
@@ -514,12 +427,11 @@ inoremap <silent><expr> <TAB>
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
 
+let g:coc_snippet_next = '<C-l>'
+let g:coc_snippet_prev = '<C-h>'
 
-" Use <C-j> for jump to next placeholder, it's default of coc.nvim
-let g:coc_snippet_next = '<c-n>'
-
-" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
-let g:coc_snippet_prev = '<c-p>'
+inoremap <expr><C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
+inoremap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -527,17 +439,19 @@ function! s:check_back_space() abort
 endfunction
 
 " Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
-
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
-" position. Coc only does snippet and additional edit on confirm.
-if exists('*complete_info')
-  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
 else
-  imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+  inoremap <silent><expr> <c-@> coc#refresh()
 endif
 
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
 " Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
@@ -554,9 +468,58 @@ function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
   else
-    call CocAction('doHover')
+    call CocActionAsync('doHover')
   endif
 endfunction
+
+" lookup local flow executable
+" and turn on flow for coc is executable exists
+function! SetFlow() abort
+    let flow_path = 'node_modules/.bin/flow'
+    let has_flow = filereadable(flow_path)
+    if (!has_flow)
+        return 0
+    endif
+    let flow_bin = getcwd() . '/' . flow_path
+    let flow_config = {
+    \    'command': flow_bin,
+    \    'args': ['lsp'],
+    \    'filetypes': ['javascript', 'javascriptreact'],
+    \    'initializationOptions': {},
+    \    'requireRootPattern': 1,
+    \    'settings': {},
+    \    'rootPatterns': ['.flowconfig']
+    \}
+    call coc#config('languageserver.flow', flow_config)
+endfunction
+
+function! HasEslintConfig()
+  for name in ['.eslintrc.js', '.eslintrc.json', '.eslintrc']
+    if globpath('.', name) != ''
+      return 1
+    endif
+  endfor
+endfunction
+
+function! SetupCocStuff()
+    call SetFlow()
+
+    let eslint_config_found = HasEslintConfig()
+    " turn off eslint when cannot find eslintrc
+    call coc#config('eslint.enable', eslint_config_found)
+    call coc#config('eslint.autoFixOnSave', eslint_config_found)
+
+    " essentially avoid turning on typescript in a flow project
+    call coc#config('tsserver.enableJavascript', filereadable('.flowconfig') == 0)
+    redraw!
+endfunction
+
+" delay file system calls until something is on the screen
+if has('nvim') || has('patch-8.2.18.12')
+    autocmd! CursorHold * ++once silent call SetupCocStuff()
+else
+    call SetupCocStuff()
+endif
 
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
@@ -565,8 +528,8 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 nmap <leader>rn <Plug>(coc-rename)
 
 " Formatting selected code.
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+"xmap <leader>f  <Plug>(coc-format-selected)
+"nmap <leader>f  <Plug>(coc-format-selected)
 
 augroup mygroup
   autocmd!
@@ -581,26 +544,24 @@ augroup end
 xmap <leader>a  <Plug>(coc-codeaction-selected)
 nmap <leader>a  <Plug>(coc-codeaction-selected)
 
-" Remap keys for applying codeAction to the current line.
+" Remap keys for applying codeAction to the current buffer.
 nmap <leader>ac  <Plug>(coc-codeaction)
-nmap <leader>le  <Plug>(coc-codelens-action)
 " Apply AutoFix to problem on the current line.
 nmap <leader>qf  <Plug>(coc-fix-current)
 
-" Introduce function text object
+" Map function and class text objects
 " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
 xmap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
 omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
 omap af <Plug>(coc-funcobj-a)
 xmap ic <Plug>(coc-classobj-i)
 omap ic <Plug>(coc-classobj-i)
 xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
 
-" Use <TAB> for selections ranges.
-" NOTE: Requires 'textDocument/selectionRange' support from the language server.
-" coc-tsserver, coc-python are the examples of servers that support it.
+" Use CTRL-S for selections ranges.
+" Requires 'textDocument/selectionRange' support of language server.
 nmap <silent> <C-s> <Plug>(coc-range-select)
 xmap <silent> <C-s> <Plug>(coc-range-select)
 
@@ -615,33 +576,96 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
- "provide custom statusline: lightline.vim, vim-airline.
-"set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+" provide custom statusline: lightline.vim, vim-airline.
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Mappings for CoCList
 " Show all diagnostics.
-nnoremap <silent><nowait> <space>di  :<C-u>CocList --normal --auto-preview diagnostics<cr>
+nnoremap <silent><nowait> <space>di  :<C-u>CocList --normal --auto-preview --top diagnostics<cr>
 " Manage extensions.
 nnoremap <silent><nowait> <space>ex  :<C-u>CocList --normal extensions<cr>
 " Show commands.
-nnoremap <silent><nowait> <space>co  :<C-u>CocList --normal commands<cr>
+nnoremap <silent><nowait> <space>c  :<C-u>CocList --normal commands<cr>
 " Find symbol of current document.
-nnoremap <silent><nowait> <space>lo  :<C-u>CocList --normal outline<cr>
+nnoremap <silent><nowait> <space>o  :<C-u>CocList --normal outline<cr>
 " Search workspace symbols.
-nnoremap <silent><nowait> <space>sy  :<C-u>CocList --normal -I symbols<cr>
+nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
 " Do default action for next item.
 nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 " Do default action for previous item.
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
-nnoremap <silent><nowait> <space>ll  :<C-u>CocListResume<CR>
-"}}}
+nnoremap <silent><nowait> <space>re  :<C-u>CocListResume<CR>
+"" }}}
+
+" Vim-Devicons --------------------------------------------------------------{{{
+
+let g:NERDTreeGitStatusNodeColorization = 1
+let g:webdevicons_enable_denite = 0
+let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = ''
+let g:DevIconsEnableFoldersOpenClose = 1
+let g:WebDevIconsOS = 'Darwin'
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+let g:WebDevIconsUnicodeDecorateFileNodesDefaultSymbol = ''
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = { } " needed
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['js'] = ''
+" let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['tsx'] = 'ﯤ'
+" let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['ts'] = 'ﯤ'
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['vim'] = ''
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['css'] = ''
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['html'] = ''
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['json'] = ''
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['md'] = ''
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['sql'] = ''
+"easy align mappings
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ea <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ea <Plug>(EasyAlign)
+
+"see actual registers
+nnoremap <leader>re :registers<CR>
+nnoremap <leader>ma :marks<CR>
+set autowrite
+
+" === Search === "
+" ignore case when searching
+set ignorecase
+
+" if the search string has an upper case letter in it, the search will be case sensitive
+set smartcase
+
+nmap <leader>sw :StripWhitespace<CR>
+autocmd TabLeave *NERD_tree* :wincmd w
+
+" ====== vim wiki ========{{{
+let g:vimwiki_list = [{'path': '$HOME/Library/Mobile\ Documents/com~apple~CloudDocs/wiki', 'syntax': 'markdown','ext': '.md'}]
+let g:vimwiki_global_ext = 0 " make sure vimwiki doesn't own all .md files
+au FileType vimwiki setlocal shiftwidth=6 tabstop=6 noexpandtab
+command! Diary VimwikiDiaryIndex
+augroup vimwikigroup
+  autocmd!
+  " automatically update links on read diary
+  autocmd BufRead,BufNewFile diary.wiki VimwikiDiaryGenerateLinks
+augroup end
+
+let g:vimwiki_ext2syntax = {'.md': 'markdown',
+      \ '.mkd': 'markdown',
+      \ '.mdown': 'markdown',
+      \ '.markdown': 'markdown'}
+" }}}
+
+set noemoji
+
+let g:org_todo_keywords = [['TODO(t)', '|', 'DONE(d)'],
+      \ ['REPORT(r)', 'BUG(b)', 'KNOWNCAUSE(k)', '|', 'FIXED(f)'],
+      \ ['CANCELED(c)']]
+
 
 """""""""""""""""""""""""""""""
 " => YankStack
 """"""""""""""""""""""""""""""
 let g:yankstack_yank_keys = ['y', 'd']
-
 nmap <C-p> <Plug>yankstack_substitute_older_paste
 nmap <C-n> <Plug>yankstack_substitute_newer_paste
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -654,25 +678,143 @@ nnoremap <leader><tab> <C-^>;
 " Close all the buffers
 map <leader>ba :bufdo bd<cr>
 " Code formatting -----------------------------------------------------------{{{
-" ,f to format code, requires formatters: read the docs
-noremap <silent> <leader>f :Format<CR>
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
+vmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
 
-let g:standard_prettier_settings = {
-      \ 'exe': 'prettier',
-      \ 'args': ['--stdin', '--stdin-filepath', '%:p', '--single-quote'],
-      \ 'stdin': 1,
-      \ }
-" }}}
-" Show break string same color as the line numbers i dont know if i like it of
-" i hate it
-"hi! link NonText LineNr
 " vista.vim sidebar with LSP symbols {{{
 let g:vista#renderer#enable_icon = 1
 let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
 let g:vista_default_executive = 'coc'
 let g:vista#renderer#icons = {
-\   "function": "\uf794",
-\   "variable": "\uf71b",
-\  }
+      \   "function": "\uf794",
+      \   "variable": "\uf71b",
+      \  }
 nmap <leader>vi :Vista!!<CR>
+autocmd FileType vista,vista_kind nnoremap <buffer> <silent> \ :<c-u>call vista#finder#fzf#Run()<CR>
 " }}}
+"Nerd Tree ---------------------------------------------------------------------{{{
+" Close Nerdtree if is the only window left
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" NerdTree Refresh Root crashes with my <S-R> command for moving between tags
+let NERDTreeMapRefreshRoot='r'
+let NERDTreeMapActivateNode='l'
+let NERDTreeMapCloseDir='h'
+let NERDTreeMapCloseChildren='H'
+" icons looking weird in nerdtree this might fix it
+autocmd FileType nerdtree setlocal nolist
+"let g:WebDevIconsNerdTreeAfterGlyphPadding = '  '
+" Remove bookmarks and help text from NERDTree
+let g:NERDTreeMinimalUI = 1
+let g:NERDTreeWinPos = "right"
+let NERDTreeShowHidden=0
+let NERDTreeIgnore = ['\.pyc$', '__pycache__']
+let g:NERDTreeWinSize=35
+map <leader>nn :NERDTreeToggle<cr>
+map <leader>nb :NERDTreeFromBookmark<Space>
+map <leader>nf :NERDTreeFind<cr>
+"}}}
+"Match Tags Always
+let g:mta_filetypes = {
+    \ 'html' : 1,
+    \ 'xhtml' : 1,
+    \ 'xml' : 1,
+    \ 'javascript' : 1,
+    \ 'typescript.tsx' : 1,
+    \ 'twig' : 1,
+    \}
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => surround.vim config
+" Annotate strings with gettext
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+vmap Si S(i_<esc>f)
+au FileType mako vmap Si S"i${ _(<esc>2f"a) }<esc>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => vim indent Line
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:indentLine_char = "▏"
+"Disable IndentLine for Json files
+autocmd Filetype json let g:indentLine_enabled = 0
+" }}}
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Test
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" these "Ctrl mappings" work well when Caps Lock is mapped to Ctrl
+nmap <silent> t<C-n> :TestNearest<CR>
+nmap <silent> t<C-f> :TestFile<CR>
+nmap <silent> t<C-s> :TestSuite<CR>
+nmap <silent> t<C-l> :TestLast<CR>
+nmap <silent> t<C-g> :TestVisit<CR>
+"testing strategies
+let test#strategy = {
+  \ 'nearest': 'neovim',
+  \ 'file':    'neovim',
+  \ 'suite':   'neovim',
+\}
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Core mappings changed
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap [[ []
+nnoremap ]] ][
+nnoremap <C-H> ^
+vnoremap <C-H> ^
+nnoremap <C-L> g_
+vnoremap <C-L> g_
+nnoremap <silent> <C-j> <c-d>
+nnoremap <silent> <C-k> <c-u>
+vnoremap <silent> <C-j> <c-d>
+vnoremap <silent> <C-k> <c-u>
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Inc search
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set hlsearch
+let g:incsearch#auto_nohlsearch = 1
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+map z/ <Plug>(incsearch-easymotion-/)
+map z? <Plug>(incsearch-easymotion-?)
+map zg/ <Plug>(incsearch-easymotion-stay)
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Easy motion
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nmap <leader>j <Plug>(easymotion-j)
+vmap <leader>j <Plug>(easymotion-j)
+nmap <leader>k <Plug>(easymotion-k)
+vmap <leader>k <Plug>(easymotion-k)
+map <Leader>l <Plug>(easymotion-bd-jk)
+nmap <Leader>l <Plug>(easymotion-overwin-line)
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => highlight groups helpers
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! Syn()
+  for id in synstack(line("."), col("."))
+    echo synIDattr(id, "name")
+  endfor
+endfunction
+command! -nargs=0 Syn call Syn()
+
+" ================= coc nvim multiple cursors ====================
+hi CocCursorRange guibg=#b16286 guifg=#ebdbb2
+nmap <silent> <C-c> <Plug>(coc-cursors-position)
+" use normal command like `<leader>xi(`
+nmap <leader>x  <Plug>(coc-cursors-operator)
+vmap <leader>r :CocCommand document.renameCurrentWord<CR>
+nmap <leader>r <Plug>(coc-refactor)
+" multiple cursors disabled by now
+"nmap <silent> <C-d> <Plug>(coc-cursors-word)*
+"xmap <silent> <C-d> y/\V<C-r>=escape(@",'/\')<CR><CR>gN<Plug>(coc-cursors-range)gn
+nmap <expr> <silent> <C-m> <SID>select_current_word()
+
+function! s:select_current_word()
+  if !get(g:, 'coc_cursors_activated', 0)
+    return "\<Plug>(coc-cursors-word)"
+  endif
+  return "*\<Plug>(coc-cursors-word):nohlsearch\<CR>"
+endfunc
