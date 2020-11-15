@@ -25,7 +25,7 @@ Plug 'vim-airline/vim-airline' " indent guides lines let's see how they goes
 Plug 'vim-airline/vim-airline-themes'  " indent guides lines let's see how they goes
 "File browsers
 Plug 'preservim/nerdtree' "file browsing panel
-Plug 'Shougo/denite.nvim'  "Denite is a dark powered plugin for Neovim/Vim to unite all interfaces.
+Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }  "Denite is a dark powered plugin for Neovim/Vim to unite all interfaces.
 Plug 'Shougo/neomru.vim' " MRU plugin includes unite.vim/denite.nvim MRU sources Most Recent Used
 "Git helpers
 Plug 'rhysd/git-messenger.vim'  "Neovim plugin to reveal the commit messages under the cursor

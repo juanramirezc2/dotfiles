@@ -601,7 +601,7 @@ nnoremap <silent><nowait> <space>re  :<C-u>CocListResume<CR>
 " Vim-Devicons --------------------------------------------------------------{{{
 
 let g:NERDTreeGitStatusNodeColorization = 1
-let g:webdevicons_enable_denite = 1
+let g:webdevicons_enable_denite = 0
 let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = ''
 let g:DevIconsEnableFoldersOpenClose = 1
 let g:WebDevIconsOS = 'Darwin'
