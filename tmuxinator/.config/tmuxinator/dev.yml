@@ -40,8 +40,8 @@ root: ~/
 # attach: false
 
 windows:
-  - editor: nvim
-  - extras: 
+  - editor:
+  - extras:
       layout: even-vertical
       # Synchronize all panes of this window, can be enabled before or after the pane commands run.
       # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
@@ -50,4 +50,3 @@ windows:
         - z
         -
 
-  - monitor: gtop
