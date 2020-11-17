@@ -617,11 +617,12 @@ let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['html'] = ''
 let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['json'] = ''
 let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['md'] = ''
 let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['sql'] = ''
+
 "easy align mappings
 " Start interactive EasyAlign in visual mode (e.g. vipga)
-xmap ea <Plug>(EasyAlign)
+xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ea <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
 
 "see actual registers
 nnoremap <leader>re :registers<CR>
