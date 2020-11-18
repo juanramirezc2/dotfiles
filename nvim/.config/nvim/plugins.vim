@@ -34,6 +34,7 @@ Plug 'xuyuanp/nerdtree-git-plugin'  "nerd tree git status
 Plug 'jiangmiao/auto-pairs'  " automaticamente cierra comillas o llaves
 " syntax highlighting files {{{
 Plug 'maxmellon/vim-jsx-pretty'
+Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 " colorize hexa
 Plug 'norcalli/nvim-colorizer.lua'
 "javascript
