@@ -682,7 +682,9 @@ let g:vista#renderer#icons = {
 nmap <leader>vi :Vista!!<CR>
 autocmd FileType vista,vista_kind nnoremap <buffer> <silent> \ :<c-u>call vista#finder#fzf#Run()<CR>
 " }}}
-"Nerd Tree ---------------------------------------------------------------------{{{
+"Switch to alternative buffer
+nnoremap <leader><tab> <C-^>;
+""Nerd Tree ---------------------------------------------------------------------{{{
 " Close Nerdtree if is the only window left
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " NerdTree Refresh Root crashes with my <S-R> command for moving between tags
