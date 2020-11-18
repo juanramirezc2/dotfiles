@@ -664,14 +664,8 @@ let g:yankstack_yank_keys = ['y', 'd']
 nmap <C-p> <Plug>yankstack_substitute_older_paste
 nmap <C-n> <Plug>yankstack_substitute_newer_paste
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Moving around, tabs, windows and buffers
+" => Code formatting and file explorer
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" buffer mappings
-" Close the current buffer
-map <leader>bd :Bclose<cr>:tabclose<cr>gT
-nnoremap <leader><tab> <C-^>;
-" Close all the buffers
-map <leader>ba :bufdo bd<cr>
 " Code formatting -----------------------------------------------------------{{{
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 vmap <leader>f  <Plug>(coc-format-selected)

@@ -24,7 +24,7 @@ Plug 'Yggdroot/indentLine'
 Plug 'vim-airline/vim-airline' " indent guides lines let's see how they goes
 Plug 'vim-airline/vim-airline-themes'  " indent guides lines let's see how they goes
 "File browsers
-Plug 'preservim/nerdtree' "file browsing panel
+Plug 'preservim/nerdtree'  "file browsing panel
 Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }  "Denite is a dark powered plugin for Neovim/Vim to unite all interfaces.
 Plug 'Shougo/neomru.vim' " MRU plugin includes unite.vim/denite.nvim MRU sources Most Recent Used
 "Git helpers
@@ -54,8 +54,7 @@ Plug 'kana/vim-textobj-entire'  "entire file as vim object
 " other plugins
 " dims inactive splits
 "Plug 'blueyed/vim-diminactive'
-Plug 'rbgrouleff/bclose.vim' "The BClose Vim plugin for deleting a buffer without closing the window
-"Plug 'luochen1990/rainbow' "Rainbow Parentheses Improved, shorter code, no level limit, smooth
+Plug 'luochen1990/rainbow' "Rainbow Parentheses Improved, shorter code, no level limit, smooth
 Plug 'mattn/vim-gist' "The BClose Vim plugin for deleting a buffer without closing the window
 Plug 'maxbrunsfeld/vim-yankstack' "A lightweight implementation of emacs's kill-ring for vim
 Plug 'ntpeters/vim-better-whitespace'  "Vim Better Whitespace Plugin
@@ -67,6 +66,7 @@ Plug 'haya14busa/incsearch.vim'
 Plug 'haya14busa/incsearch-easymotion.vim'
 "file icons
 Plug 'ryanoasis/vim-devicons'  " vim will become visual studio
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 " key mappings
 Plug 'tpope/vim-unimpaired'  "Pairs of handy bracket mappings
 " others
