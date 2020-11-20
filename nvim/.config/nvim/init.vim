@@ -6,6 +6,8 @@ source ~/.config/nvim/plugins.vim
 "
 set laststatus=2
 set hidden
+set showcmd " show incomplete commands
+set title " set terminal title
 set nowrap
 set sidescroll=16
 set ai "Auto indent
@@ -17,6 +19,7 @@ set wildmenu
 set mouse=a
 set noshowmode "don't show --INSERT--
 set noruler "don't show line numbers/column/% junk
+set autoread  " detect when a file is changed
 " Line numbers
 set number
 "FOLDING SETTINGS======================={{{
@@ -64,6 +67,9 @@ set termguicolors
 "set cursorline        " highlight current line
 "set cursorcolumn      " highlight current column
 set guicursor=n-v-c:block-Cursor/lCursor,i-ci-ve:ver25-Cursor2/lCursor2,r-cr:hor20,o:hor50
+
+" highlight conflicts
+match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 
 " Vim >=8.0 or Neovim >= 0.1.5
 if (has("termguicolors"))
@@ -253,17 +259,8 @@ let g:startify_bookmarks = [
       \ { 'g': '~/.gitconfig' },
       \ { 'z': '~/.zshrc' }
       \ ]
-nmap <leader>st :Startify<cr>
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Mappings for moving lines and preserving indentation
-" http://vim.wikia.com/wiki/Moving_lines_up_or_down
-"nnoremap <C-j> :m .+1<CR>==
-"nnoremap <C-k> :m .-2<CR>==
-"inoremap <C-j> <Esc>:m .+1<CR>==gi
-"inoremap <C-k> <Esc>:m .-2<CR>==gi
-"vnoremap <C-j> :m '>+1<CR>gv=gv
-"vnoremap <C-k> :m '<-2<CR>gv=gv
 
+nmap <leader>st :Startify<cr>
 " Store relative line number jumps in the jumplist if they exceed a threshold.
 nnoremap <expr> k (v:count > 3 ? "m'" . v:count : '') . 'k'
 nnoremap <expr> j (v:count > 3 ? "m'" . v:count : '') . 'j'
