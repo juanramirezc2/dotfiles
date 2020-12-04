@@ -146,7 +146,7 @@ function RandomBase16()
   sil exe 'colorscheme ' . colorsname
 endfunction
 
-:command C call RandomBase16()
+nmap <leader>ra :call RandomBase16()<CR>
 
 
 function SetCursor() abort
@@ -173,9 +173,10 @@ function SetItalics() abort
   call italics#AddItalicToGroup("Comment")
   call italics#AddItalicToGroup("Keyword")
   call italics#AddItalicToGroup("Identifier")
-  call italics#AddItalicToGroup("StorageClass")
-  call italics#AddItalicToGroup("xmlAttrib")
-  call italics#AddItalicToGroup("htmlArg")
+  "call italics#AddItalicToGroup("StorageClass")
+  "call italics#AddItalicToGroup("xmlAttrib")
+  "call italics#AddItalicToGroup("htmlArg")
+
   "call italics#AddItalicToGroup("jsxAttrib")
   "call italics#AddItalicToGroup("tsxAttrib")
 endfunction
