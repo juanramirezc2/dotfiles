@@ -17,7 +17,7 @@ that i use or have used in the past. below is the list of tools that i use on a 
 there may be more folders that names in the list above, this is due some tools i have tried in the past
 but i not longer use.*
 
-# Dotfiles Setup
+## Dotfiles Setup
 
 for the dotfiles setup i rely on the [ GNU tool stow](https://www.gnu.org/software/stow/), this way you can pick and choose the configurations files
 you will be using, you can get `stow` by running the following command
@@ -36,12 +36,12 @@ $ stow tmux nvim # for neovim and tmux
 $ stow kitty  # for kitty config only
 $ stow kitty nvim zsh # pick and choose as many configs as you want
 ```
-# Tools Instalation, Requirements and whats included
+## Tools Instalation, Requirements and whats included
 
 ***i use brew as the package manager in the instalation instructions because my main OS is OSX if your main OS is different please 
 research for a package manager that let you get these tools, don't worry the dotfiles will continue to work no matter how you get the tools***
 
-## Text editor (neovim)
+### Text editor (neovim)
 ![](https://raw.githubusercontent.com/juangabrielr4/dotfiles/master/nvim/.config/nvim/neovim.png)
 Neovim is a fork of vim, is a comunity driven effort to bring a more colaborative project than vim.
 At it's core is basically vim, but it includes more features and improvements.
@@ -52,7 +52,7 @@ to new features.
 ```sh
 brew install neovim --HEAD
 ```
-### Requirements
+#### Requirements
  
 in order to get neovim working properly using my configuration files you will need to get python support, some 
 of the plugins that i use are written in python. to achieve that you must install "pynvim" module with pip
@@ -80,7 +80,7 @@ you can checkout `:checkhealth` for more info ;)
 
 to see what's included in my neovim configuration (custom mappings,themes & more) visit the [README](https://github.com/juangabrielr4/dotfiles/blob/master/nvim/.config/nvim/README.md)
 
-## terminal emulators
+### terminal emulators
 
 i use kitty term as my primary terminal emulator
 
@@ -88,7 +88,7 @@ i use kitty term as my primary terminal emulator
 brew cask install kitty
 ```
 
-## terminal multiplexor (tmux)
+### terminal multiplexor (tmux)
 
 ![](https://raw.githubusercontent.com/juangabrielr4/dotfiles/master/tmux/tmux.png)
 i use tmux as a way to show multiple terminals in panels and tabs
@@ -97,7 +97,7 @@ i use tmux as a way to show multiple terminals in panels and tabs
 brew install tmux
 ```
 
-## file explorer
+### file explorer
 
 ranger is the file explorer that i used, is a vim based file explorer very flexible
 
@@ -123,8 +123,7 @@ i use fzf for fuzzy find files, command history and more
 brew install fzf 
 ```
 
-
-## Tmux Plugin Manager
+### Tmux Plugin Manager
 
 ```bash
 $ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm 
