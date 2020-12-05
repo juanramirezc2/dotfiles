@@ -7,17 +7,17 @@ that i use or have used in the past. below is the list of tools that i use on a 
 
 - Text Editor [Neovim](https://neovim.io/)
 - Code Searching tool [Ag the silver searcher](https://github.com/ggreer/the_silver_searcher)
-- Terminal Emulator [Kitty] (https://sw.kovidgoyal.net/kitty/)
-- Terminal multiplexor [Tmux] (https://github.com/tmux/tmux/wiki)
-- to Load Tmux layouts from a file i use [Tmuxinator] (https://github.com/tmuxinator/tmuxinator)
-- Shell [Zsh] (https://es.wikipedia.org/wiki/Zsh)
+- Terminal Emulator [Kitty](https://sw.kovidgoyal.net/kitty/)
+- Terminal multiplexor [Tmux](https://github.com/tmux/tmux/wiki)
+- To Load Tmux layouts from a file i use [Tmuxinator](https://github.com/tmuxinator/tmuxinator)
+- Shell [Zsh](https://es.wikipedia.org/wiki/Zsh)
 - File manager [ranger](https://github.com/ranger/ranger)
 
-*every folder in this repository store the relevan configurations for the tools i mentioned,
+*Every folder in this repository store the relevan configurations for the tools i mentioned,
 there may be more folders that names in the list above, this is due some tools i have tried in the past
 but i not longer use.*
 
-## Usage
+# Dotfiles Setup
 
 Pull the repository into your home `~` directory, then create the symbolic links [using GNU
 stow](https://www.gnu.org/software/stow/) the commands below will do the tricky.
@@ -28,7 +28,14 @@ $ cd ~/.dotfiles
 $ stow fish neovim tmux # plus whatever else you'd like
 $ stow * # if you want them all :O
 ```
+# Tools Instalation, Requirements and whats included
 
+***i use brew as the package manager here because my main OS is OSX if your main OS is different please***
+
+## text editor (neovim)
+
+i use neovim (vim fork) for my text and code editing i usually install from source code bellow more information about it
+[how to install](https://github.com/jg-rc/dotfiles/blob/lsp-deoplete/nvim/.config/nvim/README.md)
 ## terminal emulators
 
 i use kitty term as my primary terminal emulator
@@ -52,13 +59,8 @@ pip install ranger-fm
 ranger allow to preview image inside the console with the help of pillow python3 library
 
 ```sh
-pip install pillow
-```
+pip install pillow ```
 
-## text editor (neovim)
-
-i use neovim (vim fork) for my text and code editing i usually install from source code bellow more information about it
-[how to install](https://github.com/jg-rc/dotfiles/blob/lsp-deoplete/nvim/.config/nvim/README.md)
 
 ## (zsh) fuzzy files finder
 
