@@ -51,15 +51,25 @@ of the plugins that i use are written in python. to achieve that you must instal
 ```sh
 pip3 install --user pynvim
 ```
-for recursive search of code i rely on a Code Searching tool called
+if you don't have pip installed in your system please run.
+
+```sh
+sudo easy_install pip
+```
+
+For recursive search of code i rely on a Code Searching tool called
 [Ag the silver searcher](https://github.com/ggreer/the_silver_searcher) 
 you can install it with the command below
 
 ```sh
 brew install the_silver_searcher 
 ```
+**Once you open Neovim for the first time you will get some errors that's normal, this is because plugins are on installed yet.**
+So please ignore errors and execute `:PlugInstall` if everything is ok you will see a list of plugins installing.
 
-to see what's included in my neovim configuration visit the [README](https://github.com/juangabrielr4/dotfiles/blob/master/nvim/.config/nvim/README.md)
+you can checkout `:checkhealth` for more info ;)
+
+to see what's included in my neovim configuration (custom mappings,themes & more) visit the [README](https://github.com/juangabrielr4/dotfiles/blob/master/nvim/.config/nvim/README.md)
 
 ## terminal emulators
 

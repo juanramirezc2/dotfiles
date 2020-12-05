@@ -1,91 +1,8 @@
-# requirements
+# neovim configuration includes
 
-## useful links
-
-[neovim plugins](https://stsewd.dev/es/posts/neovim-plugins)
-[neovim instalation and configuration](https://stsewd.dev/es/posts/neovim-installation-configuration)
-
-## coc vim
-
-```sh
-:CocInstall coc-json coc-css coc-tsserver coc-snippets coc-eslint coc-prettier
-```
-
-## build neovim from source :O :O
-
-### install build dependencies
-
-https://github.com/neovim/neovim/wiki/Building-Neovim#build-prerequisites
-
-```sh
-brew install ninja libtool automake cmake pkg-config gettext
-```
-
-### clone the repository
-
-```sh
-git clone https://github.com/neovim/neovim.git
-```
-
-```sh
-cd neovim
-```
-
-then build it into the OSX bins folder this builds the release version if you built previously remove`build`folder with
-
-```sh
-rm -rf build
-```
-
-then run
-
-```sh
-$ make CMAKE_BUILD_TYPE=Release CMAKE_INSTALL_PREFIX=/usr/local install
-```
-
-### add python 3 & 2 support
-
-```sh
-python3 -m pip install --user --upgrade pynvim
-```
-
-```sh
-python2 -m pip install --user --upgrade pynvim
-```
-
-if you don't have pip installed in your system please run.
-
-```sh
-sudo easy_install pip
-```
+## mappings
 
 maybe you will need to run `:UpdateRemotePlugins` in order to the plugins that use python start using your new python support
-
-run`:checkhealth` for more info ;)
-
-# LSP npm modules
-
-tsserver ts language server typescript server
-
-```sh
-$ npm install -g flow-bin
-```
-
-# vim prettier requires prettier
-
-```sh
-$ yarn global add prettier
-````
-
-# gutentags needs universal ctags
-
-```sh
-brew install --HEAD universal-ctags/universal-ctags/universal-ctags
-```
-
-# nodejs neovim plugins support ;)
-
-`$ npm install -g neovim`
 
 # vim custom text objects
 
@@ -144,3 +61,4 @@ for some examples and important special cases.
 ```
 
 ```
+
