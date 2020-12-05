@@ -98,35 +98,16 @@ i use kitty term as my primary terminal emulator
 ```sh
 brew cask install kitty
 ```
-### file explorer
 
-ranger is the file explorer that i used, is a vim based file explorer very flexible
+### Shell Zsh
+![](https://raw.githubusercontent.com/juangabrielr4/dotfiles/master/ranger/ranger.png)
 
-```sh
-brew install ranger
-```
+Since MacOSX version 10.15 (catalina) zsh is included as the default shell, so not need for any kind of installation if you
+are a Mac user
+my `zsh` configuration is very lightweight, i have used bloated configs like `oh my zsh` in the past and felt the pain of a
+slow shell, that's why i made my own using only a couple of zsh plugins listed below 
 
-```sh
-pip install ranger-fm
-```
-
-ranger allow to preview image inside the console with the help of pillow python3 library
-
-```sh
-pip install pillow ```
-
-
-## (zsh) fuzzy files finder
-
-i use fzf for fuzzy find files, command history and more
-
-```sh
-brew install fzf 
-```
-
-
-
-### some zsh plugins
+#### some zsh plugins
 
 zsh is a wonderfull shell because of the broad number of plugins the comunity has built
 
@@ -142,6 +123,25 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:
 git clone https://github.com/zsh-users/zsh-autosuggestions \${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
 ```
+### File explorer
+
+![](https://raw.githubusercontent.com/juangabrielr4/dotfiles/master/ranger/ranger.png)
+ranger is the file explorer that i used, is a vim based file explorer very flexible
+
+```sh
+brew install ranger
+```
+
+```sh
+pip install ranger-fm
+```
+
+ranger allow to preview image inside the console with the help of pillow python3 library
+
+```sh
+pip install pillow 
+```
+
 
 ### node version manager
 
