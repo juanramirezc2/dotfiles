@@ -123,7 +123,7 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:
 git clone https://github.com/zsh-users/zsh-autosuggestions \${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
 ```
-### File explorer
+### File explorer (ranger)
 
 ![](https://raw.githubusercontent.com/juangabrielr4/dotfiles/master/ranger/ranger.png)
 ranger is the file explorer that i used, is a vim based file explorer very flexible
@@ -179,24 +179,6 @@ $ pyenv install 3.8.8
 
 ```sh
 $ pyenv global 3.8.8
-```
-
-## thyme pomodoro timer
-
-```sh
-$ gem install thyme
-```
-
-get notifications everytime the timer is up with terminal-notifier
-
-```sh
-$ gem install terminal-notifier
-```
-
-## (vtop monitor)
-
-```
-npm install -g vtop
 ```
 
 ## License
