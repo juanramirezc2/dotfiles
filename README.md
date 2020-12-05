@@ -18,14 +18,22 @@ but i not longer use.*
 
 # Dotfiles Setup
 
-Pull the repository into your home `~` directory, then create the symbolic links [using GNU
-stow](https://www.gnu.org/software/stow/) the commands below will do the tricky.
+for the dotfiles setup i rely on the [ GNU tool stow](https://www.gnu.org/software/stow/), this way you can pick and choose the configurations files
+you will be using, you can get `stow` by running the following command
+
+```bash 
+$ brew install stow
+```
+
+Now you can pull this repository into your home `~` directory, then create the symbolic links using `stow`  the commands below will do the tricky.
 
 ```bash
 $ git clone git@github.com:jg-rc/dotfiles.git ~/.dotfiles
 $ cd ~/.dotfiles
-$ stow fish neovim tmux # plus whatever else you'd like
-$ stow * # if you want them all :O
+$ stow neovim # for neovim only 
+$ stow tmux neovim # for neovim and tmux 
+$ stow kitty  # for kitty config only
+$ stow kitty neovim zsh # pick and choose as many configs as you want
 ```
 # Tools Instalation, Requirements and whats included
 
