@@ -80,15 +80,8 @@ you can checkout `:checkhealth` for more info ;)
 
 to see what's included in my neovim configuration (custom mappings,themes & more) visit the [README](https://github.com/juangabrielr4/dotfiles/blob/master/nvim/.config/nvim/README.md)
 
-### terminal emulators
 
-i use kitty term as my primary terminal emulator
-
-```sh
-brew cask install kitty
-```
-
-### terminal multiplexor (tmux)
+### Terminal multiplexor (tmux)
 
 ![](https://raw.githubusercontent.com/juangabrielr4/dotfiles/master/tmux/tmux.png)
 i use tmux as a way to show multiple terminals in panels and tabs
@@ -97,6 +90,14 @@ i use tmux as a way to show multiple terminals in panels and tabs
 brew install tmux
 ```
 
+### Terminal emulators
+
+![](https://raw.githubusercontent.com/juangabrielr4/dotfiles/master/kitty/.config/kitty.png)
+i use kitty term as my primary terminal emulator
+
+```sh
+brew cask install kitty
+```
 ### file explorer
 
 ranger is the file explorer that i used, is a vim based file explorer very flexible
@@ -123,11 +124,6 @@ i use fzf for fuzzy find files, command history and more
 brew install fzf 
 ```
 
-### Tmux Plugin Manager
-
-```bash
-$ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm 
-```
 
 
 ### some zsh plugins
