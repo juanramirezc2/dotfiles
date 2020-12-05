@@ -90,7 +90,7 @@ i use tmux as a way to show multiple terminals in panels and tabs
 brew install tmux
 ```
 
-### Terminal emulators
+### Terminal emulator (kitty)
 
 ![](https://raw.githubusercontent.com/juangabrielr4/dotfiles/master/kitty/.config/kitty.png)
 i use kitty term as my primary terminal emulator
@@ -99,7 +99,7 @@ i use kitty term as my primary terminal emulator
 brew cask install kitty
 ```
 
-### Shell Zsh
+### Shell ( Zsh )
 ![](https://raw.githubusercontent.com/juangabrielr4/dotfiles/master/zsh/zsh.png)
 
 Since MacOSX version 10.15 (catalina) zsh is included as the default shell, so not need for any kind of installation if you
