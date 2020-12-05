@@ -6,7 +6,6 @@ i'm a huge fan of command line tools, this repository is my personal store of co
 that i use or have used in the past. below is the list of tools that i use on a daily basis
 
 - Text Editor [Neovim](https://neovim.io/)
-- Code Searching tool [Ag the silver searcher](https://github.com/ggreer/the_silver_searcher)
 - Terminal Emulator [Kitty](https://sw.kovidgoyal.net/kitty/)
 - Terminal multiplexor [Tmux](https://github.com/tmux/tmux/wiki)
 - To Load Tmux layouts from a file i use [Tmuxinator](https://github.com/tmuxinator/tmuxinator)
@@ -30,12 +29,38 @@ $ stow * # if you want them all :O
 ```
 # Tools Instalation, Requirements and whats included
 
-***i use brew as the package manager here because my main OS is OSX if your main OS is different please***
+***i use brew as the package manager in the instalation instructions because my main OS is OSX if your main OS is different please 
+research for a package manager that let you get these tools, don't worry the dotfiles will continue to work no matter how you get the tools***
 
 ## text editor (neovim)
 
-i use neovim (vim fork) for my text and code editing i usually install from source code bellow more information about it
-[how to install](https://github.com/jg-rc/dotfiles/blob/lsp-deoplete/nvim/.config/nvim/README.md)
+Neovim is a fork of vim, is a comunity driven effort to bring a more colaborative project than vim.
+At it's core is basically vim, but it includes more features and improvements.
+
+i personally like to use the `head` version because i feel is very stable and i can have early access
+to new features.
+
+```sh
+brew install neovim --HEAD
+```
+### Requirements
+ 
+in order to get neovim working properly using my configuration files you will need to get python support, some 
+of the plugins that i use are written in python. to achieve that you must install "pynvim" module with pip
+
+```sh
+pip3 install --user pynvim
+```
+for recursive search of code i rely on a Code Searching tool called
+[Ag the silver searcher](https://github.com/ggreer/the_silver_searcher) 
+you can install it with the command below
+
+```sh
+brew install the_silver_searcher 
+```
+
+[what's included](https://github.com/juangabrielr4/dotfiles/blob/master/nvim/.config/nvim/README.md)
+
 ## terminal emulators
 
 i use kitty term as my primary terminal emulator
