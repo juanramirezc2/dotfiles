@@ -2,10 +2,25 @@
 
 This is my collection of [configuration files](http://dotfiles.github.io/).
 
+i'm a huge fan of command line tools, this repository is my personal store of configurations for tools
+that i use or have used in the past. below is the list of tools that i use on a daily basis
+
+- Text Editor [Neovim](https://neovim.io/)
+- Code Searching tool [Ag the silver searcher](https://github.com/ggreer/the_silver_searcher)
+- Terminal Emulator [Kitty] (https://sw.kovidgoyal.net/kitty/)
+- Terminal multiplexor [Tmux] (https://github.com/tmux/tmux/wiki)
+- to Load Tmux layouts from a file i use [Tmuxinator] (https://github.com/tmuxinator/tmuxinator)
+- Shell [Zsh] (https://es.wikipedia.org/wiki/Zsh)
+- File manager [ranger](https://github.com/ranger/ranger)
+
+*every folder in this repository store the relevan configurations for the tools i mentioned,
+there may be more folders that names in the list above, this is due some tools i have tried in the past
+but i not longer use.*
+
 ## Usage
 
-Pull the repository, and then create the symbolic links [using GNU
-stow](https://www.gnu.org/software/stow/).
+Pull the repository into your home `~` directory, then create the symbolic links [using GNU
+stow](https://www.gnu.org/software/stow/) the commands below will do the tricky.
 
 ```bash
 $ git clone git@github.com:jg-rc/dotfiles.git ~/.dotfiles
@@ -13,36 +28,40 @@ $ cd ~/.dotfiles
 $ stow fish neovim tmux # plus whatever else you'd like
 $ stow * # if you want them all :O
 ```
-## keyboard advanced mappings (karabiner elements)
-
-i use karabiner elements to perform some advanced keyboard like using the capslock as control is pressed with other key or perform as escape is pressed alone
-
-```sh
-brew cask install karabiner-elements
-```
 
 ## terminal emulators
+
 i use kitty term as my primary terminal emulator
+
 ```sh
 brew cask install kitty
 ```
-## file explorer 
+
+## file explorer
+
 ranger is the file explorer that i used, is a vim based file explorer very flexible
+
 ```sh
 brew install ranger
 ```
+
 ```sh
 pip install ranger-fm
 ```
+
 ranger allow to preview image inside the console with the help of pillow python3 library
+
 ```sh
-pip install pillow 
+pip install pillow
 ```
+
 ## text editor (neovim)
+
 i use neovim (vim fork) for my text and code editing i usually install from source code bellow more information about it
 [how to install](https://github.com/jg-rc/dotfiles/blob/lsp-deoplete/nvim/.config/nvim/README.md)
 
 ## (zsh) fuzzy files finder
+
 i use fzf for fuzzy find files, command history and more
 
 ```sh
@@ -50,13 +69,16 @@ brew install fzf
 ```
 
 ## ag the silver searcher
-ag is a tool similar to grep that let you find files recursively and find strings inside files some libraries in my dotfiles are configure to use it 
+
+ag is a tool similar to grep that let you find files recursively and find strings inside files some libraries in my dotfiles are configure to use it
 by default (denite vim plugin, fzf)
 
 ```sh
 brew install the_silver_searcher
 ```
+
 ## terminal multiplexor (tmux)
+
 i use tmux as a way to show multiple terminals in panels and tabs
 
 ```sh
@@ -69,8 +91,10 @@ brew install tmux
 $ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 ```
 
-## comunity driven zsh configuration (oh my zsh) 
+## comunity driven zsh configuration (oh my zsh)
+
 i use oh my zsh as a zsh config is a bit bloated i know but it's a quick start, i'm planning to create my own `zshrc` with only the minimal
+
 ```sh
 $ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
@@ -79,24 +103,24 @@ $ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/instal
 
 zsh is a wonderfull shell because of the broad number of plugins the comunity has built
 
-* zsh syntax highlighting - prompt highlighting for existing commands and directories
+- zsh syntax highlighting - prompt highlighting for existing commands and directories
 
 ```sh
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 ```
 
-* zsh autosuggestions - fish like inline autosuggestions
+- zsh autosuggestions - fish like inline autosuggestions
 
 ```sh
 git clone https://github.com/zsh-users/zsh-autosuggestions \${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
 ```
 
-## zsh prompt (Spaceship) 
+## zsh prompt (Spaceship)
 
 i use Spaceship zsh as the prompt it show vital information like node/ruby/npm version, sometimes is a bit slow but it works
 
-*this installation is for oh my zsh users*
+_this installation is for oh my zsh users_
 Clone this repo:
 
 ```zsh
@@ -111,7 +135,6 @@ ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/the
 
 Set `ZSH_THEME="spaceship"` in your `.zshrc`.
 
-
 ship Confirmation template not found
 payment Confirmation declined not found in PPT
 
@@ -124,7 +147,8 @@ $ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh 
 ```sh
 $ nvm install stable
 ```
-```sh 
+
+```sh
 $ nvm use stable
 ```
 
@@ -137,7 +161,9 @@ $ curl -sSL https://get.rvm.io | bash -s stable
 ```sh
 $ rvm install 2.6.3
 ```
+
 ### python version manager
+
 ```sh
 $ brew install pyenv
 ```
@@ -149,6 +175,7 @@ $ pyenv install 3.8.8
 ```sh
 $ pyenv global 3.8.8
 ```
+
 ## thyme pomodoro timer
 
 ```sh
