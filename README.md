@@ -1,6 +1,7 @@
 # Dotfiles
 
 This is my collection of [configuration files](http://dotfiles.github.io/).
+**Feel free to create Issues to this repo if something in this config is not working as expected**
 
 i'm a huge fan of command line tools, this repository is my personal store of configurations for tools
 that i use or have used in the past. below is the list of tools that i use on a daily basis
@@ -30,10 +31,10 @@ Now you can pull this repository into your home `~` directory, then create the s
 ```bash
 $ git clone git@github.com:jg-rc/dotfiles.git ~/.dotfiles
 $ cd ~/.dotfiles
-$ stow neovim # for neovim only 
-$ stow tmux neovim # for neovim and tmux 
+$ stow nvim # for neovim only 
+$ stow tmux nvim # for neovim and tmux 
 $ stow kitty  # for kitty config only
-$ stow kitty neovim zsh # pick and choose as many configs as you want
+$ stow kitty nvim zsh # pick and choose as many configs as you want
 ```
 # Tools Instalation, Requirements and whats included
 
@@ -87,6 +88,15 @@ i use kitty term as my primary terminal emulator
 brew cask install kitty
 ```
 
+## terminal multiplexor (tmux)
+
+![](https://raw.githubusercontent.com/juangabrielr4/dotfiles/master/tmux/tmux.png)
+i use tmux as a way to show multiple terminals in panels and tabs
+
+```sh
+brew install tmux
+```
+
 ## file explorer
 
 ranger is the file explorer that i used, is a vim based file explorer very flexible
@@ -110,39 +120,16 @@ pip install pillow ```
 i use fzf for fuzzy find files, command history and more
 
 ```sh
-brew install fzf
+brew install fzf 
 ```
 
-## ag the silver searcher
-
-ag is a tool similar to grep that let you find files recursively and find strings inside files some libraries in my dotfiles are configure to use it
-by default (denite vim plugin, fzf)
-
-```sh
-brew install the_silver_searcher
-```
-
-## terminal multiplexor (tmux)
-
-i use tmux as a way to show multiple terminals in panels and tabs
-
-```sh
-brew install tmux
-```
 
 ## Tmux Plugin Manager
 
 ```bash
-$ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+$ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm 
 ```
 
-## comunity driven zsh configuration (oh my zsh)
-
-i use oh my zsh as a zsh config is a bit bloated i know but it's a quick start, i'm planning to create my own `zshrc` with only the minimal
-
-```sh
-$ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-```
 
 ### some zsh plugins
 
@@ -160,28 +147,6 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:
 git clone https://github.com/zsh-users/zsh-autosuggestions \${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
 ```
-
-## zsh prompt (Spaceship)
-
-i use Spaceship zsh as the prompt it show vital information like node/ruby/npm version, sometimes is a bit slow but it works
-
-_this installation is for oh my zsh users_
-Clone this repo:
-
-```zsh
-git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt"
-```
-
-Symlink `spaceship.zsh-theme` to your oh-my-zsh custom themes directory:
-
-```zsh
-ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
-```
-
-Set `ZSH_THEME="spaceship"` in your `.zshrc`.
-
-ship Confirmation template not found
-payment Confirmation declined not found in PPT
 
 ### node version manager
 
@@ -231,12 +196,6 @@ get notifications everytime the timer is up with terminal-notifier
 
 ```sh
 $ gem install terminal-notifier
-```
-
-## shopify commands on the terminal
-
-```sh
-$ brew install shpotify
 ```
 
 ## (vtop monitor)
