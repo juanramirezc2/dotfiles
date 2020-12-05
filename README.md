@@ -32,8 +32,8 @@ $ stow * # if you want them all :O
 ***i use brew as the package manager in the instalation instructions because my main OS is OSX if your main OS is different please 
 research for a package manager that let you get these tools, don't worry the dotfiles will continue to work no matter how you get the tools***
 
-## text editor (neovim)
-
+## Text editor (neovim)
+![](https://raw.githubusercontent.com/juangabrielr4/dotfiles/master/nvim/.config/nvim/neovim.png)
 Neovim is a fork of vim, is a comunity driven effort to bring a more colaborative project than vim.
 At it's core is basically vim, but it includes more features and improvements.
 
@@ -59,7 +59,7 @@ you can install it with the command below
 brew install the_silver_searcher 
 ```
 
-[what's included](https://github.com/juangabrielr4/dotfiles/blob/master/nvim/.config/nvim/README.md)
+to see what's included in my neovim configuration visit the [README](https://github.com/juangabrielr4/dotfiles/blob/master/nvim/.config/nvim/README.md)
 
 ## terminal emulators
 
