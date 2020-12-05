@@ -100,7 +100,7 @@ brew cask install kitty
 ```
 
 ### Shell Zsh
-![](https://raw.githubusercontent.com/juangabrielr4/dotfiles/master/ranger/ranger.png)
+![](https://raw.githubusercontent.com/juangabrielr4/dotfiles/master/zsh/zsh.png)
 
 Since MacOSX version 10.15 (catalina) zsh is included as the default shell, so not need for any kind of installation if you
 are a Mac user
