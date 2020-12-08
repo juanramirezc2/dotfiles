@@ -19,12 +19,21 @@ i have detailed comments in my config so you can tweak it according to your need
 [Coc](https://github.com/neoclide/coc.nvim) (conquer of completion) is the main plugin in my config, this plugin bring features from VSCode to vim users
 things like autocompletion, diagnostics, Intellisense and more.
 
-[Denite](https://github.com/Shougo/denite.nvim) denite is a plugin that help me browsing my code, this plugin brings recursive search using fuzzy completion
+[Denite](https://github.com/Shougo/denite.nvim)  is a plugin that help me when browsing my code, this plugin brings recursive search using fuzzy completion
+being aware of ignoring files from `.gitignore`
+
+[Nerdtree](https://github.com/preservim/nerdtree) this plugin bring me a folder structure that i browse.
+
+## Themes
+
+![](https://raw.githubusercontent.com/juangabrielr4/dotfiles/master/nvim/.config/nvim/themes.gif)
+I'm the kind of person that get bored of the monotony that's why i created a script inside my neovim config that load a ramdom
+[Base 16 theme](https://github.com/chriskempson/base16) every time i open `Neovim` :D 
 
 
 ## Mappings
+My `leader` key is `space` (inspired by spacemacs) this means that most of my custom mappins use this key.
 
-maybe you will need to run `:UpdateRemotePlugins` in order to the plugins that use python start using your new python support
 
 # vim custom text objects
 
