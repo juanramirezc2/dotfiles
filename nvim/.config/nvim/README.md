@@ -11,7 +11,18 @@ use all caps but when i need them i reach for shift.
 to remap your `caps lock` to control in MacOs you can follow somehing like [this](https://www.cnet.com/how-to/how-to-change-caps-lock-key-behavior-in-os-x/)
 if you are still very attached to your `caps lock` key you can use something like [Karabiner Elements](https://karabiner-elements.pqrs.org/) that let's you have advanced mappings.
 
-## mappings
+## Plugins
+
+My configuration in centered around the FrontEnd development stack (`typescript`,`react`,`styled-components`,`flow`), not worries if this isn't your stack
+i have detailed comments in my config so you can tweak it according to your needs.
+
+[Coc](https://github.com/neoclide/coc.nvim) (conquer of completion) is the main plugin in my config, this plugin bring features from VSCode to vim users
+things like autocompletion, diagnostics, Intellisense and more.
+
+[Denite](https://github.com/Shougo/denite.nvim) denite is a plugin that help me browsing my code, this plugin brings recursive search using fuzzy completion
+
+
+## Mappings
 
 maybe you will need to run `:UpdateRemotePlugins` in order to the plugins that use python start using your new python support
 
