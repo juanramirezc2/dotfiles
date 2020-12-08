@@ -5,7 +5,8 @@
 All of my mappings are structure around the asumption that the `caps lock` key is remapped as `Ctrl`,
 that's how old keyboard use to work and i find very convenient to have such big key in the home row. i rarely 
 use all caps but when i need them i reach for shift.
-[](http://www.economyofeffort.com/media/images/sun-keyboard.png)
+
+![](http://www.economyofeffort.com/media/images/sun-keyboard.png)
 
 to remap your `caps lock` to control in MacOs you can follow somehing like [this](https://www.cnet.com/how-to/how-to-change-caps-lock-key-behavior-in-os-x/)
 if you are still very attached to your `caps lock` key you can use something like [Karabiner Elements](https://karabiner-elements.pqrs.org/) that let's you have advanced mappings.
