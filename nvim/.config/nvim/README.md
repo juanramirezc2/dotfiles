@@ -40,11 +40,12 @@ when `Leader`  appears is because you need to press the space bar
 
 ### Normal Mode Custom Mappings
 
-* `Leader``n``f` -> Open Nerdtree directories structure of the current file
-* `Leader``p` -> Search files inside the current project using `denite`
-* `Leader``/` -> Search string recursively inside the files of the current project using `denite` & `AG`
+* `Leader n f` -> Open Nerdtree directories structure of the current file
+* `Leader p` -> Search files inside the current project using `denite`
+* `Leader m r` -> Show recent files used in the actual project
+* `Leader /` -> Search string recursively inside the files of the current project using `denite` & `AG`
 * `Control`+`w``w` -> Jump Between Panels
-* `Leader``r``a` -> Change color scheme to a ramdom base16 scheme
+* `Leader r a` -> Change color scheme to a ramdom base16 scheme
 
 
 
