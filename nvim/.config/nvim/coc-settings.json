@@ -1,9 +1,10 @@
 {
   "codeLens.enable": false,
   "suggest.enablePreview": true,
-  "diagnostic.virtualText": false,
-  "snippets.userSnippetsDirectory": "~/.config/nvim/snippets",
+  "diagnostic.virtualText": true,
   "suggest.maxCompleteItemCount": 20,
+  "snippets.userSnippetsDirectory": "~/.config/nvim/ultisnips",
+  "suggest.noselect": false,
   "eslint.filetypes": [
     "javascript",
     "typescript",

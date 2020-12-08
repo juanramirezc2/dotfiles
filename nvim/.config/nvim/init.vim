@@ -427,6 +427,13 @@ inoremap <silent><expr> <TAB>
 
 let g:coc_snippet_next = '<C-l>'
 let g:coc_snippet_prev = '<C-h>'
+" Use <C-l> for trigger snippet expand.
+"imap <C-l> <Plug>(coc-snippets-expand)
+" Use <C-j> for select text for visual placeholder of snippet.
+xmap <Tab> <Plug>(coc-snippets-select)
+"vmap <C-g> <Plug>(coc-snippets-select)
+" Use <leader>x for convert visual selected code to snippet
+xmap <leader>x  <Plug>(coc-convert-snippet)
 
 inoremap <expr><C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
 inoremap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-k>"

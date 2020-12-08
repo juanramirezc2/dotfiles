@@ -43,9 +43,6 @@ Plug 'liuchengxu/vista.vim' "View and search LSP symbols, tags in Vim/NeoVim.
 Plug 'tpope/vim-markdown', { 'for': 'markdown' }
 "}}}
 " ultisnips snippets
-Plug 'epilande/vim-es2015-snippets'  " Custom ultisnippets for ES2015 and vim
-Plug 'epilande/vim-react-snippets'  "Custom ultisnippets for react and vim
-"Plug 'AndrewRadev/tagalong.vim' " change tags in pairs
 "Custom vim Text Objects
 Plug 'kana/vim-textobj-user'  "vim-textobj-user - Create your own text objects for vim in an easy way
 Plug 'michaeljsmith/vim-indent-object'  " blocks of indentation as vim text objects
