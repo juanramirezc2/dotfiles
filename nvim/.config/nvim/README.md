@@ -26,9 +26,11 @@ being aware of ignoring files from `.gitignore`
 
 ## Themes
 
-![](https://raw.githubusercontent.com/juangabrielr4/dotfiles/master/nvim/.config/nvim/themes.gif)
 I'm the kind of person that get bored of the monotony that's why i created a script inside my neovim config that load a ramdom
-[Base 16 theme](https://github.com/chriskempson/base16) every time i open `Neovim` :D 
+[Base 16 theme](https://github.com/chriskempson/base16) every time i open `Neovim` :D ( Don't worry i have you 
+covered if you had but luck and get stuck in a light theme ) i have mappings for changing them too
+
+![](https://raw.githubusercontent.com/juangabrielr4/dotfiles/master/nvim/.config/nvim/themes.gif)
 
 
 ## Mappings
