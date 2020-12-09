@@ -47,7 +47,7 @@ Neovim is a fork of vim, is a comunity driven effort to bring a more colaborativ
 At it's core is basically vim, but it includes more features and improvements.
 
 i personally like to use the `head` version because i feel is very stable and i can have early access
-to new features.
+to new features. sometimes i'm in the mood of building from source, then i follow  [Building from source](https://github.com/juangabrielr4/dotfiles/blob/master/nvim/.config/nvim/build-from-source.md)
 
 ```sh
 brew install neovim --HEAD
