@@ -26,7 +26,7 @@ set noruler "don't show line numbers/column/% junk
 set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_
 set list
 " detect when a file is changed
-set autoread 
+set autoread
 " Line numbers
 set number
 "FOLDING SETTINGS======================={{{
