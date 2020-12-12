@@ -55,7 +55,6 @@ Plug 'kana/vim-textobj-entire'  "entire file as vim object
 Plug 'luochen1990/rainbow' "Rainbow Parentheses Improved, shorter code, no level limit, smooth
 Plug 'mattn/vim-gist' "The BClose Vim plugin for deleting a buffer without closing the window
 Plug 'maxbrunsfeld/vim-yankstack' "A lightweight implementation of emacs's kill-ring for vim
-Plug 'ntpeters/vim-better-whitespace'  "Vim Better Whitespace Plugin
 Plug 'machakann/vim-highlightedyank'  "highlight yanked text
 Plug 'vimwiki/vimwiki'  "VimWiki is a personal wiki for Vim -- a number of linked text files that have their own syntax highlighting.
 " moving around

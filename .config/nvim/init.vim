@@ -9,6 +9,9 @@ set hidden
 set showcmd " show incomplete commands
 set title " set terminal title
 set nowrap
+" Don’t add empty newlines at the end of files
+set binary
+set noeol
 set sidescroll=16
 set ai "Auto indent
 set si "Smart indent
@@ -19,7 +22,11 @@ set wildmenu
 set mouse=a
 set noshowmode "don't show --INSERT--
 set noruler "don't show line numbers/column/% junk
-set autoread  " detect when a file is changed
+" Show “invisible” characters
+set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_
+set list
+" detect when a file is changed
+set autoread 
 " Line numbers
 set number
 "FOLDING SETTINGS======================={{{
@@ -33,6 +40,10 @@ nnoremap <C-f> za
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Centralize backups, swapfiles and undo history
+if exists("&undodir")
+  set undodir=~/.vim/undo
+endif
 " Turn backup off, since most stuff is in SVN, git etc. anyway...
 set nobackup
 set noswapfile
@@ -64,7 +75,7 @@ set noshowmode  " No mostrar el modo actual (ya lo muestra la barra de estado)
 
 " guicolors styles for every mode
 set termguicolors
-"set cursorline        " highlight current line
+set cursorline        " highlight current line
 "set cursorcolumn      " highlight current column
 set guicursor=n-v-c:block-Cursor/lCursor,i-ci-ve:ver25-Cursor2/lCursor2,r-cr:hor20,o:hor50
 
@@ -634,8 +645,15 @@ set ignorecase
 
 " if the search string has an upper case letter in it, the search will be case sensitive
 set smartcase
-
-nmap <leader>sw :StripWhitespace<CR>
+" Strip trailing whitespace (,ss)
+function! StripWhitespace()
+	let save_cursor = getpos(".")
+	let old_query = getreg('/')
+	:%s/\s\+$//e
+	call setpos('.', save_cursor)
+	call setreg('/', old_query)
+endfunction
+noremap <leader>ss :call StripWhitespace()<CR>
 autocmd TabLeave *NERD_tree* :wincmd w
 
 " ====== vim wiki ========{{{
