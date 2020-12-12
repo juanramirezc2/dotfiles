@@ -1,7 +1,7 @@
 # Load version control information
 autoload -Uz vcs_info
 # Format the vcs_info_msg_0_ variable
-zstyle ':vcs_info:git*' formats "%F{011} %b (%a) %m%u%c "
+zstyle ':vcs_info:git*' formats "%F{011} %b %m%u%c "
 precmd() { vcs_info }
 # Enable colors and change prompt:
 autoload -U colors && colors

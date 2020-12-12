@@ -81,8 +81,7 @@ let maplocalleader= ";"
 " no mostrar numeros de linea cuando se abre una terminal :O :O
 autocmd TermOpen * setlocal nonumber norelativenumber
 " Enable filetype plugins
-filetype plugin on
-filetype indent on
+filetype plugin indent on
 " Avoid garbled characters in Chinese language windows OS
 let $LANG='en'
 set langmenu=en
@@ -103,6 +102,7 @@ nnoremap <leader>v "*p
 " Usar <líder> + d para cortar al portapapeles
 vnoremap <C-x> "+d
 nnoremap <C-x> "+d
+
 " draw less
 set lazyredraw
 
