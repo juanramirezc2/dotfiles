@@ -41,8 +41,9 @@ nnoremap <C-f> za
 " => Files, backups and undo
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Centralize backups, swapfiles and undo history
-if exists("&undodir")
-  set undodir=~/.vim/undo
+if has('persistent_undo')         "check if your vim version supports
+  set undodir=~/.vim/undo     "directory where the undo files will be stored
+  set undofile                    "turn on the feature
 endif
 " Turn backup off, since most stuff is in SVN, git etc. anyway...
 set nobackup
