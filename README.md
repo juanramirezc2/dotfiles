@@ -1,6 +1,6 @@
 # Gabriel’s dotfiles
 
-![Screenshot of my shell prompt](https://i.imgur.com/EkEtphC.png)
+![Gabriel Ramirez dotfiles](https://raw.githubusercontent.com/juangabrielr4/dotfiles/master/zsh.png)
 
 ## Installation
 
