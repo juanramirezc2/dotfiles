@@ -37,8 +37,6 @@ Plug 'maxmellon/vim-jsx-pretty'
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 " colorize hexa
 Plug 'norcalli/nvim-colorizer.lua'
-"javascript
-Plug 'liuchengxu/vista.vim' "View and search LSP symbols, tags in Vim/NeoVim.
 " markdown
 Plug 'tpope/vim-markdown', { 'for': 'markdown' }
 "}}}
@@ -59,8 +57,6 @@ Plug 'machakann/vim-highlightedyank'  "highlight yanked text
 Plug 'vimwiki/vimwiki'  "VimWiki is a personal wiki for Vim -- a number of linked text files that have their own syntax highlighting.
 " moving around
 Plug 'easymotion/vim-easymotion'
-Plug 'haya14busa/incsearch.vim'
-Plug 'haya14busa/incsearch-easymotion.vim'
 "file icons
 Plug 'ryanoasis/vim-devicons'  " vim will become visual studio
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'

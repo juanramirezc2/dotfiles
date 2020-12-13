@@ -13,6 +13,7 @@ set nowrap
 set binary
 set noeol
 set sidescroll=16
+set hlsearch "Highlight Search
 set ai "Auto indent
 set si "Smart indent
 set tw=500
@@ -693,17 +694,6 @@ nmap <leader>ya :Yanks<CR>
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 vmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
-
-" vista.vim sidebar with LSP symbols {{{
-let g:vista#renderer#enable_icon = 1
-let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
-let g:vista_default_executive = 'coc'
-let g:vista#renderer#icons = {
-      \   "function": "\uf794",
-      \   "variable": "\uf71b",
-      \  }
-nmap <leader>vi :Vista!!<CR>
-autocmd FileType vista,vista_kind nnoremap <buffer> <silent> \ :<c-u>call vista#finder#fzf#Run()<CR>
 " }}}
 "Switch to alternative buffer
 nnoremap <leader><tab> <C-^>;
@@ -783,17 +773,6 @@ nnoremap <silent> <C-j> <c-d>
 nnoremap <silent> <C-k> <c-u>
 vnoremap <silent> <C-j> <c-d>
 vnoremap <silent> <C-k> <c-u>
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Inc search
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set hlsearch
-let g:incsearch#auto_nohlsearch = 1
-map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
-map z/ <Plug>(incsearch-easymotion-/)
-map z? <Plug>(incsearch-easymotion-?)
-map zg/ <Plug>(incsearch-easymotion-stay)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Easy motion
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
