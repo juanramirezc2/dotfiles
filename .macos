@@ -920,6 +920,8 @@ defaults write com.twitter.twitter-mac HideInBackground -bool true
 # Bypass the annoyingly slow t.co URL shortener
 defaults write com.tapbots.TweetbotMac OpenURLsDirectly -bool true
 
+# Change schreenshots path to ~/Pictures
+defaults write com.apple.screencapture location ~/Pictures/
 ###############################################################################
 # Kill affected applications                                                  #
 ###############################################################################
