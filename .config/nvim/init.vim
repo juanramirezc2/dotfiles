@@ -200,9 +200,7 @@ autocmd ColorScheme * call SetItalics()
 "Enable syntax highlighting and set colorscheme
 syntax enable
 " Start new windows with a random color scheme
-call RandomBase16()
-"let g:gruvbox_contrast_dark = "soft"
-"colorscheme gruvbox
+colorscheme base16-gruvbox-dark-soft
 "}}}
 
 
