@@ -15,7 +15,6 @@ Plug 'scrooloose/nerdcommenter' " comment lines of code using this plugin
 Plug 'alvan/vim-closetag' "Auto close (X)HTML tags
 Plug 'tpope/vim-surround' "surround plugin
 Plug 'andymass/vim-matchup' "jumping between opening and closing symbols
-Plug 'tpope/vim-repeat' "repeat actions that plugins perform
 Plug 'vim-test/vim-test' "test runner
 "}}}
 "GUI customization

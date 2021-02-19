@@ -4,36 +4,15 @@
   "diagnostic.virtualText": true,
   "suggest.maxCompleteItemCount": 20,
   "snippets.userSnippetsDirectory": "~/.config/nvim/ultisnips",
-  "suggest.noselect": false,
-  "eslint.filetypes": [
-    "javascript",
+  "coc.preferences.formatOnSaveFiletypes": [
     "typescript",
     "typescriptreact",
     "javascriptreact",
-    "typescript.tsx"
+    "javascript",
+    "json"
   ],
-  "eslint.options": {
-    "extends": "standard",
-    "parserOptions": {
-      "ecmaVersion": 6,
-      "sourceType": "module",
-      "ecmaFeatures": {
-        "jsx": true
-      }
-    },
-    "env": {
-      "es6": true,
-      "browser": true,
-      "node": true
-    },
-    "rules": {
-      "semi": 0,
-      "space-before-blocks": 0,
-      "quotes": 0,
-      "no-var": 0,
-      "indent": 0
-    }
-  },
+  "suggest.noselect": false,
+  "eslint.packageManager": "yarn",
   "less.validate": true,
   "scss.validate": true,
   "less.lint.argumentsInColorFunction": "warning",
@@ -58,14 +37,8 @@
     "bem.shortElementPrefix": "-"
   },
   "emmet.showAbbreviationSuggestions": true,
-  "coc.preferences.formatOnSaveFiletypes": [
-    "css",
-    "json",
-    "typescriptreact",
-    "typescript"
-  ],
   "tailwindCSS.trace.server": "verbose",
-  "tailwindCSS.emmetCompletions": true,
+  "tailwindCSS.headwind.runOnSave": false,
   "tailwindCSS.jsLanguages": [
     "javascript",
     "javascriptreact",

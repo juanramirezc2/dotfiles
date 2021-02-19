@@ -34,10 +34,6 @@ set number
 " Add a bit extra margin to the left
 set foldmethod=indent               " not as cool as syntax, but faster
 set foldlevelstart=99               " start unfolded
-"Toggle fold mapping
-" Toggle fold at current position.
-nnoremap <C-f> za
-"}}}
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -199,10 +195,9 @@ autocmd ColorScheme * call SetItalics()
 
 "Enable syntax highlighting and set colorscheme
 syntax enable
-" Start new windows with a random color scheme
-colorscheme base16-gruvbox-dark-soft
+let g:gruvbox_contrast_dark = 'soft'
+colorscheme gruvbox
 "}}}
-
 
 let g:vim_jsx_pretty_highlight_close_tag = 1
 let g:vim_jsx_pretty_colorful_config = 1 " default 0
@@ -483,59 +478,12 @@ nnoremap <silent> K :call <SID>show_documentation()<CR>
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
-  else
+  elseif (coc#rpc#ready())
     call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
   endif
 endfunction
-
-" lookup local flow executable
-" and turn on flow for coc is executable exists
-function! SetFlow() abort
-    let flow_path = 'node_modules/.bin/flow'
-    let has_flow = filereadable(flow_path)
-    if (!has_flow)
-        return 0
-    endif
-    let flow_bin = getcwd() . '/' . flow_path
-    let flow_config = {
-    \    'command': flow_bin,
-    \    'args': ['lsp'],
-    \    'filetypes': ['javascript', 'javascriptreact'],
-    \    'initializationOptions': {},
-    \    'requireRootPattern': 1,
-    \    'settings': {},
-    \    'rootPatterns': ['.flowconfig']
-    \}
-    call coc#config('languageserver.flow', flow_config)
-endfunction
-
-function! HasEslintConfig()
-  for name in ['.eslintrc.js', '.eslintrc.json', '.eslintrc']
-    if globpath('.', name) != ''
-      return 1
-    endif
-  endfor
-endfunction
-
-function! SetupCocStuff()
-    call SetFlow()
-
-    let eslint_config_found = HasEslintConfig()
-    " turn off eslint when cannot find eslintrc
-    call coc#config('eslint.enable', eslint_config_found)
-    call coc#config('eslint.autoFixOnSave', eslint_config_found)
-
-    " essentially avoid turning on typescript in a flow project
-    call coc#config('tsserver.enableJavascript', filereadable('.flowconfig') == 0)
-    redraw!
-endfunction
-
-" delay file system calls until something is on the screen
-if has('nvim') || has('patch-8.2.18.12')
-    autocmd! CursorHold * ++once silent call SetupCocStuff()
-else
-    call SetupCocStuff()
-endif
 
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
@@ -544,8 +492,8 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 nmap <leader>rn <Plug>(coc-rename)
 
 " Formatting selected code.
-"xmap <leader>f  <Plug>(coc-format-selected)
-"nmap <leader>f  <Plug>(coc-format-selected)
+vmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
 
 augroup mygroup
   autocmd!
@@ -575,6 +523,16 @@ xmap ic <Plug>(coc-classobj-i)
 omap ic <Plug>(coc-classobj-i)
 xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
+
+" Remap <C-f> and <C-b> for scroll float windows/popups.
+if has('nvim-0.4.0') || has('patch-8.2.0750')
+  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+endif
 
 " Use CTRL-S for selections ranges.
 " Requires 'textDocument/selectionRange' support of language server.
@@ -610,6 +568,7 @@ nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>re  :<C-u>CocListResume<CR>
+
 "" }}}
 
 " Vim-Devicons --------------------------------------------------------------{{{
@@ -690,8 +649,6 @@ nmap <leader>ya :Yanks<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Code formatting -----------------------------------------------------------{{{
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
-vmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
 " }}}
 "Switch to alternative buffer
 nnoremap <leader><tab> <C-^>;
@@ -708,6 +665,7 @@ autocmd FileType nerdtree setlocal nolist
 "let g:WebDevIconsNerdTreeAfterGlyphPadding = '  '
 " Remove bookmarks and help text from NERDTree
 let g:NERDTreeMinimalUI = 1
+let NERDTreeMinimalMenu = 1
 let g:NERDTreeWinPos = "right"
 let NERDTreeShowHidden=0
 let NERDTreeIgnore = ['\.pyc$', '__pycache__']
