@@ -9,14 +9,20 @@ set hidden
 set showcmd " show incomplete commands
 set title " set terminal title
 set nowrap
+
 " Don’t add empty newlines at the end of files
 set binary
 set noeol
 set sidescroll=16
 set hlsearch "Highlight Search
+
+" Linebreak on 500 characters
+set lbr
+set tw=500
+
 set ai "Auto indent
 set si "Smart indent
-set tw=500
+set wrap "Wrap lines
 " Turn on the Wild menu
 set wildmenu
 " i'm not agains the mouse, enable it in all modes
@@ -46,9 +52,11 @@ endif
 set nobackup
 set noswapfile
 " split new panels down and below
+" Denite split wrong here
 set splitbelow
 set splitright
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set 7 lines to the cursor - when moving vertically using j/k
 set so=7
 " Use Unix as the standard file type
@@ -60,9 +68,6 @@ set smarttab
 "Number of spaces to use for a <Tab> during editing operations
 set shiftwidth=2
 set softtabstop=2
-"Linebreak on 500 characters
-set lbr
-set tw=500
 " vim wiki requirement
 set nocompatible
 " tema y apariencia
@@ -103,6 +108,26 @@ set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
 " For regular expressions turn magic on
 set magic
+""""""""""""""""""""""""""""""
+" => Visual mode related
+""""""""""""""""""""""""""""""
+" Visual mode pressing * or # searches for the current selection
+" Super useful! From an idea by Michael Naumann
+vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
+vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Moving around, tabs, windows and buffers
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"" Close the current buffer
+map <leader>bd :Bclose<cr>
+
+" Close all the buffers
+map <leader>ba :bufdo bd<cr>
+
+map <leader>l :bnext<cr>
+map <leader>h :bprevious<cr>
 " Usar Control + y para copiar al portapapeles
 vnoremap <leader>c "*y
 nnoremap <leader>c "*y
@@ -282,17 +307,17 @@ nnoremap <silent><leader><CR> :noh<CR>
 
 " ==== denite custom matcher ========""
 "" optional - but recommended - see below
-nnoremap <leader>; :Denite -start-filter -no-auto-action buffer<CR>
-nmap     <leader>p :Denite -start-filter -no-auto-action file/rec:.<CR>
-nmap     <leader>me :Denite -no-auto-action menu<CR>
-nnoremap <leader>/ :<C-u>Denite -no-empty grep:.<CR>
+nnoremap <leader>; :Denite buffer<CR>
+nmap     <leader>p :Denite -start-filter file/rec:.<CR>
+nmap     <leader>me :Denite  menu<CR>
+nnoremap <leader>/ :<C-u>Denite -no-empty -auto-action='preview' grep:.<CR>
 vnoremap <leader>/ y:<C-u>Denite -no-empty  grep:.::<C-R>=fnameescape(@")<CR><CR>
 nnoremap <leader>/w :<C-u>DeniteCursorWord grep:.<CR>
-nmap     <leader>mr :Denite -no-auto-action file_mru<CR>
+nmap     <leader>mr :Denite file_mru<CR>
 nnoremap <leader>dp :Denite -resume -cursor-pos=-1 -immediately<CR>
 nnoremap <leader>dn :Denite -resume -cursor-pos=+1 -immediately<CR>
 nnoremap <leader>dl :Denite -resume -do='normal! A;'<CR>
-nmap     <leader>sc :Denite colorscheme<CR>
+nmap     <leader>sc :Denite -auto-action='preview' colorscheme<CR>
 
 " Add custom menus
 let s:menus = {}
@@ -315,16 +340,16 @@ let s:menus.my_commands.command_candidates = [
       \ ['Format code', 'FormatCode', 'go,python'],
       \ ]
 
-" Change file/rec command.
+" Note: rg is faster than ag
 call denite#custom#var('file/rec', 'command',
-      \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+      \ ['rg', '--files', '--glob', '!.git', '--color', 'never'])
 
-" Ag command on grep source
+" Ripgrep command on grep source
 call denite#custom#var('grep', {
-      \ 'command': ['ag'],
-      \ 'default_opts': ['-i', '--vimgrep'],
+      \ 'command': ['rg'],
+      \ 'default_opts': ['-i', '--vimgrep', '--no-heading'],
       \ 'recursive_opts': [],
-      \ 'pattern_opt': [],
+      \ 'pattern_opt': ['--regexp'],
       \ 'separator': ['--'],
       \ 'final_opts': [],
       \ })
@@ -333,7 +358,9 @@ call denite#custom#var('menu', 'menus', s:menus)
 
 " Change matchers.
 call denite#custom#source('file_mru', 'matchers', ['matcher/fuzzy', 'matcher/project_files'])
-" Change sorters.
+"call denite#custom#source('file/rec', 'matchers', ['matcher/cpsm'])  "Explore vim Clap
+"
+"Change sorters.
 call denite#custom#source('file/rec', 'sorters', ['sorter/sublime'])
 
 "call denite#custom#source('file/rec', 'matchers', ['converter/tail_path'])
@@ -358,8 +385,9 @@ function! s:denite_my_settings() abort
   nnoremap <silent><buffer><expr> <Space> denite#do_map('toggle_select').'j'
 endfunction
 autocmd FileType denite-filter call s:denite_filter_my_settings()
+
 function! s:denite_filter_my_settings() abort
-  imap <silent><buffer> <C-o> <Plug>(denite_filter_quit)
+  imap <silent><buffer> <C-o> <Plug>(denite_filter_update)
   inoremap <silent><buffer><expr> <c-l> denite#do_map('do_action')
   inoremap <silent><buffer><expr> <CR> denite#do_map('do_action')
   inoremap <silent><buffer> <C-j> <Esc>
@@ -373,23 +401,29 @@ function! s:denite_filter_my_settings() abort
 endfunction
 
 call denite#custom#option('default', {
-      \ 'auto_resize': 1,
-      \ 'split': 'floating',
-      \ 'source_names': 'short',
-      \ 'auto_action': 'preview',
       \ 'match_highlight': 1,
       \ 'smartcase': 1,
-      \ 'highlight_filter_background': 'TermCursor',
+      \ 'auto_resize': 1,
       \ 'prompt': 'λ:',
+      \ 'expand': 1,
+      \ 'highlight_filter_background': 'TermCursor',
       \ 'prompt_highlight': 'Function',
       \ 'highlight_matched_char': 'Function',
       \ 'highlight_matched_range': 'Function',
-      \ 'expand': 1,
-      \ 'wincol': &columns / 16 ,
-      \ 'winwidth': &columns * 14/16,
-      \ 'winminheight': 10
       \ })
 
+      "\ 'winminheight': 10
+      "\ 'direction': 'dynamicbottom',
+      "\ 'split': 'no',
+      "\ 'vertical_preview': 1,
+      "\ 'floating_preview': 1,
+      "\ 'preview_width': 60,
+      "\ 'auto_action': 'preview',
+      "\ 'auto_resize': 1,
+      "\ 'source_names': 'short',
+      "\ 'auto_action': 'preview',
+      "\ 'wincol': &columns / 16 ,
+      "\ 'winwidth': &columns * 14/16,
 "COC CONQUER OF COMPLETION nvim ----------------------------------------------------{{{
 call coc#add_extension('coc-json',
       \'coc-tsserver',
@@ -399,6 +433,7 @@ call coc#add_extension('coc-json',
       \'coc-eslint',
       \'coc-prettier',
       \'coc-snippets',
+      \'coc-yank',
       \'coc-tailwindcss')
 
 set nowritebackup
@@ -572,24 +607,8 @@ nnoremap <silent><nowait> <space>re  :<C-u>CocListResume<CR>
 "" }}}
 
 " Vim-Devicons --------------------------------------------------------------{{{
-
 let g:NERDTreeGitStatusNodeColorization = 1
 let g:webdevicons_enable_denite = 0
-let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = ''
-let g:DevIconsEnableFoldersOpenClose = 1
-let g:WebDevIconsOS = 'Darwin'
-let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-let g:WebDevIconsUnicodeDecorateFileNodesDefaultSymbol = ''
-let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = { } " needed
-let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['js'] = ''
-" let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['tsx'] = 'ﯤ'
-" let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['ts'] = 'ﯤ'
-let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['vim'] = ''
-let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['css'] = ''
-let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['html'] = ''
-let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['json'] = ''
-let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['md'] = ''
-let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['sql'] = ''
 
 "see actual registers
 nnoremap <leader>re :registers<CR>
@@ -644,6 +663,11 @@ let g:yankstack_yank_keys = ['y', 'd']
 nmap <C-p> <Plug>yankstack_substitute_older_paste
 nmap <C-n> <Plug>yankstack_substitute_newer_paste
 nmap <leader>ya :Yanks<CR>
+
+"""""""""""""""""""""""""""""""
+" => Coc Yank
+""""""""""""""""""""""""""""""
+nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Code formatting and file explorer
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -665,10 +689,10 @@ autocmd FileType nerdtree setlocal nolist
 "let g:WebDevIconsNerdTreeAfterGlyphPadding = '  '
 " Remove bookmarks and help text from NERDTree
 let g:NERDTreeMinimalUI = 1
+let NERDTreeQuitOnOpen=1
 let NERDTreeMinimalMenu = 1
 let g:NERDTreeWinPos = "right"
 let NERDTreeShowHidden=0
-let NERDTreeIgnore = ['\.pyc$', '__pycache__']
 let g:NERDTreeWinSize=35
 map <leader>nn :NERDTreeToggle<cr>
 map <leader>nb :NERDTreeFromBookmark<Space>
@@ -684,20 +708,10 @@ let g:mta_filetypes = {
     \ 'twig' : 1,
     \}
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => surround.vim config
+" => vim sandwich config
 " Annotate strings with gettext
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-vmap Si S(i_<esc>f)
-au FileType mako vmap Si S"i${ _(<esc>2f"a) }<esc>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => vim indent Line
-"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:indentLine_char = "▏"
-"Disable IndentLine for Json files
-autocmd Filetype json let g:indentLine_enabled = 0
-" }}}
+let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Test
@@ -736,8 +750,6 @@ nmap <leader>j <Plug>(easymotion-j)
 vmap <leader>j <Plug>(easymotion-j)
 nmap <leader>k <Plug>(easymotion-k)
 vmap <leader>k <Plug>(easymotion-k)
-map <Leader>l <Plug>(easymotion-bd-jk)
-nmap <Leader>l <Plug>(easymotion-overwin-line)
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => highlight groups helpers
@@ -750,7 +762,7 @@ endfunction
 command! -nargs=0 Syn call Syn()
 
 " ================= coc nvim multiple cursors ====================
-hi CocCursorRange guibg=#b16286 guifg=#ebdbb2
+"hi CocCursorRange guibg=#b16286 guifg=#ebdbb2
 nmap <silent> <C-c> <Plug>(coc-cursors-position)
 " use normal command like `<leader>xi(`
 nmap <leader>x  <Plug>(coc-cursors-operator)
@@ -759,11 +771,63 @@ nmap <leader>r <Plug>(coc-refactor)
 " multiple cursors disabled by now
 "nmap <silent> <C-d> <Plug>(coc-cursors-word)*
 "xmap <silent> <C-d> y/\V<C-r>=escape(@",'/\')<CR><CR>gN<Plug>(coc-cursors-range)gn
-nmap <expr> <silent> <C-m> <SID>select_current_word()
 
+nmap <expr> <silent> <C-d> <SID>select_current_word()
 function! s:select_current_word()
-  if !get(g:, 'coc_cursors_activated', 0)
+  if !get(b:, 'coc_cursors_activated', 0)
     return "\<Plug>(coc-cursors-word)"
   endif
   return "*\<Plug>(coc-cursors-word):nohlsearch\<CR>"
 endfunc
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => vim indent Line
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:indentLine_char = "▏"
+"let g:indentLine_setColors = 0
+let g:indentLine_defaultGroup = 'NonText'
+"Disable IndentLine for Json files
+autocmd Filetype json let g:indentLine_enabled = 0
+" }}}
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Helper functions
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"" Don't close window, when deleting a buffer
+command! Bclose call <SID>BufcloseCloseIt()
+function! <SID>BufcloseCloseIt()
+    let l:currentBufNum = bufnr("%")
+    let l:alternateBufNum = bufnr("#")
+
+    if buflisted(l:alternateBufNum)
+        buffer #
+    else
+        bnext
+    endif
+
+    if bufnr("%") == l:currentBufNum
+        new
+    endif
+
+    if buflisted(l:currentBufNum)
+        execute("bdelete! ".l:currentBufNum)
+    endif
+endfunction
+
+function! VisualSelection(direction, extra_filter) range
+    let l:saved_reg = @"
+    execute "normal! vgvy"
+
+    let l:pattern = escape(@", "\\/.*'$^~[]")
+    let l:pattern = substitute(l:pattern, "\n$", "", "")
+
+    if a:direction == 'gv'
+        call CmdLine("Ack '" . l:pattern . "' " )
+    elseif a:direction == 'replace'
+        call CmdLine("%s" . '/'. l:pattern . '/')
+    endif
+
+    let @/ = l:pattern
+    let @" = l:saved_reg
+endfunction

@@ -1,5 +1,14 @@
 # neovim configuration 
 
+
+### Denite Use Rip Grep for recursive search
+If you're a **macOS Homebrew** or a **Linuxbrew** user, then you can install
+ripgrep from homebrew-core:
+
+```
+$ brew install ripgrep
+```
+
 ## Important Information
 
 All of my mappings are structure around the asumption that the `caps lock` key is remapped as `Ctrl`,

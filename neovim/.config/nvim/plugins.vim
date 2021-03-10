@@ -13,7 +13,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': ':CocInstall'}
 Plug 'jceb/vim-orgmode' "Org mode in vim
 Plug 'scrooloose/nerdcommenter' " comment lines of code using this plugin
 Plug 'alvan/vim-closetag' "Auto close (X)HTML tags
-Plug 'tpope/vim-surround' "surround plugin
+Plug 'machakann/vim-sandwich' "surround plugin
 Plug 'andymass/vim-matchup' "jumping between opening and closing symbols
 Plug 'vim-test/vim-test' "test runner
 "}}}
@@ -50,9 +50,8 @@ Plug 'kana/vim-textobj-entire'  "entire file as vim object
 " dims inactive splits
 "Plug 'blueyed/vim-diminactive'
 Plug 'luochen1990/rainbow' "Rainbow Parentheses Improved, shorter code, no level limit, smooth
-Plug 'mattn/vim-gist' "The BClose Vim plugin for deleting a buffer without closing the window
+Plug 'jlanzarotta/bufexplorer'
 Plug 'maxbrunsfeld/vim-yankstack' "A lightweight implementation of emacs's kill-ring for vim
-Plug 'machakann/vim-highlightedyank'  "highlight yanked text
 Plug 'vimwiki/vimwiki'  "VimWiki is a personal wiki for Vim -- a number of linked text files that have their own syntax highlighting.
 " moving around
 Plug 'easymotion/vim-easymotion'
