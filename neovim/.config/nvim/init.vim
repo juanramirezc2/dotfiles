@@ -1,3 +1,4 @@
+
 scriptencoding utf-8
 source ~/.config/nvim/plugins.vim
 " Luego de esta línea puedes agregar tus configuraciones y mappings
@@ -108,13 +109,6 @@ set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
 " For regular expressions turn magic on
 set magic
-""""""""""""""""""""""""""""""
-" => Visual mode related
-""""""""""""""""""""""""""""""
-" Visual mode pressing * or # searches for the current selection
-" Super useful! From an idea by Michael Naumann
-vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
-vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs, windows and buffers
@@ -259,7 +253,7 @@ nnoremap <leader>gw :Gwrite<CR>
 nnoremap <silent><leader>gr :Gread<CR>
 nnoremap <leader>ge :Gedit<CR>
 nnoremap <leader>gc :Gcommit -v -q<CR>
-nnoremap <leader>gre :Git rebase --interactive HEAD~20<CR>
+nnoremap <leader>gre :Git rebase -i HEAD~6<CR>
 
 nmap <silent><leader>gb :Gblame<cr>
 
@@ -815,19 +809,3 @@ function! <SID>BufcloseCloseIt()
     endif
 endfunction
 
-function! VisualSelection(direction, extra_filter) range
-    let l:saved_reg = @"
-    execute "normal! vgvy"
-
-    let l:pattern = escape(@", "\\/.*'$^~[]")
-    let l:pattern = substitute(l:pattern, "\n$", "", "")
-
-    if a:direction == 'gv'
-        call CmdLine("Ack '" . l:pattern . "' " )
-    elseif a:direction == 'replace'
-        call CmdLine("%s" . '/'. l:pattern . '/')
-    endif
-
-    let @/ = l:pattern
-    let @" = l:saved_reg
-endfunction
