@@ -16,6 +16,8 @@ Plug 'alvan/vim-closetag' "Auto close (X)HTML tags
 Plug 'machakann/vim-sandwich' "surround plugin
 Plug 'andymass/vim-matchup' "jumping between opening and closing symbols
 Plug 'vim-test/vim-test' "test runner
+"Plug 'jiangmiao/auto-pairs'  " automaticamente cierra comillas o llaves
+Plug 'tmsvg/pear-tree' "same as above but just a try
 "}}}
 "GUI customization
 Plug 'Valloric/MatchTagAlways' "highlight tags for easy html
@@ -26,12 +28,12 @@ Plug 'vim-airline/vim-airline-themes'  " indent guides lines let's see how they 
 Plug 'preservim/nerdtree'  "file browsing panel
 Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }  "Denite is a dark powered plugin for Neovim/Vim to unite all interfaces.
 Plug 'Shougo/neomru.vim' " MRU plugin includes unite.vim/denite.nvim MRU sources Most Recent Used
+Plug 'tpope/vim-projectionist' ""
 "Git helpers
 Plug 'rhysd/git-messenger.vim'  "Neovim plugin to reveal the commit messages under the cursor
 Plug 'tpope/vim-fugitive'  " git on vim
 Plug 'xuyuanp/nerdtree-git-plugin'  "nerd tree git status
-Plug 'jiangmiao/auto-pairs'  " automaticamente cierra comillas o llaves
-" syntax highlighting files {{{
+"syntax highlighting files {{{
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 " colorize hexa
@@ -56,13 +58,16 @@ Plug 'vimwiki/vimwiki'  "VimWiki is a personal wiki for Vim -- a number of linke
 " moving around
 Plug 'easymotion/vim-easymotion'
 "file icons
-Plug 'ryanoasis/vim-devicons'  " vim will become visual studio
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+"Plug 'ryanoasis/vim-devicons'  " vim will become visual studio
+"Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 " key mappings
 Plug 'tpope/vim-unimpaired'  "Pairs of handy bracket mappings
 " others
 Plug 'mcchrish/extend-highlight.vim' "extend hightlighting groups
-" themes
+Plug 'mbbill/undotree' "Undo tree
+Plug 'chaoren/vim-wordmotion' "Word motion
+Plug 'rhysd/clever-f.vim' "Clever F
+"themes
 Plug 'morhetz/gruvbox'
 Plug 'chriskempson/base16-vim'
 Plug 'ayu-theme/ayu-vim' " or other package manager

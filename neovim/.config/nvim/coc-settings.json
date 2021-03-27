@@ -2,6 +2,7 @@
   "codeLens.enable": false,
   "suggest.enablePreview": true,
   "diagnostic.virtualText": true,
+  "diagnostic.maxWindowHeight": 0,
   "suggest.maxCompleteItemCount": 20,
   "snippets.userSnippetsDirectory": "~/.config/nvim/ultisnips",
   "coc.preferences.formatOnSaveFiletypes": [

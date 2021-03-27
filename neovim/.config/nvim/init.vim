@@ -213,6 +213,7 @@ endfunction
 autocmd ColorScheme * call SetItalics()
 
 "Enable syntax highlighting and set colorscheme
+set background=light
 syntax enable
 let g:gruvbox_contrast_dark = 'soft'
 colorscheme gruvbox
@@ -247,7 +248,7 @@ inoremap jk <Esc>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " fugitive git mappings
 nnoremap <silent><leader>gs :Git<CR>
-nnoremap <leader>gp :Gpush<CR>
+nnoremap <leader>gp :Git push<CR>
 nnoremap <leader>gd :Gdiff<CR>
 nnoremap <leader>gw :Gwrite<CR>
 nnoremap <silent><leader>gr :Gread<CR>
@@ -711,18 +712,40 @@ let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
 " => Test
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" these "Ctrl mappings" work well when Caps Lock is mapped to Ctrl
-nmap <silent> t<C-n> :TestNearest<CR>
-nmap <silent> t<C-f> :TestFile<CR>
-nmap <silent> t<C-s> :TestSuite<CR>
-nmap <silent> t<C-l> :TestLast<CR>
-nmap <silent> t<C-g> :TestVisit<CR>
+let g:root_markers = ['package.json', '.git/']
+function! s:RunVimTest(cmd)
+    " I guess this part could be replaced by projectionist#project_root
+    for marker in g:root_markers
+        let marker_file = findfile(marker, expand('%:p:h') . ';')
+        if strlen(marker_file) > 0
+            let g:test#project_root = fnamemodify(marker_file, ":p:h")
+            break
+        endif
+        let marker_dir = finddir(marker, expand('%:p:h') . ';')
+        if strlen(marker_dir) > 0
+            let g:test#project_root = fnamemodify(marker_dir, ":p:h")
+            break
+        endif
+    endfor
+
+    execute a:cmd
+endfunction
+
+nnoremap <leader>tf :call <SID>RunVimTest('TestFile')<cr>
+nnoremap <leader>tn :call <SID>RunVimTest('TestNearest')<cr>
+nnoremap <leader>tf :call <SID>RunVimTest('TestSuite')<cr>
+nnoremap <leader>ts :call <SID>RunVimTest('TestFile')<cr>
+nnoremap <leader>tl :call <SID>RunVimTest('TestLast')<cr>
+nnoremap <leader>tv :call <SID>RunVimTest('TestVisit')<cr>
+
 "testing strategies
 let test#strategy = {
   \ 'nearest': 'neovim',
   \ 'file':    'neovim',
   \ 'suite':   'neovim',
 \}
+"create react app doesn't list jest in the dependencies
+"let g:test#javascript#runner = 'reactscripts'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Core mappings changed
@@ -775,16 +798,6 @@ function! s:select_current_word()
 endfunc
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => vim indent Line
-"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:indentLine_char = "▏"
-"let g:indentLine_setColors = 0
-let g:indentLine_defaultGroup = 'NonText'
-"Disable IndentLine for Json files
-autocmd Filetype json let g:indentLine_enabled = 0
-" }}}
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -809,3 +822,134 @@ function! <SID>BufcloseCloseIt()
     endif
 endfunction
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => vim indent Line
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"let g:indentLine_char       = '▏'
+"let g:indentLine_faster = 1
+"let g:indentLine_setConceal = 0
+"let g:indentLine_defaultGroup = 'NonText'
+"let g:indentLine_defaultGroup = 'Normal'
+
+"Disable IndentLine for Json files
+autocmd Filetype json let g:indentLine_enabled = 0
+" }}}
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => vim undotree
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:undotree_HighlightChangedWithSign = 0
+let g:undotree_WindowLayout             = 4
+let g:undotree_SetFocusWhenToggle       = 1
+nnoremap <Leader>u :UndotreeToggle<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => word motion
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nmap cw ce
+nmap cW cE
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => clever F
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:clever_f_across_no_line    = 1
+let g:clever_f_fix_key_direction = 1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => pear tree
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:pear_tree_repeatable_expand = 0
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => projectionist
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:projectionist_heuristics = {
+      \   '*': {
+      \     '*.c': {
+      \       'alternate': '{}.h',
+      \       'type': 'source'
+      \     },
+      \     '*.h': {
+      \       'alternate': '{}.c',
+      \       'type': 'header'
+      \     },
+      \   }
+      \ }
+
+" Helper function for batch-updating the g:projectionist_heuristics variable.
+function! s:project(...)
+  for [l:pattern, l:projection] in a:000
+    let g:projectionist_heuristics['*'][l:pattern] = l:projection
+  endfor
+endfunction
+
+" Set up projections for JS variants.
+for s:extension in ['.js', '.jsx', '.ts', '.tsx']
+  call s:project(
+        \ ['*' . s:extension, {
+        \   'alternate': [
+        \     '{dirname}/{basename}.test' . s:extension,
+        \     '{dirname}/__tests__/{basename}.test' . s:extension,
+        \     '{dirname}/__tests__/{basename}-test' . s:extension,
+        \     '{dirname}/__tests__/{basename}-mocha' . s:extension
+        \   ],
+        \   'type': 'source'
+        \ }],
+        \ ['*.test' . s:extension, {
+        \   'alternate': '{basename}' . s:extension,
+        \   'type': 'test',
+        \ }],
+        \ ['**/__tests__/*.test' . s:extension, {
+        \   'alternate': '{dirname}/{basename}' . s:extension,
+        \   'type': 'test'
+        \ }],
+        \ ['**/__tests__/*-test' . s:extension, {
+        \   'alternate': '{dirname}/{basename}' . s:extension,
+        \   'type': 'test'
+        \ }],
+        \ ['**/__tests__/*-mocha' . s:extension, {
+        \   'alternate': '{dirname}/{basename}' . s:extension,
+        \   'type': 'test'
+        \ }])
+endfor
+
+" Provide config for repos where I:
+"
+" - want special config
+" - don't want to (or can't) commit a custom ".projections.json" file
+" - can't set useful heuristics based on what's in the root directory
+"
+function! s:UpdateProjections()
+  let l:cwd=getcwd()
+  if l:cwd == expand('~/code/liferay-npm-tools')
+    for l:pkg in glob('packages/*', 0, 1)
+      call s:project(
+            \ [l:pkg . '/src/*.js', {
+            \   'alternate': l:pkg . '/test/{}.js',
+            \   'type': 'source'
+            \ }],
+            \ [l:pkg . '/test/*.js', {
+            \   'alternate': l:pkg . '/src/{}.js',
+            \   'type': 'test'
+            \ }])
+    endfor
+  endif
+endfunction
+
+call s:UpdateProjections()
+
+if has('autocmd') && exists('#DirChanged')
+  augroup WincentProjectionist
+    autocmd!
+    autocmd DirChanged * call <SID>UpdateProjections()
+  augroup END
+endif
+nnoremap <Leader>ec :Ecomponent<Space>
+nnoremap <Leader>es :Estylesheet<Space>
+nnoremap <leader>et :Etest<Space>
