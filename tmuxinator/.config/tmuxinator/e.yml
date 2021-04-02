@@ -52,5 +52,4 @@ windows:
       # synchronize: after
       panes:
         - nvim .
-        - guard
   - extras:
