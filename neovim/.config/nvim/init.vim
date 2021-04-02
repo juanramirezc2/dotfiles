@@ -200,7 +200,7 @@ function SetItalics() abort
   call italics#AddItalicToGroup("Special")
   call italics#AddItalicToGroup("Comment")
   call italics#AddItalicToGroup("Keyword")
-  call italics#AddItalicToGroup("Identifier")
+  "call italics#AddItalicToGroup("Identifier")
   "call italics#AddItalicToGroup("StorageClass")
   "call italics#AddItalicToGroup("xmlAttrib")
   "call italics#AddItalicToGroup("htmlArg")
@@ -953,3 +953,11 @@ endif
 nnoremap <Leader>ec :Ecomponent<Space>
 nnoremap <Leader>es :Estylesheet<Space>
 nnoremap <leader>et :Etest<Space>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Jsdoc.vim
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nmap <silent> <leader>js <Plug>(jsdoc)
+"let g:jsdoc_formatter = "esdoc"
+"let g:jsdoc_templates_path = '~/.config/nvim/jsdoc/snippet_template.js'

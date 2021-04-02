@@ -1,7 +1,7 @@
-# /Users/gabo/.config/tmuxinator/taoti.yml
+# /Users/gabo/.config/tmuxinator/e.yml
 
-name: dev
-root: ~/
+name: e
+root: ~/Work/health-record
 
 # Optional tmux socket
 # socket_name: foo
@@ -10,14 +10,19 @@ root: ~/
 # project hooks.
 
 # Project hooks
+
 # Runs on project start, always
 # on_project_start: command
+
 # Run on project start, the first time
 # on_project_first_start: command
+
 # Run on project start, after the first time
 # on_project_restart: command
+
 # Run on project exit ( detaching from tmux session )
 # on_project_exit: command
+
 # Run on project stop
 # on_project_stop: command
 
@@ -41,12 +46,11 @@ root: ~/
 
 windows:
   - editor:
-  - extras:
-      layout: even-vertical
+      layout: main-vertical
       # Synchronize all panes of this window, can be enabled before or after the pane commands run.
       # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
       # synchronize: after
       panes:
-        - z
-        -
-
+        - nvim .
+        - guard
+  - extras:

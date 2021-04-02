@@ -38,10 +38,16 @@ Plug 'maxmellon/vim-jsx-pretty'
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 " colorize hexa
 Plug 'norcalli/nvim-colorizer.lua'
+" Code Comments
+Plug 'heavenshell/vim-jsdoc', { 
+  \ 'for': ['javascript', 'javascript.jsx','typescript'], 
+  \ 'do': 'make install'
+\}
 " markdown
 Plug 'tpope/vim-markdown', { 'for': 'markdown' }
 "}}}
 " ultisnips snippets
+Plug 'honza/vim-snippets'
 "Custom vim Text Objects
 Plug 'kana/vim-textobj-user'  "vim-textobj-user - Create your own text objects for vim in an easy way
 Plug 'michaeljsmith/vim-indent-object'  " blocks of indentation as vim text objects
@@ -49,6 +55,7 @@ Plug 'wellle/targets.vim'  "Vim plugin that provides additional text objects
 Plug 'kana/vim-textobj-line'  "Text objects for the current line
 Plug 'kana/vim-textobj-entire'  "entire file as vim object
 " other plugins
+Plug 'rizzatti/dash.vim' " Dash plugin for ofline documentation
 " dims inactive splits
 "Plug 'blueyed/vim-diminactive'
 Plug 'luochen1990/rainbow' "Rainbow Parentheses Improved, shorter code, no level limit, smooth
