@@ -383,13 +383,13 @@ autocmd FileType denite-filter call s:denite_filter_my_settings()
 
 function! s:denite_filter_my_settings() abort
   imap <silent><buffer> <C-o> <Plug>(denite_filter_update)
-  inoremap <silent><buffer><expr> <c-l> denite#do_map('do_action')
+  inoremap <silent><buffer><expr> <Right> denite#do_map('do_action')
   inoremap <silent><buffer><expr> <CR> denite#do_map('do_action')
-  inoremap <silent><buffer> <C-j> <Esc>
+  inoremap <silent><buffer> <Down> <Esc>
         \:call denite#move_to_parent()<CR>
         \:call cursor(line('.')+1,0)<CR>
         \:call denite#move_to_filter()<CR>A
-  inoremap <silent><buffer> <C-k> <Esc>
+  inoremap <silent><buffer> <Up> <Esc>
 	        \:call denite#move_to_parent()<CR>
 	        \:call cursor(line('.')-1,0)<CR>
 	        \:call denite#move_to_filter()<CR>A
@@ -461,18 +461,18 @@ inoremap <silent><expr> <TAB>
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
 
-let g:coc_snippet_next = '<C-l>'
-let g:coc_snippet_prev = '<C-h>'
-" Use <C-l> for trigger snippet expand.
-"imap <C-l> <Plug>(coc-snippets-expand)
-" Use <C-j> for select text for visual placeholder of snippet.
+let g:coc_snippet_next = '<Right>'
+let g:coc_snippet_prev = '<Left>'
+" Use <Right> for trigger snippet expand.
+"imap <Right> <Plug>(coc-snippets-expand)
+" Use <Down> for select text for visual placeholder of snippet.
 xmap <Tab> <Plug>(coc-snippets-select)
 "vmap <C-g> <Plug>(coc-snippets-select)
 " Use <leader>x for convert visual selected code to snippet
 xmap <leader>x  <Plug>(coc-convert-snippet)
 
-inoremap <expr><C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
-inoremap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
+inoremap <expr><Down> pumvisible() ? "\<C-n>" : "\<Down>"
+inoremap <expr><Up> pumvisible() ? "\<C-p>" : "\<Up>"
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -754,12 +754,12 @@ nnoremap [[ []
 nnoremap ]] ][
 nnoremap <C-H> ^
 vnoremap <C-H> ^
-nnoremap <C-L> g_
-vnoremap <C-L> g_
-nnoremap <silent> <C-j> <c-d>
-nnoremap <silent> <C-k> <c-u>
-vnoremap <silent> <C-j> <c-d>
-vnoremap <silent> <C-k> <c-u>
+nnoremap <Right> g_
+vnoremap <Right> g_
+nnoremap <silent> <Down> <c-d>
+nnoremap <silent> <Up> <c-u>
+vnoremap <silent> <Down> <c-d>
+vnoremap <silent> <Up> <c-u>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Easy motion
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
