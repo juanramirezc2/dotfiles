@@ -11,7 +11,7 @@
   "repo": "https://github.com/Vonng/Capslock",
   "rules": [
     {
-      "description": "CapsLock to Control/Esc + vim arrows",
+      "description": "Custom modifications",
       "manipulators": [
         {
           "description": "capslock = esc(click) | hyper(hold)",
@@ -24,7 +24,7 @@
           },
           "to": [
             {
-              "key_code": "right_control"
+              "key_code": "left_control"
             }
           ],
           "to_if_alone": [
@@ -43,7 +43,7 @@
             "key_code": "escape",
             "modifiers": {
               "optional": ["caps_lock"],
-              "mandatory": ["right_control"]
+              "mandatory": ["left_control"]
             }
           },
           "to": [
@@ -59,7 +59,7 @@
           "from": {
             "key_code": "spacebar",
             "modifiers": {
-              "mandatory": ["right_control"]
+              "mandatory": ["left_control"]
             }
           },
           "to": [
@@ -71,9 +71,50 @@
         },
         {
           "from": {
+            "key_code": "return_or_enter",
+            "modifiers": {
+              "optional": ["any"]
+            }
+          },
+          "parameters": {
+            "basic": {
+              "to_if_alone_timeout_milliseconds": 500
+            }
+          },
+          "to": [
+            {
+              "key_code": "right_control"
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "return_or_enter"
+            }
+          ],
+          "type": "basic"
+        },
+        {
+          "description": "Change control+I to F6",
+          "from": {
+            "key_code": "l",
+            "modifiers": {
+              "mandatory": ["control"],
+              "optional": ["any"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "f6",
+              "modifiers": ["fn"]
+            }
+          ],
+          "type": "basic"
+        },
+        {
+          "from": {
             "key_code": "h",
             "modifiers": {
-              "mandatory": ["right_control"],
+              "mandatory": ["left_control"],
               "optional": ["any"]
             }
           },
@@ -88,7 +129,7 @@
           "from": {
             "key_code": "j",
             "modifiers": {
-              "mandatory": ["right_control"],
+              "mandatory": ["left_control"],
               "optional": ["any"]
             }
           },
@@ -103,7 +144,7 @@
           "from": {
             "key_code": "k",
             "modifiers": {
-              "mandatory": ["right_control"],
+              "mandatory": ["left_control"],
               "optional": ["any"]
             }
           },
@@ -118,7 +159,7 @@
           "from": {
             "key_code": "l",
             "modifiers": {
-              "mandatory": ["right_control"],
+              "mandatory": ["left_control"],
               "optional": ["any"]
             }
           },
@@ -128,6 +169,27 @@
             }
           ],
           "type": "basic"
+        },
+        {
+          "type": "basic",
+          "from": {
+            "simultaneous": [
+              {
+                "key_code": "equal_sign"
+              },
+              {
+                "key_code": "delete_or_backspace"
+              }
+            ],
+            "modifiers": {
+              "optional": ["any"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "delete_forward"
+            }
+          ]
         }
       ]
     }
