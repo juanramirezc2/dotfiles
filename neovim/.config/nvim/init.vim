@@ -752,8 +752,8 @@ let test#strategy = {
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap [[ []
 nnoremap ]] ][
-nnoremap <C-H> ^
-vnoremap <C-H> ^
+nnoremap <Left> ^
+vnoremap <Left> ^
 nnoremap <Right> g_
 vnoremap <Right> g_
 nnoremap <silent> <Down> <c-d>

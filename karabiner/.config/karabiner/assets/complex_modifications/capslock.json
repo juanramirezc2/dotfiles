@@ -96,23 +96,6 @@
           "type": "basic"
         },
         {
-          "description": "Change control+I to F6",
-          "from": {
-            "key_code": "l",
-            "modifiers": {
-              "mandatory": ["control"],
-              "optional": ["any"]
-            }
-          },
-          "to": [
-            {
-              "key_code": "f6",
-              "modifiers": ["fn"]
-            }
-          ],
-          "type": "basic"
-        },
-        {
           "from": {
             "key_code": "h",
             "modifiers": {
