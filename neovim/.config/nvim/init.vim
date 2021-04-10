@@ -385,11 +385,11 @@ function! s:denite_filter_my_settings() abort
   imap <silent><buffer> <C-o> <Plug>(denite_filter_update)
   inoremap <silent><buffer><expr> <Right> denite#do_map('do_action')
   inoremap <silent><buffer><expr> <CR> denite#do_map('do_action')
-  inoremap <silent><buffer> <Down> <Esc>
+  inoremap <silent><buffer> <C-j> <Esc>
         \:call denite#move_to_parent()<CR>
         \:call cursor(line('.')+1,0)<CR>
         \:call denite#move_to_filter()<CR>A
-  inoremap <silent><buffer> <Up> <Esc>
+  inoremap <silent><buffer> <C-k> <Esc>
 	        \:call denite#move_to_parent()<CR>
 	        \:call cursor(line('.')-1,0)<CR>
 	        \:call denite#move_to_filter()<CR>A
@@ -465,14 +465,14 @@ let g:coc_snippet_next = '<Right>'
 let g:coc_snippet_prev = '<Left>'
 " Use <Right> for trigger snippet expand.
 "imap <Right> <Plug>(coc-snippets-expand)
-" Use <Down> for select text for visual placeholder of snippet.
+" Use <C-j> for select text for visual placeholder of snippet.
 xmap <Tab> <Plug>(coc-snippets-select)
 "vmap <C-g> <Plug>(coc-snippets-select)
 " Use <leader>x for convert visual selected code to snippet
 xmap <leader>x  <Plug>(coc-convert-snippet)
 
-inoremap <expr><Down> pumvisible() ? "\<C-n>" : "\<Down>"
-inoremap <expr><Up> pumvisible() ? "\<C-p>" : "\<Up>"
+inoremap <expr><C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
+inoremap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -740,7 +740,7 @@ nnoremap <leader>tv :call <SID>RunVimTest('TestVisit')<cr>
 
 "testing strategies
 let test#strategy = {
-  \ 'nearest': 'neovim',
+  \ 'nearest': 'vimux',
   \ 'file':    'neovim',
   \ 'suite':   'neovim',
 \}
@@ -752,14 +752,14 @@ let test#strategy = {
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap [[ []
 nnoremap ]] ][
-nnoremap <Left> ^
-vnoremap <Left> ^
-nnoremap <Right> g_
-vnoremap <Right> g_
-nnoremap <silent> <Down> <c-d>
-nnoremap <silent> <Up> <c-u>
-vnoremap <silent> <Down> <c-d>
-vnoremap <silent> <Up> <c-u>
+nnoremap <C-h> ^
+vnoremap <C-h> ^
+nnoremap <C-l> g_
+vnoremap <C-l> g_
+nnoremap <silent> <C-j> <c-d>
+nnoremap <silent> <C-k> <c-u>
+vnoremap <silent> <C-j> <c-d>
+vnoremap <silent> <C-k> <c-u>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Easy motion
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

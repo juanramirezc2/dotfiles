@@ -16,9 +16,10 @@ Plug 'alvan/vim-closetag' "Auto close (X)HTML tags
 Plug 'machakann/vim-sandwich' "surround plugin
 Plug 'andymass/vim-matchup' "jumping between opening and closing symbols
 Plug 'vim-test/vim-test' "test runner
-"Plug 'jiangmiao/auto-pairs'  " automaticamente cierra comillas o llaves
-Plug 'tmsvg/pear-tree' "same as above but just a try
+Plug 'jiangmiao/auto-pairs'  " automaticamente cierra comillas o llaves
 "}}}
+" Control Tmux from within vim
+Plug 'preservim/vimux'
 "GUI customization
 Plug 'Valloric/MatchTagAlways' "highlight tags for easy html
 Plug 'Yggdroot/indentLine'
@@ -66,12 +67,10 @@ Plug 'vimwiki/vimwiki'  "VimWiki is a personal wiki for Vim -- a number of linke
 Plug 'easymotion/vim-easymotion'
 "file icons
 "Plug 'ryanoasis/vim-devicons'  " vim will become visual studio
-"Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 " key mappings
 Plug 'tpope/vim-unimpaired'  "Pairs of handy bracket mappings
 " others
-Plug 'mcchrish/extend-highlight.vim' "extend hightlighting groups
-Plug 'mbbill/undotree' "Undo tree
 Plug 'chaoren/vim-wordmotion' "Word motion
 Plug 'rhysd/clever-f.vim' "Clever F
 "themes
