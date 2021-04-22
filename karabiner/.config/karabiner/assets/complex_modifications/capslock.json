@@ -55,22 +55,6 @@
           ]
         },
         {
-          "description": "command + spacebar = emoji",
-          "type": "basic",
-          "from": {
-            "key_code": "spacebar",
-            "modifiers": {
-              "mandatory": ["left_control"]
-            }
-          },
-          "to": [
-            {
-              "key_code": "spacebar",
-              "modifiers": ["left_control", "left_command"]
-            }
-          ]
-        },
-        {
           "from": {
             "key_code": "return_or_enter",
             "modifiers": {
