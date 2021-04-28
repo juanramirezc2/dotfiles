@@ -107,8 +107,8 @@ funcname lazygit() {
 export PATH="$PATH:$HOME/.rvm/bin"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
-export FZF_DEFAULT_COMMAND='ag -l --path-to-ignore $HOME/.ignore --nocolor --hidden -g ""'
+export FZF_DEFAULT_OPTS='--no-mouse --height 40% --layout=reverse --border'
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden'
 # To apply the command to CTRL-T as well
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # suppose you have installed fzf to ~/.fzf, change it to what suits you
@@ -128,3 +128,5 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 export PATH="/usr/local/opt/ruby/bin:$PATH"
+
+export PHP_ID=php7_3; export PATH="/Applications/DevDesktop/php7_3_x64/bin:/Applications/DevDesktop/mysql/bin:/Applications/DevDesktop/tools:$PATH"

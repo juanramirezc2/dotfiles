@@ -249,13 +249,22 @@ inoremap jk <Esc>
 " fugitive git mappings
 nnoremap <silent><leader>gs :Git<CR>
 nnoremap <leader>gp :Git push<CR>
-nnoremap <leader>gd :Gdiff<CR>
-nnoremap <leader>gw :Gwrite<CR>
+"nnoremap <leader>gd :Gdiff<CR>
+nnoremap <leader>gw :Gwrite!<CR>
 nnoremap <silent><leader>gr :Gread<CR>
 nnoremap <leader>ge :Gedit<CR>
 nnoremap <leader>gc :Gcommit -v -q<CR>
 nnoremap <leader>gre :Git rebase -i HEAD~6<CR>
-
+" Disable coc nvim on diffs
+augroup disableCocInDiff
+  autocmd!
+  autocmd DiffUpdated * let b:coc_enabled=0
+augroup END
+" Fugitive Conflict Resolution
+nnoremap <leader>gd :Gvdiffsplit!<CR>
+nnoremap gdh :diffget //2 <CR> 
+nnoremap gdl :diffget //3 <CR>
+"| diffupdate
 nmap <silent><leader>gb :Gblame<cr>
 
 " buscar en el documento lo que este visualmente seleccionado
