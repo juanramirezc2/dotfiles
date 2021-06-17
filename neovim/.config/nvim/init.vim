@@ -697,7 +697,7 @@ let NERDTreeQuitOnOpen=1
 let NERDTreeMinimalMenu = 1
 let g:NERDTreeWinPos = "right"
 let NERDTreeShowHidden=0
-let g:NERDTreeWinSize=35
+let g:NERDTreeWinSize=47
 map <leader>nn :NERDTreeToggle<cr>
 map <leader>nb :NERDTreeFromBookmark<Space>
 map <leader>nf :NERDTreeFind<cr>
