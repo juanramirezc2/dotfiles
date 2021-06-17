@@ -17,8 +17,14 @@ git clone https://github.com/neovim/neovim.git
 ```sh
 cd neovim
 ```
+if previously you built the execute 
+
+```sh
+make distclean
+```
 
 then build it into the OSX bins folder this builds the release version if you built previously remove`build`folder with
+
 
 ```sh
 rm -rf build
