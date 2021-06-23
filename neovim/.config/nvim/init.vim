@@ -247,6 +247,7 @@ let g:airline_skip_empty_sections = 1
 inoremap jk <Esc>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " fugitive git mappings
+let g:fugitive_pty = 0
 nnoremap <silent><leader>gs :Git<CR>
 nnoremap <leader>gp :Git push<CR>
 "nnoremap <leader>gd :Gdiff<CR>
