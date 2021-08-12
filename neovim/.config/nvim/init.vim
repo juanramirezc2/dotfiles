@@ -200,17 +200,16 @@ function SetItalics() abort
   call italics#AddItalicToGroup("Special")
   call italics#AddItalicToGroup("Comment")
   call italics#AddItalicToGroup("Keyword")
-  "call italics#AddItalicToGroup("Identifier")
+  call italics#AddItalicToGroup("Identifier")
   "call italics#AddItalicToGroup("StorageClass")
   "call italics#AddItalicToGroup("xmlAttrib")
   "call italics#AddItalicToGroup("htmlArg")
-
   "call italics#AddItalicToGroup("jsxAttrib")
   "call italics#AddItalicToGroup("tsxAttrib")
 endfunction
 
 
-autocmd ColorScheme * call SetItalics()
+"autocmd ColorScheme * call SetItalics()
 
 "Enable syntax highlighting and set colorscheme
 set background=light
@@ -694,11 +693,12 @@ autocmd FileType nerdtree setlocal nolist
 "let g:WebDevIconsNerdTreeAfterGlyphPadding = '  '
 " Remove bookmarks and help text from NERDTree
 let g:NERDTreeMinimalUI = 1
-let NERDTreeQuitOnOpen=1
+" Close nerd tree on file open
+"let NERDTreeQuitOnOpen=1
 let NERDTreeMinimalMenu = 1
 let g:NERDTreeWinPos = "right"
 let NERDTreeShowHidden=0
-let g:NERDTreeWinSize=47
+let g:NERDTreeWinSize=46
 map <leader>nn :NERDTreeToggle<cr>
 map <leader>nb :NERDTreeFromBookmark<Space>
 map <leader>nf :NERDTreeFind<cr>

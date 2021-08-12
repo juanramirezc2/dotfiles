@@ -64,7 +64,7 @@ source ~/.zsh/z/z.sh
 # installed with git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh/zsh-syntax-highlighting
 #source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 #}}}
-
+export EDITOR=$(which nvim)
 # aliases
 alias zshconfig="nvim ~/.zshrc"
 alias record="asciinema rec"
@@ -129,3 +129,4 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 export PATH="/usr/local/opt/ruby/bin:$PATH"
 
 export PHP_ID=php7_3; export PATH="/Applications/DevDesktop/php7_3_x64/bin:/Applications/DevDesktop/mysql/bin:/Applications/DevDesktop/tools:$PATH"
+eval "$(pyenv init -)"

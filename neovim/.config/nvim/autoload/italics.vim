@@ -14,10 +14,10 @@ function italics#AddItalicToGroup(group)
       redir END
     endwhile
 
+    echom GroupDetails
     " Extract the highlighting details (the bit after "xxx")
     let MatchGroups = matchlist(GroupDetails, '\<xxx\>\s\+\(.*\)')
     let ExistingHighlight = MatchGroups[1]
-
     " Check whether there's an existing gui= block
     let MatchGroups = matchlist(ExistingHighlight, '^\(.\{-}\) gui=\([^ ]\+\)\( .\{-}\)\?$')
     if MatchGroups != []
