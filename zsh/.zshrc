@@ -116,12 +116,13 @@ e() {fzf | xargs -I % $EDITOR % ;}
  zle -N e{,}
  bindkey "^h" e
  # pyenv added to the path
- export PYENV_ROOT="$HOME/.pyenv"
- export PATH="$PYENV_ROOT/bin:$PATH"
-## enable pyenv auto completion for managing python versions
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
+export PATH="$HOME/.pyenv/bin:$PATH"
+export PATH="/usr/local/bin:$PATH"
+
+eval "$(pyenv init -)"
+export LDFLAGS="-L/usr/local/opt/zlib/lib -L/usr/local/opt/bzip2/lib"
+export CPPFLAGS="-I/usr/local/opt/zlib/include -I/usr/local/opt/bzip2/include"
+
 # NVM for managing node versions
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
@@ -129,4 +130,3 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 export PATH="/usr/local/opt/ruby/bin:$PATH"
 
 export PHP_ID=php7_3; export PATH="/Applications/DevDesktop/php7_3_x64/bin:/Applications/DevDesktop/mysql/bin:/Applications/DevDesktop/tools:$PATH"
-eval "$(pyenv init -)"
