@@ -9,7 +9,6 @@ call plug#begin('~/.vim/plugged')
 Plug 'mhinz/vim-startify' "bellisima y magnifica primera pantalla para vim
 "Code helpers {{{
 " Or build from source code by using yarn: https://yarnpkg.com
-Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': ':CocInstall'}
 Plug 'jceb/vim-orgmode' "Org mode in vim
 Plug 'scrooloose/nerdcommenter' " comment lines of code using this plugin
 Plug 'alvan/vim-closetag' "Auto close (X)HTML tags
@@ -35,17 +34,11 @@ Plug 'rhysd/git-messenger.vim'  "Neovim plugin to reveal the commit messages und
 Plug 'tpope/vim-fugitive'  " git on vim
 Plug 'xuyuanp/nerdtree-git-plugin'  "nerd tree git status
 "syntax highlighting files {{{
-Plug 'maxmellon/vim-jsx-pretty'
-Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
-" colorize hexa
-Plug 'norcalli/nvim-colorizer.lua'
 " Code Comments
 Plug 'heavenshell/vim-jsdoc', { 
   \ 'for': ['javascript', 'javascript.jsx','typescript'], 
   \ 'do': 'make install'
 \}
-" markdown
-Plug 'tpope/vim-markdown', { 'for': 'markdown' }
 "}}}
 " ultisnips snippets
 Plug 'honza/vim-snippets'
@@ -55,24 +48,24 @@ Plug 'michaeljsmith/vim-indent-object'  " blocks of indentation as vim text obje
 Plug 'wellle/targets.vim'  "Vim plugin that provides additional text objects
 Plug 'kana/vim-textobj-line'  "Text objects for the current line
 Plug 'kana/vim-textobj-entire'  "entire file as vim object
-" other plugins
-Plug 'rizzatti/dash.vim' " Dash plugin for ofline documentation
-" dims inactive splits
-"Plug 'blueyed/vim-diminactive'
-Plug 'luochen1990/rainbow' "Rainbow Parentheses Improved, shorter code, no level limit, smooth
 Plug 'jlanzarotta/bufexplorer'
 Plug 'maxbrunsfeld/vim-yankstack' "A lightweight implementation of emacs's kill-ring for vim
-Plug 'vimwiki/vimwiki'  "VimWiki is a personal wiki for Vim -- a number of linked text files that have their own syntax highlighting.
 " moving around
 Plug 'easymotion/vim-easymotion'
 "file icons
-"Plug 'ryanoasis/vim-devicons'  " vim will become visual studio
+Plug 'ryanoasis/vim-devicons'  " vim will become visual studio
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 " key mappings
 Plug 'tpope/vim-unimpaired'  "Pairs of handy bracket mappings
 " others
 Plug 'chaoren/vim-wordmotion' "Word motion
 Plug 'rhysd/clever-f.vim' "Clever F
+"LSP config 
+Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 "themes
 Plug 'morhetz/gruvbox'
 Plug 'chriskempson/base16-vim'
