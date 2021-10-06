@@ -9,7 +9,6 @@ call plug#begin('~/.vim/plugged')
 Plug 'mhinz/vim-startify' "bellisima y magnifica primera pantalla para vim
 "Code helpers {{{
 " Or build from source code by using yarn: https://yarnpkg.com
-Plug 'jceb/vim-orgmode' "Org mode in vim
 Plug 'scrooloose/nerdcommenter' " comment lines of code using this plugin
 Plug 'alvan/vim-closetag' "Auto close (X)HTML tags
 Plug 'machakann/vim-sandwich' "surround plugin
@@ -34,20 +33,8 @@ Plug 'rhysd/git-messenger.vim'  "Neovim plugin to reveal the commit messages und
 Plug 'tpope/vim-fugitive'  " git on vim
 Plug 'xuyuanp/nerdtree-git-plugin'  "nerd tree git status
 "syntax highlighting files {{{
-" Code Comments
-Plug 'heavenshell/vim-jsdoc', { 
-  \ 'for': ['javascript', 'javascript.jsx','typescript'], 
-  \ 'do': 'make install'
-\}
-"}}}
-" ultisnips snippets
-Plug 'honza/vim-snippets'
 "Custom vim Text Objects
 Plug 'kana/vim-textobj-user'  "vim-textobj-user - Create your own text objects for vim in an easy way
-Plug 'michaeljsmith/vim-indent-object'  " blocks of indentation as vim text objects
-Plug 'wellle/targets.vim'  "Vim plugin that provides additional text objects
-Plug 'kana/vim-textobj-line'  "Text objects for the current line
-Plug 'kana/vim-textobj-entire'  "entire file as vim object
 Plug 'jlanzarotta/bufexplorer'
 Plug 'maxbrunsfeld/vim-yankstack' "A lightweight implementation of emacs's kill-ring for vim
 " moving around
@@ -65,7 +52,14 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/nvim-cmp'
+" For vsnip user.
+Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/vim-vsnip'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+" post install (yarn install | npm install) then load plugin only for editing supported files
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+
 "themes
 Plug 'morhetz/gruvbox'
 Plug 'chriskempson/base16-vim'
