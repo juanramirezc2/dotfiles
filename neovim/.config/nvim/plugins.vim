@@ -20,8 +20,6 @@ Plug 'jiangmiao/auto-pairs'  " automaticamente cierra comillas o llaves
 "GUI customization
 Plug 'Valloric/MatchTagAlways' "highlight tags for easy html
 Plug 'Yggdroot/indentLine'
-Plug 'vim-airline/vim-airline' " indent guides lines let's see how they goes
-Plug 'vim-airline/vim-airline-themes'  " indent guides lines let's see how they goes
 "File browsers
 Plug 'tpope/vim-projectionist' ""
 "Git helpers
@@ -56,6 +54,8 @@ Plug 'nvim-telescope/telescope.nvim'
 "file icons
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'kyazdani42/nvim-tree.lua'
+"lua line
+Plug 'hoob3rt/lualine.nvim'
 "themes
 Plug 'morhetz/gruvbox'
 Plug 'chriskempson/base16-vim'

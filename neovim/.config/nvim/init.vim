@@ -228,20 +228,9 @@ map k gk
 " abrir vim.init en un ventana nueva love it
 nnoremap <leader>vr :e $MYVIMRC<CR>
 
-" vim-airline ---------------------------------------------------------------{{{
-" terminal emulator exit
-let g:airline_extensions = ['branch','tabline']
-" configuracion para airline
-let g:airline#extensions#tabline#show_buffers = 0
-let g:airline_statusline_ontop = 0 "no necesito mostrar el status line en la parte de arriba
-let g:airline#extensions#tabline#show_close_button = 0  " no necesito mostrar el boton de cerrar tab en la parte de arriba
-let g:airline#extensions#tabline#show_splits = 0
-let g:airline#extensions#tabline#fnamemod = ':t'  " Mostrar sólo el nombre del archivo
-let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]' "solo muestra encoding si es diferente de utf-8
-let g:airline_section_y = "%{fnamemodify(getcwd(), ':t')}"
-let g:airline_section_c = '%t' "filename only in bottom part
-let g:airline#extensions#tabline#formatter = 'unique_tail'
-let g:airline_skip_empty_sections = 1
+"----------------------- vim-lualine -----------------------------------------{{{
+
+"let g:airline_section_y = "%{fnamemodify(getcwd(), ':t')}"
 " escaping normal mode
 inoremap jk <Esc>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
