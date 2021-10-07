@@ -53,7 +53,7 @@ endif
 set nobackup
 set noswapfile
 " split new panels down and below
-" Denite split wrong here
+"  split wrong here
 set splitbelow
 set splitright
 
@@ -230,7 +230,7 @@ nnoremap <leader>vr :e $MYVIMRC<CR>
 
 " vim-airline ---------------------------------------------------------------{{{
 " terminal emulator exit
-let g:airline_extensions = ['branch','denite','tabline']
+let g:airline_extensions = ['branch','tabline']
 " configuracion para airline
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline_statusline_ontop = 0 "no necesito mostrar el status line en la parte de arriba
@@ -304,129 +304,6 @@ set inccommand=nosplit
 " clear search with shift+enter
 nnoremap <silent><leader><CR> :noh<CR>
 
-" ==== denite custom matcher ========""
-"" optional - but recommended - see below
-nnoremap <leader>; :Denite buffer<CR>
-nmap     <leader>p :Denite -start-filter file/rec:.<CR>
-nmap     <leader>me :Denite  menu<CR>
-nnoremap <leader>/ :<C-u>Denite -no-empty -auto-action='preview' grep:.<CR>
-vnoremap <leader>/ y:<C-u>Denite -no-empty  grep:.::<C-R>=fnameescape(@")<CR><CR>
-nnoremap <leader>/w :<C-u>DeniteCursorWord grep:.<CR>
-nmap     <leader>mr :Denite file_mru<CR>
-nnoremap <leader>dp :Denite -resume -cursor-pos=-1 -immediately<CR>
-nnoremap <leader>dn :Denite -resume -cursor-pos=+1 -immediately<CR>
-nnoremap <leader>dl :Denite -resume -do='normal! A;'<CR>
-nmap     <leader>sc :Denite -auto-action='preview' colorscheme<CR>
-
-" Add custom menus
-let s:menus = {}
-
-let s:menus.dotfiles = {
-      \ 'description': 'Edit your dotfiles'
-      \ }
-let s:menus.dotfiles.file_candidates = [
-      \ ['zshrc', '~/.zshrc'],
-      \ ['zshenv', '~/.zshenv'],
-      \ ['kitty', '~/.config/kitty/kitty.conf'],
-      \ ]
-
-let s:menus.my_commands = {
-      \ 'description': 'Example commands'
-      \ }
-let s:menus.my_commands.command_candidates = [
-      \ ['Split the window', 'vnew'],
-      \ ['Open zsh menu', 'Denite menu:zsh'],
-      \ ['Format code', 'FormatCode', 'go,python'],
-      \ ]
-
-" Note: rg is faster than ag
-call denite#custom#var('file/rec', 'command',
-      \ ['rg', '--files', '--glob', '!.git', '--color', 'never'])
-
-" Ripgrep command on grep source
-call denite#custom#var('grep', {
-      \ 'command': ['rg'],
-      \ 'default_opts': ['-i', '--vimgrep', '--no-heading'],
-      \ 'recursive_opts': [],
-      \ 'pattern_opt': ['--regexp'],
-      \ 'separator': ['--'],
-      \ 'final_opts': [],
-      \ })
-
-call denite#custom#var('menu', 'menus', s:menus)
-
-" Change matchers.
-call denite#custom#source('file_mru', 'matchers', ['matcher/fuzzy', 'matcher/project_files'])
-"call denite#custom#source('file/rec', 'matchers', ['matcher/cpsm'])  "Explore vim Clap
-"
-"Change sorters.
-call denite#custom#source('file/rec', 'sorters', ['sorter/sublime'])
-
-"call denite#custom#source('file/rec', 'matchers', ['converter/tail_path'])
-
-" Remove date from buffer list
-call denite#custom#var('buffer', {
-      \ 'date_format': 'buffer',
-      \ 'exclude_unlisted': '0'
-      \})
-
-" Denite mappings quickfix panel action
-autocmd FileType denite call s:denite_my_settings()
-function! s:denite_my_settings() abort
-  nnoremap <silent><buffer><expr> <CR> denite#do_map('do_action')
-  nnoremap <silent><buffer><expr> l denite#do_map('do_action')
-  nnoremap <silent><buffer><expr> d denite#do_map('do_action', 'delete')
-  nnoremap <silent><buffer><expr> p denite#do_map('do_action', 'preview')
-  nnoremap <silent><buffer><expr> s denite#do_map('do_action', 'vsplit')
-  nnoremap <silent><buffer><expr> t denite#do_map('do_action', 'tabopen')
-  nnoremap <silent><buffer><expr> q denite#do_map('quit')
-  nnoremap <silent><buffer><expr> i denite#do_map('open_filter_buffer')
-  nnoremap <silent><buffer><expr> <Space> denite#do_map('toggle_select').'j'
-endfunction
-autocmd FileType denite-filter call s:denite_filter_my_settings()
-
-function! s:denite_filter_my_settings() abort
-  imap <silent><buffer> <C-o> <Plug>(denite_filter_update)
-  inoremap <silent><buffer><expr> <Right> denite#do_map('do_action')
-  inoremap <silent><buffer><expr> <CR> denite#do_map('do_action')
-  inoremap <silent><buffer> <C-j> <Esc>
-        \:call denite#move_to_parent()<CR>
-        \:call cursor(line('.')+1,0)<CR>
-        \:call denite#move_to_filter()<CR>A
-  inoremap <silent><buffer> <C-k> <Esc>
-	        \:call denite#move_to_parent()<CR>
-	        \:call cursor(line('.')-1,0)<CR>
-	        \:call denite#move_to_filter()<CR>A
-endfunction
-
-call denite#custom#option('default', {
-      \ 'match_highlight': 1,
-      \ 'smartcase': 1,
-      \ 'auto_resize': 1,
-      \ 'prompt': 'λ:',
-      \ 'expand': 1,
-      \ 'highlight_filter_background': 'TermCursor',
-      \ 'prompt_highlight': 'Function',
-      \ 'highlight_matched_char': 'Function',
-      \ 'highlight_matched_range': 'Function',
-      \ })
-
-      "\ 'winminheight': 10
-      "\ 'direction': 'dynamicbottom',
-      "\ 'split': 'no',
-      "\ 'vertical_preview': 1,
-      "\ 'floating_preview': 1,
-      "\ 'preview_width': 60,
-      "\ 'auto_action': 'preview',
-      "\ 'auto_resize': 1,
-      "\ 'source_names': 'short',
-      "\ 'auto_action': 'preview',
-      "\ 'wincol': &columns / 16 ,
-      "\ 'winwidth': &columns * 14/16,
-
-" Vim-Devicons --------------------------------------------------------------{{{
-let g:NERDTreeGitStatusNodeColorization = 1
-let g:webdevicons_enable_denite = 1
 
 "see actual registers
 nnoremap <leader>re :registers<CR>
@@ -448,7 +325,6 @@ function! StripWhitespace()
 	call setreg('/', old_query)
 endfunction
 noremap <leader>ss :call StripWhitespace()<CR>
-autocmd TabLeave *NERD_tree* :wincmd w
 
 " ====== vim wiki ========{{{
 let g:vimwiki_list = [{'path': '$HOME/Library/Mobile\ Documents/com~apple~CloudDocs/wiki', 'syntax': 'markdown','ext': '.md'}]
@@ -484,29 +360,6 @@ nmap <leader>ya :Yanks<CR>
 
 "Switch to alternative buffer
 nnoremap <leader><tab> <C-^>;
-""Nerd Tree ---------------------------------------------------------------------{{{
-" Close Nerdtree if is the only window left
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-" NerdTree Refresh Root crashes with my <S-R> command for moving between tags
-let NERDTreeMapRefreshRoot='r'
-let NERDTreeMapActivateNode='l'
-let NERDTreeMapCloseDir='h'
-let NERDTreeMapCloseChildren='H'
-" icons looking weird in nerdtree this might fix it
-autocmd FileType nerdtree setlocal nolist
-"let g:WebDevIconsNerdTreeAfterGlyphPadding = '  '
-" Remove bookmarks and help text from NERDTree
-let g:NERDTreeMinimalUI = 1
-" Close nerd tree on file open
-"let NERDTreeQuitOnOpen=1
-let NERDTreeMinimalMenu = 1
-let g:NERDTreeWinPos = "right"
-let NERDTreeShowHidden=0
-let g:NERDTreeWinSize=46
-map <leader>nn :NERDTreeToggle<cr>
-map <leader>nb :NERDTreeFromBookmark<Space>
-map <leader>nf :NERDTreeFind<cr>
-"}}}
 "Match Tags Always
 let g:mta_filetypes = {
     \ 'html' : 1,
@@ -757,3 +610,25 @@ set signcolumn=number
 let g:prettier#quickfix_enabled = 0
 
 autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.svelte,*.yaml,*.html PrettierAsync
+"----------------------- telescope nvim ----------------
+" Find files using Telescope command-line sugar.
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+" Using Lua functions
+nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
+nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
+nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
+nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+"----------------------- nvim-tree.lua ------------------
+nnoremap <leader>nn :NvimTreeToggle<CR>
+nnoremap <leader>r :NvimTreeRefresh<CR>
+nnoremap <leader>nf :NvimTreeFindFile<CR>
+" NvimTreeOpen, NvimTreeClose, NvimTreeFocus and NvimTreeResize are also available if you need them
+
+set termguicolors " this variable must be enabled for colors to be applied properly
+
+" a list of groups can be found at `:help nvim_tree_highlight`
+"highlight NvimTreeFolderIcon guibg=blue

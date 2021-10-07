@@ -17,21 +17,16 @@ Plug 'vim-test/vim-test' "test runner
 Plug 'jiangmiao/auto-pairs'  " automaticamente cierra comillas o llaves
 "}}}
 " Control Tmux from within vim
-Plug 'preservim/vimux'
 "GUI customization
 Plug 'Valloric/MatchTagAlways' "highlight tags for easy html
 Plug 'Yggdroot/indentLine'
 Plug 'vim-airline/vim-airline' " indent guides lines let's see how they goes
 Plug 'vim-airline/vim-airline-themes'  " indent guides lines let's see how they goes
 "File browsers
-Plug 'preservim/nerdtree'  "file browsing panel
-Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }  "Denite is a dark powered plugin for Neovim/Vim to unite all interfaces.
-Plug 'Shougo/neomru.vim' " MRU plugin includes unite.vim/denite.nvim MRU sources Most Recent Used
 Plug 'tpope/vim-projectionist' ""
 "Git helpers
 Plug 'rhysd/git-messenger.vim'  "Neovim plugin to reveal the commit messages under the cursor
 Plug 'tpope/vim-fugitive'  " git on vim
-Plug 'xuyuanp/nerdtree-git-plugin'  "nerd tree git status
 "syntax highlighting files {{{
 "Custom vim Text Objects
 Plug 'kana/vim-textobj-user'  "vim-textobj-user - Create your own text objects for vim in an easy way
@@ -39,9 +34,6 @@ Plug 'jlanzarotta/bufexplorer'
 Plug 'maxbrunsfeld/vim-yankstack' "A lightweight implementation of emacs's kill-ring for vim
 " moving around
 Plug 'easymotion/vim-easymotion'
-"file icons
-Plug 'ryanoasis/vim-devicons'  " vim will become visual studio
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 " key mappings
 Plug 'tpope/vim-unimpaired'  "Pairs of handy bracket mappings
 " others
@@ -59,7 +51,11 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend upda
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 " post install (yarn install | npm install) then load plugin only for editing supported files
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
-
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+"file icons
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'kyazdani42/nvim-tree.lua'
 "themes
 Plug 'morhetz/gruvbox'
 Plug 'chriskempson/base16-vim'
