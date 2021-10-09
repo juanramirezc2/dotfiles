@@ -83,6 +83,7 @@ alias ga='git add'
 alias gp='git push'
 alias ls='ls -FHG'
 alias n='nvim'
+alias luamake= "$PATH:$HOME/.code/lua-language-server/3rd/luamake/luamake" 
 # change cwd on ranger exit
 export RANGER_LOAD_DEFAULT_RC=false
 export LANG="en_US.UTF-8"
@@ -131,4 +132,3 @@ export PATH="/usr/local/opt/ruby/bin:$PATH"
 
 export PHP_ID=php7_3; export PATH="/Applications/DevDesktop/php7_3_x64/bin:/Applications/DevDesktop/mysql/bin:/Applications/DevDesktop/tools:$PATH"
 
-alias luamake= "$HOME/.code/lua-language-server/3rd/luamake/luamake" 
