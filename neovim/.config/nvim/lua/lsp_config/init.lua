@@ -1,5 +1,6 @@
 -- General 
 --Decrease update time
+vim.o.foldlevelstart = 4
 vim.o.updatetime = 250
 vim.wo.signcolumn = 'yes'
 -- Setup nvim-cmp.

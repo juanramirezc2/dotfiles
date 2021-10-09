@@ -38,9 +38,6 @@ set autoread
 " Line numbers
 set number
 "FOLDING SETTINGS======================={{{
-" Add a bit extra margin to the left
-set foldmethod=indent               " not as cool as syntax, but faster
-set foldlevelstart=4               " start unfolded
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
