@@ -585,15 +585,7 @@ nnoremap <Leader>ec :Ecomponent<Space>
 nnoremap <Leader>es :Estylesheet<Space>
 nnoremap <leader>et :Etest<Space>
 "-------------------------LUA VIMRC-------------------------------{{
-set completeopt=menu,menuone,noselect
 lua require("lsp_config")
-" vim will jump if a diagnostic is shown to the left of line numbers
-set signcolumn=number
-"" auto-format
-"call sign_define('LspDiagnosticsErrorSign',       {'text': '・'})
-"call sign_define('LspDiagnosticsWarningSign',     {'text': '・'})
-"call sign_define('LspDiagnosticsInformationSign', {'text': '・'})
-"call sign_define('LspDiagnosticsHintSign',        {'text': '・'})
 "--------------------------vim prettier -------------------- {{
 " when running at every change you may want to disable quickfix
 let g:prettier#quickfix_enabled = 0
@@ -605,12 +597,6 @@ nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-
-" Using Lua functions
-nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
-nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
-nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
-nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
 "----------------------- nvim-tree.lua ------------------
 nnoremap <leader>nn :NvimTreeToggle<CR>
 nnoremap <leader>r :NvimTreeRefresh<CR>

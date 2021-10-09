@@ -1,6 +1,6 @@
 # gitconfig
 [user]
-	name = juan gabriel ramirez
+	name = "Juan Ramirez "
 	email = tuxgabo@gmail.com
 	username = juangabrielr4
 [alias]
@@ -30,3 +30,8 @@
     pager = less -FXRS -x2
     editor = nvim
     whitespace = cr-at-eol
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f

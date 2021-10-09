@@ -18,7 +18,7 @@ Plug 'jiangmiao/auto-pairs'  " automaticamente cierra comillas o llaves
 "}}}
 " Control Tmux from within vim
 "GUI customization
-Plug 'Valloric/MatchTagAlways' "highlight tags for easy html
+"Plug 'Valloric/MatchTagAlways' "highlight tags for easy html
 Plug 'Yggdroot/indentLine'
 "File browsers
 Plug 'tpope/vim-projectionist' ""
@@ -27,11 +27,8 @@ Plug 'rhysd/git-messenger.vim'  "Neovim plugin to reveal the commit messages und
 Plug 'tpope/vim-fugitive'  " git on vim
 "syntax highlighting files {{{
 "Custom vim Text Objects
-Plug 'kana/vim-textobj-user'  "vim-textobj-user - Create your own text objects for vim in an easy way
 Plug 'jlanzarotta/bufexplorer'
 Plug 'maxbrunsfeld/vim-yankstack' "A lightweight implementation of emacs's kill-ring for vim
-" moving around
-Plug 'easymotion/vim-easymotion'
 " key mappings
 Plug 'tpope/vim-unimpaired'  "Pairs of handy bracket mappings
 " others
@@ -45,9 +42,12 @@ Plug 'hrsh7th/nvim-cmp'
 " For vsnip user.
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
+" For ultisnips user.
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets' "vim-snippets
+Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
-" post install (yarn install | npm install) then load plugin only for editing supported files
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
@@ -56,6 +56,10 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'kyazdani42/nvim-tree.lua'
 "lua line
 Plug 'hoob3rt/lualine.nvim'
+"highlight yanked text
+Plug 'machakann/vim-highlightedyank'
+" A light-weight lsp plugin based on neovim built-in lsp with highly a performant UI.
+"Plug 'glepnir/lspsaga.nvim'
 "themes
 Plug 'morhetz/gruvbox'
 Plug 'chriskempson/base16-vim'

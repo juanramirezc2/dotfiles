@@ -130,3 +130,5 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 export PATH="/usr/local/opt/ruby/bin:$PATH"
 
 export PHP_ID=php7_3; export PATH="/Applications/DevDesktop/php7_3_x64/bin:/Applications/DevDesktop/mysql/bin:/Applications/DevDesktop/tools:$PATH"
+
+alias luamake= "$HOME/.code/lua-language-server/3rd/luamake/luamake" 
