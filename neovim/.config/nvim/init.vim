@@ -8,7 +8,6 @@ source ~/.config/nvim/plugins.vim
 set laststatus=2
 set hidden
 set showcmd " show incomplete commands
-set title " set terminal title
 set nowrap
 
 " Don’t add empty newlines at the end of files
@@ -23,12 +22,10 @@ set tw=500
 
 set ai "Auto indent
 set si "Smart indent
-set wrap "Wrap lines
 " Turn on the Wild menu
 set wildmenu
 " i'm not agains the mouse, enable it in all modes
 set mouse=a
-set noshowmode "don't show --INSERT--
 set noruler "don't show line numbers/column/% junk
 " Show “invisible” characters
 set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_
@@ -49,10 +46,6 @@ endif
 " Turn backup off, since most stuff is in SVN, git etc. anyway...
 set nobackup
 set noswapfile
-" split new panels down and below
-"  split wrong here
-set splitbelow
-set splitright
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set 7 lines to the cursor - when moving vertically using j/k
@@ -66,27 +59,15 @@ set smarttab
 "Number of spaces to use for a <Tab> during editing operations
 set shiftwidth=2
 set softtabstop=2
-" vim wiki requirement
-set nocompatible
 " tema y apariencia
-set termguicolors  " Activa true colors en la terminal
 "it seems that powerline fonts need this
-set t_Co=256
 set noshowmode  " No mostrar el modo actual (ya lo muestra la barra de estado)
-
-" guicolors styles for every mode
-set termguicolors
 set cursorline        " highlight current line
-"set cursorcolumn      " highlight current column
-set guicursor=n-v-c:block-Cursor/lCursor,i-ci-ve:ver25-Cursor2/lCursor2,r-cr:hor20,o:hor50
-
+set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
+		  \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
+		  \,sm:block-blinkwait175-blinkoff150-blinkon175
 " highlight conflicts
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
-
-" Vim >=8.0 or Neovim >= 0.1.5
-if (has("termguicolors"))
-  set termguicolors
-endif
 " set a map leader for more key combos
 let mapleader = " "
 let maplocalleader= ";"
@@ -94,11 +75,6 @@ let maplocalleader= ";"
 autocmd TermOpen * setlocal nonumber norelativenumber
 " Enable filetype plugins
 filetype plugin indent on
-" Avoid garbled characters in Chinese language windows OS
-let $LANG='en'
-set langmenu=en
-source $VIMRUNTIME/delmenu.vim
-source $VIMRUNTIME/menu.vim
 "Always show current position
 set ruler
 " Configure backspace so it acts as it should act
@@ -110,7 +86,6 @@ set magic
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs, windows and buffers
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 "" Close the current buffer
 map <leader>bd :Bclose<cr>
 
@@ -128,13 +103,8 @@ nnoremap <leader>v "*p
 vnoremap <C-x> "+d
 nnoremap <C-x> "+d
 
-" draw less
-set lazyredraw
-
-if has('nvim')
-  tnoremap jk <C-\><C-n>
-  tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
-endif
+tnoremap jk <C-\><C-n>
+tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
 " open a new terminal  in aplit of the current tab
 noremap <leader>te :e term://zsh<CR>I
 noremap <leader>tes :12split term://zsh<CR>I
@@ -173,50 +143,12 @@ endfunction
 
 nmap <leader>ra :call RandomBase16()<CR>
 
-
-function SetCursor() abort
-  let s:is_dark=(&background == 'dark')
-  if s:is_dark
-    let bg  = ['#383838']
-  else
-    let bg  = ['#dbdbdb']
-  endif
-  let histring = [ 'hi', 'CursorLine',
-        \ 'guifg=' . 'NONE',
-        \ 'guibg=' . bg[0],
-        \ 'gui=' . 'NONE', 'cterm=' . 'NONE'
-        \ ]
-  execute join(histring, ' ')
-  "set cursor colors for normal and insert mode
-  hi! Cursor cterm=NONE gui=NONE guifg=#a4f644 guibg=#a4f644
-  hi! Cursor2 guifg=red guibg=red
-endfunction
-autocmd ColorScheme * call SetCursor()
-
-function SetItalics() abort
-  "call italics#AddItalicToGroup("Special")
-  "call italics#AddItalicToGroup("Comment")
-  "call italics#AddItalicToGroup("Keyword")
-  "call italics#AddItalicToGroup("Identifier")
-  "call italics#AddItalicToGroup("StorageClass")
-  "call italics#AddItalicToGroup("xmlAttrib")
-  "call italics#AddItalicToGroup("htmlArg")
-  "call italics#AddItalicToGroup("jsxAttrib")
-  "call italics#AddItalicToGroup("tsxAttrib")
-endfunction
-
-
-"autocmd ColorScheme * call SetItalics()
-
 "Enable syntax highlighting and set colorscheme
 set background=light
 syntax enable
 let g:gruvbox_contrast_dark = 'soft'
 colorscheme gruvbox
 "}}}
-
-let g:vim_jsx_pretty_highlight_close_tag = 1
-let g:vim_jsx_pretty_colorful_config = 1 " default 0
 
 " so I can go up an down wrapped lines
 map j gj
@@ -278,10 +210,6 @@ let g:startify_bookmarks = [
       \ ]
 
 nmap <leader>st :Startify<cr>
-" Store relative line number jumps in the jumplist if they exceed a threshold.
-nnoremap <expr> k (v:count > 3 ? "m'" . v:count : '') . 'k'
-nnoremap <expr> j (v:count > 3 ? "m'" . v:count : '') . 'j'
-
 " maximum lenght of characters displayed in a git diff
 highlight ColorColumn ctermbg=gray
 set colorcolumn=125
@@ -289,8 +217,6 @@ set colorcolumn=125
 set inccommand=nosplit
 " clear search with shift+enter
 nnoremap <silent><leader><CR> :noh<CR>
-
-
 "see actual registers
 nnoremap <leader>re :registers<CR>
 nnoremap <leader>ma :marks<CR>
@@ -302,39 +228,6 @@ set ignorecase
 
 " if the search string has an upper case letter in it, the search will be case sensitive
 set smartcase
-" Strip trailing whitespace (,ss)
-function! StripWhitespace()
-	let save_cursor = getpos(".")
-	let old_query = getreg('/')
-	:%s/\s\+$//e
-	call setpos('.', save_cursor)
-	call setreg('/', old_query)
-endfunction
-noremap <leader>ss :call StripWhitespace()<CR>
-
-" ====== vim wiki ========{{{
-let g:vimwiki_list = [{'path': '$HOME/Library/Mobile\ Documents/com~apple~CloudDocs/wiki', 'syntax': 'markdown','ext': '.md'}]
-let g:vimwiki_global_ext = 0 " make sure vimwiki doesn't own all .md files
-au FileType vimwiki setlocal shiftwidth=6 tabstop=6 noexpandtab
-command! Diary VimwikiDiaryIndex
-augroup vimwikigroup
-  autocmd!
-  " automatically update links on read diary
-  autocmd BufRead,BufNewFile diary.wiki VimwikiDiaryGenerateLinks
-augroup end
-
-let g:vimwiki_ext2syntax = {'.md': 'markdown',
-      \ '.mkd': 'markdown',
-      \ '.mdown': 'markdown',
-      \ '.markdown': 'markdown'}
-" }}}
-
-set noemoji
-
-let g:org_todo_keywords = [['TODO(t)', '|', 'DONE(d)'],
-      \ ['REPORT(r)', 'BUG(b)', 'KNOWNCAUSE(k)', '|', 'FIXED(f)'],
-      \ ['CANCELED(c)']]
-
 
 """""""""""""""""""""""""""""""
 " => YankStack
@@ -346,20 +239,6 @@ nmap <leader>ya :Yanks<CR>
 
 "Switch to alternative buffer
 nnoremap <leader><tab> <C-^>;
-"Match Tags Always
-let g:mta_filetypes = {
-    \ 'html' : 1,
-    \ 'xhtml' : 1,
-    \ 'xml' : 1,
-    \ 'javascript' : 1,
-    \ 'typescript.tsx' : 1,
-    \ 'twig' : 1,
-    \}
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => vim sandwich config
-" Annotate strings with gettext
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Test
@@ -403,8 +282,6 @@ let test#strategy = {
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Core mappings changed
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nnoremap [[ []
-nnoremap ]] ][
 nnoremap <C-h> ^
 vnoremap <C-h> ^
 nnoremap <C-l> g_
@@ -413,23 +290,6 @@ nnoremap <silent> <C-j> <c-d>
 nnoremap <silent> <C-k> <c-u>
 vnoremap <silent> <C-j> <c-d>
 vnoremap <silent> <C-k> <c-u>
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Easy motion
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nmap <leader>j <Plug>(easymotion-j)
-vmap <leader>j <Plug>(easymotion-j)
-nmap <leader>k <Plug>(easymotion-k)
-vmap <leader>k <Plug>(easymotion-k)
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => highlight groups helpers
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! Syn()
-  for id in synstack(line("."), col("."))
-    echo synIDattr(id, "name")
-  endfor
-endfunction
-command! -nargs=0 Syn call Syn()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
@@ -455,36 +315,6 @@ function! <SID>BufcloseCloseIt()
         execute("bdelete! ".l:currentBufNum)
     endif
 endfunction
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => vim indent Line
-"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"let g:indentLine_char       = '▏'
-"let g:indentLine_faster = 1
-"let g:indentLine_setConceal = 0
-"let g:indentLine_defaultGroup = 'NonText'
-"let g:indentLine_defaultGroup = 'Normal'
-
-"Disable IndentLine for Json files
-autocmd Filetype json let g:indentLine_enabled = 0
-" }}}
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => vim undotree
-"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:undotree_HighlightChangedWithSign = 0
-let g:undotree_WindowLayout             = 4
-let g:undotree_SetFocusWhenToggle       = 1
-nnoremap <Leader>u :UndotreeToggle<CR>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => word motion
-"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nmap cw ce
-nmap cW cE
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => clever F
@@ -546,7 +376,6 @@ for s:extension in ['.js', '.jsx', '.ts', '.tsx']
         \   'type': 'test'
         \ }])
 endfor
-
 " Provide config for repos where I:
 "
 " - want special config
@@ -581,6 +410,11 @@ endif
 nnoremap <Leader>ec :Ecomponent<Space>
 nnoremap <Leader>es :Estylesheet<Space>
 nnoremap <leader>et :Etest<Space>
+"--------------------------- CMP ------------------------------------
+set completeopt=menu,menuone,noselect
+" draw less
+set lazyredraw
+set updatetime=300
 "-------------------------LUA VIMRC-------------------------------{{
 lua require("lsp_config")
 "--------------------------vim prettier -------------------- {{
@@ -590,10 +424,17 @@ let g:prettier#quickfix_enabled = 0
 autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.svelte,*.yaml,*.html PrettierAsync
 "----------------------- telescope nvim ----------------
 " Find files using Telescope command-line sugar.
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <leader>tff <cmd>lua require('telescope.builtin').find_files()<cr>
+nnoremap <leader>tfg <cmd>lua require('telescope.builtin').live_grep()<cr>
+nnoremap <leader>tfb <cmd>lua require('telescope.builtin').buffers()<cr>
+nnoremap <leader>tfh <cmd>lua require('telescope.builtin').help_tags()<cr>
+nnoremap <leader>tts <cmd>lua require('telescope.builtin').treesitter()<cr>
+nnoremap <leader>tgf <cmd>lua require('telescope.builtin').git_files()<cr>
+nnoremap <leader>tgc <cmd>lua require('telescope.builtin').git_commits()<cr>
+nnoremap <leader>tgb <cmd>lua require('telescope.builtin').git_branches()<cr>
+nnoremap <leader>tr <cmd>lua require('telescope.builtin').resume()<cr>
+nnoremap <leader>tof <cmd>lua require('telescope.builtin').oldfiles()<cr>
+nnoremap <leader>tcs <cmd>lua require('telescope.builtin').colorscheme()<cr>
 "----------------------- nvim-tree.lua ------------------
 nnoremap <leader>nn :NvimTreeToggle<CR>
 nnoremap <leader>r :NvimTreeRefresh<CR>
@@ -604,3 +445,5 @@ set termguicolors " this variable must be enabled for colors to be applied prope
 
 " a list of groups can be found at `:help nvim_tree_highlight`
 "highlight NvimTreeFolderIcon guibg=blue
+"-------------------------- Twilight nvim --------------------------
+nnoremap <leader>tw :Twilight<CR>

@@ -1,11 +1,9 @@
--- General
+-- Generally
+local lsp_status = require('lsp-status')
 --Decrease update time
 vim.o.foldlevelstart = 4
-vim.o.updatetime = 250
-vim.wo.signcolumn = 'yes'
+vim.wo.signcolumn = 'number'
 -- Setup nvim-cmp.
--- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menuone,noselect'
 local cmp = require'cmp'
 
 cmp.setup({
@@ -18,6 +16,8 @@ cmp.setup({
     end,
   },
   mapping = {
+    --['<C-k>'] = cmp.mapping.select_prev_item(),
+    --['<C-j>'] = cmp.mapping.select_next_item(),
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete(),
@@ -38,6 +38,10 @@ cmp.setup({
       end
     end,
   },
+  experimental = {
+    native_menu = false,
+    ghost_text = false,
+  },
   sources = {
     { name = 'nvim_lsp' },
     -- For vsnip user.
@@ -50,10 +54,10 @@ cmp.setup({
 -----------------------------LSP CONFIG ---------------------------------------
 
 local nvim_lsp = require('lspconfig')
-
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
+  lsp_status.on_attach(client)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
@@ -212,6 +216,12 @@ set foldexpr=nvim_treesitter#foldexpr()
 require('telescope').setup(
   {
     defaults = {
+      mappings = {
+        i = {
+          ["<C-j>"] = "move_selection_next",
+          ["<C-k>"] = "move_selection_previous",
+        }
+      },
       layout_strategy = 'vertical'
     },
     pickers = {
@@ -220,6 +230,9 @@ require('telescope').setup(
     }
   }
 )
+-- To get fzf loaded and working with telescope, you need to call
+-- load_extension, somewhere after setup function:
+require('telescope').load_extension('fzf')
 -------------------------nvim-web-devicons-------------------------------
 require'nvim-web-devicons'.setup(
   {
@@ -241,90 +254,42 @@ require'nvim-web-devicons'.setup(
 -- following options are the default
 require'nvim-tree'.setup(
   {
-    -- disables netrw completely
-    disable_netrw       = true,
-    -- hijack netrw window on startup
-    hijack_netrw        = true,
-    -- open the tree when running this setup function
-    open_on_setup       = false,
-    -- will not open on setup if the filetype is in this list
-    ignore_ft_on_setup  = {},
-    -- closes neovim automatically when the tree is the last **WINDOW** in the view
-    auto_close          = false,
-    -- opens the tree when changing/opening a new tab if the tree wasn't previously opened
-    open_on_tab         = false,
-    -- hijacks new directory buffers when they are opened.
-    update_to_buf_dir   = {
-      -- enable the feature
-      enable = true,
-      -- allow to open the tree if it was previously closed
-      auto_open = true,
-    },
-    -- hijack the cursor in the tree to put it at the start of the filename
-    hijack_cursor       = false,
-    -- updates the root directory of the tree on `DirChanged` (when your run `:cd` usually)
-    update_cwd          = false,
-    -- show lsp diagnostics in the signcolumn
     diagnostics     ={
       enable = true
     },
-    -- update the focused file on `BufEnter`, un-collapses the folders recursively until it finds the file
-    update_focused_file = {
-      -- enables the feature
-      enable      = false,
-      -- update the root directory of the tree to the one of the folder containing the file if the file is not under the current root directory
-      -- only relevant when `update_focused_file.enable` is true
-      update_cwd  = false,
-      -- list of buffer names / filetypes that will not update the cwd if the file isn't found under the current root directory
-      -- only relevant when `update_focused_file.update_cwd` is true and `update_focused_file.enable` is true
-      ignore_list = {}
-    },
     view = {
-      -- width of the window, can be either a number (columns) or a string in `%`, for left or right side placement
-      width = 30,
-      -- height of the window, can be either a number (columns) or a string in `%`, for top or bottom side placement
-      height = 30,
-      -- side of the tree, can be one of 'left' | 'right' | 'top' | 'bottom'
-      side = 'left',
-      -- if true the tree will resize itself after opening a file
       auto_resize = true,
-      mappings = {
-        -- custom only false will merge the list with the default mappings
-        -- if true, it will only use your list to set the mappings
-        custom_only = false,
-        -- list of mappings to set on the tree manually
-        list = {}
-      }
     }
   }
 )
 ---------------------- lualine.nvim -------------------------------------
+local status = lsp_status.status
 require'lualine'.setup(
   {
     options = {
       icons_enabled = true,
       theme = 'gruvbox_light',
-      component_separators = {'', ''},
-      section_separators = {'', ''},
-      disabled_filetypes = {}
     },
     sections = {
-      lualine_a = {'mode'},
-      lualine_b = {'branch'},
-      lualine_c = {'filename'},
-      lualine_x = {'encoding', 'fileformat', 'filetype'},
-      lualine_y = {'progress'},
-      lualine_z = {'location'}
-    },
-    inactive_sections = {
-      lualine_a = {},
-      lualine_b = {},
-      lualine_c = {'filename'},
-      lualine_x = {'location'},
-      lualine_y = {},
-      lualine_z = {}
-    },
-    tabline = {},
-    extensions = {}
+      lualine_z = {status}
+    }
+  }
+)
+------------------------Shade.nvim ----------------------------------------
+require'shade'.setup({
+  overlay_opacity = 50,
+  opacity_step = 1,
+  keys = {
+    brightness_up    = '<C-Up>',
+    brightness_down  = '<C-Down>',
+    toggle           = '<Leader>s',
+  }
+})
+----------------------- twilight.nvim----------------------------------------
+require("twilight").setup(
+  {
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
   }
 )

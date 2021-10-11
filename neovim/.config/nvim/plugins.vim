@@ -18,7 +18,6 @@ Plug 'jiangmiao/auto-pairs'  " automaticamente cierra comillas o llaves
 "}}}
 " Control Tmux from within vim
 "GUI customization
-"Plug 'Valloric/MatchTagAlways' "highlight tags for easy html
 Plug 'Yggdroot/indentLine'
 "File browsers
 Plug 'tpope/vim-projectionist' ""
@@ -46,36 +45,26 @@ Plug 'hrsh7th/vim-vsnip'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets' "vim-snippets
 Plug 'quangnguyen30192/cmp-nvim-ultisnips'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+Plug 'wellle/targets.vim'
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
-Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 "file icons
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'kyazdani42/nvim-tree.lua'
 "lua line
+Plug 'nvim-lua/lsp-status.nvim' "This is a Neovim plugin/library for generating statusline components
 Plug 'hoob3rt/lualine.nvim'
 "highlight yanked text
 Plug 'machakann/vim-highlightedyank'
 " A light-weight lsp plugin based on neovim built-in lsp with highly a performant UI.
 "Plug 'glepnir/lspsaga.nvim'
+Plug 'sunjon/shade.nvim' "Neovim plugin that dims your inactive windows
+Plug 'folke/twilight.nvim' "dims inactive portions of the code you're editing
 "themes
 Plug 'morhetz/gruvbox'
-Plug 'chriskempson/base16-vim'
-Plug 'ayu-theme/ayu-vim' " or other package manager
-Plug 'tomasiser/vim-code-dark'
-Plug 'arcticicestudio/nord-vim'
-Plug 'dracula/vim', { 'name': 'dracula' }
-Plug 'mhartington/oceanic-next'
-Plug 'lifepillar/vim-solarized8'
-Plug 'joshdick/onedark.vim'
-Plug 'drewtempelmeyer/palenight.vim'
-Plug 'rakr/vim-one'
-Plug 'sickill/vim-monokai'
-Plug 'tomasr/molokai'
-Plug 'nanotech/jellybeans.vim'
-Plug 'kristijanhusak/vim-hybrid-material'
-Plug 'NLKNguyen/papercolor-theme'
-Plug 'cocopon/iceberg.vim'
+"with trigger
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' } "Telescope Native sorter
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+Plug 'nvim-treesitter/nvim-treesitter'
 call plug#end()
