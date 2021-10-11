@@ -1,5 +1,6 @@
 -- Generally
 local lsp_status = require('lsp-status')
+lsp_status.register_progress()
 --Decrease update time
 vim.o.foldlevelstart = 4
 vim.wo.signcolumn = 'number'
