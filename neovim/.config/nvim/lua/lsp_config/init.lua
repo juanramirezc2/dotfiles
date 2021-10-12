@@ -1,65 +1,41 @@
--- Generally
--- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menuone,noselect'
---Decrease update time
-vim.o.foldlevelstart = 4
+-- General
+vim.o.foldlevelstart = 6
+
+-- Set highlight on search
+vim.o.hlsearch = false
+
+--Make line numbers default
+vim.wo.number = true
+
+--Enable mouse mode
+vim.o.mouse = 'a'
+
+--Enable break indent
+vim.o.breakindent = true
+
+--Save undo history
+vim.opt.undofile = true
+
+--Case insensitive searching UNLESS /C or capital in search
+vim.o.ignorecase = true
+vim.o.smartcase = true
+
 --Decrease update time
 vim.o.updatetime = 250
 vim.wo.signcolumn = 'yes'
--- Setup nvim-cmp.
-local cmp = require'cmp'
-cmp.setup({
-  snippet = {
-    expand = function(args)
-      -- For `vsnip` user.
-      vim.fn["vsnip#anonymous"](args.body)
 
-      -- For `luasnip` user.
-      -- require('luasnip').lsp_expand(args.body)
+--Remap space as leader key
+vim.api.nvim_set_keymap('', '<Space>', '<Nop>', { noremap = true, silent = true })
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+--Remap for dealing with word wrap
+vim.api.nvim_set_keymap('n', 'k', "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = true, silent = true })
+vim.api.nvim_set_keymap('n', 'j', "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true, silent = true })
+--Set colorscheme (order is important here)
+vim.o.termguicolors = true
+vim.g.onedark_terminal_italics = 2
+vim.cmd [[colorscheme onedark]]
 
-      -- For `ultisnips` user.
-       vim.fn["UltiSnips#Anon"](args.body)
-    end,
-  },
-  mapping = {
-    ['<C-k>'] = cmp.mapping.select_prev_item(),
-    ['<C-j>'] = cmp.mapping.select_next_item(),
-    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete(),
-    ['<C-e>'] = cmp.mapping.close(),
-    ['<CR>'] = cmp.mapping.confirm({
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
-    }),
-    ['<Tab>'] = function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      else
-        fallback()
-      end
-    end,
-    ['<S-Tab>'] = function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      else
-        fallback()
-      end
-    end,
-  },
-  experimental = {
-    --native_menu = false,
-    --ghost_text = false,
-  },
-  sources = {
-    { name = 'nvim_lsp' },
-    -- For vsnip user.
-    { name = 'vsnip' },
-    -- For ultisnips user.
-    { name = 'ultisnips' },
-    { name = 'buffer' },
-  }
-})
 -----------------------------LSP CONFIG ---------------------------------------
 local lsp_status = require('lsp-status')
 lsp_status.register_progress()
@@ -97,7 +73,9 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<leader>so', [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]], opts)
   vim.cmd [[ command! Format execute 'lua vim.lsp.buf.formatting()' ]]
 end
-
+-- nvim-cmp supports additional completion capabilities
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
 local servers = { 'tsserver', 'tailwindcss' }
@@ -105,10 +83,7 @@ for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup(
     {
       on_attach = on_attach,
-      capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()),
-      flags = {
-        debounce_text_changes = 150,
-      }
+      capabilities = capabilities,
     }
   )
 end
@@ -260,8 +235,7 @@ require'nvim-web-devicons'.setup(
     default = true;
   }
 )
-------------------------------nvim-tree.lua ----------------------------
--- following options are the default
+-- nvim-tree.lua
 require'nvim-tree'.setup(
   {
     diagnostics     ={
@@ -285,7 +259,7 @@ require'lualine'.setup(
     }
   }
 )
-------------------------Shade.nvim ----------------------------------------
+-- Shade.nvim
 require'shade'.setup({
   overlay_opacity = 50,
   opacity_step = 1,
@@ -295,7 +269,7 @@ require'shade'.setup({
     toggle           = '<Leader>s',
   }
 })
------------------------ twilight.nvim----------------------------------------
+-- twilight.nvim
 require("twilight").setup(
   {
     -- your configuration comes here
@@ -313,3 +287,76 @@ require('gitsigns').setup {
     changedelete = { hl = 'GitGutterChange', text = '~' },
   },
 }
+-- Map blankline
+vim.g.indent_blankline_char = '┊'
+vim.g.indent_blankline_filetype_exclude = { 'help', 'packer' }
+vim.g.indent_blankline_buftype_exclude = { 'terminal', 'nofile' }
+vim.g.indent_blankline_char_highlight = 'LineNr'
+vim.g.indent_blankline_show_trailing_blankline_indent = false
+-- Highlight on yank
+vim.api.nvim_exec(
+  [[
+  augroup YankHighlight
+    autocmd!
+    autocmd TextYankPost * silent! lua vim.highlight.on_yank()
+  augroup end
+]],
+  false
+)
+
+-- Setup nvim-cmp.
+-- Set completeopt to have a better completion experience
+vim.o.completeopt = 'menuone,noselect'
+local cmp = require'cmp'
+cmp.setup({
+  snippet = {
+    expand = function(args)
+      -- For `vsnip` user.
+      vim.fn["vsnip#anonymous"](args.body)
+
+      -- For `luasnip` user.
+      -- require('luasnip').lsp_expand(args.body)
+
+      -- For `ultisnips` user.
+       vim.fn["UltiSnips#Anon"](args.body)
+    end,
+  },
+  mapping = {
+    ['<C-k>'] = cmp.mapping.select_prev_item(),
+    ['<C-j>'] = cmp.mapping.select_next_item(),
+    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.close(),
+    ['<CR>'] = cmp.mapping.confirm({
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = true,
+    }),
+    ['<Tab>'] = function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      else
+        fallback()
+      end
+    end,
+    ['<S-Tab>'] = function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      else
+        fallback()
+      end
+    end,
+  },
+  experimental = {
+    --native_menu = false,
+    --ghost_text = false,
+  },
+  sources = {
+    { name = 'nvim_lsp' },
+    -- For vsnip user.
+    { name = 'vsnip' },
+    -- For ultisnips user.
+    { name = 'ultisnips' },
+    { name = 'buffer' },
+  }
+})
