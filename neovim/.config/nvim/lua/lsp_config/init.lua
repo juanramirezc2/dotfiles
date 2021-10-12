@@ -1,29 +1,37 @@
 -- Generally
-local lsp_status = require('lsp-status')
-lsp_status.register_progress()
+-- Set completeopt to have a better completion experience
+vim.o.completeopt = 'menuone,noselect'
 --Decrease update time
 vim.o.foldlevelstart = 4
-vim.wo.signcolumn = 'number'
+--Decrease update time
+vim.o.updatetime = 250
+vim.wo.signcolumn = 'yes'
 -- Setup nvim-cmp.
 local cmp = require'cmp'
-
 cmp.setup({
   snippet = {
     expand = function(args)
       -- For `vsnip` user.
-      vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` user.
+      vim.fn["vsnip#anonymous"](args.body)
+
+      -- For `luasnip` user.
+      -- require('luasnip').lsp_expand(args.body)
+
       -- For `ultisnips` user.
-      vim.fn["UltiSnips#Anon"](args.body)
+       vim.fn["UltiSnips#Anon"](args.body)
     end,
   },
   mapping = {
-    --['<C-k>'] = cmp.mapping.select_prev_item(),
-    --['<C-j>'] = cmp.mapping.select_next_item(),
+    ['<C-k>'] = cmp.mapping.select_prev_item(),
+    ['<C-j>'] = cmp.mapping.select_next_item(),
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.close(),
-    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    ['<CR>'] = cmp.mapping.confirm({
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = true,
+    }),
     ['<Tab>'] = function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
@@ -40,8 +48,8 @@ cmp.setup({
     end,
   },
   experimental = {
-    native_menu = false,
-    ghost_text = false,
+    --native_menu = false,
+    --ghost_text = false,
   },
   sources = {
     { name = 'nvim_lsp' },
@@ -53,7 +61,8 @@ cmp.setup({
   }
 })
 -----------------------------LSP CONFIG ---------------------------------------
-
+local lsp_status = require('lsp-status')
+lsp_status.register_progress()
 local nvim_lsp = require('lspconfig')
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -294,3 +303,13 @@ require("twilight").setup(
     -- refer to the configuration section below
   }
 )
+-- Gitsigns
+require('gitsigns').setup {
+  signs = {
+    add = { hl = 'GitGutterAdd', text = '+' },
+    change = { hl = 'GitGutterChange', text = '~' },
+    delete = { hl = 'GitGutterDelete', text = '_' },
+    topdelete = { hl = 'GitGutterDelete', text = '‾' },
+    changedelete = { hl = 'GitGutterChange', text = '~' },
+  },
+}

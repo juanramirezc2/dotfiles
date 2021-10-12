@@ -411,10 +411,8 @@ nnoremap <Leader>ec :Ecomponent<Space>
 nnoremap <Leader>es :Estylesheet<Space>
 nnoremap <leader>et :Etest<Space>
 "--------------------------- CMP ------------------------------------
-set completeopt=menu,menuone,noselect
 " draw less
 set lazyredraw
-set updatetime=300
 "-------------------------LUA VIMRC-------------------------------{{
 lua require("lsp_config")
 "--------------------------vim prettier -------------------- {{

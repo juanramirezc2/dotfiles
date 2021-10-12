@@ -49,6 +49,7 @@ Plug 'wellle/targets.vim'
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'lewis6991/gitsigns.nvim'  " Super fast git decorations implemented purely in lua/tea
 "file icons
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'kyazdani42/nvim-tree.lua'
