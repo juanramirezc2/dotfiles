@@ -1,24 +1,20 @@
--- Install packer
-local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
-
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-  vim.fn.execute('!git clone https://github.com/wbthomason/packer.nvim ' .. install_path)
+local fn = vim.fn
+local packer_bootstrap
+local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+if fn.empty(fn.glob(install_path)) > 0 then
+  packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
 end
 
-vim.api.nvim_exec(
-  [[
-  augroup Packer
+vim.cmd([[
+  augroup packer_user_config
     autocmd!
-    autocmd BufWritePost init.lua PackerCompile
+    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
   augroup end
-]],
-  false
-)
+]])
 
-local use = require('packer').use
-require('packer').startup(function()
+require('packer').startup(function(use)
 	use 'wbthomason/packer.nvim' -- Package manager
-	use 'tpope/vim-fugitive' -- Git commands in nvim
+	use 'tpope/vim-fugitive'
 	use 'tpope/vim-commentary' -- "gc" to comment visual regions/lines
 	-- UI to select things (files, grep results, open buffers...)
 	use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
@@ -60,13 +56,17 @@ require('packer').startup(function()
 	use 'morhetz/gruvbox'
 	use {'prettier/vim-prettier', run = 'yarn install' }
 	use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+	
+  if packer_bootstrap then
+    require('packer').sync()
+  end
 end)
 
 -- General
 vim.o.foldlevelstart = 6
 
 -- Set highlight on search
-vim.o.hlsearch = false
+--vim.o.hlsearch = false
 
 --Make line numbers default
 vim.wo.number = true
@@ -98,6 +98,8 @@ vim.api.nvim_set_keymap('n', 'j', "v:count == 0 ? 'gj' : 'j'", { noremap = true,
 --Set colorscheme (order is important here)
 vim.o.termguicolors = true
 vim.g.onedark_terminal_italics = 2
+ vim.g.onedark_transparent_background = true
+vim.g.background = 'light'
 vim.cmd [[colorscheme onedark]]
 
 -----------------------------LSP CONFIG ---------------------------------------
@@ -404,10 +406,6 @@ cmp.setup({
       end
     end,
   },
-  experimental = {
-    --native_menu = false,
-    --ghost_text = false,
-  },
   sources = {
     { name = 'nvim_lsp' },
     -- For vsnip user.
@@ -417,3 +415,13 @@ cmp.setup({
     { name = 'buffer' },
   }
 })
+-- vim fugitive
+
+vim.g.fugitive_pty = 0
+vim.api.nvim_set_keymap('n', '<leader>gg', ':Git<SPACE>',      {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>gs', ':Git<CR>',         {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>gb', ':Git blame<CR>',   {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>gc', ':Git commit<CR>',  {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>gd', ':Gvdiffsplit<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>gl', ':Gclog<CR>',       {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>gp', ':Git push<CR>',    {noremap = true})

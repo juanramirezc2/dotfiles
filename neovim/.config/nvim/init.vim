@@ -11,28 +11,11 @@ set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
 
 " abrir vim.init en un ventana nueva love it
 nnoremap <leader>vr :e $MYVIMRC<CR>
-
+nnoremap <silent><leader><CR> :noh<CR>
 "----------------------- vim-lualine -----------------------------------------{{{
 " escaping normal mode
 inoremap jk <Esc>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" fugitive git mappings
-let g:fugitive_pty = 0
-nnoremap <silent><leader>gs :Git<CR>
-nnoremap <leader>gp :Git push<CR>
-"nnoremap <leader>gd :Gdiff<CR>
-nnoremap <leader>gw :Gwrite!<CR>
-nnoremap <silent><leader>gr :Gread<CR>
-nnoremap <leader>ge :Gedit<CR>
-nnoremap <leader>gc :Gcommit -v -q<CR>
-nnoremap <leader>gre :Git rebase -i HEAD~6<CR>
-" Fugitive Conflict Resolution
-nnoremap <leader>gd :Gvdiffsplit!<CR>
-nnoremap gdh :diffget //2 <CR> 
-nnoremap gdl :diffget //3 <CR>
-"| diffupdate
-nmap <silent><leader>gb :Gblame<cr>
-
 " buscar en el documento lo que este visualmente seleccionado
 vnoremap // y/\V<C-r>=escape(@",'/\')<CR><CR>
 
@@ -50,6 +33,15 @@ nnoremap <silent> <C-j> <c-d>
 nnoremap <silent> <C-k> <c-u>
 vnoremap <silent> <C-j> <c-d>
 vnoremap <silent> <C-k> <c-u>
+
+" Usar Control + y para copiar al portapapeles
+vnoremap <leader>c "*y
+nnoremap <leader>c "*y
+vnoremap <leader>v "*p
+nnoremap <leader>v "*p
+" Usar <líder> + d para cortar al portapapeles
+vnoremap <C-x> "+d
+nnoremap <C-x> "+d
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => projectionist
@@ -124,3 +116,5 @@ nnoremap <leader>nf :NvimTreeFindFile<CR>
 "highlight NvimTreeFolderIcon guibg=blue
 "-------------------------- Twilight nvim --------------------------
 nnoremap <leader>tw :Twilight<CR>
+"-- gutentags
+let g:gutentags_trace = 1

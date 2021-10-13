@@ -181,6 +181,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/juanramirez/.local/share/nvim/site/pack/packer/start/vim-fugitive"
   },
+  ["vim-gutentags"] = {
+    loaded = true,
+    path = "/Users/juanramirez/.local/share/nvim/site/pack/packer/start/vim-gutentags"
+  },
   ["vim-matchup"] = {
     loaded = true,
     path = "/Users/juanramirez/.local/share/nvim/site/pack/packer/start/vim-matchup"

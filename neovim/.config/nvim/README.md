@@ -1,7 +1,13 @@
-# neovim configuration 
+# neovim configuration
 
+### I'm giving another try to ctags
+
+```
+$ brew install --HEAD universal-ctags/universal-ctags/universal-ctags
+```
 
 ### Denite Use Rip Grep for recursive search
+
 If you're a **macOS Homebrew** or a **Linuxbrew** user, then you can install
 ripgrep from homebrew-core:
 
@@ -12,7 +18,7 @@ $ brew install ripgrep
 ## Important Information
 
 All of my mappings are structure around the asumption that the `caps lock` key is remapped as `Ctrl`,
-that's how old keyboard use to work and i find very convenient to have such big key in the home row. i rarely 
+that's how old keyboard use to work and i find very convenient to have such big key in the home row. i rarely
 use all caps but when i need them i reach for shift.
 
 ![](http://www.economyofeffort.com/media/images/sun-keyboard.png)
@@ -28,7 +34,7 @@ i have detailed comments in my config so you can tweak it according to your need
 [Coc](https://github.com/neoclide/coc.nvim) (conquer of completion) is the main plugin in my config, this plugin bring features from VSCode to vim users
 things like autocompletion, diagnostics, Intellisense and more.
 
-[Denite](https://github.com/Shougo/denite.nvim)  is a plugin that help me when browsing my code, this plugin brings recursive search using fuzzy completion
+[Denite](https://github.com/Shougo/denite.nvim) is a plugin that help me when browsing my code, this plugin brings recursive search using fuzzy completion
 being aware of ignoring files from `.gitignore`
 
 [Nerdtree](https://github.com/preservim/nerdtree) this plugin bring me a folder structure that i browse.
@@ -36,27 +42,25 @@ being aware of ignoring files from `.gitignore`
 ## Themes
 
 I'm the kind of person that get bored of the monotony that's why i created a script inside my neovim config that load a ramdom
-[Base 16 theme](https://github.com/chriskempson/base16) every time i open `Neovim` :D ( Don't worry i have you 
+[Base 16 theme](https://github.com/chriskempson/base16) every time i open `Neovim` :D ( Don't worry i have you
 covered if you had but luck and get stuck in a light theme ) i have mappings for changing them too
 
 ![](https://raw.githubusercontent.com/juangabrielr4/dotfiles/master/nvim/.config/nvim/themes.gif)
 
-
 ## Mappings
+
 My `leader` key is `space` (inspired by spacemacs) this means that most of my custom mappins use this key.
 
-when `Leader`  appears is because you need to press the space bar
+when `Leader` appears is because you need to press the space bar
 
 ### Normal Mode Custom Mappings
 
-* `Leader n f` -> Open Nerdtree directories structure of the current file
-* `Leader p` -> Search files inside the current project using `denite`
-* `Leader m r` -> Show recent files used in the actual project
-* `Leader /` -> Search string recursively inside the files of the current project using `denite` & `AG`
-* `Control`+`w``w` -> Jump Between Panels
-* `Leader r a` -> Change color scheme to a ramdom base16 scheme
-
-
+- `Leader n f` -> Open Nerdtree directories structure of the current file
+- `Leader p` -> Search files inside the current project using `denite`
+- `Leader m r` -> Show recent files used in the actual project
+- `Leader /` -> Search string recursively inside the files of the current project using `denite` & `AG`
+- `Control`+` w``w ` -> Jump Between Panels
+- `Leader r a` -> Change color scheme to a ramdom base16 scheme
 
 # vim custom text objects
 
@@ -65,10 +69,10 @@ when `Leader`  appears is because you need to press the space bar
 - `ae` targets the entire content of the current buffer.
 - `ie` is similar to `ae`, but `ie` does not include leading and trailing empty
   lines. `ie` is handy for some situations. For example,
-  1. Paste some text into a new buffer (`<C-w>n"*P`)
-     -- note that the initial empty line is left as the last line.
-  2. Edit the text (`:%s/foo/bar/g` etc)
-  3. Then copy the resulting text to another application (`"*yie`)
+     1. Paste some text into a new buffer (`<C-w>n"*P`)
+        -- note that the initial empty line is left as the last line.
+     2. Edit the text (`:%s/foo/bar/g` etc)
+     3. Then copy the resulting text to another application (`"*yie`)
 
 ## indent custom objects [more info](https://github.com/kana/vim-textobj-line/blob/master/doc/textobj-line.txt)
 
@@ -115,4 +119,3 @@ for some examples and important special cases.
 ```
 
 ```
-
