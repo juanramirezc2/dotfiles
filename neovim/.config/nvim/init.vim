@@ -117,4 +117,4 @@ nnoremap <leader>nf :NvimTreeFindFile<CR>
 "-------------------------- Twilight nvim --------------------------
 nnoremap <leader>tw :Twilight<CR>
 "-- gutentags
-let g:gutentags_trace = 1
+" let g:gutentags_trace = 1
