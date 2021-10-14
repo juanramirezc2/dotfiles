@@ -308,7 +308,7 @@ require'nvim-web-devicons'.setup(
 local tree_cb = require'nvim-tree.config'.nvim_tree_callback
 require'nvim-tree'.setup(
 	{
-		diagnostics     ={
+		diagnostics     = {
 			enable = true
 		},
 		view = {
@@ -332,6 +332,7 @@ require'nvim-tree'.setup(
 					{ key = "a",                            cb = tree_cb("create") },
 					{ key = {"cd"},    cb = tree_cb("cd") },
 					{ key = "p",                        cb = tree_cb("preview") },
+					{ key = "?",                           cb = tree_cb("toggle_help") },
 				}
 			}
 		}
