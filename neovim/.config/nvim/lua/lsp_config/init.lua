@@ -11,7 +11,7 @@ vim.cmd([[
     autocmd BufWritePost plugins.lua source <afile> | PackerCompile
   augroup end
 ]])
-
+		
 require('packer').startup(function(use)
 	use 'wbthomason/packer.nvim' -- Package manager
 	use 'tpope/vim-fugitive'
@@ -59,7 +59,6 @@ require('packer').startup(function(use)
 	use 'morhetz/gruvbox'
 	use {'prettier/vim-prettier', run = 'yarn install' }
 	use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-	
   if packer_bootstrap then
     require('packer').sync()
   end
@@ -67,13 +66,13 @@ end)
 
 -- General
 vim.o.foldlevelstart = 6
-
+vim.o.autoindent = true
+vim.o.smartindent = true
 -- Set highlight on search
 --vim.o.hlsearch = false
 
 --Make line numbers default
 vim.wo.number = true
-
 --Enable mouse mode
 vim.o.mouse = 'a'
 
@@ -266,7 +265,7 @@ vim.api.nvim_exec([[
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 ]], true)
------------------------- telescope nvim ------------------------------
+-- telescope nvim 
 require('telescope').setup(
   {
     defaults = {
@@ -285,8 +284,17 @@ require('telescope').setup(
   }
 )
 -- To get fzf loaded and working with telescope, you need to call
--- load_extension, somewhere after setup function:
 require('telescope').load_extension('fzf')
+--Add leader shortcuts
+vim.api.nvim_set_keymap('n', '<leader><space>', [[<cmd>lua require('telescope.builtin').buffers()<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>sf', [[<cmd>lua require('telescope.builtin').find_files({previewer = false})<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>sb', [[<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>sh', [[<cmd>lua require('telescope.builtin').help_tags()<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>st', [[<cmd>lua require('telescope.builtin').tags()<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>sd', [[<cmd>lua require('telescope.builtin').grep_string()<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>sp', [[<cmd>lua require('telescope.builtin').live_grep()<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>so', [[<cmd>lua require('telescope.builtin').tags{ only_current_buffer = true }<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>?', [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]], { noremap = true, silent = true })
 -------------------------nvim-web-devicons-------------------------------
 require'nvim-web-devicons'.setup(
   {
@@ -330,9 +338,26 @@ require'nvim-tree'.setup(
 					{ key = "r",                            cb = tree_cb("rename") },
 					{ key = "d",                            cb = tree_cb("remove") },
 					{ key = "a",                            cb = tree_cb("create") },
-					{ key = {"cd"},    cb = tree_cb("cd") },
+					{ key = {"<C-]>"},    cb = tree_cb("cd") },
 					{ key = "p",                        cb = tree_cb("preview") },
-					{ key = "?",                           cb = tree_cb("toggle_help") },
+					{ key = "g?",                           cb = tree_cb("toggle_help") },
+					{ key = "<C-x>",                        cb = tree_cb("split") },
+					{ key = "<C-t>",                        cb = tree_cb("tabnew") },
+					{ key = "<",                            cb = tree_cb("prev_sibling") },
+					{ key = ">",                            cb = tree_cb("next_sibling") },
+					{ key = "P",                            cb = tree_cb("parent_node") },
+					{ key = "H",                            cb = tree_cb("toggle_dotfiles") }, { key = "R",                            cb = tree_cb("refresh") },
+					{ key = "<C-r>",                        cb = tree_cb("full_rename") },
+					{ key = "x",                            cb = tree_cb("cut") },
+					{ key = "c",                            cb = tree_cb("copy") },
+					{ key = "p",                            cb = tree_cb("paste") },
+					{ key = "y",                            cb = tree_cb("copy_name") },
+					{ key = "Y",                            cb = tree_cb("copy_path") },
+					{ key = "gy",                           cb = tree_cb("copy_absolute_path") },
+					{ key = "[c",                           cb = tree_cb("prev_git_item") },
+					{ key = "]c",                           cb = tree_cb("next_git_item") },
+					{ key = "s",                            cb = tree_cb("system_open") },
+					{ key = "q",                            cb = tree_cb("close") },
 				}
 			}
 		}
@@ -373,7 +398,7 @@ require('gitsigns').setup {
   },
 }
 -- Map blankline
-vim.g.indent_blankline_char = '┊'
+-- vim.g.indent_blankline_char = '┊'
 vim.g.indent_blankline_filetype_exclude = { 'help', 'packer' }
 vim.g.indent_blankline_buftype_exclude = { 'terminal', 'nofile' }
 vim.g.indent_blankline_char_highlight = 'LineNr'
@@ -451,7 +476,7 @@ vim.api.nvim_set_keymap('n', '<leader>gc', ':Git commit<CR>',  {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>gd', ':Gvdiffsplit<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>gl', ':Gclog<CR>',       {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>gp', ':Git push<CR>',    {noremap = true})
- 
+
 -- gutentags
 vim.g.gutentags_ctags_exclude = {
 	'*.git', '*.svg', '*.hg',

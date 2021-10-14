@@ -8,6 +8,23 @@ set cursorline        " highlight current line
 set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
 		  \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
 		  \,sm:block-blinkwait175-blinkoff150-blinkon175
+set noswapfile
+
+" Indent using spaces instead of tabs
+set expandtab
+" Be smart when using tabs ;)
+set smarttab 
+
+" " show existing tab with 2 spaces width
+set tabstop=2
+set softtabstop=2
+" " when indenting with '>', use 2 spaces width
+set shiftwidth=2
+" Configure backspace so it acts as it should act
+set backspace=eol,start,indent
+" Show “invisible” characters
+set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_
+set list
 
 " abrir vim.init en un ventana nueva love it
 nnoremap <leader>vr :e $MYVIMRC<CR>
@@ -55,6 +72,8 @@ function! s:project(...)
     let g:projectionist_heuristics['*'][l:pattern] = l:projection
   endfor
 endfunction
+			
+      
 
 " Set up projections for JS variants.
 for s:extension in ['.js', '.jsx', '.ts', '.tsx']
@@ -95,21 +114,6 @@ set lazyredraw
 " when running at every change you may want to disable quickfix
 let g:prettier#quickfix_enabled = 0
 autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.svelte,*.yaml,*.html PrettierAsync
-"----------------------- telescope nvim ----------------
-" Find files using Telescope command-line sugar.
-nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
-nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
-nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
-nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
-nnoremap <leader>ft <cmd>lua require('telescope.builtin').tags()<cr>
-nnoremap <leader>fct <cmd>lua require('telescope.builtin').current_buffer_tags()<cr>
-nnoremap <leader>fts <cmd>lua require('telescope.builtin').treesitter()<cr>
-nnoremap <leader>fg <cmd>lua require('telescope.builtin').git_files()<cr>
-nnoremap <leader>fc <cmd>lua require('telescope.builtin').git_commits()<cr>
-nnoremap <leader>fb <cmd>lua require('telescope.builtin').git_branches()<cr>
-nnoremap <leader>tr <cmd>lua require('telescope.builtin').resume()<cr>
-nnoremap <leader>fo <cmd>lua require('telescope.builtin').oldfiles()<cr>
-nnoremap <leader>fcs <cmd>lua require('telescope.builtin').colorscheme()<cr>
 "----------------------- nvim-tree.lua ------------------
 nnoremap <leader>nn :NvimTreeToggle<CR>
 nnoremap <leader>r :NvimTreeRefresh<CR>
@@ -118,3 +122,12 @@ nnoremap <leader>nf :NvimTreeFindFile<CR>
 "highlight NvimTreeFolderIcon guibg=blue
 "-------------------------- Twilight nvim --------------------------
 nnoremap <leader>tw :Twilight<CR>
+" Strip trailing whitespace (,ss)
+function! StripWhitespace()
+	let save_cursor = getpos(".")
+	let old_query = getreg('/')
+	:%s/\s\+$//e
+	call setpos('.', save_cursor)
+	call setreg('/', old_query)
+endfunction
+noremap <leader>ss :call StripWhitespace()<CR>
