@@ -14,7 +14,9 @@ set noswapfile
 set expandtab
 " Be smart when using tabs ;)
 set smarttab 
-
+" split new panels down and below
+set splitbelow
+set splitright
 " " show existing tab with 2 spaces width
 set tabstop=2
 set softtabstop=2
@@ -56,8 +58,6 @@ function! s:project(...)
     let g:projectionist_heuristics['*'][l:pattern] = l:projection
   endfor
 endfunction
-			
-      
 
 " Set up projections for JS variants.
 for s:extension in ['.js', '.jsx', '.ts', '.tsx']
@@ -106,12 +106,3 @@ nnoremap <leader>nf :NvimTreeFindFile<CR>
 "highlight NvimTreeFolderIcon guibg=blue
 "-------------------------- Twilight nvim --------------------------
 nnoremap <leader>tw :Twilight<CR>
-" Strip trailing whitespace (,ss)
-function! StripWhitespace()
-	let save_cursor = getpos(".")
-	let old_query = getreg('/')
-	:%s/\s\+$//e
-	call setpos('.', save_cursor)
-	call setreg('/', old_query)
-endfunction
-noremap <leader>ss :call StripWhitespace()<CR>
