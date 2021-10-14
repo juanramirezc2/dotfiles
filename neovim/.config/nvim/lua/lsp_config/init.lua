@@ -1,4 +1,31 @@
 local fn = vim.fn
+-- local opt = vim.opt
+-- local cmd = vim.cmd
+-- local g = vim.g
+-- local o = vim.o
+-- local env = vim.env
+local utils = require("utils")
+local nmap = utils.nmap
+local vmap = utils.vmap
+local imap = utils.imap
+local xmap = utils.xmap
+local omap = utils.omap
+local inoremap = utils.inoremap
+local nnoremap = utils.nnoremap
+local vnoremap = utils.vnoremap
+
+-- Core mappings changed
+inoremap("jk","<Esc>")
+nnoremap("<C-h>", "^")
+vnoremap("<C-h>", "^")
+nnoremap("<C-l>", "g")
+vnoremap("<C-l>", "g")
+nnoremap("<C-j>", "<c-d>")
+vnoremap("<C-j>", "<c-d>")
+nnoremap("<C-k>", "<c-u>")
+vnoremap("<C-k>", "<c-u>")
+
+-- Packer Config
 local packer_bootstrap
 local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 if fn.empty(fn.glob(install_path)) > 0 then
@@ -35,7 +62,18 @@ require('packer').startup(function(use)
 	use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
 	use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
 	use 'hrsh7th/cmp-nvim-lsp'
-	use 'mhinz/vim-startify'
+  use {
+    "folke/which-key.nvim",
+    config = function()
+      require("which-key").setup (
+        {
+          -- your configuration comes here
+          -- or leave it empty to use the default settings
+          -- refer to the configuration section below
+        }
+
+      )    end
+  }
 	use 'andymass/vim-matchup'
 	use 'vim-test/vim-test'
 	use 'jiangmiao/auto-pairs'

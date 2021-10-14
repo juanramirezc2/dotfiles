@@ -25,31 +25,15 @@ set backspace=eol,start,indent
 " Show “invisible” characters
 set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_
 set list
-
 " abrir vim.init en un ventana nueva love it
 nnoremap <leader>vr :e $MYVIMRC<CR>
 nnoremap <silent><leader><CR> :noh<CR>
-"----------------------- vim-lualine -----------------------------------------{{{
-" escaping normal mode
-inoremap jk <Esc>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " buscar en el documento lo que este visualmente seleccionado
 vnoremap // y/\V<C-r>=escape(@",'/\')<CR><CR>
 
 "Switch to alternative buffer
 nnoremap <leader><tab> <C-^>;
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Core mappings changed
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nnoremap <C-h> ^
-vnoremap <C-h> ^
-nnoremap <C-l> g_
-vnoremap <C-l> g_
-nnoremap <silent> <C-j> <c-d>
-nnoremap <silent> <C-k> <c-u>
-vnoremap <silent> <C-j> <c-d>
-vnoremap <silent> <C-k> <c-u>
 
 " Usar Control + y para copiar al portapapeles
 vnoremap <leader>c "*y
