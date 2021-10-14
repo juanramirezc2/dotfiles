@@ -1,8 +1,8 @@
 local fn = vim.fn
--- local opt = vim.opt
--- local cmd = vim.cmd
--- local g = vim.g
--- local o = vim.o
+local opt = vim.opt
+local cmd = vim.cmd
+local g = vim.g
+local o = vim.o
 -- local env = vim.env
 local utils = require("utils")
 -- local nmap = utils.nmap
@@ -32,7 +32,7 @@ if fn.empty(fn.glob(install_path)) > 0 then
   packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
 end
 
-vim.cmd([[
+cmd([[
   augroup packer_user_config
     autocmd!
     autocmd BufWritePost plugins.lua source <afile> | PackerCompile
@@ -103,44 +103,47 @@ require('packer').startup(function(use)
 end)
 
 -- General
-vim.o.foldlevelstart = 6
-vim.o.autoindent = true
-vim.o.smartindent = true
+opt.backup = false -- don't use backup files
+opt.writebackup = false -- don't backup the file while editing
+opt.swapfile = false -- don't create swap files for new buffers
+o.foldlevelstart = 6
+o.autoindent = true
+o.smartindent = true
 -- Set highlight on search
 --vim.o.hlsearch = false
 
 --Make line numbers default
 vim.wo.number = true
 --Enable mouse mode
-vim.o.mouse = 'a'
+o.mouse = 'a'
 
 --Enable break indent
-vim.o.breakindent = true
+o.breakindent = true
 
 --Save undo history
-vim.opt.undofile = true
+opt.undofile = true
 
 --Case insensitive searching UNLESS /C or capital in search
-vim.o.ignorecase = true
-vim.o.smartcase = true
+o.ignorecase = true
+o.smartcase = true
 
 --Decrease update time
-vim.o.updatetime = 250
+o.updatetime = 250
 vim.wo.signcolumn = 'yes'
 
 --Remap space as leader key
 vim.api.nvim_set_keymap('', '<Space>', '<Nop>', { noremap = true, silent = true })
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+g.mapleader = ' '
+g.maplocalleader = ' '
 --Remap for dealing with word wrap
 vim.api.nvim_set_keymap('n', 'k', "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = true, silent = true })
 vim.api.nvim_set_keymap('n', 'j', "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true, silent = true })
 --Set colorscheme (order is important here)
-vim.o.termguicolors = true
-vim.g.onedark_terminal_italics = 2
- vim.g.onedark_transparent_background = true
-vim.g.background = 'light'
-vim.cmd [[colorscheme onedark]]
+o.termguicolors = true
+g.onedark_terminal_italics = 2
+g.onedark_transparent_background = true
+g.background = 'light'
+cmd [[colorscheme onedark]]
 
 -----------------------------LSP CONFIG ---------------------------------------
 local lsp_status = require('lsp-status')
@@ -177,7 +180,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
   buf_set_keymap('n', '<leader>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
   buf_set_keymap('n', '<leader>so', [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]], opts)
-  vim.cmd [[ command! Format execute 'lua vim.lsp.buf.formatting()' ]]
+  cmd [[ command! Format execute 'lua vim.lsp.buf.formatting()' ]]
 end
 -- nvim-cmp supports additional completion capabilities
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -570,5 +573,5 @@ vim.g.gutentags_generate_on_new = true
 vim.g.gutentags_generate_on_missing = true
 vim.g.gutentags_generate_on_write = true
 vim.g.gutentags_generate_on_empty_buffer = true
-vim.cmd([[command! -nargs=0 GutentagsClearCache call system('rm ' . g:gutentags_cache_dir . '/*')]])
+cmd([[command! -nargs=0 GutentagsClearCache call system('rm ' . g:gutentags_cache_dir . '/*')]])
 vim.g.gutentags_ctags_extra_args = {'--tag-relative=yes', '--fields=+ailmnS', }
