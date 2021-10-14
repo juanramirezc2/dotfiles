@@ -51,7 +51,7 @@ require('packer').startup(function(use)
 	use 'kyazdani42/nvim-tree.lua'
 	use 'nvim-lua/lsp-status.nvim'
 	use 'glepnir/lspsaga.nvim'
-	use 'sunjon/shade.nvim'
+	-- use 'sunjon/shade.nvim'
 	use 'folke/twilight.nvim'
 	use 'morhetz/gruvbox'
 	use {'prettier/vim-prettier', run = 'yarn install' }
@@ -302,15 +302,37 @@ require'nvim-web-devicons'.setup(
   }
 )
 -- nvim-tree.lua
+local tree_cb = require'nvim-tree.config'.nvim_tree_callback
 require'nvim-tree'.setup(
-  {
-    diagnostics     ={
-      enable = true
-    },
-    view = {
-      auto_resize = true,
-    }
-  }
+	{
+		diagnostics     ={
+			enable = true
+		},
+		view = {
+			auto_resize = true,
+			mappings = {
+				-- custom only false will merge the list with the default mappings
+				-- if true, it will only use your list to set the mappings
+				custom_only = true,
+				-- list of mappings to set on the tree manually
+				list = {
+					{ key = {"<CR>", "l", "<2-LeftMouse>"}, cb = tree_cb("edit") },
+					{ key = "h",                         cb = tree_cb("close_node") },
+					{ key = "u",                            cb = tree_cb("dir_up") },
+					{ key = "s",                        cb = tree_cb("vsplit") },
+					{ key = "I",                            cb = tree_cb("toggle_ignored") },
+					{ key = "K",                            cb = tree_cb("first_sibling") },
+					{ key = "J",                            cb = tree_cb("last_sibling") },
+					{ key = "R",                            cb = tree_cb("refresh") },
+					{ key = "r",                            cb = tree_cb("rename") },
+					{ key = "d",                            cb = tree_cb("remove") },
+					{ key = "a",                            cb = tree_cb("create") },
+					{ key = {"cd"},    cb = tree_cb("cd") },
+					{ key = "p",                        cb = tree_cb("preview") },
+				}
+			}
+		}
+	}
 )
 --Set statusbar
 vim.g.lightline = {
@@ -319,15 +341,15 @@ vim.g.lightline = {
   component_function = { gitbranch = 'fugitive#head' },
 }
 -- Shade.nvim
-require'shade'.setup({
-  overlay_opacity = 50,
-  opacity_step = 1,
-  keys = {
-    brightness_up    = '<C-Up>',
-    brightness_down  = '<C-Down>',
-    toggle           = '<Leader>s',
-  }
-})
+-- require'shade'.setup({
+--   overlay_opacity = 50,
+--   opacity_step = 1,
+--   keys = {
+--     brightness_up    = '<C-Up>',
+--     brightness_down  = '<C-Down>',
+--     toggle           = '<Leader>s',
+--   }
+-- })
 -- twilight.nvim
 require("twilight").setup(
   {

@@ -97,17 +97,19 @@ let g:prettier#quickfix_enabled = 0
 autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.svelte,*.yaml,*.html PrettierAsync
 "----------------------- telescope nvim ----------------
 " Find files using Telescope command-line sugar.
-nnoremap <leader>tff <cmd>lua require('telescope.builtin').find_files()<cr>
-nnoremap <leader>tfg <cmd>lua require('telescope.builtin').live_grep()<cr>
-nnoremap <leader>tfb <cmd>lua require('telescope.builtin').buffers()<cr>
-nnoremap <leader>tfh <cmd>lua require('telescope.builtin').help_tags()<cr>
-nnoremap <leader>tts <cmd>lua require('telescope.builtin').treesitter()<cr>
-nnoremap <leader>tgf <cmd>lua require('telescope.builtin').git_files()<cr>
-nnoremap <leader>tgc <cmd>lua require('telescope.builtin').git_commits()<cr>
-nnoremap <leader>tgb <cmd>lua require('telescope.builtin').git_branches()<cr>
+nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
+nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
+nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
+nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+nnoremap <leader>ft <cmd>lua require('telescope.builtin').tags()<cr>
+nnoremap <leader>fct <cmd>lua require('telescope.builtin').current_buffer_tags()<cr>
+nnoremap <leader>fts <cmd>lua require('telescope.builtin').treesitter()<cr>
+nnoremap <leader>fg <cmd>lua require('telescope.builtin').git_files()<cr>
+nnoremap <leader>fc <cmd>lua require('telescope.builtin').git_commits()<cr>
+nnoremap <leader>fb <cmd>lua require('telescope.builtin').git_branches()<cr>
 nnoremap <leader>tr <cmd>lua require('telescope.builtin').resume()<cr>
-nnoremap <leader>tof <cmd>lua require('telescope.builtin').oldfiles()<cr>
-nnoremap <leader>tcs <cmd>lua require('telescope.builtin').colorscheme()<cr>
+nnoremap <leader>fo <cmd>lua require('telescope.builtin').oldfiles()<cr>
+nnoremap <leader>fcs <cmd>lua require('telescope.builtin').colorscheme()<cr>
 "----------------------- nvim-tree.lua ------------------
 nnoremap <leader>nn :NvimTreeToggle<CR>
 nnoremap <leader>r :NvimTreeRefresh<CR>
