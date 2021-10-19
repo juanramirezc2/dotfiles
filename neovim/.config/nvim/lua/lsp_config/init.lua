@@ -70,12 +70,16 @@ require('packer').startup(function(use)
     config = function()
       require("which-key").setup (
         {
-          -- your configuration comes here
-          -- or leave it empty to use the default settings
-          -- refer to the configuration section below
+          window = {
+            border = { '─', '─', '─', ' ', ' ', ' ', ' ', ' ' }, -- none, single, double, shadow
+            position = 'bottom', -- bottom, top
+            margin = { 0, 0, 0, 0 }, -- extra window margin [top, right, bottom, left]
+            padding = { 0, 0, 1, 0 }, -- extra window padding [top, right, bottom, left]
+          },
         }
 
-      )    end
+      )
+    end
   }
   use 'mfussenegger/nvim-lint'
 	use 'andymass/vim-matchup'
@@ -628,4 +632,57 @@ lint.linters_by_ft = {
 vim.cmd([[au BufEnter,InsertLeave * lua require('lint').try_lint()]])
 -- LSP saga
 require 'lspsaga'.setup()
+-- Which Key
+local wk = require 'which-key'
 
+wk.setup {
+  window = {
+    border = { '─', '─', '─', ' ', ' ', ' ', ' ', ' ' }, -- none, single, double, shadow
+    position = 'bottom', -- bottom, top
+    margin = { 0, 0, 0, 0 }, -- extra window margin [top, right, bottom, left]
+    padding = { 0, 0, 1, 0 }, -- extra window padding [top, right, bottom, left]
+  },
+}
+
+-- As an example, we will the create following mappings:
+--  * <leader>ff find files
+--  * <leader>fr show recent files
+--  * <leader>fb Foobar
+-- we'll document:
+--  * <leader>fn new file
+--  * <leader>fe edit file
+-- and hide <leader>1
+
+wk.register({
+  f = {
+    name = 'file', -- optional group name
+  },
+  b = {
+    name = 'buffer', -- optional group name
+  },
+  n = {
+    name = 'neovim', -- optional group name
+  },
+  s = {
+    name = 'search', -- optional group name
+  },
+  w = {
+    name = 'workspace', -- optional group name
+  },
+  q = {
+    name = 'quickfix', -- optional group name
+  },
+  g = {
+    name = 'git', -- optional group name
+  },
+  h = {
+    name = 'help/hunks', -- optional group name
+  },
+  ['?'] = 'which_key_ignore',
+  [';'] = 'which_key_ignore',
+  [','] = 'which_key_ignore',
+  ['<space>'] = 'which_key_ignore',
+  ['.'] = 'which_key_ignore',
+}, {
+    prefix = '<leader>',
+})
