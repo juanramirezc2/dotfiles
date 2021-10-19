@@ -6,14 +6,14 @@ lua require("lsp_config")
 set so=7
 set cursorline        " highlight current line
 set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
-		  \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
-		  \,sm:block-blinkwait175-blinkoff150-blinkon175
+      \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
+      \,sm:block-blinkwait175-blinkoff150-blinkon175
 set noswapfile
 
 " Indent using spaces instead of tabs
 set expandtab
 " Be smart when using tabs ;)
-set smarttab 
+set smarttab
 " split new panels down and below
 set splitbelow
 set splitright
@@ -64,41 +64,48 @@ endfunction
 for s:extension in ['.js', '.jsx', '.ts', '.tsx']
   call s:project(
         \ ['*' . s:extension, {
-        \   'alternate': [
-        \     '{dirname}/{basename}.test' . s:extension,
-        \     '{dirname}/__tests__/{basename}.test' . s:extension,
-        \     '{dirname}/__tests__/{basename}-test' . s:extension,
-        \     '{dirname}/__tests__/{basename}-mocha' . s:extension
-        \   ],
-        \   'type': 'source'
-        \ }],
-        \ ['*.test' . s:extension, {
-        \   'alternate': '{basename}' . s:extension,
-        \   'type': 'test',
-        \ }],
-        \ ['**/__tests__/*.test' . s:extension, {
-        \   'alternate': '{dirname}/{basename}' . s:extension,
-        \   'type': 'test'
-        \ }],
-        \ ['**/__tests__/*-test' . s:extension, {
-        \   'alternate': '{dirname}/{basename}' . s:extension,
-        \   'type': 'test'
-        \ }],
-        \ ['**/__tests__/*-mocha' . s:extension, {
-        \   'alternate': '{dirname}/{basename}' . s:extension,
-        \   'type': 'test'
-        \ }])
+          \   'alternate': [
+            \     '{dirname}/{basename}.test' . s:extension,
+            \     '{dirname}/__tests__/{basename}.test' . s:extension,
+            \     '{dirname}/__tests__/{basename}-test' . s:extension,
+            \     '{dirname}/__tests__/{basename}-mocha' . s:extension
+            \   ],
+            \   'type': 'source'
+            \ }],
+            \ ['*.test' . s:extension, {
+              \   'alternate': '{basename}' . s:extension,
+              \   'type': 'test',
+              \ }],
+              \ ['**/__tests__/*.test' . s:extension, {
+                \   'alternate': '{dirname}/{basename}' . s:extension,
+                \   'type': 'test'
+                \ }],
+                \ ['**/__tests__/*-test' . s:extension, {
+                  \   'alternate': '{dirname}/{basename}' . s:extension,
+                  \   'type': 'test'
+                  \ }],
+                  \ ['**/__tests__/*-mocha' . s:extension, {
+                    \   'alternate': '{dirname}/{basename}' . s:extension,
+                    \   'type': 'test'
+                    \ }])
 endfor "
 nnoremap <Leader>ec :Ecomponent<Space>
 nnoremap <Leader>es :Estylesheet<Space>
 nnoremap <leader>et :Etest<Space>
-"--------------------------- CMP ------------------------------------
-" draw less
-set lazyredraw
-"--------------------------vim prettier -------------------- {{
-" when running at every change you may want to disable quickfix
-let g:prettier#quickfix_enabled = 0
-autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.svelte,*.yaml,*.html PrettierAsync
+"-- neoformat
+let g:neoformat_try_node_exe = 1
+" Enable alignment
+" let g:neoformat_basic_format_align = 1
+
+" Enable tab to spaces conversion
+" let g:neoformat_basic_format_retab = 1
+
+" Enable trimmming of trailing whitespace
+" let g:neoformat_basic_format_trim = 1
+augroup fmt
+  autocmd!
+  autocmd BufWritePre * undojoin | Neoformat
+augroup END
 "----------------------- nvim-tree.lua ------------------
 nnoremap <leader>nn :NvimTreeToggle<CR>
 nnoremap <leader>r :NvimTreeRefresh<CR>
@@ -107,3 +114,10 @@ nnoremap <leader>nf :NvimTreeFindFile<CR>
 "highlight NvimTreeFolderIcon guibg=blue
 "-------------------------- Twilight nvim --------------------------
 nnoremap <leader>tw :Twilight<CR>
+function SetCursor() abort
+  hi! link DiagnosticsError Keyword
+  hi! link DiagnosticsWarning Number
+  hi! link DiagnosticsInformation Number
+  hi! link DiagnosticsHint Identifier
+endfunction
+autocmd ColorScheme * call SetCursor()

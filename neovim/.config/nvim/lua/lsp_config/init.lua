@@ -12,18 +12,20 @@ local utils = require("utils")
 -- local omap = utils.omap
 local inoremap = utils.inoremap
 local nnoremap = utils.nnoremap
-local vnoremap = utils.vnoremap
+local vnoremap = utils.vnoremap  
 
 -- Core mappings changed
 inoremap("jk","<Esc>")
 nnoremap("<C-h>", "^")
 vnoremap("<C-h>", "^")
-nnoremap("<C-l>", "g")
-vnoremap("<C-l>", "g")
+nnoremap("<C-l>", "g_")
+vnoremap("<C-l>", "g_")
 nnoremap("<C-j>", "<c-d>")
 vnoremap("<C-j>", "<c-d>")
 nnoremap("<C-k>", "<c-u>")
 vnoremap("<C-k>", "<c-u>")
+-- Get rid of annoying ex keybind
+vim.api.nvim_set_keymap('', 'Q', '<Nop>', { noremap = true, silent = true })
 
 -- Packer Config
 local packer_bootstrap
@@ -38,7 +40,7 @@ cmd([[
     autocmd BufWritePost plugins.lua source <afile> | PackerCompile
   augroup end
 ]])
-		
+
 require('packer').startup(function(use)
 	use 'wbthomason/packer.nvim' -- Package manager
 	use 'tpope/vim-fugitive'
@@ -46,7 +48,8 @@ require('packer').startup(function(use)
 	-- UI to select things (files, grep results, open buffers...)
 	use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
 	use 'joshdick/onedark.vim' -- Theme inspired by Atom
-	use 'itchyny/lightline.vim' -- Fancier statusline
+  use 'shadmansaleh/lualine.nvim' -- Fancier statusline
+  use 'arkav/lualine-lsp-progress' -- Integration with progress notifications
 	use 'ludovicchabant/vim-gutentags' -- Automatic tags management
 	-- Add indentation guides even on blank lines
 	use 'lukas-reineke/indent-blankline.nvim'
@@ -74,6 +77,7 @@ require('packer').startup(function(use)
 
       )    end
   }
+  use 'mfussenegger/nvim-lint'
 	use 'andymass/vim-matchup'
 	use 'vim-test/vim-test'
 	use 'jiangmiao/auto-pairs'
@@ -91,11 +95,11 @@ require('packer').startup(function(use)
 	use 'kyazdani42/nvim-web-devicons'
 	use 'kyazdani42/nvim-tree.lua'
 	use 'nvim-lua/lsp-status.nvim'
-	use 'glepnir/lspsaga.nvim'
+  use { 'tami5/lspsaga.nvim' }
 	-- use 'sunjon/shade.nvim'
 	use 'folke/twilight.nvim'
 	use 'morhetz/gruvbox'
-	use {'prettier/vim-prettier', run = 'yarn install' }
+	use {'sbdchd/neoformat'}
 	use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
   if packer_bootstrap then
     require('packer').sync()
@@ -142,10 +146,17 @@ vim.api.nvim_set_keymap('n', 'j', "v:count == 0 ? 'gj' : 'j'", { noremap = true,
 o.termguicolors = true
 g.onedark_terminal_italics = 2
 g.onedark_transparent_background = true
-g.background = 'light'
+-- g.gruvbox_contrast_light = 'soft'
+-- o.background = 'light'
 cmd [[colorscheme onedark]]
 
 -----------------------------LSP CONFIG ---------------------------------------
+-- LSP management
+vim.api.nvim_set_keymap('n', '<leader>lr', ':LspRestart<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>li', ':LspInfo<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>ls', ':LspStart<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>lt', ':LspStop<CR>', { noremap = true, silent = true })
+
 local lsp_status = require('lsp-status')
 lsp_status.register_progress()
 local nvim_lsp = require('lspconfig')
@@ -161,26 +172,35 @@ local on_attach = function(client, bufnr)
 
   -- Mappings.
   local opts = { noremap=true, silent=true }
-
-  buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  --buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  buf_set_keymap('n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-  buf_set_keymap('n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-  buf_set_keymap('n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-  buf_set_keymap('n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  buf_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  buf_set_keymap('v', '<leader>ca', '<cmd>lua vim.lsp.buf.range_code_action()<CR>', opts)
-  buf_set_keymap('n', '<leader>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-  buf_set_keymap('n', '<leader>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-  buf_set_keymap('n', '<leader>so', [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]], opts)
-  cmd [[ command! Format execute 'lua vim.lsp.buf.formatting()' ]]
+  --buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  --buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  --buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  --buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  ----buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  --buf_set_keymap('n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+  --buf_set_keymap('n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+  --buf_set_keymap('n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+  --buf_set_keymap('n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  --buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  --buf_set_keymap('n', 'gr', [[<cmd>lua require('telescope.builtin').lsp_references()<cr>]], opts)
+  --buf_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+  --buf_set_keymap('v', '<leader>ca', '<cmd>lua vim.lsp.buf.range_code_action()<CR>', opts)
+  --buf_set_keymap('n', '<leader>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+  --buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+  --buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  --buf_set_keymap('n', '<leader>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+  --buf_set_keymap('n', '<leader>so', [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]], opts)
+  -- cmd [[ command! Format execute 'lua vim.lsp.buf.formatting()' ]]
+  local map = buf_set_keymap
+  map("n", "gr", "<cmd>Lspsaga rename<cr>", {silent = true, noremap = true})
+  map("n", "gx", "<cmd>Lspsaga code_action<cr>", {silent = true, noremap = true})
+  map("x", "gx", ":<c-u>Lspsaga range_code_action<cr>", {silent = true, noremap = true})
+  map("n", "K",  "<cmd>Lspsaga hover_doc<cr>", {silent = true, noremap = true})
+  map("n", "go", "<cmd>Lspsaga show_line_diagnostics<cr>", {silent = true, noremap = true})
+  map("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<cr>", {silent = true, noremap = true})
+  map("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<cr>", {silent = true, noremap = true})
+  map("n", "<C-u>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<cr>",{})
+  map("n", "<C-d>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<cr>",{})
 end
 -- nvim-cmp supports additional completion capabilities
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -306,7 +326,7 @@ vim.api.nvim_exec([[
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 ]], true)
--- telescope nvim 
+-- telescope nvim
 require('telescope').setup(
   {
     defaults = {
@@ -326,16 +346,18 @@ require('telescope').setup(
 )
 -- To get fzf loaded and working with telescope, you need to call
 require('telescope').load_extension('fzf')
+local map = vim.api.nvim_set_keymap 
 --Add leader shortcuts
-vim.api.nvim_set_keymap('n', '<leader><space>', [[<cmd>lua require('telescope.builtin').buffers()<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>sf', [[<cmd>lua require('telescope.builtin').find_files({previewer = false})<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>sb', [[<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>sh', [[<cmd>lua require('telescope.builtin').help_tags()<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>st', [[<cmd>lua require('telescope.builtin').tags()<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>sd', [[<cmd>lua require('telescope.builtin').grep_string()<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>sp', [[<cmd>lua require('telescope.builtin').live_grep()<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>so', [[<cmd>lua require('telescope.builtin').tags{ only_current_buffer = true }<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>?', [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]], { noremap = true, silent = true })
+map('n', '<leader><space>', [[<cmd>lua require('telescope.builtin').buffers()<CR>]], { noremap = true, silent = true })
+map('n', '<leader>sf', [[<cmd>lua require('telescope.builtin').find_files({previewer = false})<CR>]], { noremap = true, silent = true })
+map('n', '<leader>sb', [[<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>]], { noremap = true, silent = true })
+map('n', '<leader>sh', [[<cmd>lua require('telescope.builtin').help_tags()<CR>]], { noremap = true, silent = true })
+map('n', '<leader>st', [[<cmd>lua require('telescope.builtin').tags()<CR>]], { noremap = true, silent = true })
+map('n', '<leader>sgc', [[<cmd>lua require('telescope.builtin').git_commits()<CR>]], { noremap = true, silent = true })
+map('n', '<leader>sgb', [[<cmd>lua require('telescope.builtin').git_branches()<CR>]], { noremap = true, silent = true })
+map('n', '<leader>s/', [[<cmd>lua require('telescope.builtin').live_grep()<CR>]], { noremap = true, silent = true })
+map('n', '<leader>so', [[<cmd>lua require('telescope.builtin').tags{ only_current_buffer = true }<CR>]], { noremap = true, silent = true })
+map('n', '<leader>?', [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]], { noremap = true, silent = true })
 -------------------------nvim-web-devicons-------------------------------
 require'nvim-web-devicons'.setup(
   {
@@ -404,11 +426,28 @@ require'nvim-tree'.setup(
 		}
 	}
 )
+
+-- local onedark = require('lualine.themes.onedark')
+-- for _, mode in pairs(onedark) do
+--   mode.a.gui = nil
+-- end
+-- local onedark = require('lualine.themes.onedark')
 --Set statusbar
-vim.g.lightline = {
-  colorscheme = 'onedark',
-  active = { left = { { 'mode', 'paste' }, { 'gitbranch', 'readonly', 'filename', 'modified' } } },
-  component_function = { gitbranch = 'fugitive#head' },
+require('lualine').setup {
+  options = {
+    icons_enabled = false,
+    -- theme = onedark,
+    component_separators = '|',
+    section_separators = '',
+  },
+  sections = {
+    lualine_a = { 'mode' },
+    lualine_b = { 'filename' },
+    -- lualine_c = { 'lsp_progress' },
+    lualine_x = { 'filetype' },
+    lualine_y = { 'progress' },
+    lualine_z = { 'location' },
+  },
 }
 -- Shade.nvim
 -- require'shade'.setup({
@@ -457,19 +496,17 @@ vim.api.nvim_exec(
 
 -- Setup nvim-cmp.
 -- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menuone,noselect'
+vim.o.completeopt = 'menuone,noinsert'
 local cmp = require'cmp'
 cmp.setup({
   snippet = {
     expand = function(args)
       -- For `vsnip` user.
       vim.fn["vsnip#anonymous"](args.body)
-
       -- For `luasnip` user.
       -- require('luasnip').lsp_expand(args.body)
-
       -- For `ultisnips` user.
-       vim.fn["UltiSnips#Anon"](args.body)
+      vim.fn["UltiSnips#Anon"](args.body)
     end,
   },
   mapping = {
@@ -505,7 +542,11 @@ cmp.setup({
     -- For ultisnips user.
     { name = 'ultisnips' },
     { name = 'buffer' },
-  }
+  },
+  experimental = {
+    native_menu = false,
+    ghost_text = false,
+  },
 })
 -- vim fugitive
 
@@ -572,6 +613,19 @@ vim.g.gutentags_cache_dir = vim.fn.expand('~/.cache/nvim/ctags/')
 vim.g.gutentags_generate_on_new = true
 vim.g.gutentags_generate_on_missing = true
 vim.g.gutentags_generate_on_write = true
+vim.g.gutentags_file_list_command = 'fd' -- Make gutentags use ripgrep
 vim.g.gutentags_generate_on_empty_buffer = true
 cmd([[command! -nargs=0 GutentagsClearCache call system('rm ' . g:gutentags_cache_dir . '/*')]])
 vim.g.gutentags_ctags_extra_args = {'--tag-relative=yes', '--fields=+ailmnS', }
+
+-- nvim lint
+local lint = require('lint')
+lint.linters.eslint.cmd = './node_modules/.bin/eslint'
+lint.linters_by_ft = {
+	javascript = {'eslint'},
+	typescript = {'eslint'}
+}
+vim.cmd([[au BufEnter,InsertLeave * lua require('lint').try_lint()]])
+-- LSP saga
+require 'lspsaga'.setup()
+
