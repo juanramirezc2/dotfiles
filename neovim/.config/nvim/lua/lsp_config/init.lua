@@ -156,10 +156,10 @@ cmd [[colorscheme onedark]]
 
 -----------------------------LSP CONFIG ---------------------------------------
 -- LSP management
-vim.api.nvim_set_keymap('n', '<leader>lr', ':LspRestart<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>li', ':LspInfo<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>ls', ':LspStart<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>lt', ':LspStop<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>lr', ':LspRestart<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>li', ':LspInfo<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>ls', ':LspStart<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>lt', ':LspStop<CR>', { noremap = true })
 
 local lsp_status = require('lsp-status')
 lsp_status.register_progress()
@@ -176,8 +176,8 @@ local on_attach = function(client, bufnr)
 
   -- Mappings.
   local opts = { noremap=true, silent=true }
-  --buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  --buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
   --buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
   --buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
   ----buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
@@ -196,8 +196,8 @@ local on_attach = function(client, bufnr)
   --buf_set_keymap('n', '<leader>so', [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]], opts)
   -- cmd [[ command! Format execute 'lua vim.lsp.buf.formatting()' ]]
   local map = buf_set_keymap
-  map("n", "gr", "<cmd>Lspsaga rename<cr>", {silent = true, noremap = true})
-  map("n", "gx", "<cmd>Lspsaga code_action<cr>", {silent = true, noremap = true})
+  map("n", "<leader>rn", "<cmd>Lspsaga rename<cr>", {silent = true, noremap = true})
+  map("n", "<leader>ca", "<cmd>Lspsaga code_action<cr>", {silent = true, noremap = true})
   map("x", "gx", ":<c-u>Lspsaga range_code_action<cr>", {silent = true, noremap = true})
   map("n", "K",  "<cmd>Lspsaga hover_doc<cr>", {silent = true, noremap = true})
   map("n", "go", "<cmd>Lspsaga show_line_diagnostics<cr>", {silent = true, noremap = true})
@@ -482,7 +482,7 @@ require('gitsigns').setup {
   },
 }
 -- Map blankline
--- vim.g.indent_blankline_char = '┊'
+vim.g.indent_blankline_char = '┊'
 vim.g.indent_blankline_filetype_exclude = { 'help', 'packer' }
 vim.g.indent_blankline_buftype_exclude = { 'terminal', 'nofile' }
 vim.g.indent_blankline_char_highlight = 'LineNr'
@@ -514,8 +514,10 @@ cmp.setup({
     end,
   },
   mapping = {
-    ['<C-k>'] = cmp.mapping.select_prev_item(),
-    ['<C-j>'] = cmp.mapping.select_next_item(),
+    ['<C-k>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+    ['<C-j>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+    ['<Down>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+    ['<Up>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete(),

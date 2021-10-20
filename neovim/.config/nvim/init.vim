@@ -114,10 +114,10 @@ nnoremap <leader>nf :NvimTreeFindFile<CR>
 "highlight NvimTreeFolderIcon guibg=blue
 "-------------------------- Twilight nvim --------------------------
 nnoremap <leader>tw :Twilight<CR>
-function SetCursor() abort
-  hi! link DiagnosticsError Keyword
-  hi! link DiagnosticsWarning Number
-  hi! link DiagnosticsInformation Number
-  hi! link DiagnosticsHint Identifier
-endfunction
-autocmd ColorScheme * call SetCursor()
+" function SetCursor() abort
+"   hi! link DiagnosticsError Keyword
+"   hi! link DiagnosticsWarning Number
+"   hi! link DiagnosticsInformation Number
+"   hi! link DiagnosticsHint Identifier
+" endfunction
+" autocmd ColorScheme * call SetCursor()
