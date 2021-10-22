@@ -547,9 +547,9 @@ cmp.setup({
         buffer = "[buf]",
         nvim_lsp = "[LSP]",
         nvim_lua = "[api]",
-        ultisnips = "[Ulti]",
+        ultisnips = "[UltiSnip]",
         path = "[path]",
-        luasnip = "[snip]",
+        luasnip = "[LuaSnip]",
         gh_issues = "[issues]",
       },
     })
@@ -580,9 +580,7 @@ cmp.setup({
   },
   sources = {
     { name = 'nvim_lsp' },
-    -- For ultisnips user.
-    { name = 'ultisnips' },
-    -- For vsnip user.
+    { name = 'ultisnips', keyword_length = 4 },
     { name = 'vsnip' },
     { name = 'buffer', keyword_length = 5 },
   },
