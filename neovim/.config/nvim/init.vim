@@ -1,7 +1,9 @@
 
 "-------------------------LUA VIMRC-------------------------------{{
 lua require("lsp_config")
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set jumpoptions=stack "the jumplist behaves like the history in a web browser and like the tag stack.
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set 7 lines to the cursor - when moving vertically using j/k
 set so=7
 set cursorline        " highlight current line
@@ -114,10 +116,6 @@ nnoremap <leader>nf :NvimTreeFindFile<CR>
 "highlight NvimTreeFolderIcon guibg=blue
 "-------------------------- Twilight nvim --------------------------
 nnoremap <leader>tw :Twilight<CR>
-" function SetCursor() abort
-"   hi! link DiagnosticsError Keyword
-"   hi! link DiagnosticsWarning Number
-"   hi! link DiagnosticsInformation Number
-"   hi! link DiagnosticsHint Identifier
-" endfunction
-" autocmd ColorScheme * call SetCursor()
+"--- Yankstack 
+nmap <leader>p <Plug>yankstack_substitute_older_paste
+nmap <leader>P <Plug>yankstack_substitute_newer_paste

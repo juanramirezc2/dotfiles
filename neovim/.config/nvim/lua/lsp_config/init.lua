@@ -26,6 +26,8 @@ nnoremap("<C-k>", "<c-u>")
 vnoremap("<C-k>", "<c-u>")
 -- Get rid of annoying ex keybind
 vim.api.nvim_set_keymap('', 'Q', '<Nop>', { noremap = true, silent = true })
+-- Managing buffers
+vim.api.nvim_set_keymap('n', '<leader>bd', ':bdelete<CR>', { noremap = true, silent = true })
 
 -- Packer Config
 local packer_bootstrap
@@ -48,7 +50,7 @@ require('packer').startup(function(use)
 	-- UI to select things (files, grep results, open buffers...)
 	use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
 	use 'joshdick/onedark.vim' -- Theme inspired by Atom
-  use 'shadmansaleh/lualine.nvim' -- Fancier statusline
+  use { 'nvim-lualine/lualine.nvim', requires = {'kyazdani42/nvim-web-devicons', opt = true} }
   use 'arkav/lualine-lsp-progress' -- Integration with progress notifications
 	use 'ludovicchabant/vim-gutentags' -- Automatic tags management
 	-- Add indentation guides even on blank lines
@@ -58,13 +60,13 @@ require('packer').startup(function(use)
 	-- Highlight, edit, and navigate code using a fast incremental parsing library
 	use {
 		'nvim-treesitter/nvim-treesitter',
-		run = ':TSUpdate'
-	}
-	-- Additional textobjects for treesitter
-	use 'nvim-treesitter/nvim-treesitter-textobjects'
-	use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
-	use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
-	use 'hrsh7th/cmp-nvim-lsp'
+		run = ':TSUpdate',
+    requires = {
+      { 'p00f/nvim-ts-rainbow', after = 'nvim-treesitter' },
+      { 'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter' },
+      { 'andymass/vim-matchup', after = 'nvim-treesitter' },
+    }
+  }
   use {
     "folke/which-key.nvim",
     config = function()
@@ -81,20 +83,23 @@ require('packer').startup(function(use)
       )
     end
   }
+  use 'onsails/lspkind-nvim' -- vscode-like pictograms to neovim built-in lsp
   use 'mfussenegger/nvim-lint'
-	use 'andymass/vim-matchup'
 	use 'vim-test/vim-test'
-	use 'jiangmiao/auto-pairs'
 	use 'tpope/vim-projectionist'
 	use 'rhysd/git-messenger.vim'
 	use 'maxbrunsfeld/vim-yankstack'
 	use 'tpope/vim-unimpaired'
 	use 'chaoren/vim-wordmotion'
+	use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
+	use 'hrsh7th/cmp-nvim-lsp'
+  use 'hrsh7th/cmp-buffer'
+	use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
 	use 'hrsh7th/cmp-vsnip'
 	use 'hrsh7th/vim-vsnip'
 	use 'SirVer/ultisnips'
-	use 'honza/vim-snippets'
 	use 'quangnguyen30192/cmp-nvim-ultisnips'
+	use 'honza/vim-snippets'
 	use 'wellle/targets.vim'
 	use 'kyazdani42/nvim-web-devicons'
 	use 'kyazdani42/nvim-tree.lua'
@@ -148,19 +153,14 @@ vim.api.nvim_set_keymap('n', 'k', "v:count == 0 ? 'gk' : 'k'", { noremap = true,
 vim.api.nvim_set_keymap('n', 'j', "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true, silent = true })
 --Set colorscheme (order is important here)
 o.termguicolors = true
-g.onedark_terminal_italics = 2
-g.onedark_transparent_background = true
--- g.gruvbox_contrast_light = 'soft'
+-- g.onedark_terminal_italics = 2
+-- g.onedark_transparent_background = true
+-- cmd [[colorscheme onedark]]
+g.gruvbox_contrast_dark = 'soft'
 -- o.background = 'light'
-cmd [[colorscheme onedark]]
+cmd [[colorscheme gruvbox]]
 
 -----------------------------LSP CONFIG ---------------------------------------
--- LSP management
-vim.api.nvim_set_keymap('n', '<leader>lr', ':LspRestart<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>li', ':LspInfo<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>ls', ':LspStart<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>lt', ':LspStop<CR>', { noremap = true })
-
 local lsp_status = require('lsp-status')
 lsp_status.register_progress()
 local nvim_lsp = require('lspconfig')
@@ -186,14 +186,14 @@ local on_attach = function(client, bufnr)
   --buf_set_keymap('n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
   --buf_set_keymap('n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
   --buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  --buf_set_keymap('n', 'gr', [[<cmd>lua require('telescope.builtin').lsp_references()<cr>]], opts)
   --buf_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   --buf_set_keymap('v', '<leader>ca', '<cmd>lua vim.lsp.buf.range_code_action()<CR>', opts)
   --buf_set_keymap('n', '<leader>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
   --buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
   --buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
   --buf_set_keymap('n', '<leader>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-  --buf_set_keymap('n', '<leader>so', [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]], opts)
+  buf_set_keymap('n', '<leader>so', [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]], opts)
+  buf_set_keymap('n', 'gr', [[<cmd>lua require('telescope.builtin').lsp_references()<cr>]], opts)
   -- cmd [[ command! Format execute 'lua vim.lsp.buf.formatting()' ]]
   local map = buf_set_keymap
   map("n", "<leader>rn", "<cmd>Lspsaga rename<cr>", {silent = true, noremap = true})
@@ -209,7 +209,7 @@ end
 -- nvim-cmp supports additional completion capabilities
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
--- Use a loop to conveniently call 'setup' on multiple servers and
+-- Use a loop to conveniently call 'setup' on multiple servers andasdf
 -- map buffer local keybindings when the language server attaches
 local servers = { 'tsserver', 'tailwindcss' }
 for _, lsp in ipairs(servers) do
@@ -324,12 +324,34 @@ require'nvim-treesitter.configs'.setup(
         },
       },
     },
+    rainbow = {
+      enable = true,
+      extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
+      max_file_lines = nil, -- Do not enable for files with more than n lines, int
+      -- colors = {
+      --   'royalblue3',
+      --   'darkorange3',
+      --   'seagreen3',
+      --   'firebrick',
+      --   'darkorchid3',
+      -- },
+    },
+    matchup = { --vim matchup has tree-sitter support
+      enable = true,              -- mandatory, false will disable the whole extension
+    },
+    autopairs = { enable = true },
+    query_linter = {
+      enable = true,
+      use_virtual_text = true,
+      lint_events = { 'BufWrite', 'CursorHold' },
+    },
   }
 )
 vim.api.nvim_exec([[
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 ]], true)
+
 -- telescope nvim
 require('telescope').setup(
   {
@@ -345,6 +367,10 @@ require('telescope').setup(
     pickers = {
     },
     extensions = {
+      override_generic_sorter = true, -- override the generic sorter
+      override_file_sorter = true, -- override the file sorter
+      case_mode = 'smart_case', -- or "ignore_case" or "respect_case"
+      -- the default case_mode is "smart_case"
     }
   }
 )
@@ -354,14 +380,16 @@ local map = vim.api.nvim_set_keymap
 --Add leader shortcuts
 map('n', '<leader><space>', [[<cmd>lua require('telescope.builtin').buffers()<CR>]], { noremap = true, silent = true })
 map('n', '<leader>sf', [[<cmd>lua require('telescope.builtin').find_files({previewer = false})<CR>]], { noremap = true, silent = true })
+map('n', '<leader>sp', [[<cmd>lua require('telescope.builtin').live_grep()<CR>]], { noremap = true, silent = true })
+map('n', '<leader>sd', [[<cmd>lua require('telescope.builtin').grep_string()<cr>]], { noremap = true, silent = true })
+map('n', '<leader>?', [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]], { noremap = true, silent = true })
+map('n', '<leader>sl', [[<cmd>lua require('telescope.builtin').resume()<CR>]], { noremap = true, silent = true })
 map('n', '<leader>sb', [[<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>]], { noremap = true, silent = true })
 map('n', '<leader>sh', [[<cmd>lua require('telescope.builtin').help_tags()<CR>]], { noremap = true, silent = true })
 map('n', '<leader>st', [[<cmd>lua require('telescope.builtin').tags()<CR>]], { noremap = true, silent = true })
-map('n', '<leader>sgc', [[<cmd>lua require('telescope.builtin').git_commits()<CR>]], { noremap = true, silent = true })
-map('n', '<leader>sgb', [[<cmd>lua require('telescope.builtin').git_branches()<CR>]], { noremap = true, silent = true })
-map('n', '<leader>s/', [[<cmd>lua require('telescope.builtin').live_grep()<CR>]], { noremap = true, silent = true })
+map('n', '<leader>gc', [[<cmd>lua require('telescope.builtin').git_commits()<CR>]], { noremap = true, silent = true })
+map('n', '<leader>gb', [[<cmd>lua require('telescope.builtin').git_branches()<CR>]], { noremap = true, silent = true })
 map('n', '<leader>so', [[<cmd>lua require('telescope.builtin').tags{ only_current_buffer = true }<CR>]], { noremap = true, silent = true })
-map('n', '<leader>?', [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]], { noremap = true, silent = true })
 -------------------------nvim-web-devicons-------------------------------
 require'nvim-web-devicons'.setup(
   {
@@ -497,27 +525,36 @@ vim.api.nvim_exec(
 ]],
   false
 )
-
 -- Setup nvim-cmp.
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noinsert'
+local lspkind = require('lspkind')
 local cmp = require'cmp'
 cmp.setup({
   snippet = {
     expand = function(args)
       -- For `vsnip` user.
       vim.fn["vsnip#anonymous"](args.body)
-      -- For `luasnip` user.
-      -- require('luasnip').lsp_expand(args.body)
       -- For `ultisnips` user.
       vim.fn["UltiSnips#Anon"](args.body)
+      -- For `luasnip` user.
+      -- require('luasnip').lsp_expand(args.body)
     end,
   },
+  formatting = {
+    format = lspkind.cmp_format({with_text = false, maxwidth = 50,
+    menu = {
+        buffer = "[buf]",
+        nvim_lsp = "[LSP]",
+        nvim_lua = "[api]",
+        ultisnips = "[Ulti]",
+        path = "[path]",
+        luasnip = "[snip]",
+        gh_issues = "[issues]",
+      },
+    })
+  },
   mapping = {
-    ['<C-k>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-    ['<C-j>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-    ['<Down>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-    ['<Up>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete(),
@@ -529,7 +566,7 @@ cmp.setup({
     ['<Tab>'] = function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
-      else
+     else
         fallback()
       end
     end,
@@ -539,25 +576,26 @@ cmp.setup({
       else
         fallback()
       end
-    end,
+   end,
   },
   sources = {
     { name = 'nvim_lsp' },
-    -- For vsnip user.
-    { name = 'vsnip' },
     -- For ultisnips user.
     { name = 'ultisnips' },
-    { name = 'buffer' },
+    -- For vsnip user.
+    { name = 'vsnip' },
+    { name = 'buffer', keyword_length = 5 },
   },
   experimental = {
     native_menu = false,
-    ghost_text = false,
+    ghost_text = true,
   },
 })
 -- vim fugitive
 
 vim.g.fugitive_pty = 0
 vim.api.nvim_set_keymap('n', '<leader>gg', ':Git<SPACE>',      {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>gr', ':Gread<CR>',       {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>gs', ':Git<CR>',         {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>gb', ':Git blame<CR>',   {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>gc', ':Git commit<CR>',  {noremap = true})
