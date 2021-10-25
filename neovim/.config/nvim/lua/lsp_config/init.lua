@@ -94,12 +94,16 @@ require('packer').startup(function(use)
 	use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
 	use 'hrsh7th/cmp-nvim-lsp'
   use 'hrsh7th/cmp-buffer'
-	use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
-	use 'hrsh7th/cmp-vsnip'
-	use 'hrsh7th/vim-vsnip'
-	use 'SirVer/ultisnips'
-	use 'quangnguyen30192/cmp-nvim-ultisnips'
-	use 'honza/vim-snippets'
+	use {'honza/vim-snippets', rtp = '.'}
+  use({
+    "SirVer/ultisnips",
+    requires = "honza/vim-snippets",
+    config = function()
+      vim.g.UltiSnipsRemoveSelectModeMappings = 0
+    end,
+  })
+  use 'hrsh7th/nvim-cmp'
+  use 'quangnguyen30192/cmp-nvim-ultisnips'
 	use 'wellle/targets.vim'
 	use 'kyazdani42/nvim-web-devicons'
 	use 'kyazdani42/nvim-tree.lua'
@@ -527,18 +531,26 @@ vim.api.nvim_exec(
 )
 -- Setup nvim-cmp.
 -- Set completeopt to have a better completion experience
+-- Snippet Helper functions
+local has_any_words_before = function()
+  if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
+    return false
+  end
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
+
+local press = function(key)
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), "n", true)
+end
+
 vim.o.completeopt = 'menuone,noinsert'
 local lspkind = require('lspkind')
 local cmp = require'cmp'
 cmp.setup({
   snippet = {
     expand = function(args)
-      -- For `vsnip` user.
-      vim.fn["vsnip#anonymous"](args.body)
-      -- For `ultisnips` user.
-      vim.fn["UltiSnips#Anon"](args.body)
-      -- For `luasnip` user.
-      -- require('luasnip').lsp_expand(args.body)
+      vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
     end,
   },
   formatting = {
@@ -547,41 +559,61 @@ cmp.setup({
         buffer = "[buf]",
         nvim_lsp = "[LSP]",
         nvim_lua = "[api]",
-        ultisnips = "[UltiSnip]",
         path = "[path]",
+        ultisnips = "[UltiSnips]",
         luasnip = "[LuaSnip]",
-        gh_issues = "[issues]",
       },
     })
   },
   mapping = {
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete(),
+    ["<C-Space>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        if vim.fn["UltiSnips#CanExpandSnippet"]() == 1 then
+          return press("<C-R>=UltiSnips#ExpandSnippet()<CR>")
+        end
+
+        cmp.select_next_item()
+      elseif has_any_words_before() then
+        press("<Space>")
+      else
+        fallback()
+      end
+    end, { "i", "s", }),
     ['<C-e>'] = cmp.mapping.close(),
     ['<CR>'] = cmp.mapping.confirm({
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
     }),
-    ['<Tab>'] = function(fallback)
-      if cmp.visible() then
+    ["<Tab>"] = cmp.mapping(function(fallback)
+      if vim.fn.complete_info()["selected"] == -1 and vim.fn["UltiSnips#CanExpandSnippet"]() == 1 then
+        press("<C-R>=UltiSnips#ExpandSnippet()<CR>")
+      elseif vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
+        press("<ESC>:call UltiSnips#JumpForwards()<CR>")
+      elseif cmp.visible() then
         cmp.select_next_item()
-     else
+      elseif has_any_words_before() then
+        press("<Tab>")
+      else
         fallback()
       end
-    end,
-    ['<S-Tab>'] = function(fallback)
-      if cmp.visible() then
+    end, { "i", "s", }
+    ),
+    ["<S-Tab>"] = cmp.mapping(function(fallback)
+      if vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
+        press("<ESC>:call UltiSnips#JumpBackwards()<CR>")
+      elseif cmp.visible() then
         cmp.select_prev_item()
       else
         fallback()
       end
-   end,
+    end, { "i", "s", }
+    ),
   },
   sources = {
     { name = 'nvim_lsp' },
-    { name = 'ultisnips', keyword_length = 4 },
-    { name = 'vsnip' },
+    { name = 'ultisnips' }, -- For ultisnips users.
     { name = 'buffer', keyword_length = 5 },
   },
   experimental = {

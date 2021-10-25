@@ -5,7 +5,7 @@
 https://github.com/neovim/neovim/wiki/Building-Neovim#build-prerequisites
 
 ```sh
-brew install ninja libtool automake cmake pkg-config gettext
+brew install ninja libtool automake cmake pkg-config gettext curl
 ```
 
 ### clone the repository
