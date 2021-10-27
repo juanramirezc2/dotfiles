@@ -94,10 +94,8 @@ require('packer').startup(function(use)
 	use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
 	use 'hrsh7th/cmp-nvim-lsp'
   use 'hrsh7th/cmp-buffer'
-	use {'honza/vim-snippets', rtp = '.'}
   use({
     "SirVer/ultisnips",
-    requires = "honza/vim-snippets",
     config = function()
       vim.g.UltiSnipsRemoveSelectModeMappings = 0
     end,
@@ -531,7 +529,6 @@ vim.api.nvim_exec(
   false
 )
 -- Setup nvim-cmp.
--- Set completeopt to have a better completion experience
 -- Snippet Helper functions
 local has_any_words_before = function()
   if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
@@ -544,8 +541,7 @@ end
 local press = function(key)
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), "n", true)
 end
-
-vim.o.completeopt = 'menuone,noinsert'
+vim.o.completeopt = 'menu,menuone,noselect'
 local lspkind = require('lspkind')
 local cmp = require'cmp'
 cmp.setup({
