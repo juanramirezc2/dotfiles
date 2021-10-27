@@ -119,3 +119,14 @@ nnoremap <leader>tw :Twilight<CR>
 "--- Yankstack 
 nmap <leader>p <Plug>yankstack_substitute_older_paste
 nmap <leader>P <Plug>yankstack_substitute_newer_paste
+
+" The smart snippets use a global options called
+ "g:ultisnips_javascript.{option}" which can control the format
+ " of trailing semicolon, space before function paren, etc.
+ " e.g.
+
+let g:ultisnips_javascript = {
+     \ 'keyword-spacing': 'always',
+     \ 'semi': 'never',
+     \ 'space-before-function-paren': 'always',
+     \ }
