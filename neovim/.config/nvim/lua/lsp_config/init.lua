@@ -83,6 +83,7 @@ require('packer').startup(function(use)
       )
     end
   }
+  use 'norcalli/nvim-colorizer.lua'
   use 'onsails/lspkind-nvim' -- vscode-like pictograms to neovim built-in lsp
   use 'mfussenegger/nvim-lint'
 	use 'vim-test/vim-test'
