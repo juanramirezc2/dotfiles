@@ -567,19 +567,7 @@ cmp.setup({
   mapping = {
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ["<C-Space>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        if vim.fn["UltiSnips#CanExpandSnippet"]() == 1 then
-          return press("<C-R>=UltiSnips#ExpandSnippet()<CR>")
-        end
-
-        cmp.select_next_item()
-      elseif has_any_words_before() then
-        press("<Space>")
-      else
-        fallback()
-      end
-    end, { "i", "s", }),
+    ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
     ['<C-e>'] = cmp.mapping.close(),
     ['<CR>'] = cmp.mapping.confirm({
       behavior = cmp.ConfirmBehavior.Replace,
@@ -688,7 +676,6 @@ vim.g.gutentags_generate_on_missing = true
 vim.g.gutentags_generate_on_write = true
 vim.g.gutentags_file_list_command = 'fd' -- Make gutentags use ripgrep
 vim.g.gutentags_generate_on_empty_buffer = true
-vim.g.gutentags_trace = 1
 cmd([[command! -nargs=0 GutentagsClearCache call system('rm ' . g:gutentags_cache_dir . '/*')]])
 vim.g.gutentags_ctags_extra_args = {'--tag-relative=yes', '--fields=+ailmnS', }
 
