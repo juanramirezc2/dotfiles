@@ -130,3 +130,4 @@ let g:ultisnips_javascript = {
      \ 'semi': 'never',
      \ 'space-before-function-paren': 'always',
      \ }
+let g:gutentags_ctags_executable = '/opt/homebrew/bin/ctags'

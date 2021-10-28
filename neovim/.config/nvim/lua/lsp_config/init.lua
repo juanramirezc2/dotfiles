@@ -363,6 +363,7 @@ require('telescope').setup(
         i = {
           ["<C-j>"] = "move_selection_next",
           ["<C-k>"] = "move_selection_previous",
+          ["<C-d>"] = "delete_buffer"
         }
       },
       layout_strategy = 'vertical'
@@ -687,6 +688,7 @@ vim.g.gutentags_generate_on_missing = true
 vim.g.gutentags_generate_on_write = true
 vim.g.gutentags_file_list_command = 'fd' -- Make gutentags use ripgrep
 vim.g.gutentags_generate_on_empty_buffer = true
+vim.g.gutentags_trace = 1
 cmd([[command! -nargs=0 GutentagsClearCache call system('rm ' . g:gutentags_cache_dir . '/*')]])
 vim.g.gutentags_ctags_extra_args = {'--tag-relative=yes', '--fields=+ailmnS', }
 
