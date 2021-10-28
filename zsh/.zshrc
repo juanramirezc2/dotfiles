@@ -132,3 +132,7 @@ export PATH="/usr/local/opt/ruby/bin:$PATH"
 
 export PHP_ID=php7_3; export PATH="/Applications/DevDesktop/php7_3_x64/bin:/Applications/DevDesktop/mysql/bin:/Applications/DevDesktop/tools:$PATH"
 
+eval "$(pyenv init -)"
+# chromium in mac m1
+export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+export PUPPETEER_EXECUTABLE_PATH=`which chromium`
