@@ -30,6 +30,9 @@ set whichwrap+=<,>,h,l
 " Show “invisible” characters
 set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_
 set list
+" maximum lenght of characters displayed in a git diff
+highlight ColorColumn ctermbg=gray
+set colorcolumn=125
 " abrir vim.init en un ventana nueva love it
 nnoremap <leader>vr :e $MYVIMRC<CR>
 nnoremap <silent><leader><CR> :noh<CR>
@@ -131,3 +134,4 @@ let g:ultisnips_javascript = {
      \ 'space-before-function-paren': 'always',
      \ }
 let g:gutentags_ctags_executable = '/opt/homebrew/bin/ctags'
+

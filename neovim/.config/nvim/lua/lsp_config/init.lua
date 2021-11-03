@@ -53,6 +53,7 @@ require('packer').startup(function(use)
   use { 'nvim-lualine/lualine.nvim', requires = {'kyazdani42/nvim-web-devicons', opt = true} }
   use 'arkav/lualine-lsp-progress' -- Integration with progress notifications
 	use 'ludovicchabant/vim-gutentags' -- Automatic tags management
+  use 'github/copilot.vim' -- Github Copilot Oficial Puging
 	-- Add indentation guides even on blank lines
 	use 'lukas-reineke/indent-blankline.nvim'
 	-- Add git related info in the signs columns and popups
@@ -122,7 +123,7 @@ end)
 opt.backup = false -- don't use backup files
 opt.writebackup = false -- don't backup the file while editing
 opt.swapfile = false -- don't create swap files for new buffers
-o.foldlevelstart = 6
+o.foldlevelstart = 9
 o.autoindent = true
 o.smartindent = true
 -- Set highlight on search
@@ -366,7 +367,9 @@ require('telescope').setup(
           ["<C-d>"] = "delete_buffer"
         }
       },
-      layout_strategy = 'vertical'
+      prompt_prefix = " >",
+      layout_strategy = 'vertical',
+      color_devicons = true
     },
     pickers = {
     },
