@@ -73,7 +73,6 @@ for s:extension in ['.js', '.jsx', '.ts', '.tsx']
             \     '{dirname}/{basename}.test' . s:extension,
             \     '{dirname}/__tests__/{basename}.test' . s:extension,
             \     '{dirname}/__tests__/{basename}-test' . s:extension,
-            \     '{dirname}/__tests__/{basename}-mocha' . s:extension
             \   ],
             \   'type': 'source'
             \ }],

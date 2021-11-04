@@ -46,9 +46,11 @@ cmd([[
 require('packer').startup(function(use)
 	use 'wbthomason/packer.nvim' -- Package manager
 	use 'tpope/vim-fugitive'
-	use 'tpope/vim-commentary' -- "gc" to comment visual regions/lines
+  use {"tpope/vim-surround"}
+  use {"terrortylor/nvim-comment"}
+  use {"JoosepAlviste/nvim-ts-context-commentstring"}
 	-- UI to select things (files, grep results, open buffers...)
-	use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
+	use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope-node-modules.nvim' } }
 	use 'joshdick/onedark.vim' -- Theme inspired by Atom
   use { 'nvim-lualine/lualine.nvim', requires = {'kyazdani42/nvim-web-devicons', opt = true} }
   use 'arkav/lualine-lsp-progress' -- Integration with progress notifications
@@ -68,6 +70,7 @@ require('packer').startup(function(use)
       { 'andymass/vim-matchup', after = 'nvim-treesitter' },
     }
   }
+  --[[
   use {
     "folke/which-key.nvim",
     config = function()
@@ -84,6 +87,7 @@ require('packer').startup(function(use)
       )
     end
   }
+  --]]
   use 'norcalli/nvim-colorizer.lua'
   use 'onsails/lspkind-nvim' -- vscode-like pictograms to neovim built-in lsp
   use 'mfussenegger/nvim-lint'
@@ -262,9 +266,14 @@ nvim_lsp.sumneko_lua.setup(
 ----------------------- nvim treesitter ---------------------
 require'nvim-treesitter.configs'.setup(
   {
+    context_commentstring = {
+      enable = true,
+      enable_autocmd = false,
+    },
     ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
     highlight = {
       enable = true,              -- false will disable the whole extension
+      additional_vim_regex_highlighting = false
     },
     incremental_selection = {
       enable = true,
@@ -381,6 +390,7 @@ require('telescope').setup(
     }
   }
 )
+
 -- To get fzf loaded and working with telescope, you need to call
 require('telescope').load_extension('fzf')
 local map = vim.api.nvim_set_keymap 
@@ -414,6 +424,7 @@ require'nvim-web-devicons'.setup(
     default = true;
   }
 )
+
 -- nvim-tree.lua
 local tree_cb = require'nvim-tree.config'.nvim_tree_callback
 require'nvim-tree'.setup(
@@ -617,8 +628,8 @@ vim.g.fugitive_pty = 0
 vim.api.nvim_set_keymap('n', '<leader>gg', ':Git<SPACE>',      {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>gr', ':Gread<CR>',       {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>gs', ':Git<CR>',         {noremap = true})
-vim.api.nvim_set_keymap('n', '<leader>gb', ':Git blame<CR>',   {noremap = true})
-vim.api.nvim_set_keymap('n', '<leader>gc', ':Git commit<CR>',  {noremap = true})
+-- vim.api.nvim_set_keymap('n', '<leader>gb', ':Git blame<CR>',   {noremap = true})
+-- vim.api.nvim_set_keymap('n', '<leader>gc', ':Git commit<CR>',  {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>gd', ':Gvdiffsplit<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>gl', ':Gclog<CR>',       {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>gp', ':Git push<CR>',    {noremap = true})
@@ -693,6 +704,7 @@ vim.cmd([[au BufEnter,InsertLeave * lua require('lint').try_lint()]])
 -- LSP saga
 require 'lspsaga'.setup()
 -- Which Key
+--[[
 local wk = require 'which-key'
 
 wk.setup {
@@ -746,3 +758,15 @@ wk.register({
 }, {
     prefix = '<leader>',
 })
+--]]
+
+--Nvim comment 
+
+require("nvim_comment").setup(
+  {
+    hook = function()
+      require('ts_context_commentstring.internal').update_commentstring()
+    end,
+    create_mappings = true,
+  }
+)
