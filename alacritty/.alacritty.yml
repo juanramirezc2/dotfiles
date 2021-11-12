@@ -23,7 +23,7 @@
   # available, otherwise `xterm-256color` is used.
   #TERM: alacritty
 
-#window:
+window:
   # Window dimensions (changes require restart)
   #
   # Number of lines/columns (not pixels) in the terminal. The number of columns
@@ -61,7 +61,7 @@
   # Values for `decorations` (macOS only):
   #     - transparent: Title bar, transparent background and title bar buttons
   #     - buttonless: Title bar, transparent background and no title bar buttons
-  #decorations: full
+  decorations: none
 
   # Startup Mode (changes require restart)
   #
@@ -112,21 +112,25 @@ font:
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
     #family: monospace
-    family: JetBrains Mono
+    family: JetBrainsMono Nerd Font Mono
+    # family: JetBrainsMono Nerd Font Mono
+    # family: Fira Code
+    # family: Source Code Pro
+
 
     # The `style` can be specified to pick a specific face.
-    #style: Regular
+    style: ExtraLight
 
   # Bold font face
-  #bold:
+  bold:
     # Font family
     #
     # If the bold family is not specified, it will fall back to the
     # value specified for the normal font.
-    #family: monospace
+    family: JetBrainsMono Nerd Font Mono
 
     # The `style` can be specified to pick a specific face.
-    #style: Bold
+    style: Light
 
   # Italic font face
   #italic:
@@ -171,10 +175,10 @@ font:
   #
   # Thin strokes are suitable for retina displays, but for non-retina screens
   # it is recommended to set `use_thin_strokes` to `false`.
-  #use_thin_strokes: true
+  use_thin_strokes: true
 
 # If `true`, bold text is drawn using the bright color variants.
-#draw_bold_text_with_bright_colors: false
+draw_bold_text_with_bright_colors: true
 
 # Colors (Tomorrow Night)
 #colors:

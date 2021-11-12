@@ -27,7 +27,6 @@ vnoremap("<C-k>", "<c-u>")
 -- Get rid of annoying ex keybind
 vim.api.nvim_set_keymap('', 'Q', '<Nop>', { noremap = true, silent = true })
 -- Managing buffers
-vim.api.nvim_set_keymap('n', '<leader>bd', ':bdelete<CR>', { noremap = true, silent = true })
 
 -- Packer Config
 local packer_bootstrap
@@ -46,6 +45,7 @@ cmd([[
 require('packer').startup(function(use)
 	use 'wbthomason/packer.nvim' -- Package manager
 	use 'tpope/vim-fugitive'
+  use {'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim'}
   use {"tpope/vim-surround"}
   use {"terrortylor/nvim-comment"}
   use {"JoosepAlviste/nvim-ts-context-commentstring"}
@@ -58,6 +58,7 @@ require('packer').startup(function(use)
   use 'github/copilot.vim' -- Github Copilot Oficial Puging
 	-- Add indentation guides even on blank lines
 	use 'lukas-reineke/indent-blankline.nvim'
+  use({ "vuki656/package-info.nvim", requires = "MunifTanjim/nui.nvim", }) --All the npm/yarn commands I don't want to type
 	-- Add git related info in the signs columns and popups
 	use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
 	-- Highlight, edit, and navigate code using a fast incremental parsing library
@@ -68,6 +69,7 @@ require('packer').startup(function(use)
       { 'p00f/nvim-ts-rainbow', after = 'nvim-treesitter' },
       { 'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter' },
       { 'andymass/vim-matchup', after = 'nvim-treesitter' },
+      { 'windwp/nvim-ts-autotag', after = 'nvim-treesitter' },
     }
   }
   --[[
@@ -94,7 +96,7 @@ require('packer').startup(function(use)
 	use 'vim-test/vim-test'
 	use 'tpope/vim-projectionist'
 	use 'rhysd/git-messenger.vim'
-	use 'maxbrunsfeld/vim-yankstack'
+	-- use 'maxbrunsfeld/vim-yankstack'
 	use 'tpope/vim-unimpaired'
 	use 'chaoren/vim-wordmotion'
 	use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
@@ -156,6 +158,8 @@ vim.wo.signcolumn = 'yes'
 vim.api.nvim_set_keymap('', '<Space>', '<Nop>', { noremap = true, silent = true })
 g.mapleader = ' '
 g.maplocalleader = ' '
+-- Managing buffers
+nnoremap("<leader>bd", "<cmd>bdelete<CR>")
 --Remap for dealing with word wrap
 vim.api.nvim_set_keymap('n', 'k', "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = true, silent = true })
 vim.api.nvim_set_keymap('n', 'j', "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true, silent = true })
@@ -287,6 +291,9 @@ require'nvim-treesitter.configs'.setup(
     indent = {
       enable = true
     },
+    autotag = {
+      enable = true,
+    },
     textobjects = {
       select = {
         enable = true,
@@ -339,20 +346,10 @@ require'nvim-treesitter.configs'.setup(
     },
     rainbow = {
       enable = true,
-      extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
-      max_file_lines = nil, -- Do not enable for files with more than n lines, int
-      -- colors = {
-      --   'royalblue3',
-      --   'darkorange3',
-      --   'seagreen3',
-      --   'firebrick',
-      --   'darkorchid3',
-      -- },
     },
     matchup = { --vim matchup has tree-sitter support
       enable = true,              -- mandatory, false will disable the whole extension
     },
-    autopairs = { enable = true },
     query_linter = {
       enable = true,
       use_virtual_text = true,
@@ -407,6 +404,7 @@ map('n', '<leader>st', [[<cmd>lua require('telescope.builtin').tags()<CR>]], { n
 map('n', '<leader>gc', [[<cmd>lua require('telescope.builtin').git_commits()<CR>]], { noremap = true, silent = true })
 map('n', '<leader>gb', [[<cmd>lua require('telescope.builtin').git_branches()<CR>]], { noremap = true, silent = true })
 map('n', '<leader>so', [[<cmd>lua require('telescope.builtin').tags{ only_current_buffer = true }<CR>]], { noremap = true, silent = true })
+map('n', '<leader>nm', '<cmd>Telescope node_modules list<CR>', { noremap = true, silent = true })
 -------------------------nvim-web-devicons-------------------------------
 require'nvim-web-devicons'.setup(
   {
@@ -770,3 +768,12 @@ require("nvim_comment").setup(
     create_mappings = true,
   }
 )
+-- package-info nvim
+require('package-info').setup()
+vim.api.nvim_set_keymap( "n", "<leader>ns", "<cmd>lua require('package-info').show()<cr>", { silent = true, noremap = true })
+-- Hide package versions
+vim.api.nvim_set_keymap("n", "<leader>nc", ":lua require('package-info').hide()<CR>", { silent = true, noremap = true })
+-- neogit
+local neogit = require('neogit')
+
+neogit.setup {}
