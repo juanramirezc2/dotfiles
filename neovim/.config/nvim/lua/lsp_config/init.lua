@@ -223,7 +223,7 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 -- Use a loop to conveniently call 'setup' on multiple servers andasdf
 -- map buffer local keybindings when the language server attaches
-local servers = { 'tsserver', 'tailwindcss' }
+local servers = { 'tsserver' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup(
     {
@@ -232,6 +232,22 @@ for _, lsp in ipairs(servers) do
     }
   )
 end
+------------------ tailwindcss lsp-------------------
+require"lspconfig".tailwindcss.setup {
+  settings = {
+    tailwindCSS = {
+      experimental = {
+        classRegex = {
+          "tw`([^`]*)", -- tw`...`
+          "tw=\"([^\"]*)", -- <div tw="..." />
+          "tw={\"([^\"}]*)", -- <div tw={"..."} />
+          "tw\\.\\w+`([^`]*)", -- tw.xxx`...`
+          "tw\\(.*?\\)`([^`]*)"
+        }
+      }
+    }
+  }
+}
 ----------------- LUA LSP Server --------------------
 local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, "lua/?.lua")
