@@ -63,15 +63,14 @@ require('packer').startup(function(use)
 	-- Add git related info in the signs columns and popups
 	use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
 	-- Highlight, edit, and navigate code using a fast incremental parsing library
-	use {
-		'nvim-treesitter/nvim-treesitter',
-		run = ':TSUpdate',
-    requires = {
-      { 'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter' },
-      { 'andymass/vim-matchup', after = 'nvim-treesitter' },
-      { 'windwp/nvim-ts-autotag', after = 'nvim-treesitter' },
-    }
-  }
+	use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+  -- Treesitter extra modules {{
+  use  'windwp/nvim-ts-autotag'
+  use  'andymass/vim-matchup'
+  use  'nvim-treesitter/nvim-treesitter-textobjects' 
+  use  'p00f/nvim-ts-rainbow' 
+  use  'folke/twilight.nvim'
+  -- }}
   use 'norcalli/nvim-colorizer.lua'
   use 'onsails/lspkind-nvim' -- vscode-like pictograms to neovim built-in lsp
   use 'mfussenegger/nvim-lint'
@@ -97,9 +96,7 @@ require('packer').startup(function(use)
 	use 'kyazdani42/nvim-tree.lua'
 	use 'nvim-lua/lsp-status.nvim'
   use { 'tami5/lspsaga.nvim' }
-	-- use 'sunjon/shade.nvim'
-  use { 'p00f/nvim-ts-rainbow' }
-	use 'folke/twilight.nvim'
+  -- colorscheme
 	use 'morhetz/gruvbox'
 	use {'sbdchd/neoformat'}
 	use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
