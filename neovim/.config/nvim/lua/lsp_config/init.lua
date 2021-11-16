@@ -45,6 +45,7 @@ cmd([[
 require('packer').startup(function(use)
 	use 'wbthomason/packer.nvim' -- Package manager
 	use 'tpope/vim-fugitive'
+  use 'windwp/nvim-autopairs'
   use {'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim'}
   use {"tpope/vim-surround"}
   use {"terrortylor/nvim-comment"}
@@ -66,30 +67,11 @@ require('packer').startup(function(use)
 		'nvim-treesitter/nvim-treesitter',
 		run = ':TSUpdate',
     requires = {
-      { 'p00f/nvim-ts-rainbow', after = 'nvim-treesitter' },
       { 'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter' },
       { 'andymass/vim-matchup', after = 'nvim-treesitter' },
       { 'windwp/nvim-ts-autotag', after = 'nvim-treesitter' },
     }
   }
-  --[[
-  use {
-    "folke/which-key.nvim",
-    config = function()
-      require("which-key").setup (
-        {
-          window = {
-            border = { '─', '─', '─', ' ', ' ', ' ', ' ', ' ' }, -- none, single, double, shadow
-            position = 'bottom', -- bottom, top
-            margin = { 0, 0, 0, 0 }, -- extra window margin [top, right, bottom, left]
-            padding = { 0, 0, 1, 0 }, -- extra window padding [top, right, bottom, left]
-          },
-        }
-
-      )
-    end
-  }
-  --]]
   use 'norcalli/nvim-colorizer.lua'
   use 'onsails/lspkind-nvim' -- vscode-like pictograms to neovim built-in lsp
   use 'mfussenegger/nvim-lint'
@@ -116,6 +98,7 @@ require('packer').startup(function(use)
 	use 'nvim-lua/lsp-status.nvim'
   use { 'tami5/lspsaga.nvim' }
 	-- use 'sunjon/shade.nvim'
+  use { 'p00f/nvim-ts-rainbow' }
 	use 'folke/twilight.nvim'
 	use 'morhetz/gruvbox'
 	use {'sbdchd/neoformat'}
@@ -169,7 +152,7 @@ o.termguicolors = true
 -- g.onedark_transparent_background = true
 -- cmd [[colorscheme onedark]]
 g.gruvbox_contrast_dark = 'soft'
--- o.background = 'light'
+o.background = 'light'
 cmd [[colorscheme gruvbox]]
 
 -----------------------------LSP CONFIG ---------------------------------------
@@ -295,6 +278,11 @@ require'nvim-treesitter.configs'.setup(
       enable = true,              -- false will disable the whole extension
       additional_vim_regex_highlighting = false
     },
+    rainbow = {
+      enable = true,
+      extended_mode = true, -- Highlight also non-parentheses delimiters, boolean or table: lang -> boolean
+      max_file_lines = 1000, -- Do not enable for files with more than 1000 lines, int
+    },
     incremental_selection = {
       enable = true,
       keymaps = {
@@ -359,9 +347,6 @@ require'nvim-treesitter.configs'.setup(
           ["<leader>dF"] = "@class.outer",
         },
       },
-    },
-    rainbow = {
-      enable = true,
     },
     matchup = { --vim matchup has tree-sitter support
       enable = true,              -- mandatory, false will disable the whole extension
@@ -560,6 +545,13 @@ vim.api.nvim_exec(
 )
 -- Setup nvim-cmp.
 -- Snippet Helper functions
+
+vim.o.completeopt = 'menu,menuone,noselect'
+local lspkind = require('lspkind')
+local cmp = require'cmp'
+-- If you want insert `(` after select function or method item
+local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+cmp.event:on( 'confirm_done', cmp_autopairs.on_confirm_done({  map_char = { tex = '' } }))
 local has_any_words_before = function()
   if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
     return false
@@ -571,9 +563,6 @@ end
 local press = function(key)
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), "n", true)
 end
-vim.o.completeopt = 'menu,menuone,noselect'
-local lspkind = require('lspkind')
-local cmp = require'cmp'
 cmp.setup({
   snippet = {
     expand = function(args)
@@ -717,63 +706,6 @@ lint.linters_by_ft = {
 vim.cmd([[au BufEnter,InsertLeave * lua require('lint').try_lint()]])
 -- LSP saga
 require 'lspsaga'.setup()
--- Which Key
---[[
-local wk = require 'which-key'
-
-wk.setup {
-  window = {
-    border = { '─', '─', '─', ' ', ' ', ' ', ' ', ' ' }, -- none, single, double, shadow
-    position = 'bottom', -- bottom, top
-    margin = { 0, 0, 0, 0 }, -- extra window margin [top, right, bottom, left]
-    padding = { 0, 0, 1, 0 }, -- extra window padding [top, right, bottom, left]
-  },
-}
-
--- As an example, we will the create following mappings:
---  * <leader>ff find files
---  * <leader>fr show recent files
---  * <leader>fb Foobar
--- we'll document:
---  * <leader>fn new file
---  * <leader>fe edit file
--- and hide <leader>1
-
-wk.register({
-  f = {
-    name = 'file', -- optional group name
-  },
-  b = {
-    name = 'buffer', -- optional group name
-  },
-  n = {
-    name = 'neovim', -- optional group name
-  },
-  s = {
-    name = 'search', -- optional group name
-  },
-  w = {
-    name = 'workspace', -- optional group name
-  },
-  q = {
-    name = 'quickfix', -- optional group name
-  },
-  g = {
-    name = 'git', -- optional group name
-  },
-  h = {
-    name = 'help/hunks', -- optional group name
-  },
-  ['?'] = 'which_key_ignore',
-  [';'] = 'which_key_ignore',
-  [','] = 'which_key_ignore',
-  ['<space>'] = 'which_key_ignore',
-  ['.'] = 'which_key_ignore',
-}, {
-    prefix = '<leader>',
-})
---]]
-
 --Nvim comment 
 
 require("nvim_comment").setup(
@@ -793,3 +725,5 @@ vim.api.nvim_set_keymap("n", "<leader>nc", ":lua require('package-info').hide()<
 local neogit = require('neogit')
 
 neogit.setup {}
+-- nvim nvim-autopairs 
+require('nvim-autopairs').setup({})
