@@ -83,12 +83,12 @@ require('packer').startup(function(use)
 	use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
 	use 'hrsh7th/cmp-nvim-lsp'
   use 'hrsh7th/cmp-buffer'
-  -- use({
-  --   "SirVer/ultisnips",
-  --   config = function()
-  --     vim.g.UltiSnipsRemoveSelectModeMappings = 0
-  --   end,
-  -- })
+  use({
+    "SirVer/ultisnips",
+    config = function()
+      vim.g.UltiSnipsRemoveSelectModeMappings = 0
+    end,
+  })
   use 'hrsh7th/nvim-cmp'
   use 'quangnguyen30192/cmp-nvim-ultisnips'
 	use 'wellle/targets.vim'
@@ -587,19 +587,19 @@ cmp.setup({
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
     }),
-    -- ["<Tab>"] = cmp.mapping(function(fallback)
-    --   if vim.fn.complete_info()["selected"] == -1 and vim.fn["UltiSnips#CanExpandSnippet"]() == 1 then
-    --     press("<C-R>=UltiSnips#ExpandSnippet()<CR>")
-    --   elseif vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
-    --     press("<ESC>:call UltiSnips#JumpForwards()<CR>")
-    --   elseif cmp.visible() then
-    --     cmp.select_next_item()
-    --   elseif has_any_words_before() then
-    --     press("<Tab>")
-    --   else
-    --     fallback()
-    --   end
-    -- end, { "i", "s", }),
+    ["<Tab>"] = cmp.mapping(function(fallback)
+      if vim.fn.complete_info()["selected"] == -1 and vim.fn["UltiSnips#CanExpandSnippet"]() == 1 then
+        press("<C-R>=UltiSnips#ExpandSnippet()<CR>")
+      elseif vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
+        press("<ESC>:call UltiSnips#JumpForwards()<CR>")
+      elseif cmp.visible() then
+        cmp.select_next_item()
+      elseif has_any_words_before() then
+        press("<Tab>")
+      else
+        fallback()
+      end
+    end, { "i", "s", }),
     ["<S-Tab>"] = cmp.mapping(function(fallback)
       if vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
         press("<ESC>:call UltiSnips#JumpBackwards()<CR>")

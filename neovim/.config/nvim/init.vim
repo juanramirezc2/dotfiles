@@ -137,5 +137,5 @@ let g:ultisnips_javascript = {
      \ }
 let g:gutentags_ctags_executable = '/opt/homebrew/bin/ctags'
 "----------------------- Github Copilot ------------------
-" let g:copilot_no_tab_map = v:true
-" imap <silent><script><expr> <C-e> copilot#Accept("\<CR>")
+imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
+let g:copilot_no_tab_map = v:true
