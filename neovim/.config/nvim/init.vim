@@ -30,6 +30,9 @@ set whichwrap+=<,>,h,l
 " Show “invisible” characters
 set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_
 set list
+" Github Copilot depends on <CR> after a comment, this disable the next line
+" automatic comment
+set formatoptions-=cro
 " maximum lenght of characters displayed in a git diff
 highlight ColorColumn ctermbg=gray
 set colorcolumn=125
@@ -133,4 +136,6 @@ let g:ultisnips_javascript = {
      \ 'space-before-function-paren': 'always',
      \ }
 let g:gutentags_ctags_executable = '/opt/homebrew/bin/ctags'
-
+"----------------------- Github Copilot ------------------
+" let g:copilot_no_tab_map = v:true
+" imap <silent><script><expr> <C-e> copilot#Accept("\<CR>")

@@ -7,7 +7,7 @@ local o = vim.o
 local utils = require("utils")
 -- local nmap = utils.nmap
 -- local vmap = utils.vmap
--- local imap = utils.imap
+local imap = utils.imap
 -- local xmap = utils.xmap
 -- local omap = utils.omap
 local inoremap = utils.inoremap
@@ -44,6 +44,7 @@ cmd([[
 
 require('packer').startup(function(use)
 	use 'wbthomason/packer.nvim' -- Package manager
+  use 'github/copilot.vim' -- Github Copilot Oficial Puging
 	use 'tpope/vim-fugitive'
   use 'windwp/nvim-autopairs'
   use {'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim'}
@@ -56,7 +57,6 @@ require('packer').startup(function(use)
   use { 'nvim-lualine/lualine.nvim', requires = {'kyazdani42/nvim-web-devicons', opt = true} }
   use 'arkav/lualine-lsp-progress' -- Integration with progress notifications
 	use 'ludovicchabant/vim-gutentags' -- Automatic tags management
-  use 'github/copilot.vim' -- Github Copilot Oficial Puging
 	-- Add indentation guides even on blank lines
 	use 'lukas-reineke/indent-blankline.nvim'
   use({ "vuki656/package-info.nvim", requires = "MunifTanjim/nui.nvim", }) --All the npm/yarn commands I don't want to type
@@ -83,12 +83,12 @@ require('packer').startup(function(use)
 	use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
 	use 'hrsh7th/cmp-nvim-lsp'
   use 'hrsh7th/cmp-buffer'
-  use({
-    "SirVer/ultisnips",
-    config = function()
-      vim.g.UltiSnipsRemoveSelectModeMappings = 0
-    end,
-  })
+  -- use({
+  --   "SirVer/ultisnips",
+  --   config = function()
+  --     vim.g.UltiSnipsRemoveSelectModeMappings = 0
+  --   end,
+  -- })
   use 'hrsh7th/nvim-cmp'
   use 'quangnguyen30192/cmp-nvim-ultisnips'
 	use 'wellle/targets.vim'
@@ -587,20 +587,19 @@ cmp.setup({
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
     }),
-    ["<Tab>"] = cmp.mapping(function(fallback)
-      if vim.fn.complete_info()["selected"] == -1 and vim.fn["UltiSnips#CanExpandSnippet"]() == 1 then
-        press("<C-R>=UltiSnips#ExpandSnippet()<CR>")
-      elseif vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
-        press("<ESC>:call UltiSnips#JumpForwards()<CR>")
-      elseif cmp.visible() then
-        cmp.select_next_item()
-      elseif has_any_words_before() then
-        press("<Tab>")
-      else
-        fallback()
-      end
-    end, { "i", "s", }
-    ),
+    -- ["<Tab>"] = cmp.mapping(function(fallback)
+    --   if vim.fn.complete_info()["selected"] == -1 and vim.fn["UltiSnips#CanExpandSnippet"]() == 1 then
+    --     press("<C-R>=UltiSnips#ExpandSnippet()<CR>")
+    --   elseif vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
+    --     press("<ESC>:call UltiSnips#JumpForwards()<CR>")
+    --   elseif cmp.visible() then
+    --     cmp.select_next_item()
+    --   elseif has_any_words_before() then
+    --     press("<Tab>")
+    --   else
+    --     fallback()
+    --   end
+    -- end, { "i", "s", }),
     ["<S-Tab>"] = cmp.mapping(function(fallback)
       if vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
         press("<ESC>:call UltiSnips#JumpBackwards()<CR>")
@@ -619,7 +618,7 @@ cmp.setup({
   },
   experimental = {
     native_menu = false,
-    ghost_text = true,
+    ghost_text = false,
   },
 })
 -- vim fugitive
@@ -705,14 +704,14 @@ vim.cmd([[au BufEnter,InsertLeave * lua require('lint').try_lint()]])
 require 'lspsaga'.setup()
 --Nvim comment 
 
-require("nvim_comment").setup(
-  {
-    hook = function()
-      require('ts_context_commentstring.internal').update_commentstring()
-    end,
-    create_mappings = true,
-  }
-)
+ require("nvim_comment").setup(
+   {
+     hook = function()
+       require('ts_context_commentstring.internal').update_commentstring()
+     end,
+     create_mappings = true,
+   }
+ )
 -- package-info nvim
 require('package-info').setup()
 vim.api.nvim_set_keymap( "n", "<leader>ns", "<cmd>lua require('package-info').show()<cr>", { silent = true, noremap = true })
@@ -723,4 +722,4 @@ local neogit = require('neogit')
 
 neogit.setup {}
 -- nvim nvim-autopairs 
-require('nvim-autopairs').setup({})
+ require('nvim-autopairs').setup({})
