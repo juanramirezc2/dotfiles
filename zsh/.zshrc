@@ -78,7 +78,6 @@ alias r='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd
 alias ag='ag --path-to-ignore ~/.ignore'
 alias gs='git status'
 alias gl='git log --graph --oneline --all'
-alias gc='git commit -m'
 alias ga='git add'
 alias gp='git push'
 alias ls='ls -FHG'
@@ -102,6 +101,29 @@ funcname lazygit() {
     git commit -a -m "$1"
     git push
 }
+# FZF 
+if $(command -v fzf >/dev/null); then
+    # fgco - checkout git branch/tag
+  gco() {
+    local tags branches target
+    tags=$(
+      git tag | awk '{print "\x1b[31;1mtag\x1b[m\t" $1}'
+    ) || return
+    branches=$(
+      git branch --all | grep -v HEAD |
+        sed "s/.* //" | sed "s#remotes/[^/]*/##" |
+        sort -u | awk '{print "\x1b[34;1mbranch\x1b[m\t" $1}'
+    ) || return
+    target=$(
+      (
+        echo "$tags"
+        echo "$branches"
+      ) |
+        fzf-tmux -- --no-hscroll --ansi +m -d "\t" -n 2
+    ) || return
+    git checkout $(echo "$target" | awk '{print $2}')
+  }
+fi
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
@@ -121,8 +143,6 @@ export PATH="$HOME/.pyenv/bin:$PATH"
 export PATH="/usr/local/bin:$PATH"
 
 eval "$(pyenv init -)"
-export LDFLAGS="-L/usr/local/opt/zlib/lib -L/usr/local/opt/bzip2/lib"
-export CPPFLAGS="-I/usr/local/opt/zlib/include -I/usr/local/opt/bzip2/include"
 
 # NVM for managing node versions
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"

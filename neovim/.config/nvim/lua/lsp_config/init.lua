@@ -53,7 +53,6 @@ require('packer').startup(function(use)
   use {"JoosepAlviste/nvim-ts-context-commentstring"}
 	-- UI to select things (files, grep results, open buffers...)
 	use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope-node-modules.nvim' } }
-	use 'joshdick/onedark.vim' -- Theme inspired by Atom
   use { 'nvim-lualine/lualine.nvim', requires = {'kyazdani42/nvim-web-devicons', opt = true} }
   use 'arkav/lualine-lsp-progress' -- Integration with progress notifications
 	use 'ludovicchabant/vim-gutentags' -- Automatic tags management
@@ -70,6 +69,7 @@ require('packer').startup(function(use)
   use  'nvim-treesitter/nvim-treesitter-textobjects' 
   use  'p00f/nvim-ts-rainbow' 
   use  'folke/twilight.nvim'
+  use  'nvim-treesitter/nvim-tree-docs'
   -- }}
   use 'norcalli/nvim-colorizer.lua'
   use 'onsails/lspkind-nvim' -- vscode-like pictograms to neovim built-in lsp
@@ -97,6 +97,7 @@ require('packer').startup(function(use)
 	use 'nvim-lua/lsp-status.nvim'
   use { 'tami5/lspsaga.nvim' }
   -- colorscheme
+	use 'joshdick/onedark.vim' -- Theme inspired by Atom
 	use 'morhetz/gruvbox'
 	use {'sbdchd/neoformat'}
 	use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
@@ -109,7 +110,7 @@ end)
 opt.backup = false -- don't use backup files
 opt.writebackup = false -- don't backup the file while editing
 opt.swapfile = false -- don't create swap files for new buffers
-o.foldlevelstart = 9
+o.foldlevelstart = 99
 o.autoindent = true
 o.smartindent = true
 -- Set highlight on search
@@ -145,12 +146,12 @@ vim.api.nvim_set_keymap('n', 'k', "v:count == 0 ? 'gk' : 'k'", { noremap = true,
 vim.api.nvim_set_keymap('n', 'j', "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true, silent = true })
 --Set colorscheme (order is important here)
 o.termguicolors = true
--- g.onedark_terminal_italics = 2
--- g.onedark_transparent_background = true
--- cmd [[colorscheme onedark]]
+g.onedark_terminal_italics = 2
+g.onedark_transparent_background = true
+cmd [[colorscheme onedark]]
 g.gruvbox_contrast_dark = 'soft'
 o.background = 'light'
-cmd [[colorscheme gruvbox]]
+-- cmd [[colorscheme gruvbox]]
 
 -----------------------------LSP CONFIG ---------------------------------------
 local lsp_status = require('lsp-status')
@@ -270,6 +271,9 @@ require'nvim-treesitter.configs'.setup(
       enable = true,
       enable_autocmd = false,
     },
+    tree_docs = {
+      enable = true
+    },
     ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
     highlight = {
       enable = true,              -- false will disable the whole extension
@@ -279,6 +283,13 @@ require'nvim-treesitter.configs'.setup(
       enable = true,
       extended_mode = true, -- Highlight also non-parentheses delimiters, boolean or table: lang -> boolean
       max_file_lines = 1000, -- Do not enable for files with more than 1000 lines, int
+      colors = {
+        'royalblue3',
+        'darkorange3',
+        'seagreen3',
+        'firebrick',
+        'darkorchid3',
+      },
     },
     incremental_selection = {
       enable = true,
@@ -402,6 +413,7 @@ map('n', '<leader>st', [[<cmd>lua require('telescope.builtin').tags()<CR>]], { n
 map('n', '<leader>gc', [[<cmd>lua require('telescope.builtin').git_commits()<CR>]], { noremap = true, silent = true })
 map('n', '<leader>gb', [[<cmd>lua require('telescope.builtin').git_branches()<CR>]], { noremap = true, silent = true })
 map('n', '<leader>so', [[<cmd>lua require('telescope.builtin').tags{ only_current_buffer = true }<CR>]], { noremap = true, silent = true })
+map('n', '<leader>sc', [[<cmd>lua require('telescope.builtin').colorscheme({ enable_preview = true })<CR>]], { noremap = true, silent = true })
 map('n', '<leader>nm', '<cmd>Telescope node_modules list<CR>', { noremap = true, silent = true })
 -------------------------nvim-web-devicons-------------------------------
 require'nvim-web-devicons'.setup(
@@ -694,10 +706,11 @@ vim.g.gutentags_ctags_extra_args = {'--tag-relative=yes', '--fields=+ailmnS', }
 
 -- nvim lint
 local lint = require('lint')
-lint.linters.eslint.cmd = './node_modules/.bin/eslint'
+-- lint.linters.eslint.cmd = './node_modules/.bin/eslint'
 lint.linters_by_ft = {
 	javascript = {'eslint'},
-	typescript = {'eslint'}
+	typescript = {'eslint'},
+	typescriptreact = {'eslint'}
 }
 vim.cmd([[au BufEnter,InsertLeave * lua require('lint').try_lint()]])
 -- LSP saga

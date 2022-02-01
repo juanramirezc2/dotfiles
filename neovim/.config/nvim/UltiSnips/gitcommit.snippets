@@ -1,3 +1,10 @@
+global !p
+# Capitalize the first letter without affecting the rest of the letters
+def capitalize_first():
+	# word = word[0].upper() + word[1:]
+	# return word
+	return subprocess.check_output(['git', 'rev-parse', '--abbrev-ref', 'HEAD']).strip()
+endglobal
 # https://www.conventionalcommits.org/en/v1.0.0-beta.2/#specification
 
 snippet fix "fix conventional commit"
