@@ -148,10 +148,10 @@ vim.api.nvim_set_keymap('n', 'j', "v:count == 0 ? 'gj' : 'j'", { noremap = true,
 o.termguicolors = true
 g.onedark_terminal_italics = 2
 g.onedark_transparent_background = true
-cmd [[colorscheme onedark]]
+-- cmd [[colorscheme onedark]]
 g.gruvbox_contrast_dark = 'soft'
-o.background = 'light'
--- cmd [[colorscheme gruvbox]]
+-- o.background = 'light'
+cmd [[colorscheme gruvbox]]
 
 -----------------------------LSP CONFIG ---------------------------------------
 local lsp_status = require('lsp-status')
