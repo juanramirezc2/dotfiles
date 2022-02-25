@@ -47,7 +47,6 @@ require('packer').startup(function(use)
   use 'github/copilot.vim' -- Github Copilot Oficial Puging
 	use 'tpope/vim-fugitive'
   use 'windwp/nvim-autopairs'
-  use {'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim'}
   use {"tpope/vim-surround"}
   use {"terrortylor/nvim-comment"}
   use {"JoosepAlviste/nvim-ts-context-commentstring"}
@@ -730,9 +729,3 @@ require('package-info').setup()
 vim.api.nvim_set_keymap( "n", "<leader>ns", "<cmd>lua require('package-info').show()<cr>", { silent = true, noremap = true })
 -- Hide package versions
 vim.api.nvim_set_keymap("n", "<leader>nc", ":lua require('package-info').hide()<CR>", { silent = true, noremap = true })
--- neogit
-local neogit = require('neogit')
-
-neogit.setup {}
--- nvim nvim-autopairs 
- require('nvim-autopairs').setup({})
