@@ -233,7 +233,7 @@ local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 local sumneko_root_path = vim.fn.getenv 'HOME' .. '/.code/lua-language-server' -- custom folder ~/.code were lsp client was cloned and built
-local sumneko_binary = sumneko_root_path .. '/bin/macOS/lua-language-server'
+local sumneko_binary = sumneko_root_path .. '/bin/lua-language-server'
 
 nvim_lsp.sumneko_lua.setup(
   {
