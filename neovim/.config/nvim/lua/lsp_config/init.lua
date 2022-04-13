@@ -51,7 +51,6 @@ require('packer').startup(function(use)
   use {"terrortylor/nvim-comment"}
   use {"JoosepAlviste/nvim-ts-context-commentstring"}
 	-- UI to select things (files, grep results, open buffers...)
-	use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope-node-modules.nvim' } }
   use { 'nvim-lualine/lualine.nvim', requires = {'kyazdani42/nvim-web-devicons', opt = true} }
   use 'arkav/lualine-lsp-progress' -- Integration with progress notifications
 	use 'ludovicchabant/vim-gutentags' -- Automatic tags management
@@ -61,14 +60,8 @@ require('packer').startup(function(use)
 	-- Add git related info in the signs columns and popups
 	use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
 	-- Highlight, edit, and navigate code using a fast incremental parsing library
-	use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
   -- Treesitter extra modules {{
-  use  'windwp/nvim-ts-autotag'
   use  'andymass/vim-matchup'
-  use  'nvim-treesitter/nvim-treesitter-textobjects' 
-  use  'p00f/nvim-ts-rainbow' 
-  use  'folke/twilight.nvim'
-  use  'nvim-treesitter/nvim-tree-docs'
   -- }}
   use 'norcalli/nvim-colorizer.lua'
   use 'onsails/lspkind-nvim' -- vscode-like pictograms to neovim built-in lsp
@@ -99,7 +92,6 @@ require('packer').startup(function(use)
 	use 'joshdick/onedark.vim' -- Theme inspired by Atom
 	use 'morhetz/gruvbox'
 	use {'sbdchd/neoformat'}
-	use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
   if packer_bootstrap then
     require('packer').sync()
   end
@@ -184,8 +176,6 @@ local on_attach = function(client, bufnr)
   --buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
   --buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
   --buf_set_keymap('n', '<leader>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-  buf_set_keymap('n', '<leader>so', [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]], opts)
-  buf_set_keymap('n', 'gr', [[<cmd>lua require('telescope.builtin').lsp_references()<cr>]], opts)
   -- cmd [[ command! Format execute 'lua vim.lsp.buf.formatting()' ]]
   local map = buf_set_keymap
   map("n", "<leader>rn", "<cmd>Lspsaga rename<cr>", {silent = true, noremap = true})
@@ -264,140 +254,9 @@ nvim_lsp.sumneko_lua.setup(
   }
 )
 ----------------------- nvim treesitter ---------------------
-require'nvim-treesitter.configs'.setup(
-  {
-    context_commentstring = {
-      enable = true,
-      enable_autocmd = false,
-    },
-    tree_docs = {
-      enable = true
-    },
-    ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-    highlight = {
-      enable = true,              -- false will disable the whole extension
-      additional_vim_regex_highlighting = false
-    },
-    rainbow = {
-      enable = true,
-      extended_mode = true, -- Highlight also non-parentheses delimiters, boolean or table: lang -> boolean
-      max_file_lines = 1000, -- Do not enable for files with more than 1000 lines, int
-      colors = {
-        'royalblue3',
-        'darkorange3',
-        'seagreen3',
-        'firebrick',
-        'darkorchid3',
-      },
-    },
-    incremental_selection = {
-      enable = true,
-      keymaps = {
-        init_selection = "gnn",
-        node_incremental = "grn",
-        scope_incremental = "grc",
-        node_decremental = "grm",
-      },
-    },
-    indent = {
-      enable = true
-    },
-    autotag = {
-      enable = true,
-    },
-    textobjects = {
-      select = {
-        enable = true,
-        lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
-        keymaps = {
-          -- You can use the capture groups defined in textobjects.scm
-          ['af'] = '@function.outer',
-          ['if'] = '@function.inner',
-          ['ac'] = '@class.outer',
-          ['ic'] = '@class.inner',
-        },
-      },
-      move = {
-        enable = true,
-        set_jumps = true, -- whether to set jumps in the jumplist
-        goto_next_start = {
-          [']]'] = '@function.outer',
-          [']m'] = '@class.outer',
-        },
-        goto_next_end = {
-          [']M'] = '@function.outer',
-          [']['] = '@class.outer',
-        },
-        goto_previous_start = {
-          ['[['] = '@function.outer',
-          ['[m'] = '@class.outer',
-        },
-        goto_previous_end = {
-          ['[M'] = '@function.outer',
-          ['[]'] = '@class.outer',
-        },
-      },
-      swap = {
-        enable = true,
-        swap_next = {
-          ["<leader>a"] = "@parameter.inner",
-        },
-        swap_previous = {
-          ["<leader>A"] = "@parameter.inner",
-        },
-      },
-      lsp_interop = {
-        enable = true,
-        border = 'none',
-        peek_definition_code = {
-          ["<leader>df"] = "@function.outer",
-          ["<leader>dF"] = "@class.outer",
-        },
-      },
-    },
-    matchup = { --vim matchup has tree-sitter support
-      enable = true,              -- mandatory, false will disable the whole extension
-    },
-    query_linter = {
-      enable = true,
-      use_virtual_text = true,
-      lint_events = { 'BufWrite', 'CursorHold' },
-    },
-  }
-)
-vim.api.nvim_exec([[
-set foldmethod=expr
-set foldexpr=nvim_treesitter#foldexpr()
-]], true)
 
--- telescope nvim
-require('telescope').setup(
-  {
-    defaults = {
-      mappings = {
-        i = {
-          ["<C-j>"] = "move_selection_next",
-          ["<C-k>"] = "move_selection_previous",
-          ["<C-d>"] = "delete_buffer"
-        }
-      },
-      prompt_prefix = " >",
-      layout_strategy = 'vertical',
-      color_devicons = true
-    },
-    pickers = {
-    },
-    extensions = {
-      override_generic_sorter = true, -- override the generic sorter
-      override_file_sorter = true, -- override the file sorter
-      case_mode = 'smart_case', -- or "ignore_case" or "respect_case"
-      -- the default case_mode is "smart_case"
-    }
-  }
-)
 
 -- To get fzf loaded and working with telescope, you need to call
-require('telescope').load_extension('fzf')
 local map = vim.api.nvim_set_keymap 
 --Add leader shortcuts
 map('n', '<leader><space>', [[<cmd>lua require('telescope.builtin').buffers()<CR>]], { noremap = true, silent = true })
@@ -517,14 +376,6 @@ require('lualine').setup {
 --     toggle           = '<Leader>s',
 --   }
 -- })
--- twilight.nvim
-require("twilight").setup(
-  {
-    -- your configuration comes here
-    -- or leave it empty to use the default settings
-    -- refer to the configuration section below
-  }
-)
 -- Gitsigns
 require('gitsigns').setup {
   signs = {

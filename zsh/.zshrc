@@ -7,7 +7,7 @@ precmd() { vcs_info }
 autoload -U colors && colors
 setopt PROMPT_SUBST
 #PROMPT="%n in ${PWD/#$HOME/~} ${vcs_info_msg_0_} > "
-PROMPT='%(?.%F{green}√.%F{red}?%?)%f %B%F{magenta}%2~%f%b %# ❯'
+PROMPT='%(?.%F{green}√.%F{red}?%?)%f %B%F{magenta}%2~%f%b %# ($(node --version)) ❯'
 RPROMPT=\$vcs_info_msg_0_
 #PROMPT="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%3~%{$fg[red]%}]%{$reset_color%}$%b ${vcs_info_msg_0_}"
 setopt autocd		# Automatically cd into typed directory.
