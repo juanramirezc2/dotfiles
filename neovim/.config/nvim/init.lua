@@ -14,10 +14,7 @@ local inoremap = utils.inoremap
 local nnoremap = utils.nnoremap
 local vnoremap = utils.vnoremap
 -- Global Configs
--- Set colorscheme
-g.gruvbox_contrast_dark = 'soft'
 -- o.background = 'light'
-cmd [[colorscheme gruvbox]]
 --Make line numbers default
 vim.wo.number = true
 
@@ -31,6 +28,9 @@ vim.opt.shiftwidth = 2
 vim.o.scrolloff       = 12  	  -- Vertical Scroll Offset
 vim.o.sidescrolloff   = 8  	    -- Horizontal Scroll Offset
 vim.o.mouse           = 'a'	    -- Enable mouse mode
+-- Show invisible characters
+vim.opt.listchars = { trail = '·', tab = [[▸\]], eol = '¬', nbsp = '_' } 
+vim.opt.list = true
 --Enable break indent
 vim.o.breakindent = true
 vim.o.splitbelow      = true 	-- Force Split Below
@@ -105,3 +105,7 @@ vim.cmd [[
 
 -- plugin configs
 local plugins = require("plugins")
+
+-- Set colorscheme
+cmd [[colorscheme gruvbox]]
+g.gruvbox_contrast_dark = 'soft'
