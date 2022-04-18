@@ -77,6 +77,17 @@ nnoremap("<C-k>", "<c-u>")
 vnoremap("<C-k>", "<c-u>")
 nnoremap("<leader><CR>", ":nohlsearch<CR>")
 
+-- Copy to clipboard
+vnoremap("<C-c>", '"*y')
+nnoremap("<C-c>", '"*y')
+
+vnoremap('<C-v>', '"*p')
+nnoremap("<C-v>", '"*p')
+
+vnoremap('<C-x>', '"+d')
+nnoremap('<C-x>', '"+d')
+
+-- Search Selection
 vnoremap("//", [[y/\V<C-r>=escape(@",'/\')<CR><CR>]])
 -- Switch to alternative buffer
 nnoremap("<leader><tab>", "<C-^>")
