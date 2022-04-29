@@ -22,6 +22,7 @@ vim.wo.number = true
 vim.o.mouse = 'a'
 
 vim.opt.expandtab = true
+--vim.opt.guicursor = "guicursor=n-v-c:block,i-ci-ve:ver25, r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor, sm:block-blinkwait175-blinkoff150-blinkon175"
 vim.opt.tabstop =  2
 vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
@@ -37,7 +38,7 @@ vim.o.splitbelow      = true 	-- Force Split Below
 vim.o.splitright      = true 	-- Force Split Right
 -- Enable cursor line
 vim.wo.cursorline = true
-
+vim.o.jumpoptions = "stack"
 --Save undo history
 vim.opt.undofile = true
 -- don't use backup files
@@ -48,6 +49,7 @@ opt.writebackup = false
 opt.swapfile = false 
 o.foldlevelstart = 99
 o.autoindent = true
+vim.opt.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175"
 o.smartindent = true
 --Case insensitive searching UNLESS /C or capital in search
 vim.o.ignorecase = true
@@ -86,7 +88,10 @@ nnoremap("<C-v>", '"*p')
 
 vnoremap('<C-x>', '"+d')
 nnoremap('<C-x>', '"+d')
-
+-- buffer management
+nnoremap("<leader>bd", ':bdelete<cr>')
+nnoremap("<leader>l", ':bnext<cr>')
+nnoremap("<leader>h", ':bprevious<cr>')
 -- Search Selection
 vnoremap("//", [[y/\V<C-r>=escape(@",'/\')<CR><CR>]])
 -- Switch to alternative buffer
@@ -109,3 +114,4 @@ local plugins = require("plugins")
 -- Set colorscheme
 cmd [[colorscheme gruvbox]]
 g.gruvbox_contrast_dark = 'soft'
+
