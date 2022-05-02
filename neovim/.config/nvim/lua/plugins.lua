@@ -21,6 +21,7 @@ require('packer').startup(function(use)
     use 'rhysd/git-messenger.vim' -- display messages of git commits
     use 'tpope/vim-unimpaired' -- Pairs of handy bracket mappings
     use 'tpope/vim-fugitive' --Git wrapper so awesome, it should be illegal
+    use "Pocco81/AutoSave.nvim"
     -- UI to select things (files, grep results, open buffers...)
     use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
     use { 'nvim-telescope/telescope-node-modules.nvim' }
@@ -40,8 +41,10 @@ require('packer').startup(function(use)
     use  'andymass/vim-matchup'
     --}}
     --  improve yank and put functionalities for Neovim.
-    use 'gbprod/yanky.nvim'
+    use 'maxbrunsfeld/vim-yankstack'
     use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
+    -- better navigation using lsp and treesitter
+    -- use {'ray-x/navigator.lua', requires = {'ray-x/guihua.lua', run = 'cd lua/fzy && make'}}
     use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
     use 'hrsh7th/cmp-nvim-lsp'
     use 'saadparwaiz1/cmp_luasnip'
@@ -49,13 +52,6 @@ require('packer').startup(function(use)
     use { 'sbdchd/neoformat' }
     -- Lua
     use "folke/which-key.nvim"
-    use {
-      'kyazdani42/nvim-tree.lua',
-      requires = {
-        'kyazdani42/nvim-web-devicons', -- optional, for file icon
-      },
-      config = function() require'nvim-tree'.setup {} end
-    }
   end)
 
 --Set statusbar
@@ -69,7 +65,7 @@ require('lualine').setup {
 }
 
 --Enable Comment.nvim
-require('Comment').setup()
+require('Comment').setup({})
 
 --Map blankline
 vim.g.indent_blankline_char = '┊'
@@ -299,14 +295,8 @@ cmp.setup {
     { name = 'luasnip' },
   },
 }
--- vim: ts=2 sts=2 sw=2 et
--- nvim-tree ---------
-require'nvim-tree'.setup()
-local opts = { noremap = true, silent = true }
-vim.api.nvim_set_keymap('n', '<C-n>', ':NvimTreeToggle<CR>', opts)
-vim.api.nvim_set_keymap('n', '<leader>n', ':NvimTreeFindFile<CR>', opts)
-vim.api.nvim_set_keymap('n', '<leader>r', ':NvimTreeRefresh<CR>', opts)
 
+local opts = { noremap = true, silent = true }
 -- Which key
 local wk = require("which-key")
 wk.setup()
@@ -317,7 +307,7 @@ vim.g.gutentags_cache_dir = "~/.cache/nvim/ctags"
 vim.api.nvim_set_keymap('n', '<leader>gs', ':Git<CR>', opts)
 vim.api.nvim_set_keymap('n', '<leader>gp', ':Git push<CR>', opts)
 vim.api.nvim_set_keymap('n', '<leader>gr', ':Gread<CR>', opts)
-vim.api.nvim_set_keymap('n', '<leader>gb', ':Gblame<cr>', opts)
+vim.api.nvim_set_keymap('n', '<leader>gb', ':Git blame<cr>', opts)
 -- Fugitive Conflict Resolution
 vim.api.nvim_set_keymap('n', '<leader>gd', ':Gvdiffsplit!<CR>', opts)
 vim.api.nvim_set_keymap('n', '<leader>gdh', ':diffget //2 <CR>', opts)
@@ -325,9 +315,13 @@ vim.api.nvim_set_keymap('n', '<leader>gdl', ':diffget //3 <CR>', opts)
 -- Neoformat 
 vim.g.neoformat_try_node_exe = 1
 vim.api.nvim_set_keymap('n', '<leader>f', ':Neoformat <CR>', opts)
--- Yanky
-require("yanky").setup({
-  -- your configuration comes here
-  -- or leave it empty to use the default settings
-  -- refer to the configuration section below
-})
+-- yankstack
+vim.g.yankstack_map_keys = 0
+vim.api.nvim_set_keymap('n', '<c-n>', '<Plug>yankstack_substitute_newer_paste', opts)
+vim.api.nvim_set_keymap('n', '<c-p>', '<Plug>yankstack_substitute_older_paste', opts)
+vim.api.nvim_set_keymap('n', '<leader>y', ':Yanks<CR>', opts)
+-- AutoSave
+local autosave = require("autosave")
+autosave.setup()
+-- navigator setup
+-- require'navigator'.setup()
