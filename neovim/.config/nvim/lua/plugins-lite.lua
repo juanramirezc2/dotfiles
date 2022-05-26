@@ -12,12 +12,9 @@ vim.cmd [[
   augroup end
 ]]
 
-	
 require('packer').startup(function(use)
     use 'wbthomason/packer.nvim' -- Package manager
-    use 'tpope/vim-rhubarb' -- Fugitive-companion to interact with github
     use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
-    use 'ludovicchabant/vim-gutentags' -- Automatic tags management
     use 'rhysd/git-messenger.vim' -- display messages of git commits
     use 'tpope/vim-unimpaired' -- Pairs of handy bracket mappings
     use 'tpope/vim-fugitive' --Git wrapper so awesome, it should be illegal
@@ -25,60 +22,34 @@ require('packer').startup(function(use)
     use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
     use { 'nvim-telescope/telescope-node-modules.nvim' }
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-    use 'mjlbach/onedark.nvim' -- Theme inspired by Atom
     use 'morhetz/gruvbox'
-    use 'nvim-lualine/lualine.nvim' -- Fancier statusline
-    -- Add indentation guides even on blank lines
-    use 'lukas-reineke/indent-blankline.nvim'
-    -- Add git related info in the signs columns and popups
-    use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
     -- Highlight, edit, and navigate code using a fast incremental parsing library
     use 'nvim-treesitter/nvim-treesitter'
     -- Treesitter extra modules {{
-    use 'nvim-treesitter/nvim-treesitter-textobjects'
-    use  'windwp/nvim-ts-autotag'
     use  'andymass/vim-matchup'
+    -- linter
+    use 'mfussenegger/nvim-lint'
     --}}
     use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
     -- better navigation using lsp and treesitter
     use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
     use 'hrsh7th/cmp-nvim-lsp'
-    use 'saadparwaiz1/cmp_luasnip'
-    use 'L3MON4D3/LuaSnip' -- Snippets plugin
     use { 'sbdchd/neoformat' }
     -- Lua
-    use "folke/which-key.nvim"
+    -- use "folke/which-key.nvim"
+    use {
+      'kyazdani42/nvim-tree.lua',
+      requires = {
+        'kyazdani42/nvim-web-devicons', -- optional, for file icon
+      }, tag = 'nightly' -- optional, updated every week. (see issue #1193)
+    }
   end)
 
---Set statusbar
-require('lualine').setup {
-  options = {
-    icons_enabled = false,
-    theme = 'gruvbox',
-    component_separators = '|',
-    section_separators = '',
-  },
-}
 
 --Enable Comment.nvim
 require('Comment').setup({})
 
---Map blankline
-vim.g.indent_blankline_char = '┊'
-vim.g.indent_blankline_filetype_exclude = { 'help', 'packer' }
-vim.g.indent_blankline_buftype_exclude = { 'terminal', 'nofile' }
-vim.g.indent_blankline_show_trailing_blankline_indent = false
 
--- Gitsigns
-require('gitsigns').setup {
-  signs = {
-    add = { text = '+' },
-    change = { text = '~' },
-    delete = { text = '_' },
-    topdelete = { text = '‾' },
-    changedelete = { text = '~' },
-  },
-}
 
 -- Telescope
 require('telescope').setup {
@@ -245,8 +216,6 @@ lspconfig.sumneko_lua.setup {
     },
   },
 }
--- luasnip setup
-local luasnip = require 'luasnip'
 
 -- nvim-cmp setup
 local cmp = require 'cmp'
@@ -270,8 +239,6 @@ cmp.setup {
     ['<Tab>'] = function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
-      elseif luasnip.expand_or_jumpable() then
-        luasnip.expand_or_jump()
       else
         fallback()
       end
@@ -279,26 +246,21 @@ cmp.setup {
     ['<S-Tab>'] = function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
-      elseif luasnip.jumpable(-1) then
-        luasnip.jump(-1)
       else
         fallback()
       end
     end,
   },
   sources = {
-    { name = 'nvim_lsp' },
-    { name = 'luasnip' },
+    { name = 'nvim_lsp' }
   },
 }
 
 local opts = { noremap = true, silent = true }
 -- Which key
-local wk = require("which-key")
-wk.setup()
-wk.register({}, { prefix = "<leader>" })
--- guttentags
-vim.g.gutentags_cache_dir = "~/.cache/nvim/ctags"
+-- local wk = require("which-key")
+-- wk.setup()
+-- wk.register({}, { prefix = "<leader>" })
 -- vim fugitive
 vim.api.nvim_set_keymap('n', '<leader>gs', ':Git<CR>', opts)
 vim.api.nvim_set_keymap('n', '<leader>gp', ':Git push<CR>', opts)
@@ -311,8 +273,29 @@ vim.api.nvim_set_keymap('n', '<leader>gdl', ':diffget //3 <CR>', opts)
 -- Neoformat 
 vim.g.neoformat_try_node_exe = 1
 vim.api.nvim_set_keymap('n', '<leader>f', ':Neoformat <CR>', opts)
--- -- yankstack
--- vim.g.yankstack_map_keys = 0
--- vim.api.nvim_set_keymap('n', '<c-n>', '<Plug>yankstack_substitute_newer_paste', opts)
--- vim.api.nvim_set_keymap('n', '<c-p>', '<Plug>yankstack_substitute_older_paste', opts)
--- vim.api.nvim_set_keymap('n', '<leader>y', ':Yanks<CR>', opts)
+-- empty setup using defaults: add your own options
+require'nvim-tree'.setup { }
+
+vim.api.nvim_set_keymap('n', '<C-n>', ':NvimTreeToggle<CR>', opts)
+vim.api.nvim_set_keymap('n', '<leader>r', '<:NvimTreeRefresh<CR>', opts)
+vim.api.nvim_set_keymap('n', '<leader>n', ':NvimTreeFindFile<CR>', opts)
+
+-- nvim lint -----------------------------
+-- require('lint').linters_by_ft = {
+--   typescript = {'eslint'},
+--   typescriptreact = {'eslint'},
+--   javascript = {'eslint'},
+--   javascriptreact = {'eslint'},
+--
+-- }
+
+-- vim.api.nvim_exec([[au BufWritePost <buffer> lua require('lint').try_lint()]], false)
+-- vim.api.nvim_set_keymap('n', '<leader>li', [[<buffer>lua require('lint').try_lint()<CR>]], { noremap = true, silent = false })
+--
+local lint = require('lint')
+lint.linters.eslint.cmd = './node_modules/.bin/eslint'
+lint.linters_by_ft = {
+	javascript = {'eslint'},
+	typescript = {'eslint'}
+}
+vim.cmd([[au BufEnter,InsertLeave * lua require('lint').try_lint()]])

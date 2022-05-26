@@ -13,11 +13,12 @@ local imap = utils.imap
 local inoremap = utils.inoremap
 local nnoremap = utils.nnoremap
 local vnoremap = utils.vnoremap
+
 -- Global Configs
 -- o.background = 'light'
 --Make line numbers default
 vim.wo.number = true
-
+vim.o.filetype = true
 --Enable mouse mode
 vim.o.mouse = 'a'
 
@@ -88,6 +89,9 @@ nnoremap("<C-v>", '"*p')
 
 vnoremap('<C-x>', '"+d')
 nnoremap('<C-x>', '"+d')
+-- neovim terminal
+vim.api.nvim_set_keymap('t', '<ESC>', [[<C-\><C-n>]], { noremap = true })
+vim.api.nvim_set_keymap('t', '<C-d>', [[<C-\><C-d>]], { noremap = true })
 -- buffer management
 nnoremap("<leader>bd", ':bdelete<cr>')
 nnoremap("<leader>l", ':bnext<cr>')
@@ -109,8 +113,8 @@ vim.cmd [[
 ]]
 
 -- plugin configs
-local plugins = require("plugins")
-
+-- local plugins = require("plugins")
+local plugins = require("plugins-lite")
 -- Set colorscheme
 cmd [[colorscheme gruvbox]]
 g.gruvbox_contrast_dark = 'soft'

@@ -4,13 +4,12 @@
 !_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
 !_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
 !_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
-!_TAG_PROC_CWD	/Users/juangabrielramirezcruz/dotfiles/	//
+!_TAG_PROC_CWD	/Users/jgramirez/dotfiles/	//
 !_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
 !_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
-!_TAG_PROGRAM_VERSION	5.9.0	/p5.9.20211107.0/
+!_TAG_PROGRAM_VERSION	5.9.0	/7877f202/
 (b.1) full set of text objects	neovim/.config/nvim/README.md	/^### (b.1) full set of text objects$/;"	S	section:vim custom text objects""matching pairs custom objects [more info](https://github.com/andymass/vim-matchup/blob/master/README.md)
-//	neovim/.config/nvim/init.vim	/^vnoremap \/\/ y\/\\V<C-r>=escape(@",'\/\\')<CR><CR>$/;"	m
 0	iTerm2/.themes/DynamicProfiles/Dynamic.json	/^        "rlogin",$/;"	s	array:Profiles.0.Jobs to Ignore
 0	iTerm2/.themes/DynamicProfiles/Dynamic.json	/^    {$/;"	o	array:Profiles
 0	karabiner/.config/karabiner/assets/complex_modifications/capslock.json	/^              "mandatory": ["left_command"],$/;"	s	array:rules.0.manipulators.3.from.modifiers.mandatory
@@ -177,26 +176,7 @@
 9	karabiner/.config/karabiner/assets/complex_modifications/capslock.json	/^        {$/;"	o	array:rules.0.manipulators
 9	karabiner/.config/karabiner/karabiner.json	/^                            {$/;"	o	array:profiles.0.complex_modifications.rules.0.manipulators
 9	karabiner/.config/karabiner/karabiner.json	/^                {$/;"	o	array:profiles.0.fn_function_keys
-<C-L>	neovim/.config/nvim/init.vim	/^imap <silent><script><expr> <C-L> copilot#Accept("\\<CR>")$/;"	m
-<C-x>	neovim/.config/nvim/init.vim	/^nnoremap <C-x> "+d$/;"	m
-<C-x>	neovim/.config/nvim/init.vim	/^vnoremap <C-x> "+d$/;"	m
-<Leader>ec	neovim/.config/nvim/init.vim	/^nnoremap <Leader>ec :Ecomponent<Space>$/;"	m
-<Leader>es	neovim/.config/nvim/init.vim	/^nnoremap <Leader>es :Estylesheet<Space>$/;"	m
 <cr>	neovim/.config/nvim/autoload/plug.vim	/^      nmap <buffer> <cr> <plug>(plug-preview)$/;"	m
-<leader><CR>	neovim/.config/nvim/init.vim	/^nnoremap <silent><leader><CR> :noh<CR>$/;"	m
-<leader><tab>	neovim/.config/nvim/init.vim	/^nnoremap <leader><tab> <C-^>;$/;"	m
-<leader>P	neovim/.config/nvim/init.vim	/^nmap <leader>P <Plug>yankstack_substitute_newer_paste$/;"	m
-<leader>c	neovim/.config/nvim/init.vim	/^nnoremap <leader>c "*y$/;"	m
-<leader>c	neovim/.config/nvim/init.vim	/^vnoremap <leader>c "*y$/;"	m
-<leader>et	neovim/.config/nvim/init.vim	/^nnoremap <leader>et :Etest<Space>$/;"	m
-<leader>nf	neovim/.config/nvim/init.vim	/^nnoremap <leader>nf :NvimTreeFindFile<CR>$/;"	m
-<leader>nn	neovim/.config/nvim/init.vim	/^nnoremap <leader>nn :NvimTreeToggle<CR>$/;"	m
-<leader>p	neovim/.config/nvim/init.vim	/^nmap <leader>p <Plug>yankstack_substitute_older_paste$/;"	m
-<leader>r	neovim/.config/nvim/init.vim	/^nnoremap <leader>r :NvimTreeRefresh<CR>$/;"	m
-<leader>tw	neovim/.config/nvim/init.vim	/^nnoremap <leader>tw :Twilight<CR>$/;"	m
-<leader>v	neovim/.config/nvim/init.vim	/^nnoremap <leader>v "*p$/;"	m
-<leader>v	neovim/.config/nvim/init.vim	/^vnoremap <leader>v "*p$/;"	m
-<leader>vr	neovim/.config/nvim/init.vim	/^nnoremap <leader>vr :e $MYVIMRC<CR>$/;"	m
 <plug>(plug-preview)	neovim/.config/nvim/autoload/plug.vim	/^    nnoremap <silent> <buffer> <plug>(plug-preview) :silent! call <SID>preview_commit()<cr>$/;"	m
 ALWAYS	neovim/.config/nvim/pythonx/javascript_snippets.py	/^ALWAYS = 'always'$/;"	v
 ASCII Anti Aliased	iTerm2/.themes/DynamicProfiles/Dynamic.json	/^      "ASCII Anti Aliased" : true,$/;"	b	object:Profiles.0
@@ -351,11 +331,13 @@ Color Space	iTerm2/.themes/DynamicProfiles/Dynamic.json	/^        "Color Space" 
 Color Space	iTerm2/.themes/DynamicProfiles/Dynamic.json	/^        "Color Space" : "Calibrated",$/;"	s	object:Profiles.0.Selection Color
 Columns	iTerm2/.themes/DynamicProfiles/Dynamic.json	/^      "Columns" : 80,$/;"	n	object:Profiles.0
 Command	iTerm2/.themes/DynamicProfiles/Dynamic.json	/^      "Command" : "",$/;"	s	object:Profiles.0
+Convenient theme functions	emacs/.emacs.d/config.org	/^** Convenient theme functions$/;"	c
 Cursor Color	iTerm2/.themes/DynamicProfiles/Dynamic.json	/^      "Cursor Color" : {$/;"	o	object:Profiles.0
 Cursor Guide Color	iTerm2/.themes/DynamicProfiles/Dynamic.json	/^      "Cursor Guide Color" : {$/;"	o	object:Profiles.0
 Cursor Text Color	iTerm2/.themes/DynamicProfiles/Dynamic.json	/^      "Cursor Text Color" : {$/;"	o	object:Profiles.0
 Custom Command	iTerm2/.themes/DynamicProfiles/Dynamic.json	/^      "Custom Command" : "No",$/;"	s	object:Profiles.0
 Custom Directory	iTerm2/.themes/DynamicProfiles/Dynamic.json	/^      "Custom Directory" : "No",$/;"	s	object:Profiles.0
+Customize settings	emacs/.emacs.d/config.org	/^* Customize settings$/;"	p
 D	neovim/.config/nvim/autoload/plug.vim	/^  nnoremap <silent> <buffer> D  :PlugDiff<cr>$/;"	m
 Default Bookmark	iTerm2/.themes/DynamicProfiles/Dynamic.json	/^      "Default Bookmark" : "No",$/;"	s	object:Profiles.0
 Denite Use Rip Grep for recursive search	neovim/.config/nvim/README.md	/^### Denite Use Rip Grep for recursive search$/;"	S	chapter:neovim configuration
@@ -367,6 +349,7 @@ EOD	.macos	/^osascript <<EOD$/;"	h
 FILTER	ranger/.config/ranger/commands_full.py	/^    FILTER        = 'f'$/;"	v	class:scout
 Flashing Bell	iTerm2/.themes/DynamicProfiles/Dynamic.json	/^      "Flashing Bell" : false,$/;"	b	object:Profiles.0
 Font Software End User License Agreement	fonts/Coding Essentials comic code with ligatures/Licenses/Font Software End User License Agreement.html	/^<h1>Font Software End User License Agreement<\/h1><p>FONT SOFTWARE END USER LICENSE AGREEMENT$/;"	h
+Font Software End User License Agreement	fonts/Coding Essentials comic code with ligatures/Licenses/Font Software End User License Agreement.html	/^<title>Font Software End User License Agreement<\/title><meta http-equiv='Content-Type' content=/;"	j
 Foreground Color	iTerm2/.themes/DynamicProfiles/Dynamic.json	/^      "Foreground Color" : {$/;"	o	object:Profiles.0
 Gabriel’s dotfiles	README.md	/^# Gabriel’s dotfiles$/;"	c
 Green Component	iTerm2/.themes/DynamicProfiles/Dynamic.json	/^        "Green Component" : 0.05879192054271698$/;"	n	object:Profiles.0.Ansi 1 Color
@@ -404,6 +387,7 @@ Idle Code	iTerm2/.themes/DynamicProfiles/Dynamic.json	/^      "Idle Code" : 0,$/
 Important Information	neovim/.config/nvim/README.md	/^## Important Information$/;"	s	chapter:neovim configuration
 Install Homebrew formulae	README.md	/^### Install Homebrew formulae$/;"	S	section:Gabriel’s dotfiles""Installation
 Installation	README.md	/^## Installation$/;"	s	chapter:Gabriel’s dotfiles
+Installing Emacs	emacs/.emacs.d/config.org	/^* Installing Emacs$/;"	p
 Jobs to Ignore	iTerm2/.themes/DynamicProfiles/Dynamic.json	/^      "Jobs to Ignore" : [$/;"	a	object:Profiles.0
 KEEP_OPEN	ranger/.config/ranger/commands_full.py	/^    KEEP_OPEN     = 'k'$/;"	v	class:scout
 Keyboard Map	iTerm2/.themes/DynamicProfiles/Dynamic.json	/^      "Keyboard Map" : {$/;"	o	object:Profiles.0
@@ -426,6 +410,7 @@ PATH_RE_DQUOTED	ranger/.config/ranger/commands_full.py	/^    PATH_RE_DQUOTED = r
 PATH_RE_SQUOTED	ranger/.config/ranger/commands_full.py	/^    PATH_RE_SQUOTED = re.compile(r"^setlocal\\s+path='(.*?)'")$/;"	v	class:setlocal
 PATH_RE_UNQUOTED	ranger/.config/ranger/commands_full.py	/^    PATH_RE_UNQUOTED = re.compile(r'^path=(.*?)$')$/;"	v	class:setlocal
 PERM_FILTER	ranger/.config/ranger/commands_full.py	/^    PERM_FILTER   = 'p'$/;"	v	class:scout
+Personal Information	emacs/.emacs.d/config.org	/^* Personal Information$/;"	p
 Plug	neovim/.config/nvim/autoload/plug.vim	/^  command! -nargs=+ -bar Plug call plug#(<args>)$/;"	c
 PlugClean	neovim/.config/nvim/autoload/plug.vim	/^  command! -nargs=0 -bar -bang PlugClean call s:clean(<bang>0)$/;"	c
 PlugDiff	neovim/.config/nvim/autoload/plug.vim	/^  command! -nargs=0 -bar PlugDiff    call s:diff()$/;"	c
@@ -480,6 +465,7 @@ Send Code When Idle	iTerm2/.themes/DynamicProfiles/Dynamic.json	/^      "Send Co
 Sensible macOS defaults	README.md	/^### Sensible macOS defaults$/;"	S	section:Gabriel’s dotfiles""Installation
 Shortcut	iTerm2/.themes/DynamicProfiles/Dynamic.json	/^      "Shortcut" : "",$/;"	s	object:Profiles.0
 Silence Bell	iTerm2/.themes/DynamicProfiles/Dynamic.json	/^      "Silence Bell" : true,$/;"	b	object:Profiles.0
+Solarized theme	emacs/.emacs.d/config.org	/^** Solarized theme$/;"	c
 Specify the `$PATH`	README.md	/^### Specify the `$PATH`$/;"	S	section:Gabriel’s dotfiles""Installation
 Sync Title	iTerm2/.themes/DynamicProfiles/Dynamic.json	/^      "Sync Title" : false,$/;"	b	object:Profiles.0
 Tags	iTerm2/.themes/DynamicProfiles/Dynamic.json	/^      "Tags" : [$/;"	a	object:Profiles.0
@@ -524,6 +510,7 @@ Text	iTerm2/.themes/DynamicProfiles/Dynamic.json	/^          "Text" : "[20;2~",$
 Text	iTerm2/.themes/DynamicProfiles/Dynamic.json	/^          "Text" : "[21;2~",$/;"	s	object:Profiles.0.Keyboard Map.0xf70d-0x20000
 Text	iTerm2/.themes/DynamicProfiles/Dynamic.json	/^          "Text" : "[23;2~",$/;"	s	object:Profiles.0.Keyboard Map.0xf70e-0x20000
 Text	iTerm2/.themes/DynamicProfiles/Dynamic.json	/^          "Text" : "[24;2~",$/;"	s	object:Profiles.0.Keyboard Map.0xf70f-0x20000
+Theme	emacs/.emacs.d/config.org	/^* Theme$/;"	p
 Themes	neovim/.config/nvim/README.md	/^## Themes$/;"	s	chapter:neovim configuration
 Transparency	iTerm2/.themes/DynamicProfiles/Dynamic.json	/^      "Transparency" : 0,$/;"	n	object:Profiles.0
 U	neovim/.config/nvim/autoload/plug.vim	/^  nnoremap <silent> <buffer> U  :call <SID>status_update()<cr>$/;"	m
@@ -543,13 +530,22 @@ X	neovim/.config/nvim/autoload/plug.vim	/^    nnoremap <silent> <buffer> X :call
 X	ranger/.config/ranger/rifle.conf	/^ext s[wmf]c, has snes9x-gtk,X = snes9x-gtk "$1"$/;"	k
 ["<S-Tab>"]	neovim/.config/nvim/lua/lsp_config/init.lua	/^    ["<S-Tab>"] = cmp.mapping(function(fallback)$/;"	f
 ["<Tab>"]	neovim/.config/nvim/lua/lsp_config/init.lua	/^    ["<Tab>"] = cmp.mapping(function(fallback)$/;"	f
-["<leader>df"]	neovim/.config/nvim/lua/lsp_config/init.lua	/^          ["<leader>df"] = "@function.outer",$/;"	f
-['[M']	neovim/.config/nvim/lua/lsp_config/init.lua	/^          ['[M'] = '@function.outer',$/;"	f
-['[[']	neovim/.config/nvim/lua/lsp_config/init.lua	/^          ['[['] = '@function.outer',$/;"	f
-[']M']	neovim/.config/nvim/lua/lsp_config/init.lua	/^          [']M'] = '@function.outer',$/;"	f
-[']]']	neovim/.config/nvim/lua/lsp_config/init.lua	/^          [']]'] = '@function.outer',$/;"	f
-['af']	neovim/.config/nvim/lua/lsp_config/init.lua	/^          ['af'] = '@function.outer',$/;"	f
-['if']	neovim/.config/nvim/lua/lsp_config/init.lua	/^          ['if'] = '@function.inner',$/;"	f
+['<S-Tab>']	neovim/.config/nvim/lua/plugins-lite.lua	/^    ['<S-Tab>'] = function(fallback)$/;"	f
+['<S-Tab>']	neovim/.config/nvim/lua/plugins.lua	/^    ['<S-Tab>'] = function(fallback)$/;"	f
+['<Tab>']	neovim/.config/nvim/lua/plugins-lite.lua	/^    ['<Tab>'] = function(fallback)$/;"	f
+['<Tab>']	neovim/.config/nvim/lua/plugins.lua	/^    ['<Tab>'] = function(fallback)$/;"	f
+['[M']	neovim/.config/nvim/lua/plugins-lite.lua	/^          ['[M'] = '@function.outer',$/;"	f
+['[M']	neovim/.config/nvim/lua/plugins.lua	/^          ['[M'] = '@function.outer',$/;"	f
+['[m']	neovim/.config/nvim/lua/plugins-lite.lua	/^          ['[m'] = '@function.outer',$/;"	f
+['[m']	neovim/.config/nvim/lua/plugins.lua	/^          ['[m'] = '@function.outer',$/;"	f
+[']M']	neovim/.config/nvim/lua/plugins-lite.lua	/^          [']M'] = '@function.outer',$/;"	f
+[']M']	neovim/.config/nvim/lua/plugins.lua	/^          [']M'] = '@function.outer',$/;"	f
+[']m']	neovim/.config/nvim/lua/plugins-lite.lua	/^          [']m'] = '@function.outer',$/;"	f
+[']m']	neovim/.config/nvim/lua/plugins.lua	/^          [']m'] = '@function.outer',$/;"	f
+['af']	neovim/.config/nvim/lua/plugins-lite.lua	/^          ['af'] = '@function.outer',$/;"	f
+['af']	neovim/.config/nvim/lua/plugins.lua	/^          ['af'] = '@function.outer',$/;"	f
+['if']	neovim/.config/nvim/lua/plugins-lite.lua	/^          ['if'] = '@function.inner',$/;"	f
+['if']	neovim/.config/nvim/lua/plugins.lua	/^          ['if'] = '@function.inner',$/;"	f
 [[	neovim/.config/nvim/autoload/plug.vim	/^  nnoremap <silent> <buffer> [[ :silent! call <SID>section('b')<cr>$/;"	m
 \x20              terminal	ranger/.config/ranger/rifle.conf	/^ext x?html?, has w3m,               terminal = w3m "$@"$/;"	k
 \x20             terminal	ranger/.config/ranger/rifle.conf	/^ext x?html?, has lynx,              terminal = lynx -- "$@"$/;"	k
@@ -908,6 +904,8 @@ execute	ranger/.config/ranger/commands_full.py	/^    def execute(self):$/;"	m	cl
 execute	ranger/.config/ranger/commands_full.py	/^    def execute(self):$/;"	m	class:unstage
 execute	ranger/.config/ranger/commands_full.py	/^    def execute(self):$/;"	m	class:yank
 expand	neovim/.config/nvim/lua/lsp_config/init.lua	/^    expand = function(args)$/;"	f
+expand	neovim/.config/nvim/lua/plugins-lite.lua	/^    expand = function(args)$/;"	f
+expand	neovim/.config/nvim/lua/plugins.lua	/^    expand = function(args)$/;"	f
 ext 1	ranger/.config/ranger/rifle.conf	/^ext 1                         = man "$1"$/;"	k
 ext exe	ranger/.config/ranger/rifle.conf	/^ext exe                       = wine "$1"$/;"	k
 ext js	ranger/.config/ranger/rifle.conf	/^ext js  = node -- "$1"$/;"	k
@@ -921,7 +919,6 @@ filter_inode_type	ranger/.config/ranger/commands_full.py	/^class filter_inode_ty
 filter_stack	ranger/.config/ranger/commands_full.py	/^class filter_stack(Command):$/;"	c
 filters	neovim/.config/nvim/coc-settings.json	/^      "filters": "html, bem"$/;"	s	object:emmet.syntaxProfiles.html
 flat	ranger/.config/ranger/commands_full.py	/^class flat(Command):$/;"	c
-fmt	neovim/.config/nvim/init.vim	/^augroup fmt$/;"	a
 fn_function_keys	karabiner/.config/karabiner/karabiner.json	/^            "fn_function_keys": [$/;"	a	object:profiles.0
 formatParam	neovim/.config/nvim/jsdoc/snippet_template.js	/^const formatParam = (param, i) => {$/;"	C
 fp	neovim/.config/nvim/emmet_custom/snippets.json	/^      "fp": ".font-primary();",$/;"	s	object:less.snippets
@@ -998,17 +995,12 @@ g:base16_gui0D	neovim/.config/nvim/colors/base16-gruvbox-dark-soft.vim	/^let g:b
 g:base16_gui0E	neovim/.config/nvim/colors/base16-gruvbox-dark-soft.vim	/^let g:base16_gui0E = "d3869b"$/;"	v
 g:base16_gui0F	neovim/.config/nvim/colors/base16-gruvbox-dark-soft.vim	/^let g:base16_gui0F = "d65d0e"$/;"	v
 g:colors_name	neovim/.config/nvim/colors/base16-gruvbox-dark-soft.vim	/^let g:colors_name = "base16-gruvbox-dark-soft"$/;"	v
-g:copilot_no_tab_map	neovim/.config/nvim/init.vim	/^let g:copilot_no_tab_map = v:true$/;"	v
-g:gutentags_ctags_executable	neovim/.config/nvim/init.vim	/^let g:gutentags_ctags_executable = '\/opt\/homebrew\/bin\/ctags'$/;"	v
 g:loaded_plug	neovim/.config/nvim/autoload/plug.vim	/^let g:loaded_plug = 1$/;"	v
-g:neoformat_try_node_exe	neovim/.config/nvim/init.vim	/^let g:neoformat_try_node_exe = 1$/;"	v
 g:plug_home	neovim/.config/nvim/autoload/plug.vim	/^  let g:plug_home = home$/;"	v
 g:plugs	neovim/.config/nvim/autoload/plug.vim	/^    let g:plugs[name] = spec$/;"	v
 g:plugs	neovim/.config/nvim/autoload/plug.vim	/^  let g:plugs = {}$/;"	v
 g:plugs_order	neovim/.config/nvim/autoload/plug.vim	/^  let g:plugs_order = []$/;"	v
 g:plugs_order	neovim/.config/nvim/autoload/plug.vim	/^  let g:plugs_order = get(g:, 'plugs_order', keys(g:plugs))$/;"	v
-g:projectionist_heuristics	neovim/.config/nvim/init.vim	/^    let g:projectionist_heuristics['*'][l:pattern] = l:projection$/;"	v
-g:projectionist_heuristics	neovim/.config/nvim/init.vim	/^let g:projectionist_heuristics = {'*':{}}$/;"	v
 g:terminal_ansi_colors	neovim/.config/nvim/colors/base16-gruvbox-dark-soft.vim	/^  let g:terminal_ansi_colors = [$/;"	v
 g:terminal_color_0	neovim/.config/nvim/colors/base16-gruvbox-dark-soft.vim	/^  let g:terminal_color_0 =  "#32302f"$/;"	v
 g:terminal_color_1	neovim/.config/nvim/colors/base16-gruvbox-dark-soft.vim	/^  let g:terminal_color_1 =  "#fb4934"$/;"	v
@@ -1030,7 +1022,6 @@ g:terminal_color_background	neovim/.config/nvim/colors/base16-gruvbox-dark-soft.
 g:terminal_color_background	neovim/.config/nvim/colors/base16-gruvbox-dark-soft.vim	/^  let g:terminal_color_background = g:terminal_color_0$/;"	v
 g:terminal_color_foreground	neovim/.config/nvim/colors/base16-gruvbox-dark-soft.vim	/^    let g:terminal_color_foreground = g:terminal_color_2$/;"	v
 g:terminal_color_foreground	neovim/.config/nvim/colors/base16-gruvbox-dark-soft.vim	/^  let g:terminal_color_foreground = g:terminal_color_5$/;"	v
-g:ultisnips_javascript	neovim/.config/nvim/init.vim	/^let g:ultisnips_javascript = {$/;"	v
 gabo	neovim/.config/nvim/emmet_custom/snippets.json	/^      "gabo": "@import url(|);",$/;"	s	object:less.snippets
 gallery_url	karabiner/.config/karabiner/assets/complex_modifications/capslock.json	/^  "gallery_url": "https:\/\/ke-complex-modifications.pqrs.org\/#emulation-modes",$/;"	s
 generateClassDoc	neovim/.config/nvim/jsdoc/snippet_template.js	/^  generateClassDoc,$/;"	M	class:module.exports
@@ -1123,6 +1114,7 @@ key_code	karabiner/.config/karabiner/karabiner.json	/^                        "k
 key_code	karabiner/.config/karabiner/karabiner.json	/^                        "key_code": "f9"$/;"	s	object:profiles.0.fn_function_keys.8.from
 keyword_spacing	neovim/.config/nvim/pythonx/javascript_snippets.py	/^def keyword_spacing(snip):$/;"	f
 label trash	ranger/.config/ranger/rifle.conf	/^label trash = mkdir -p -- ${XDG_DATA_DIR:-$HOME\/.ranger}\/ranger-trash; mv -- "$@" ${XDG_DATA_D/;"	k
+lastUpdateCheck	kitty/.config/configstore/update-notifier-npm.json	/^	"lastUpdateCheck": 1651182568372$/;"	n
 lazy	karabiner/.config/karabiner/assets/complex_modifications/capslock.json	/^              "lazy": true$/;"	b	object:rules.0.manipulators.0.to.0
 lazy	karabiner/.config/karabiner/assets/complex_modifications/capslock.json	/^              "lazy": true$/;"	b	object:rules.0.manipulators.2.to.0
 lazy	karabiner/.config/karabiner/karabiner.json	/^                                        "lazy": true$/;"	b	object:profiles.0.complex_modifications.rules.0.manipulators.0.to.0
@@ -1246,8 +1238,11 @@ neovim configuration	neovim/.config/nvim/README.md	/^# neovim configuration$/;"	
 o	neovim/.config/nvim/autoload/plug.vim	/^      nmap <buffer> o <plug>(plug-preview)$/;"	m
 oll	neovim/.config/nvim/emmet_custom/snippets.json	/^      "oll": "<ol><li id=${1} class=${2}> Will only work in html <\/ol>",$/;"	s	object:html.snippets
 on_attach	neovim/.config/nvim/lua/lsp_config/init.lua	/^local on_attach = function(client, bufnr)$/;"	f
+on_attach	neovim/.config/nvim/lua/plugins-lite.lua	/^local on_attach = function(_, bufnr)$/;"	f
+on_attach	neovim/.config/nvim/lua/plugins.lua	/^local on_attach = function(_, bufnr)$/;"	f
 open	ranger/.config/ranger/rifle.conf	/^label open, has xdg-open = xdg-open -- "$@"$/;"	k
 open_with	ranger/.config/ranger/commands_full.py	/^class open_with(Command):$/;"	c
+optOut	kitty/.config/configstore/update-notifier-npm.json	/^	"optOut": false,$/;"	b
 optional	karabiner/.config/karabiner/assets/complex_modifications/capslock.json	/^              "optional": ["any"]$/;"	a	object:rules.0.manipulators.0.from.modifiers
 optional	karabiner/.config/karabiner/assets/complex_modifications/capslock.json	/^              "optional": ["any"]$/;"	a	object:rules.0.manipulators.2.from.modifiers
 optional	karabiner/.config/karabiner/assets/complex_modifications/capslock.json	/^              "optional": ["any"]$/;"	a	object:rules.0.manipulators.3.from.modifiers
@@ -1448,7 +1443,6 @@ s:prepare	neovim/.config/nvim/autoload/plug.vim	/^function! s:prepare(...)$/;"	f
 s:preview_commit	neovim/.config/nvim/autoload/plug.vim	/^function! s:preview_commit()$/;"	f
 s:progress_bar	neovim/.config/nvim/autoload/plug.vim	/^function! s:progress_bar(line, bar, total)$/;"	f
 s:progress_opt	neovim/.config/nvim/autoload/plug.vim	/^function! s:progress_opt(base)$/;"	f
-s:project	neovim/.config/nvim/init.vim	/^function! s:project(...)$/;"	f
 s:reap	neovim/.config/nvim/autoload/plug.vim	/^function! s:reap(name)$/;"	f
 s:regress_bar	neovim/.config/nvim/autoload/plug.vim	/^function! s:regress_bar()$/;"	f
 s:reload_plugins	neovim/.config/nvim/autoload/plug.vim	/^function! s:reload_plugins()$/;"	f
