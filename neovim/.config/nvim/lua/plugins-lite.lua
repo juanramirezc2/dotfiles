@@ -33,6 +33,8 @@ require('packer').startup(function(use)
     use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
     -- better navigation using lsp and treesitter
     use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
+    -- notification 
+    use 'rcarriga/nvim-notify'
     use 'hrsh7th/cmp-nvim-lsp'
     use { 'sbdchd/neoformat' }
     -- Lua
@@ -293,9 +295,17 @@ vim.api.nvim_set_keymap('n', '<leader>n', ':NvimTreeFindFile<CR>', opts)
 -- vim.api.nvim_set_keymap('n', '<leader>li', [[<buffer>lua require('lint').try_lint()<CR>]], { noremap = true, silent = false })
 --
 local lint = require('lint')
-lint.linters.eslint.cmd = './node_modules/.bin/eslint'
+-- lint.linters.eslint.cmd = './node_modules/.bin/eslint'
 lint.linters_by_ft = {
 	javascript = {'eslint'},
-	typescript = {'eslint'}
+	javascriptreact = {'eslint'},
+	typescript = {'eslint'},
+	typescriptreact = {'eslint'},
 }
-vim.cmd([[au BufEnter,InsertLeave * lua require('lint').try_lint()]])
+
+-- vim.api.nvim_command([[au BufWritePost <buffer> lua require('lint').try_lint()]])
+
+vim.cmd([[
+au BufEnter *.ts, *.tsx lua require('lint').try_lint()
+au BufWritePost *.ts, *.tsx lua require('lint').try_lint()
+]])
