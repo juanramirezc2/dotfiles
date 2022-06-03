@@ -17,11 +17,15 @@ require('packer').startup(function(use)
     use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
     use 'rhysd/git-messenger.vim' -- display messages of git commits
     use 'tpope/vim-unimpaired' -- Pairs of handy bracket mappings
-    use 'tpope/vim-fugitive' --Git wrapper so awesome, it should be illegal
+    use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
+    use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
     -- UI to select things (files, grep results, open buffers...)
     use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
     use { 'nvim-telescope/telescope-node-modules.nvim' }
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+    -- Add indentation guides even on blank lines
+    use 'lukas-reineke/indent-blankline.nvim'
+    use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
     use 'morhetz/gruvbox'
     -- Highlight, edit, and navigate code using a fast incremental parsing library
     use 'nvim-treesitter/nvim-treesitter'
@@ -52,6 +56,22 @@ require('packer').startup(function(use)
 require('Comment').setup({})
 
 
+--Map blankline
+vim.g.indent_blankline_char = '┊'
+vim.g.indent_blankline_filetype_exclude = { 'help', 'packer' }
+vim.g.indent_blankline_buftype_exclude = { 'terminal', 'nofile' }
+vim.g.indent_blankline_show_trailing_blankline_indent = false
+
+-- Gitsigns
+require('gitsigns').setup {
+  signs = {
+    add = { text = '+' },
+    change = { text = '~' },
+    delete = { text = '_' },
+    topdelete = { text = '‾' },
+    changedelete = { text = '~' },
+  },
+}
 
 -- Telescope
 require('telescope').setup {
@@ -263,15 +283,76 @@ local opts = { noremap = true, silent = true }
 -- local wk = require("which-key")
 -- wk.setup()
 -- wk.register({}, { prefix = "<leader>" })
--- vim fugitive
-vim.api.nvim_set_keymap('n', '<leader>gs', ':Git<CR>', opts)
-vim.api.nvim_set_keymap('n', '<leader>gp', ':Git push<CR>', opts)
-vim.api.nvim_set_keymap('n', '<leader>gr', ':Gread<CR>', opts)
-vim.api.nvim_set_keymap('n', '<leader>gb', ':Git blame<cr>', opts)
--- Fugitive Conflict Resolution
-vim.api.nvim_set_keymap('n', '<leader>gd', ':Gvdiffsplit!<CR>', opts)
-vim.api.nvim_set_keymap('n', '<leader>gdh', ':diffget //2 <CR>', opts)
-vim.api.nvim_set_keymap('n', '<leader>gdl', ':diffget //3 <CR>', opts)
+-- neogit
+vim.api.nvim_set_keymap('n', '<leader>gs', ':Neogit<CR>', opts)
+vim.api.nvim_set_keymap('n', '<leader>gd', ':DiffviewOpen<CR>', opts)
+vim.api.nvim_set_keymap('n', '<leader>gD', ':DiffviewOpen main<CR>', opts)
+vim.api.nvim_set_keymap('n', '<leader>gl', ':Neogit log<CR>', opts)
+vim.api.nvim_set_keymap('n', '<leader>gp', '::Neogit push<CR>', opts)
+
+local neogit = require('neogit')
+
+neogit.setup {
+  disable_commit_confirmation = true,
+  disable_signs = false,
+  disable_hint = false,
+  disable_context_highlighting = false,
+  -- Neogit refreshes its internal state after specific events, which can be expensive depending on the repository size. 
+  -- Disabling `auto_refresh` will make it so you have to manually refresh the status after you open it.
+  auto_refresh = true,
+  disable_builtin_notifications = false,
+  use_magit_keybindings = false,
+  commit_popup = {
+      kind = "split",
+  },
+  -- Change the default way of opening neogit
+  kind = "tab",
+  -- customize displayed signs
+  signs = {
+    -- { CLOSED, OPENED }
+    section = { ">", "v" },
+    item = { ">", "v" },
+    hunk = { "", "" },
+  },
+  integrations = {
+    diffview = true
+  },
+    -- Setting any section to `false` will make the section not render at all
+  sections = {
+    untracked = {
+      folded = false
+    },
+    unstaged = {
+      folded = false
+    },
+    staged = {
+      folded = false
+    },
+    stashes = {
+      folded = true
+    },
+    unpulled = {
+      folded = true
+    },
+    unmerged = {
+      folded = false
+    },
+    recent = {
+      folded = true
+    },
+  },
+  -- override/add mappings
+  mappings = {
+    -- modify status buffer mappings
+    status = {
+      -- Adds a mapping with "B" as key that does the "BranchPopup" command
+      ["w"] = "StashPopup",
+      -- Removes the default mapping of "s"
+      ["Z"] = "",
+    }
+  }
+}
+
 -- Neoformat 
 vim.g.neoformat_try_node_exe = 1
 vim.api.nvim_set_keymap('n', '<leader>f', ':Neoformat <CR>', opts)
