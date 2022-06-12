@@ -57,6 +57,8 @@ require('packer').startup(function(use)
     use "sainnhe/edge"
     use "sainnhe/gruvbox-material"
     use 'olimorris/onedarkpro.nvim'
+    use 'Th3Whit3Wolf/onebuddy'
+    use 'Th3Whit3Wolf/one-nvim'
   end)
 
 -- colorscheme
