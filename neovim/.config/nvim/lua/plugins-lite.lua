@@ -29,8 +29,9 @@ require('packer').startup(function(use)
     use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
     -- Highlight, edit, and navigate code using a fast incremental parsing library
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-    use 'windwp/nvim-ts-autotag' -- Use treesitter to autoclose and autorename html tag
     -- Treesitter extra modules {{
+    use 'nvim-treesitter/nvim-treesitter-textobjects'
+    use 'windwp/nvim-ts-autotag' -- Use treesitter to autoclose and autorename html tag
     use  'andymass/vim-matchup'
     -- linter
     use 'mfussenegger/nvim-lint'
