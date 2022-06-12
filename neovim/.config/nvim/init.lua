@@ -116,5 +116,5 @@ vim.cmd [[
 -- local plugins = require("plugins")
 local plugins = require("plugins-lite")
 -- Set colorscheme
-g.gruvbox_contrast_dark = 'soft'
-cmd [[colorscheme gruvbox]]
+-- g.gruvbox_contrast_dark = 'soft'
+-- cmd [[colorscheme gruvbox]]

@@ -18,6 +18,7 @@ require('packer').startup(function(use)
     use 'rhysd/git-messenger.vim' -- display messages of git commits
     use 'tpope/vim-unimpaired' -- Pairs of handy bracket mappings
     use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
+    use 'tpope/vim-fugitive' --Git wrapper so awesome, it should be illegal
     use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
     -- UI to select things (files, grep results, open buffers...)
     use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
@@ -26,9 +27,9 @@ require('packer').startup(function(use)
     -- Add indentation guides even on blank lines
     use 'lukas-reineke/indent-blankline.nvim'
     use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
-    use 'morhetz/gruvbox'
     -- Highlight, edit, and navigate code using a fast incremental parsing library
-    use 'nvim-treesitter/nvim-treesitter'
+    use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+    use 'windwp/nvim-ts-autotag' -- Use treesitter to autoclose and autorename html tag
     -- Treesitter extra modules {{
     use  'andymass/vim-matchup'
     -- linter
@@ -46,15 +47,28 @@ require('packer').startup(function(use)
     use {
       'kyazdani42/nvim-tree.lua',
       requires = {
-        'kyazdani42/nvim-web-devicons', -- optional, for file icon
+        -- 'kyazdani42/nvim-web-devicons', -- optional, for file icon
       }, tag = 'nightly' -- optional, updated every week. (see issue #1193)
     }
+    -- colorschemes
+    use 'marko-cerovac/material.nvim'
+    use "savq/melange"
+    use "sainnhe/edge"
+    use "sainnhe/gruvbox-material"
+    use 'olimorris/onedarkpro.nvim'
   end)
 
+-- colorscheme
+-- vim.g.material_style = "lighter"
+vim.o.termguicolors = true
+vim.o.background = "light"
+vim.cmd 'colorscheme edge'
+-- vim.o.background = "light"
+-- vim.o.background = "light" -- to load onelight
+-- require("onedarkpro").load()
 
 --Enable Comment.nvim
 require('Comment').setup({})
-
 
 --Map blankline
 vim.g.indent_blankline_char = '┊'
@@ -92,6 +106,7 @@ vim.api.nvim_set_keymap('n', '<leader><space>', [[<cmd>lua require('telescope.bu
 vim.api.nvim_set_keymap('n', '<leader>sf', [[<cmd>lua require('telescope.builtin').find_files({previewer = false})<CR>]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>sb', [[<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>sh', [[<cmd>lua require('telescope.builtin').help_tags()<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>sc', [[<cmd>lua require('telescope.builtin').colorscheme()<CR>]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>st', [[<cmd>lua require('telescope.builtin').tags()<CR>]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>sd', [[<cmd>lua require('telescope.builtin').grep_string()<CR>]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>sl', [[<cmd>lua require('telescope.builtin').resume()<CR>]], { noremap = true, silent = true })
@@ -109,6 +124,7 @@ require('telescope').load_extension 'fzf'
 -- Treesitter configuration
 -- Parsers must be installed manually via :TSInstall
 require('nvim-treesitter.configs').setup {
+    ensure_installed = "all", -- if not tree sitter won't install any parser
     autotag = {
       enable = true,
     },
@@ -117,6 +133,11 @@ require('nvim-treesitter.configs').setup {
     },
     highlight = {
       enable = true, -- false will disable the whole extension
+      -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+      -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+      -- Using this option may slow down your editor, and you may see some duplicate highlights.
+      -- Instead of true it can also be a list of languages
+      additional_vim_regex_highlighting = false,
     },
     incremental_selection = {
       enable = true,
@@ -164,7 +185,10 @@ require('nvim-treesitter.configs').setup {
       },
     },
   }
-  
+-- Fold based on tree sitter
+vim.o.foldmethod = 'expr'
+vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
+
 -- Diagnostic keymaps
 vim.api.nvim_set_keymap('n', '<leader>e', '<cmd>lua vim.diagnostic.open_float()<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', { noremap = true, silent = true })
@@ -279,10 +303,8 @@ cmp.setup {
 }
 
 local opts = { noremap = true, silent = true }
--- Which key
--- local wk = require("which-key")
--- wk.setup()
--- wk.register({}, { prefix = "<leader>" })
+-- fugitive
+vim.api.nvim_set_keymap('n', '<leader>gr', ':Gread<CR>', opts)
 -- neogit
 vim.api.nvim_set_keymap('n', '<leader>gs', ':Neogit<CR>', opts)
 vim.api.nvim_set_keymap('n', '<leader>gd', ':DiffviewOpen<CR>', opts)

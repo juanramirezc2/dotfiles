@@ -61,7 +61,7 @@ window:
   # Values for `decorations` (macOS only):
   #     - transparent: Title bar, transparent background and title bar buttons
   #     - buttonless: Title bar, transparent background and no title bar buttons
-  decorations: none
+  decorations: full
 
   # Startup Mode (changes require restart)
   #
@@ -112,25 +112,25 @@ font:
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
     #family: monospace
-    family: JetBrainsMono Nerd Font Mono
+    family: Fira Code
     # family: JetBrainsMono Nerd Font Mono
     # family: Fira Code
     # family: Source Code Pro
 
 
     # The `style` can be specified to pick a specific face.
-    style: ExtraLight
+    style: Regular
 
   # Bold font face
   bold:
-    # Font family
-    #
-    # If the bold family is not specified, it will fall back to the
-    # value specified for the normal font.
-    family: JetBrainsMono Nerd Font Mono
-
-    # The `style` can be specified to pick a specific face.
-    style: Light
+  #   # Font family
+  #   #
+  #   # If the bold family is not specified, it will fall back to the
+  #   # value specified for the normal font.
+    family: Fira Code
+  #
+  #   # The `style` can be specified to pick a specific face.
+    style: Medium
 
   # Italic font face
   #italic:
@@ -155,7 +155,7 @@ font:
     #style: Bold Italic
 
   # Point size
-  size: 14.0
+  size: 14
 
   # Offset is the extra space around each character. `offset.y` can be thought
   # of as modifying the line spacing, and `offset.x` as modifying the letter
