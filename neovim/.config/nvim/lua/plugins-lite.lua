@@ -39,16 +39,22 @@ require('packer').startup(function(use)
     use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
     -- better navigation using lsp and treesitter
     use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
+    use 'onsails/lspkind.nvim' -- tiny plugin adds vscode-like pictograms to neovim built-in lsp
+    use 'hrsh7th/cmp-nvim-lsp'
+    -- For luasnip users.
+    use 'L3MON4D3/LuaSnip'
+    use 'saadparwaiz1/cmp_luasnip'
     -- notification 
     use 'rcarriga/nvim-notify'
-    use 'hrsh7th/cmp-nvim-lsp'
     use { 'sbdchd/neoformat' }
     -- Lua
     -- use "folke/which-key.nvim"
+  -- improve yank and put functionalities for Neovim.
+    use { "gbprod/yanky.nvim"}
     use {
       'kyazdani42/nvim-tree.lua',
       requires = {
-        -- 'kyazdani42/nvim-web-devicons', -- optional, for file icon
+        'kyazdani42/nvim-web-devicons', -- optional, for file icon
       }, tag = 'nightly' -- optional, updated every week. (see issue #1193)
     }
     -- colorschemes
@@ -62,13 +68,14 @@ require('packer').startup(function(use)
   end)
 
 -- colorscheme
--- vim.g.material_style = "lighter"
+vim.g.material_style = "lighter"
 vim.o.termguicolors = true
 vim.o.background = "light"
-vim.cmd 'colorscheme edge'
+-- vim.cmd 'colorscheme material'
+-- vim.cmd 'colorscheme edge'
 -- vim.o.background = "light"
 -- vim.o.background = "light" -- to load onelight
--- require("onedarkpro").load()
+require("onedarkpro").load()
 
 --Enable Comment.nvim
 require('Comment').setup({})
@@ -117,6 +124,7 @@ vim.api.nvim_set_keymap('n', '<leader>sp', [[<cmd>lua require('telescope.builtin
 vim.api.nvim_set_keymap('n', '<leader>so', [[<cmd>lua require('telescope.builtin').tags{ only_current_buffer = true }<CR>]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>?', [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>nm', '<cmd>Telescope node_modules list<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>sy', '<cmd>Telescope yank_history<CR>', { noremap = true, silent = true })
 
 
 -- Enable telescope node modules
@@ -220,8 +228,7 @@ end
  
 
 -- nvim-cmp supports additional completion capabilities
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- Enable the following language servers
 local servers = { 'tsserver' }
@@ -267,41 +274,67 @@ lspconfig.sumneko_lua.setup {
 }
 
 -- nvim-cmp setup
+local lspkind = require('lspkind')
 local cmp = require 'cmp'
 cmp.setup {
   snippet = {
     expand = function(args)
-      luasnip.lsp_expand(args.body)
+      require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
     end,
   },
   mapping = {
-    ['<C-p>'] = cmp.mapping.select_prev_item(),
-    ['<C-n>'] = cmp.mapping.select_next_item(),
-    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ["<C-n>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
+    ["<C-p>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
+    ["<C-d>"] = cmp.mapping.scroll_docs(-4),
+    ["<C-f>"] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete(),
-    ['<C-e>'] = cmp.mapping.close(),
-    ['<CR>'] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
+    ['<C-e>'] = cmp.mapping.abort(),
+    ["<c-y>"] = cmp.mapping(
+      cmp.mapping.confirm {
+        behavior = cmp.ConfirmBehavior.Insert,
+        select = true,
+      },
+      { "i", "c" }
+    ),
+    ["<c-space>"] = cmp.mapping {
+      i = cmp.mapping.complete(),
+      c = function(
+        _ --[[fallback]]
+      )
+        if cmp.visible() then
+          if not cmp.confirm { select = true } then
+            return
+          end
+        else
+          cmp.complete()
+        end
+      end,
     },
-    ['<Tab>'] = function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      else
-        fallback()
-      end
-    end,
-    ['<S-Tab>'] = function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      else
-        fallback()
-      end
-    end,
+    ["<tab>"] = cmp.config.disable,
   },
-  sources = {
-    { name = 'nvim_lsp' }
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+    -- { name = 'vsnip' }, -- For vsnip users.
+    { name = 'luasnip' }, -- For luasnip users.
+    -- { name = 'ultisnips' }, -- For ultisnips users.
+    -- { name = 'snippy' }, -- For snippy users.
+  }, {
+      { name = 'buffer' },
+    }),
+   formatting = {
+    -- Youtube: How to set up nice formatting for your sources.
+    format = lspkind.cmp_format {
+      with_text = true,
+      menu = {
+        buffer = "[buf]",
+        nvim_lsp = "[LSP]",
+        nvim_lua = "[api]",
+        path = "[path]",
+        luasnip = "[snip]",
+        gh_issues = "[issues]",
+        tn = "[TabNine]",
+      },
+    },
   },
 }
 
@@ -378,9 +411,16 @@ neogit.setup {
   }
 }
 
--- Neoformat 
+-- Neoformat
 vim.g.neoformat_try_node_exe = 1
 vim.api.nvim_set_keymap('n', '<leader>f', ':Neoformat <CR>', opts)
+-- format on save
+vim.cmd([[
+  augroup fmt
+    autocmd!
+    autocmd BufWritePre * undojoin | Neoformat
+  augroup END
+]])
 -- empty setup using defaults: add your own options
 require'nvim-tree'.setup { }
 
@@ -412,6 +452,57 @@ lint.linters_by_ft = {
 -- vim.api.nvim_command([[au BufWritePost <buffer> lua require('lint').try_lint()]])
 
 vim.cmd([[
-au BufEnter *.ts, *.tsx lua require('lint').try_lint()
-au BufWritePost *.ts, *.tsx lua require('lint').try_lint()
+  au BufWritePost <buffer> lua require('lint').try_lint()
 ]])
+-- yanky nvim
+local mapping = require("yanky.telescope.mapping")
+require("yanky").setup({
+  ring = {
+    history_length = 10,
+    storage = "shada",
+    sync_with_numbered_registers = true,
+  },
+  picker = {
+    select = {
+      action = nil, -- nil to use default put action
+    },
+    telescope = {
+      mappings = {
+        default = mapping.put("p"),
+        i = {
+          ["<c-p>"] = mapping.put("p"),
+          ["<c-l>"] = mapping.put("P"),
+          ["<c-d>"] = mapping.delete(),
+        },
+        n = {
+          p = mapping.put("p"),
+          P = mapping.put("P"),
+          d = mapping.delete(),
+        },
+      }
+    }
+  },
+  system_clipboard = {
+    sync_with_ring = true,
+  },
+  highlight = {
+    on_put = true,
+    on_yank = true,
+    timer = 500,
+  },
+  preserve_cursor_position = {
+    enabled = true,
+  },
+})
+vim.keymap.set("n", "p", "<Plug>(YankyPutAfter)", {})
+vim.keymap.set("n", "P", "<Plug>(YankyPutBefore)", {})
+vim.keymap.set("x", "p", "<Plug>(YankyPutAfter)", {})
+vim.keymap.set("x", "P", "<Plug>(YankyPutBefore)", {})
+vim.keymap.set("n", "gp", "<Plug>(YankyGPutAfter)", {})
+vim.keymap.set("n", "gP", "<Plug>(YankyGPutBefore)", {})
+vim.keymap.set("x", "gp", "<Plug>(YankyGPutAfter)", {})
+vim.keymap.set("x", "gP", "<Plug>(YankyGPutBefore)", {})
+-- Yank-ring
+vim.api.nvim_set_keymap("n", "<c-n>", "<Plug>(YankyCycleForward)", {})
+vim.api.nvim_set_keymap("n", "<c-p>", "<Plug>(YankyCycleBackward)", {})
+require("telescope").load_extension("yank_history")
