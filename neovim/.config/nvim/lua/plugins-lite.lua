@@ -47,6 +47,8 @@ require('packer').startup(function(use)
     -- notification 
     use 'rcarriga/nvim-notify'
     use { 'sbdchd/neoformat' }
+    -- Github copilot
+    use 'github/copilot.vim'
     -- Lua
     -- use "folke/which-key.nvim"
   -- improve yank and put functionalities for Neovim.
@@ -112,21 +114,39 @@ require('telescope').setup {
   },
 }
 --Add leader shortcuts
-vim.api.nvim_set_keymap('n', '<leader><space>', [[<cmd>lua require('telescope.builtin').buffers()<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>sf', [[<cmd>lua require('telescope.builtin').find_files({previewer = false})<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>sb', [[<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>sh', [[<cmd>lua require('telescope.builtin').help_tags()<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>sc', [[<cmd>lua require('telescope.builtin').colorscheme()<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>st', [[<cmd>lua require('telescope.builtin').tags()<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>sd', [[<cmd>lua require('telescope.builtin').grep_string()<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>sl', [[<cmd>lua require('telescope.builtin').resume()<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>sp', [[<cmd>lua require('telescope.builtin').live_grep()<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>so', [[<cmd>lua require('telescope.builtin').tags{ only_current_buffer = true }<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>?', [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>nm', '<cmd>Telescope node_modules list<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>sy', '<cmd>Telescope yank_history<CR>', { noremap = true, silent = true })
-
-
+vim.api.nvim_set_keymap('n', '<leader><space>',
+  [[<cmd>lua require('telescope.builtin').buffers()<CR>]],
+  { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>sf',
+  [[<cmd>lua require('telescope.builtin').find_files({previewer = false})<CR>]],
+  { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>sb',
+  [[<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>]],
+  { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>sh',
+  [[<cmd>lua require('telescope.builtin').help_tags()<CR>]],
+  { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>sc',
+  [[<cmd>lua require('telescope.builtin').colorscheme()<CR>]],
+  { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>st',
+  [[<cmd>lua require('telescope.builtin').tags()<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>sd',
+  [[<cmd>lua require('telescope.builtin').grep_string()<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>sl',
+  [[<cmd>lua require('telescope.builtin').resume()<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>sp',
+  [[<cmd>lua require('telescope.builtin').live_grep()<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>so',
+  [[<cmd>lua require('telescope.builtin').tags{ only_current_buffer = true }<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>?',
+  [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>nm',
+  '<cmd>Telescope node_modules list<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>sy',
+  '<cmd>Telescope yank_history<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>sj',
+  [[<cmd>lua require('telescope.builtin').jumplist()<CR>]], { noremap = true, silent = true })
 -- Enable telescope node modules
 require('telescope').load_extension 'node_modules'
 -- Enable telescope fzf native
@@ -310,7 +330,6 @@ cmp.setup {
         end
       end,
     },
-    ["<tab>"] = cmp.config.disable,
   },
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
@@ -506,3 +525,7 @@ vim.keymap.set("x", "gP", "<Plug>(YankyGPutBefore)", {})
 vim.api.nvim_set_keymap("n", "<c-n>", "<Plug>(YankyCycleForward)", {})
 vim.api.nvim_set_keymap("n", "<c-p>", "<Plug>(YankyCycleBackward)", {})
 require("telescope").load_extension("yank_history")
+-- Yank Preserve cursor position
+vim.keymap.set("n", "y", "<Plug>(YankyYank)", {})
+vim.keymap.set("x", "y", "<Plug>(YankyYank)", {})
+
