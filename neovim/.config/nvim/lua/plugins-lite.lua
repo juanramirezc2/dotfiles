@@ -47,8 +47,6 @@ require('packer').startup(function(use)
     -- notification 
     use 'rcarriga/nvim-notify'
     use { 'sbdchd/neoformat' }
-    -- Github copilot
-    use 'github/copilot.vim'
     -- Lua
     -- use "folke/which-key.nvim"
   -- improve yank and put functionalities for Neovim.
@@ -59,6 +57,8 @@ require('packer').startup(function(use)
         'kyazdani42/nvim-web-devicons', -- optional, for file icon
       }, tag = 'nightly' -- optional, updated every week. (see issue #1193)
     }
+    use 'bkad/CamelCaseMotion' -- move cammel case words
+    use 'f-person/git-blame.nvim'
     -- colorschemes
     use 'marko-cerovac/material.nvim'
     use "savq/melange"
@@ -103,11 +103,10 @@ require('gitsigns').setup {
 require('telescope').setup {
   defaults = {
     layout_strategy = 'vertical',
+    dynamic_preview_title = true,
     mappings = {
       i = {
         ['<C-u>'] = false,
-        ["<C-j>"] = "move_selection_next",
-        ["<C-k>"] = "move_selection_previous",
         ["<C-d>"] = "delete_buffer"
       },
     },
@@ -316,6 +315,7 @@ cmp.setup {
       },
       { "i", "c" }
     ),
+    ["<tab>"] = cmp.config.disable,
     ["<c-space>"] = cmp.mapping {
       i = cmp.mapping.complete(),
       c = function(
@@ -440,12 +440,21 @@ vim.cmd([[
     autocmd BufWritePre * undojoin | Neoformat
   augroup END
 ]])
--- empty setup using defaults: add your own options
-require'nvim-tree'.setup { }
+-- Nvim-tree 
+require'nvim-tree'.setup ({ 
+  sync_root_with_cwd = true,
+  reload_on_bufenter = true,
+  respect_buf_cwd= true,
+  update_focused_file = {
+    enable = true,
+    update_root = true,
+    ignore_list = {},
+  },
+})
 
 vim.api.nvim_set_keymap('n', '<C-n>', ':NvimTreeToggle<CR>', opts)
 vim.api.nvim_set_keymap('n', '<leader>r', '<:NvimTreeRefresh<CR>', opts)
-vim.api.nvim_set_keymap('n', '<leader>n', ':NvimTreeFindFile<CR>', opts)
+vim.api.nvim_set_keymap('n', '<leader>n', ':NvimTreeFindFileToggle<CR>', opts)
 
 -- nvim lint -----------------------------
 -- require('lint').linters_by_ft = {
@@ -474,43 +483,38 @@ vim.cmd([[
   au BufWritePost <buffer> lua require('lint').try_lint()
 ]])
 -- yanky nvim
+local utils = require("yanky.utils")
 local mapping = require("yanky.telescope.mapping")
 require("yanky").setup({
   ring = {
-    history_length = 10,
+    history_length = 40,
     storage = "shada",
     sync_with_numbered_registers = true,
   },
   picker = {
-    select = {
-      action = nil, -- nil to use default put action
-    },
     telescope = {
-      mappings = {
-        default = mapping.put("p"),
+       default = mapping.put("p"),
         i = {
           ["<c-p>"] = mapping.put("p"),
-          ["<c-l>"] = mapping.put("P"),
-          ["<c-d>"] = mapping.delete(),
+          ["<c-k>"] = mapping.put("P"),
+          ["<c-x>"] = mapping.delete(),
+          ["<c-r>"] = mapping.set_register(utils.get_default_register()),
         },
         n = {
           p = mapping.put("p"),
           P = mapping.put("P"),
           d = mapping.delete(),
+          r = mapping.set_register(utils.get_default_register())
         },
-      }
     }
   },
   system_clipboard = {
-    sync_with_ring = true,
+    sync_with_ring = false,
   },
   highlight = {
     on_put = true,
     on_yank = true,
     timer = 500,
-  },
-  preserve_cursor_position = {
-    enabled = true,
   },
 })
 vim.keymap.set("n", "p", "<Plug>(YankyPutAfter)", {})
@@ -528,4 +532,7 @@ require("telescope").load_extension("yank_history")
 -- Yank Preserve cursor position
 vim.keymap.set("n", "y", "<Plug>(YankyYank)", {})
 vim.keymap.set("x", "y", "<Plug>(YankyYank)", {})
-
+-- Camel case Motion
+vim.g.camelcasemotion_key = '<leader>'
+-- Git blame
+-- vim.g.gitblame_enabled = 1

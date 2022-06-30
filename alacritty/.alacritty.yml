@@ -112,24 +112,24 @@ font:
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
     #family: monospace
-    family: FuraCode Nerd Font Mono
+    family: JetBrains Mono
     # family: JetBrainsMono Nerd Font Mono
     # family: Fira Code
     # family: Source Code Pro
 
     # The `style` can be specified to pick a specific face.
-    style: Regular
+    # style: Regular
 
   # Bold font face
-  bold:
-    #   # Font family
-    #   #
-    #   # If the bold family is not specified, it will fall back to the
-    #   # value specified for the normal font.
-    family: Fira Code
-    #
-    #   # The `style` can be specified to pick a specific face.
-    style: Medium
+  # bold:
+  #   # Font family
+  #   #
+  #   # If the bold family is not specified, it will fall back to the
+  #   # value specified for the normal font.
+  # family: Fira Code
+  #
+  #   # The `style` can be specified to pick a specific face.
+  # style: Medium
 
   # Italic font face
   #italic:
@@ -335,14 +335,14 @@ bell:
   #   - EaseOutExpo
   #   - EaseOutCirc
   #   - Linear
-  #animation: EaseOutExpo
+  # animation: EaseOutExpo
 
   # Duration of the visual bell flash in milliseconds. A `duration` of `0` will
   # disable the visual bell animation.
-  #duration: 0
+  duration: 0
 
   # Visual bell animation color.
-  #color: '#ffffff'
+  color: "#ffffff"
 
   # Bell Command
   #

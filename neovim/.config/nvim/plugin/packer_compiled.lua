@@ -69,6 +69,11 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
+  CamelCaseMotion = {
+    loaded = true,
+    path = "/Users/jgramirez/.local/share/nvim/site/pack/packer/start/CamelCaseMotion",
+    url = "https://github.com/bkad/CamelCaseMotion"
+  },
   ["Comment.nvim"] = {
     loaded = true,
     path = "/Users/jgramirez/.local/share/nvim/site/pack/packer/start/Comment.nvim",
@@ -98,6 +103,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/jgramirez/.local/share/nvim/site/pack/packer/start/edge",
     url = "https://github.com/sainnhe/edge"
+  },
+  ["git-blame.nvim"] = {
+    loaded = true,
+    path = "/Users/jgramirez/.local/share/nvim/site/pack/packer/start/git-blame.nvim",
+    url = "https://github.com/f-person/git-blame.nvim"
   },
   ["git-messenger.vim"] = {
     loaded = true,
@@ -164,11 +174,6 @@ _G.packer_plugins = {
     path = "/Users/jgramirez/.local/share/nvim/site/pack/packer/start/nvim-notify",
     url = "https://github.com/rcarriga/nvim-notify"
   },
-  ["nvim-tree.lua"] = {
-    loaded = true,
-    path = "/Users/jgramirez/.local/share/nvim/site/pack/packer/start/nvim-tree.lua",
-    url = "https://github.com/kyazdani42/nvim-tree.lua"
-  },
   ["nvim-treesitter"] = {
     loaded = true,
     path = "/Users/jgramirez/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
@@ -183,11 +188,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/jgramirez/.local/share/nvim/site/pack/packer/start/nvim-ts-autotag",
     url = "https://github.com/windwp/nvim-ts-autotag"
-  },
-  ["nvim-web-devicons"] = {
-    loaded = true,
-    path = "/Users/jgramirez/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
-    url = "https://github.com/kyazdani42/nvim-web-devicons"
   },
   ["one-nvim"] = {
     loaded = true,
@@ -243,6 +243,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/jgramirez/.local/share/nvim/site/pack/packer/start/vim-unimpaired",
     url = "https://github.com/tpope/vim-unimpaired"
+  },
+  ["yanky.nvim"] = {
+    loaded = true,
+    path = "/Users/jgramirez/.local/share/nvim/site/pack/packer/start/yanky.nvim",
+    url = "https://github.com/gbprod/yanky.nvim"
   }
 }
 

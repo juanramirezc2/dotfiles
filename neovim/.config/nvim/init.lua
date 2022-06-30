@@ -19,9 +19,9 @@ local vnoremap = utils.vnoremap
 --Make line numbers default
 vim.wo.number = true
 vim.o.filetype = true
+vim.opt.colorcolumn = {80, 120}
 --Enable mouse mode
 vim.o.mouse = 'a'
-
 vim.opt.expandtab = true
 --vim.opt.guicursor = "guicursor=n-v-c:block,i-ci-ve:ver25, r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor, sm:block-blinkwait175-blinkoff150-blinkon175"
 vim.opt.tabstop =  2
@@ -74,10 +74,6 @@ nnoremap("<C-h>", "^")
 vnoremap("<C-h>", "^")
 nnoremap("<C-l>", "g_")
 vnoremap("<C-l>", "g_")
-nnoremap("<C-j>", "<c-d>")
-vnoremap("<C-j>", "<c-d>")
-nnoremap("<C-k>", "<c-u>")
-vnoremap("<C-k>", "<c-u>")
 nnoremap("<leader><CR>", ":nohlsearch<CR>")
 
 -- Copy to clipboard
@@ -101,8 +97,9 @@ vnoremap("//", [[y/\V<C-r>=escape(@",'/\')<CR><CR>]])
 -- Switch to alternative buffer
 nnoremap("<leader><tab>", "<C-^>")
 --Remap for dealing with word wrap
-vim.api.nvim_set_keymap('n', 'k', "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = true, silent = true })
-vim.api.nvim_set_keymap('n', 'j', "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true, silent = true })
+-- vim.api.nvim_set_keymap('n', 'k', "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = true, silent = true })
+-- vim.api.nvim_set_keymap('n', 'j', "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true, silent = true })
+
 
 -- Highlight on yank
 vim.cmd [[
@@ -118,3 +115,20 @@ local plugins = require("plugins-lite")
 -- Set colorscheme
 -- g.gruvbox_contrast_dark = 'soft'
 -- cmd [[colorscheme gruvbox]]
+nnoremap("<leader>vr", ':e $MYVIMRC<CR>')
+-- Netrw config 
+nnoremap("<leader>dd", ":Lexplore %:p:h<CR>")
+nnoremap("<leader>da", ":Lexplore<CR>")
+-- Hit enter in the file browser to open the selected
+-- file with :vsplit to the right of the browser.
+vim.g.netrw_altv = 1
+-- Default to tree mode
+vim.g.netrw_liststyle=3
+vim.g.netrw_winsize = 25
+-- remove the top banner
+vim.g.netrw_banner = 0
+vim.g.netrw_browse_split = 4
+vim.g.netrw_keepdir = 0
+-- hide dotfiles
+-- vim.g.netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
+
