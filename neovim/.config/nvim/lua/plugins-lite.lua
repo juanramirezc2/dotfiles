@@ -13,67 +13,67 @@ vim.cmd [[
 ]]
 
 require('packer').startup(function(use)
-    use 'wbthomason/packer.nvim' -- Package manager
-    use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
-    use 'rhysd/git-messenger.vim' -- display messages of git commits
-    use 'tpope/vim-unimpaired' -- Pairs of handy bracket mappings
-    use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
-    use 'tpope/vim-fugitive' --Git wrapper so awesome, it should be illegal
-    use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
-    -- UI to select things (files, grep results, open buffers...)
-    use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
-    use { 'nvim-telescope/telescope-node-modules.nvim' }
-    -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
-    use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-    -- Add indentation guides even on blank lines
-    use 'lukas-reineke/indent-blankline.nvim'
-    use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
-    -- Highlight, edit, and navigate code using a fast incremental parsing library
-    use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-    -- Treesitter extra modules {{
-    use 'nvim-treesitter/nvim-treesitter-textobjects'
-    use 'windwp/nvim-ts-autotag' -- Use treesitter to autoclose and autorename html tag
-    use  'andymass/vim-matchup'
-    -- linter
-    use 'mfussenegger/nvim-lint'
-    --}}
+  use 'wbthomason/packer.nvim' -- Package manager
+  use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
+  use 'rhysd/git-messenger.vim' -- display messages of git commits
+  use 'tpope/vim-unimpaired' -- Pairs of handy bracket mappings
+  use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
+  use 'tpope/vim-fugitive' --Git wrapper so awesome, it should be illegal
+  use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
+  -- UI to select things (files, grep results, open buffers...)
+  use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
+  use { 'nvim-telescope/telescope-node-modules.nvim' }
+  -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
+  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+  -- Add indentation guides even on blank lines
+  use 'lukas-reineke/indent-blankline.nvim'
+  use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
+  -- Highlight, edit, and navigate code using a fast incremental parsing library
+  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+  -- Treesitter extra modules {{
+  use 'nvim-treesitter/nvim-treesitter-textobjects'
+  use 'windwp/nvim-ts-autotag' -- Use treesitter to autoclose and autorename html tag
+  use 'andymass/vim-matchup'
+  -- linter
+  use 'mfussenegger/nvim-lint'
+  --}}
   -- nvim surround
-    use({
-      "kylechui/nvim-surround",
-      config = function()
-        require("nvim-surround").setup({
-          -- Configuration here, or leave empty to use defaults
-        })
-      end
-    })
-    use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
-    use 'williamboman/nvim-lsp-installer'-- Automatically install language servers to stdpath
-    use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
-    use 'onsails/lspkind.nvim' -- tiny plugin adds vscode-like pictograms to neovim built-in lsp
-    use 'hrsh7th/cmp-nvim-lsp'
-    use 'L3MON4D3/LuaSnip' -- For luasnip users.
-    use 'saadparwaiz1/cmp_luasnip'
-    use 'rcarriga/nvim-notify' -- notification
-    use { 'sbdchd/neoformat' }
-    use { "gbprod/yanky.nvim"} -- improve yank and put functionalities for Neovim.
-    use 'tpope/vim-sleuth'  -- Detect tabstop and shiftwidth automatically
-    use {
-      'kyazdani42/nvim-tree.lua',
-      requires = {
-        'kyazdani42/nvim-web-devicons', -- optional, for file icon
-      }, tag = 'nightly' -- optional, updated every week. (see issue #1193)
-    }
-    use 'bkad/CamelCaseMotion' -- move cammel case words
-    -- use 'f-person/git-blame.nvim'
-    -- colorschemes
-    use 'marko-cerovac/material.nvim'
-    use "savq/melange"
-    use "sainnhe/edge"
-    use "sainnhe/gruvbox-material"
-    use 'olimorris/onedarkpro.nvim'
-    use 'Th3Whit3Wolf/onebuddy'
-    use 'Th3Whit3Wolf/one-nvim'
-  end)
+  use({
+    "kylechui/nvim-surround",
+    config = function()
+      require("nvim-surround").setup({
+        -- Configuration here, or leave empty to use defaults
+      })
+    end
+  })
+  use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
+  use 'williamboman/nvim-lsp-installer' -- Automatically install language servers to stdpath
+  use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
+  use 'onsails/lspkind.nvim' -- tiny plugin adds vscode-like pictograms to neovim built-in lsp
+  use 'hrsh7th/cmp-nvim-lsp'
+  use 'L3MON4D3/LuaSnip' -- For luasnip users.
+  use 'saadparwaiz1/cmp_luasnip'
+  use 'rcarriga/nvim-notify' -- notification
+  use { 'sbdchd/neoformat' }
+  use { "gbprod/yanky.nvim" } -- improve yank and put functionalities for Neovim.
+  use 'tpope/vim-sleuth' -- Detect tabstop and shiftwidth automatically
+  use {
+    'kyazdani42/nvim-tree.lua',
+    requires = {
+      'kyazdani42/nvim-web-devicons', -- optional, for file icon
+    }, tag = 'nightly' -- optional, updated every week. (see issue #1193)
+  }
+  use 'bkad/CamelCaseMotion' -- move cammel case words
+  -- use 'f-person/git-blame.nvim'
+  -- colorschemes
+  use 'marko-cerovac/material.nvim'
+  use "savq/melange"
+  use "sainnhe/edge"
+  use "sainnhe/gruvbox-material"
+  use 'olimorris/onedarkpro.nvim'
+  use 'Th3Whit3Wolf/onebuddy'
+  use 'Th3Whit3Wolf/one-nvim'
+end)
 
 -- colorscheme
 vim.g.material_style = "lighter"
@@ -123,88 +123,101 @@ require('telescope').load_extension 'node_modules'
 -- Enable telescope fzf native
 require('telescope').load_extension 'fzf'
 --Add leader shortcuts
-vim.api.nvim_set_keymap('n', '<leader>?', [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]], { desc = '[?] Find recently opened files'})vim.api.nvim_set_keymap('n', '<leader><space>', [[<cmd>lua require('telescope.builtin').buffers()<CR>]], { desc = '[ ] Find existing buffers'}) vim.keymap.set('n', '<leader>/', function()
+vim.api.nvim_set_keymap('n', '<leader>?', [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]],
+  { desc = '[?] Find recently opened files' })
+vim.api.nvim_set_keymap('n', '<leader><space>', [[<cmd>lua require('telescope.builtin').buffers()<CR>]],
+  { desc = '[ ] Find existing buffers' })
+vim.keymap.set('n', '<leader>/', function()
   -- You can pass additional configuration to telescope to change theme, layout, etc.
   require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
     winblend = 10,
     previewer = false,
   })
 end, { desc = '[/] Fuzzily search in current buffer]' })
-vim.api.nvim_set_keymap('n', '<leader>sf', [[<cmd>lua require('telescope.builtin').find_files()<CR>]],{})
-vim.api.nvim_set_keymap('n', '<leader>sh', [[<cmd>lua require('telescope.builtin').help_tags()<CR>]],{})
-vim.api.nvim_set_keymap('n', '<leader>sc', [[<cmd>lua require('telescope.builtin').colorscheme()<CR>]],{})
-vim.api.nvim_set_keymap('n', '<leader>sw', [[<cmd>lua require('telescope.builtin').grep_string()<CR>]],{})
-vim.api.nvim_set_keymap('n', '<leader>sl', [[<cmd>lua require('telescope.builtin').resume()<CR>]],{})
-vim.api.nvim_set_keymap('n', '<leader>sg', [[<cmd>lua require('telescope.builtin').live_grep()<CR>]],{})
-vim.api.nvim_set_keymap('n', '<leader>nm', '<cmd>Telescope node_modules list<CR>',{})
-vim.api.nvim_set_keymap('n', '<leader>sy', '<cmd>Telescope yank_history<CR>',{})
+vim.api.nvim_set_keymap('n', '<leader>sf', [[<cmd>lua require('telescope.builtin').find_files()<CR>]], {})
+vim.api.nvim_set_keymap('n', '<leader>sh', [[<cmd>lua require('telescope.builtin').help_tags()<CR>]], {})
+vim.api.nvim_set_keymap('n', '<leader>sc', [[<cmd>lua require('telescope.builtin').colorscheme()<CR>]], {})
+vim.api.nvim_set_keymap('n', '<leader>sw', [[<cmd>lua require('telescope.builtin').grep_string()<CR>]], {})
+vim.api.nvim_set_keymap('n', '<leader>sl', [[<cmd>lua require('telescope.builtin').resume()<CR>]], {})
+vim.api.nvim_set_keymap('n', '<leader>sg', [[<cmd>lua require('telescope.builtin').live_grep()<CR>]], {})
+vim.api.nvim_set_keymap('n', '<leader>nm', '<cmd>Telescope node_modules list<CR>', {})
+vim.api.nvim_set_keymap('n', '<leader>sy', '<cmd>Telescope yank_history<CR>', {})
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
-vim.api.nvim_set_keymap('n', '<leader>sj', [[<cmd>lua require('telescope.builtin').jumplist()<CR>]],{})
+vim.api.nvim_set_keymap('n', '<leader>sj', [[<cmd>lua require('telescope.builtin').jumplist()<CR>]], {})
 
 -- Treesitter configuration
 -- Parsers must be installed manually via :TSInstall
 require('nvim-treesitter.configs').setup {
-    ensure_installed = "all", -- if not tree sitter won't install any parser
-    autotag = {
+  ensure_installed = "all", -- if not tree sitter won't install any parser
+  autotag = {
+    enable = true,
+  },
+  matchup = {
+    enable = true, -- mandatory, false will disable the whole extension
+  },
+  highlight = {
+    enable = true, -- false will disable the whole extension
+    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    -- Instead of true it can also be a list of languages
+    additional_vim_regex_highlighting = false,
+  },
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = 'gnn',
+      node_incremental = 'grn',
+      scope_incremental = 'grc',
+      node_decremental = 'grm',
+    },
+  },
+  indent = {
+    enable = true,
+  },
+  textobjects = {
+    select = {
       enable = true,
-    },
-    matchup = {
-      enable = true,              -- mandatory, false will disable the whole extension
-    },
-    highlight = {
-      enable = true, -- false will disable the whole extension
-      -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-      -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-      -- Using this option may slow down your editor, and you may see some duplicate highlights.
-      -- Instead of true it can also be a list of languages
-      additional_vim_regex_highlighting = false,
-    },
-    incremental_selection = {
-      enable = true,
+      lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
       keymaps = {
-        init_selection = 'gnn',
-        node_incremental = 'grn',
-        scope_incremental = 'grc',
-        node_decremental = 'grm',
+        -- You can use the capture groups defined in textobjects.scm
+        ['af'] = '@function.outer',
+        ['if'] = '@function.inner',
+        ['ac'] = '@class.outer',
+        ['ic'] = '@class.inner',
       },
     },
-    indent = {
+    move = {
       enable = true,
-    },
-    textobjects = {
-      select = {
-        enable = true,
-        lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
-        keymaps = {
-          -- You can use the capture groups defined in textobjects.scm
-          ['af'] = '@function.outer',
-          ['if'] = '@function.inner',
-          ['ac'] = '@class.outer',
-          ['ic'] = '@class.inner',
-        },
+      set_jumps = true, -- whether to set jumps in the jumplist
+      goto_next_start = {
+        [']m'] = '@function.outer',
+        [']]'] = '@class.outer',
       },
-      move = {
-        enable = true,
-        set_jumps = true, -- whether to set jumps in the jumplist
-        goto_next_start = {
-          [']m'] = '@function.outer',
-          [']]'] = '@class.outer',
-        },
-        goto_next_end = {
-          [']M'] = '@function.outer',
-          [']['] = '@class.outer',
-        },
-        goto_previous_start = {
-          ['[m'] = '@function.outer',
-          ['[['] = '@class.outer',
-        },
-        goto_previous_end = {
-          ['[M'] = '@function.outer',
-          ['[]'] = '@class.outer',
-        },
+      goto_next_end = {
+        [']M'] = '@function.outer',
+        [']['] = '@class.outer',
+      },
+      goto_previous_start = {
+        ['[m'] = '@function.outer',
+        ['[['] = '@class.outer',
+      },
+      goto_previous_end = {
+        ['[M'] = '@function.outer',
+        ['[]'] = '@class.outer',
       },
     },
-  }
+    swap = {
+      enable = true,
+      swap_next = {
+        ['<leader>a'] = '@parameter.inner',
+      },
+      swap_previous = {
+        ['<leader>A'] = '@parameter.inner',
+      },
+    }
+  },
+}
 -- Fold based on tree sitter
 vim.o.foldmethod = 'expr'
 vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
@@ -250,7 +263,8 @@ local on_attach = function(_, bufnr)
   end, '[W]orkspace [L]ist Folders')
 
   -- Create a command `:Format` local to the LSP buffer
-  vim.api.nvim_buf_create_user_command(bufnr, 'Format', vim.lsp.buf.format or vim.lsp.buf.formatting, { desc = 'Format current buffer with LSP' })
+  vim.api.nvim_buf_create_user_command(bufnr, 'Format', vim.lsp.buf.format or vim.lsp.buf.formatting,
+    { desc = 'Format current buffer with LSP' })
 end
 
 -- nvim-cmp supports additional completion capabilities
@@ -346,9 +360,9 @@ cmp.setup {
     -- { name = 'ultisnips' }, -- For ultisnips users.
     -- { name = 'snippy' }, -- For snippy users.
   }, {
-      { name = 'buffer' },
-    }),
-   formatting = {
+    { name = 'buffer' },
+  }),
+  formatting = {
     -- Youtube: How to set up nice formatting for your sources.
     format = lspkind.cmp_format {
       with_text = true,
@@ -382,13 +396,13 @@ neogit.setup {
   disable_signs = false,
   disable_hint = false,
   disable_context_highlighting = false,
-  -- Neogit refreshes its internal state after specific events, which can be expensive depending on the repository size. 
+  -- Neogit refreshes its internal state after specific events, which can be expensive depending on the repository size.
   -- Disabling `auto_refresh` will make it so you have to manually refresh the status after you open it.
   auto_refresh = true,
   disable_builtin_notifications = false,
   use_magit_keybindings = false,
   commit_popup = {
-      kind = "split",
+    kind = "split",
   },
   -- Change the default way of opening neogit
   kind = "tab",
@@ -402,7 +416,7 @@ neogit.setup {
   integrations = {
     diffview = true
   },
-    -- Setting any section to `false` will make the section not render at all
+  -- Setting any section to `false` will make the section not render at all
   sections = {
     untracked = {
       folded = false
@@ -448,8 +462,8 @@ vim.cmd([[
     autocmd BufWritePre * undojoin | Neoformat
   augroup END
 ]])
--- Nvim-tree 
-require'nvim-tree'.setup ({})
+-- Nvim-tree
+require 'nvim-tree'.setup({})
 
 vim.api.nvim_set_keymap('n', '<C-n>', ':NvimTreeToggle<CR>', opts)
 vim.api.nvim_set_keymap('n', '<leader>r', '<:NvimTreeRefresh<CR>', opts)
@@ -458,10 +472,10 @@ vim.api.nvim_set_keymap('n', '<leader>n', ':NvimTreeFindFileToggle<CR>', opts)
 -- nvim lint -----------------------------
 local lint = require('lint')
 lint.linters_by_ft = {
-  typescript = {'eslint'},
-  typescriptreact = {'eslint'},
-  javascript = {'eslint'},
-  javascriptreact = {'eslint'},
+  typescript = { 'eslint' },
+  typescriptreact = { 'eslint' },
+  javascript = { 'eslint' },
+  javascriptreact = { 'eslint' },
 
 }
 
@@ -482,19 +496,19 @@ require("yanky").setup({
   },
   picker = {
     telescope = {
-       default = mapping.put("p"),
-        i = {
-          ["<c-p>"] = mapping.put("p"),
-          ["<c-k>"] = mapping.put("P"),
-          ["<c-x>"] = mapping.delete(),
-          ["<c-r>"] = mapping.set_register(utils.get_default_register()),
-        },
-        n = {
-          p = mapping.put("p"),
-          P = mapping.put("P"),
-          d = mapping.delete(),
-          r = mapping.set_register(utils.get_default_register())
-        },
+      default = mapping.put("p"),
+      i = {
+        ["<c-p>"] = mapping.put("p"),
+        ["<c-k>"] = mapping.put("P"),
+        ["<c-x>"] = mapping.delete(),
+        ["<c-r>"] = mapping.set_register(utils.get_default_register()),
+      },
+      n = {
+        p = mapping.put("p"),
+        P = mapping.put("P"),
+        d = mapping.delete(),
+        r = mapping.set_register(utils.get_default_register())
+      },
     }
   },
   system_clipboard = {

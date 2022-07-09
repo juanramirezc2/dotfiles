@@ -17,44 +17,44 @@ local vnoremap = utils.vnoremap
 -- Global Configs
 -- o.background = 'light'
 --Make line numbers default
-vim.wo.number = true
-vim.o.filetype = true
-vim.opt.colorcolumn = {80, 120}
+vim.wo.number       = true
+vim.o.filetype      = true
+vim.opt.colorcolumn = { 80, 120 }
 --Enable mouse mode
-vim.o.mouse = 'a'
-vim.opt.expandtab = true
+vim.o.mouse         = 'a'
+vim.opt.expandtab   = true
 --vim.opt.guicursor = "guicursor=n-v-c:block,i-ci-ve:ver25, r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor, sm:block-blinkwait175-blinkoff150-blinkon175"
-vim.opt.tabstop =  2
+vim.opt.tabstop     = 2
 vim.opt.softtabstop = 2
-vim.opt.shiftwidth = 2
-vim.o.scrolloff       = 12  	  -- Vertical Scroll Offset
-vim.o.sidescrolloff   = 8  	    -- Horizontal Scroll Offset
-vim.o.mouse           = 'a'	    -- Enable mouse mode
+vim.opt.shiftwidth  = 2
+vim.o.scrolloff     = 12 -- Vertical Scroll Offset
+vim.o.sidescrolloff = 8 -- Horizontal Scroll Offset
+vim.o.mouse         = 'a' -- Enable mouse mode
 -- Show invisible characters
-vim.opt.listchars = { trail = '·', tab = [[▸\]], eol = '¬', nbsp = '_' } 
-vim.opt.list = true
+vim.opt.listchars   = { trail = '·', tab = [[▸\]], eol = '¬', nbsp = '_' }
+vim.opt.list        = true
 --Enable break indent
-vim.o.breakindent = true
-vim.o.splitbelow      = true 	-- Force Split Below
-vim.o.splitright      = true 	-- Force Split Right
+vim.o.breakindent   = true
+vim.o.splitbelow    = true -- Force Split Below
+vim.o.splitright    = true -- Force Split Right
 -- Enable cursor line
-vim.wo.cursorline = true
-vim.o.jumpoptions = "stack"
+vim.wo.cursorline   = true
+vim.o.jumpoptions   = "stack"
 --Save undo history
-vim.opt.undofile = true
+vim.opt.undofile    = true
 -- don't use backup files
-opt.backup = false 
+opt.backup          = false
 -- don't backup the file while editing
-opt.writebackup = false 
+opt.writebackup     = false
 -- don't create swap files for new buffers
-opt.swapfile = false
-o.foldlevelstart = 99
-o.autoindent = true
-vim.opt.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175"
-o.smartindent = true
+opt.swapfile        = false
+o.foldlevelstart    = 99
+o.autoindent        = true
+vim.opt.guicursor   = "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175"
+o.smartindent       = true
 --Case insensitive searching UNLESS /C or capital in search
-vim.o.ignorecase = true
-vim.o.smartcase = true
+vim.o.ignorecase    = true
+vim.o.smartcase     = true
 
 --Decrease update time
 vim.o.updatetime = 250
@@ -73,7 +73,7 @@ vim.g.maplocalleader = ' '
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 -- Core mappings changed
-inoremap("jk","<Esc>")
+inoremap("jk", "<Esc>")
 nnoremap("<C-h>", "^")
 vnoremap("<C-h>", "^")
 nnoremap("<C-l>", "g_")
@@ -106,19 +106,19 @@ vim.api.nvim_set_keymap('n', 'j', "v:count == 0 ? 'gj' : 'j'", { noremap = true,
 
 -- plugin configs
 -- local plugins = require("plugins")
-local plugins = require("plugins-lite")
+require("plugins-lite")
 -- Set colorscheme
 -- g.gruvbox_contrast_dark = 'soft'
 -- cmd [[colorscheme gruvbox]]
 nnoremap("<leader>vr", ':e $MYVIMRC<CR>')
--- Netrw config 
+-- Netrw config
 nnoremap("<leader>dd", ":Lexplore %:p:h<CR>")
 nnoremap("<leader>da", ":Lexplore<CR>")
 -- Hit enter in the file browser to open the selected
 -- file with :vsplit to the right of the browser.
 vim.g.netrw_altv = 1
 -- Default to tree mode
-vim.g.netrw_liststyle=3
+vim.g.netrw_liststyle = 3
 vim.g.netrw_winsize = 25
 -- remove the top banner
 vim.g.netrw_banner = 0
@@ -126,4 +126,3 @@ vim.g.netrw_browse_split = 4
 vim.g.netrw_keepdir = 0
 -- hide dotfiles
 -- vim.g.netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
-
