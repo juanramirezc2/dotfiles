@@ -79,11 +79,11 @@ require('packer').startup(function(use)
 vim.g.material_style = "lighter"
 vim.o.termguicolors = true
 vim.o.background = "light"
--- vim.cmd 'colorscheme material'
+vim.cmd 'colorscheme material'
 -- vim.cmd 'colorscheme edge'
 -- vim.o.background = "light"
 -- vim.o.background = "light" -- to load onelight
-require("onedarkpro").load()
+-- require("onedarkpro").load()
 
 --Enable Comment.nvim
 require('Comment').setup({})
