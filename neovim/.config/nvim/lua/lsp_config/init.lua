@@ -7,7 +7,7 @@ local o = vim.o
 local utils = require("utils")
 -- local nmap = utils.nmap
 -- local vmap = utils.vmap
-local imap = utils.imap
+-- local imap = utils.imap
 -- local xmap = utils.xmap
 -- local omap = utils.omap
 local inoremap = utils.inoremap
@@ -257,7 +257,7 @@ nvim_lsp.sumneko_lua.setup(
 
 
 -- To get fzf loaded and working with telescope, you need to call
-local map = vim.api.nvim_set_keymap 
+local map = vim.api.nvim_set_keymap
 --Add leader shortcuts
 map('n', '<leader><space>', [[<cmd>lua require('telescope.builtin').buffers()<CR>]], { noremap = true, silent = true })
 map('n', '<leader>sf', [[<cmd>lua require('telescope.builtin').find_files({previewer = false})<CR>]], { noremap = true, silent = true })
