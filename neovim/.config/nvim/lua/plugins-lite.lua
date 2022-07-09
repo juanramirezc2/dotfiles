@@ -432,44 +432,25 @@ vim.cmd([[
   augroup END
 ]])
 -- Nvim-tree 
-require'nvim-tree'.setup ({ 
-  sync_root_with_cwd = true,
-  reload_on_bufenter = true,
-  respect_buf_cwd= true,
-  update_focused_file = {
-    enable = true,
-    update_root = true,
-    ignore_list = {},
-  },
-})
+require'nvim-tree'.setup ({})
 
 vim.api.nvim_set_keymap('n', '<C-n>', ':NvimTreeToggle<CR>', opts)
 vim.api.nvim_set_keymap('n', '<leader>r', '<:NvimTreeRefresh<CR>', opts)
 vim.api.nvim_set_keymap('n', '<leader>n', ':NvimTreeFindFileToggle<CR>', opts)
 
 -- nvim lint -----------------------------
--- require('lint').linters_by_ft = {
---   typescript = {'eslint'},
---   typescriptreact = {'eslint'},
---   javascript = {'eslint'},
---   javascriptreact = {'eslint'},
---
--- }
-
--- vim.api.nvim_exec([[au BufWritePost <buffer> lua require('lint').try_lint()]], false)
--- vim.api.nvim_set_keymap('n', '<leader>li', [[<buffer>lua require('lint').try_lint()<CR>]], { noremap = true, silent = false })
---
 local lint = require('lint')
--- lint.linters.eslint.cmd = './node_modules/.bin/eslint'
 lint.linters_by_ft = {
-	javascript = {'eslint'},
-	javascriptreact = {'eslint'},
-	typescript = {'eslint'},
-	typescriptreact = {'eslint'},
+  typescript = {'eslint'},
+  typescriptreact = {'eslint'},
+  javascript = {'eslint'},
+  javascriptreact = {'eslint'},
+
 }
 
 -- vim.api.nvim_command([[au BufWritePost <buffer> lua require('lint').try_lint()]])
-
+-- vim.api.nvim_exec([[au BufWritePost <buffer> lua require('lint').try_lint()]], false)
+-- vim.api.nvim_set_keymap('n', '<leader>li', [[<buffer>lua require('lint').try_lint()<CR>]], { noremap = true, silent = false })
 vim.cmd([[
   au BufWritePost <buffer> lua require('lint').try_lint()
 ]])
