@@ -104,11 +104,6 @@ _G.packer_plugins = {
     path = "/Users/jgramirez/.local/share/nvim/site/pack/packer/start/edge",
     url = "https://github.com/sainnhe/edge"
   },
-  ["git-blame.nvim"] = {
-    loaded = true,
-    path = "/Users/jgramirez/.local/share/nvim/site/pack/packer/start/git-blame.nvim",
-    url = "https://github.com/f-person/git-blame.nvim"
-  },
   ["git-messenger.vim"] = {
     loaded = true,
     path = "/Users/jgramirez/.local/share/nvim/site/pack/packer/start/git-messenger.vim",
@@ -174,6 +169,17 @@ _G.packer_plugins = {
     path = "/Users/jgramirez/.local/share/nvim/site/pack/packer/start/nvim-notify",
     url = "https://github.com/rcarriga/nvim-notify"
   },
+  ["nvim-surround"] = {
+    config = { "\27LJ\2\n?\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\18nvim-surround\frequire\0" },
+    loaded = true,
+    path = "/Users/jgramirez/.local/share/nvim/site/pack/packer/start/nvim-surround",
+    url = "https://github.com/kylechui/nvim-surround"
+  },
+  ["nvim-tree.lua"] = {
+    loaded = true,
+    path = "/Users/jgramirez/.local/share/nvim/site/pack/packer/start/nvim-tree.lua",
+    url = "https://github.com/kyazdani42/nvim-tree.lua"
+  },
   ["nvim-treesitter"] = {
     loaded = true,
     path = "/Users/jgramirez/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
@@ -188,6 +194,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/jgramirez/.local/share/nvim/site/pack/packer/start/nvim-ts-autotag",
     url = "https://github.com/windwp/nvim-ts-autotag"
+  },
+  ["nvim-web-devicons"] = {
+    loaded = true,
+    path = "/Users/jgramirez/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
+    url = "https://github.com/kyazdani42/nvim-web-devicons"
   },
   ["one-nvim"] = {
     loaded = true,
@@ -239,6 +250,11 @@ _G.packer_plugins = {
     path = "/Users/jgramirez/.local/share/nvim/site/pack/packer/start/vim-matchup",
     url = "https://github.com/andymass/vim-matchup"
   },
+  ["vim-sleuth"] = {
+    loaded = true,
+    path = "/Users/jgramirez/.local/share/nvim/site/pack/packer/start/vim-sleuth",
+    url = "https://github.com/tpope/vim-sleuth"
+  },
   ["vim-unimpaired"] = {
     loaded = true,
     path = "/Users/jgramirez/.local/share/nvim/site/pack/packer/start/vim-unimpaired",
@@ -252,6 +268,10 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
+-- Config for: nvim-surround
+time([[Config for nvim-surround]], true)
+try_loadstring("\27LJ\2\n?\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\18nvim-surround\frequire\0", "config", "nvim-surround")
+time([[Config for nvim-surround]], false)
 if should_profile then save_profiles() end
 
 end)

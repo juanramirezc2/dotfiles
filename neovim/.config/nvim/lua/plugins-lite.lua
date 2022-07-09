@@ -23,6 +23,7 @@ require('packer').startup(function(use)
     -- UI to select things (files, grep results, open buffers...)
     use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
     use { 'nvim-telescope/telescope-node-modules.nvim' }
+    -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
     -- Add indentation guides even on blank lines
     use 'lukas-reineke/indent-blankline.nvim'
@@ -36,21 +37,26 @@ require('packer').startup(function(use)
     -- linter
     use 'mfussenegger/nvim-lint'
     --}}
+  -- nvim surround
+    use({
+      "kylechui/nvim-surround",
+      config = function()
+        require("nvim-surround").setup({
+          -- Configuration here, or leave empty to use defaults
+        })
+      end
+    })
     use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
-    -- better navigation using lsp and treesitter
+    use 'williamboman/nvim-lsp-installer'-- Automatically install language servers to stdpath
     use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
     use 'onsails/lspkind.nvim' -- tiny plugin adds vscode-like pictograms to neovim built-in lsp
     use 'hrsh7th/cmp-nvim-lsp'
-    -- For luasnip users.
-    use 'L3MON4D3/LuaSnip'
+    use 'L3MON4D3/LuaSnip' -- For luasnip users.
     use 'saadparwaiz1/cmp_luasnip'
-    -- notification 
-    use 'rcarriga/nvim-notify'
+    use 'rcarriga/nvim-notify' -- notification
     use { 'sbdchd/neoformat' }
-    -- Lua
-    -- use "folke/which-key.nvim"
-  -- improve yank and put functionalities for Neovim.
-    use { "gbprod/yanky.nvim"}
+    use { "gbprod/yanky.nvim"} -- improve yank and put functionalities for Neovim.
+    use 'tpope/vim-sleuth'  -- Detect tabstop and shiftwidth automatically
     use {
       'kyazdani42/nvim-tree.lua',
       requires = {
@@ -58,7 +64,7 @@ require('packer').startup(function(use)
       }, tag = 'nightly' -- optional, updated every week. (see issue #1193)
     }
     use 'bkad/CamelCaseMotion' -- move cammel case words
-    use 'f-person/git-blame.nvim'
+    -- use 'f-person/git-blame.nvim'
     -- colorschemes
     use 'marko-cerovac/material.nvim'
     use "savq/melange"
@@ -107,49 +113,33 @@ require('telescope').setup {
     mappings = {
       i = {
         ['<C-u>'] = false,
-        ["<C-d>"] = "delete_buffer"
+        ["<C-d>"] = false
       },
     },
   },
 }
---Add leader shortcuts
-vim.api.nvim_set_keymap('n', '<leader><space>',
-  [[<cmd>lua require('telescope.builtin').buffers()<CR>]],
-  { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>sf',
-  [[<cmd>lua require('telescope.builtin').find_files({previewer = false})<CR>]],
-  { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>sb',
-  [[<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>]],
-  { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>sh',
-  [[<cmd>lua require('telescope.builtin').help_tags()<CR>]],
-  { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>sc',
-  [[<cmd>lua require('telescope.builtin').colorscheme()<CR>]],
-  { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>st',
-  [[<cmd>lua require('telescope.builtin').tags()<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>sd',
-  [[<cmd>lua require('telescope.builtin').grep_string()<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>sl',
-  [[<cmd>lua require('telescope.builtin').resume()<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>sp',
-  [[<cmd>lua require('telescope.builtin').live_grep()<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>so',
-  [[<cmd>lua require('telescope.builtin').tags{ only_current_buffer = true }<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>?',
-  [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>nm',
-  '<cmd>Telescope node_modules list<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>sy',
-  '<cmd>Telescope yank_history<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>sj',
-  [[<cmd>lua require('telescope.builtin').jumplist()<CR>]], { noremap = true, silent = true })
 -- Enable telescope node modules
 require('telescope').load_extension 'node_modules'
 -- Enable telescope fzf native
 require('telescope').load_extension 'fzf'
+--Add leader shortcuts
+vim.api.nvim_set_keymap('n', '<leader>?', [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]], { desc = '[?] Find recently opened files'})vim.api.nvim_set_keymap('n', '<leader><space>', [[<cmd>lua require('telescope.builtin').buffers()<CR>]], { desc = '[ ] Find existing buffers'}) vim.keymap.set('n', '<leader>/', function()
+  -- You can pass additional configuration to telescope to change theme, layout, etc.
+  require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+    winblend = 10,
+    previewer = false,
+  })
+end, { desc = '[/] Fuzzily search in current buffer]' })
+vim.api.nvim_set_keymap('n', '<leader>sf', [[<cmd>lua require('telescope.builtin').find_files()<CR>]],{})
+vim.api.nvim_set_keymap('n', '<leader>sh', [[<cmd>lua require('telescope.builtin').help_tags()<CR>]],{})
+vim.api.nvim_set_keymap('n', '<leader>sc', [[<cmd>lua require('telescope.builtin').colorscheme()<CR>]],{})
+vim.api.nvim_set_keymap('n', '<leader>sw', [[<cmd>lua require('telescope.builtin').grep_string()<CR>]],{})
+vim.api.nvim_set_keymap('n', '<leader>sl', [[<cmd>lua require('telescope.builtin').resume()<CR>]],{})
+vim.api.nvim_set_keymap('n', '<leader>sg', [[<cmd>lua require('telescope.builtin').live_grep()<CR>]],{})
+vim.api.nvim_set_keymap('n', '<leader>nm', '<cmd>Telescope node_modules list<CR>',{}) 
+vim.api.nvim_set_keymap('n', '<leader>sy', '<cmd>Telescope yank_history<CR>',{})
+vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
+vim.api.nvim_set_keymap('n', '<leader>sj', [[<cmd>lua require('telescope.builtin').jumplist()<CR>]],{})
 
 -- Treesitter configuration
 -- Parsers must be installed manually via :TSInstall
@@ -250,22 +240,27 @@ end
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- Enable the following language servers
-local servers = { 'tsserver' }
+local servers = { 'tsserver', 'sumneko_lua' }
+
+
+-- Ensure the servers above are installed
+require('nvim-lsp-installer').setup {
+  ensure_installed = servers,
+}
+
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     on_attach = on_attach,
     capabilities = capabilities,
   }
 end
+
 -- Lua custom server
 local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
-local sumneko_root_path = vim.fn.getenv 'HOME' .. '/.code/lua-language-server' -- custom folder ~/.code were lsp client was cloned and built
-local sumneko_binary = sumneko_root_path .. '/bin/lua-language-server'
 
 lspconfig.sumneko_lua.setup {
-  cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"};
   on_attach = on_attach,
   capabilities = capabilities,
   settings = {
@@ -283,10 +278,6 @@ lspconfig.sumneko_lua.setup {
       workspace = {
         -- Make the server aware of Neovim runtime files
         library = vim.api.nvim_get_runtime_file('', true),
-      },
-      -- Do not send telemetry data containing a randomized but unique identifier
-      telemetry = {
-        enable = false,
       },
     },
   },
