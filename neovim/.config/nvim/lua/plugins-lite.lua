@@ -66,6 +66,7 @@ require('packer').startup(function(use)
   use 'bkad/CamelCaseMotion' -- move cammel case words
   -- use 'f-person/git-blame.nvim'
   -- colorschemes
+  use 'ellisonleao/gruvbox.nvim'
   use 'marko-cerovac/material.nvim'
   use "savq/melange"
   use "sainnhe/edge"
@@ -73,13 +74,36 @@ require('packer').startup(function(use)
   use 'olimorris/onedarkpro.nvim'
   use 'Th3Whit3Wolf/onebuddy'
   use 'Th3Whit3Wolf/one-nvim'
+  -- Debugger Adaptor Protocol
+  use 'mfussenegger/nvim-dap'
+  use "rcarriga/nvim-dap-ui"
+  use "nvim-telescope/telescope-dap.nvim"
 end)
 
--- colorscheme
-vim.g.material_style = "lighter"
+
+-- setup must be called before loading the colorscheme
+-- Default options:
+require("gruvbox").setup({
+  undercurl = true,
+  underline = true,
+  bold = true,
+  italic = true,
+  strikethrough = true,
+  invert_selection = false,
+  invert_signs = false,
+  invert_tabline = false,
+  invert_intend_guides = false,
+  inverse = true, -- invert background for search, diffs, statuslines and errors
+  contrast = "soft", -- can be "hard", "soft" or empty string
+  overrides = {},
+})
 vim.o.termguicolors = true
-vim.o.background = "light"
-vim.cmd 'colorscheme material'
+vim.cmd("colorscheme gruvbox")
+-- colorscheme
+-- vim.g.material_style = "lighter"
+-- vim.o.background = "light"
+-- vim.cmd 'colorscheme gruvbox'
+-- vim.cmd 'colorscheme material'
 -- vim.cmd 'colorscheme edge'
 -- vim.o.background = "light"
 -- vim.o.background = "light" -- to load onelight
@@ -540,3 +564,21 @@ vim.keymap.set("x", "y", "<Plug>(YankyYank)", {})
 vim.g.camelcasemotion_key = '<leader>'
 -- Git blame
 -- vim.g.gitblame_enabled = 1
+-- dap debugger
+-- telescope-dap
+require("telescope").load_extension "dap"
+require('dap.ext.vscode').load_launchjs()
+-- nvim-dap-ui
+require("dapui").setup {}
+local mappingOpts = { noremap = true, silent = true }
+-- languages
+require("config.dap.node").setup()
+vim.api.nvim_set_keymap('n', '<F5>', [[<cmd>lua require'dap'.continue()<CR>]], mappingOpts)
+vim.api.nvim_set_keymap('n', '<F10>', [[<cmd>lua require'dap'.step_over()<CR>]], mappingOpts)
+vim.api.nvim_set_keymap('n', '<F11>', [[<cmd>lua require'dap'.step_into()<CR>]], mappingOpts)
+vim.api.nvim_set_keymap('n', '<F12>', [[<cmd>lua require'dap'.step_out()<CR>]], mappingOpts)
+vim.api.nvim_set_keymap('n', '<leader>b', [[<cmd>lua require'dap'.toggle_breakpoint()<CR>]], mappingOpts)
+vim.api.nvim_set_keymap('n', '<leader>B', [[<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>]], mappingOpts)
+vim.api.nvim_set_keymap('n', '<leader>lp', [[<cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>]], mappingOpts)
+vim.api.nvim_set_keymap('n', '<leader>dr', [[<cmd>lua require'dap'.repl.open()<CR>]], mappingOpts)
+vim.api.nvim_set_keymap('n', '<leader>dl', [[<cmd>lua require'dap'.run_last()<CR>]], mappingOpts)

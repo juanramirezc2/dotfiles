@@ -18,6 +18,7 @@ local vnoremap = utils.vnoremap
 -- o.background = 'light'
 --Make line numbers default
 vim.wo.number       = true
+vim.opt.relativenumber = true -- Set relative number
 vim.o.filetype      = true
 vim.opt.colorcolumn = { 80, 120 }
 --Enable mouse mode
