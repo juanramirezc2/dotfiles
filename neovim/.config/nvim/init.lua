@@ -97,6 +97,8 @@ vim.api.nvim_set_keymap('t', '<C-d>', [[<C-\><C-d>]], { noremap = true })
 nnoremap("<leader>bd", ':bdelete<cr>')
 nnoremap("<leader>l", ':bnext<cr>')
 nnoremap("<leader>h", ':bprevious<cr>')
+-- replace without deleting in visual
+vnoremap("<leader>p", [["_dp]])
 -- Search Selection
 vnoremap("//", [[y/\V<C-r>=escape(@",'/\')<CR><CR>]])
 -- Switch to alternative buffer

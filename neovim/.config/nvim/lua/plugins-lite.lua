@@ -63,7 +63,7 @@ require('packer').startup(function(use)
       'kyazdani42/nvim-web-devicons', -- optional, for file icon
     }, tag = 'nightly' -- optional, updated every week. (see issue #1193)
   }
-  use 'bkad/CamelCaseMotion' -- move cammel case words
+  -- use 'bkad/CamelCaseMotion' -- move cammel case words
   -- use 'f-person/git-blame.nvim'
   -- colorschemes
   use 'ellisonleao/gruvbox.nvim'
@@ -78,11 +78,13 @@ require('packer').startup(function(use)
   use 'mfussenegger/nvim-dap'
   use "rcarriga/nvim-dap-ui"
   use "nvim-telescope/telescope-dap.nvim"
+  use 'theHamsta/nvim-dap-virtual-text'
 end)
 
 
 -- setup must be called before loading the colorscheme
 -- Default options:
+vim.o.background = "light"
 require("gruvbox").setup({
   undercurl = true,
   underline = true,
@@ -94,14 +96,14 @@ require("gruvbox").setup({
   invert_tabline = false,
   invert_intend_guides = false,
   inverse = true, -- invert background for search, diffs, statuslines and errors
-  contrast = "soft", -- can be "hard", "soft" or empty string
+  -- contrast = "soft", -- can be "hard", "soft" or empty string
   overrides = {},
 })
 vim.o.termguicolors = true
 vim.cmd("colorscheme gruvbox")
 -- colorscheme
--- vim.g.material_style = "lighter"
--- vim.o.background = "light"
+vim.g.material_style = "lighter"
+vim.o.background = "light"
 -- vim.cmd 'colorscheme gruvbox'
 -- vim.cmd 'colorscheme material'
 -- vim.cmd 'colorscheme edge'
@@ -407,8 +409,8 @@ cmp.setup {
 local opts = { noremap = true, silent = true }
 -- fugitive
 vim.api.nvim_set_keymap('n', '<leader>gr', ':Gread<CR>', opts)
+vim.api.nvim_set_keymap('n', '<leader>gs', ':Git<CR>', opts)
 -- neogit
-vim.api.nvim_set_keymap('n', '<leader>gs', ':Neogit<CR>', opts)
 vim.api.nvim_set_keymap('n', '<leader>gd', ':DiffviewOpen<CR>', opts)
 vim.api.nvim_set_keymap('n', '<leader>gD', ':DiffviewOpen main<CR>', opts)
 vim.api.nvim_set_keymap('n', '<leader>gl', ':Neogit log<CR>', opts)
@@ -481,15 +483,20 @@ neogit.setup {
 vim.g.neoformat_try_node_exe = 1
 vim.api.nvim_set_keymap('n', '<leader>f', ':Neoformat <CR>', opts)
 -- format on save
+-- fix for undojoin issue https://github.com/sbdchd/neoformat/issues/134#issuecomment-347180213
 vim.cmd([[
   augroup fmt
     autocmd!
-    autocmd BufWritePre * undojoin | Neoformat
+    au BufWritePre * try | undojoin | Neoformat | catch /^Vim\%((\a\+)\)\=:E790/ | finally | silent Neoformat | endtry
   augroup END
 ]])
 -- Nvim-tree
-require 'nvim-tree'.setup({})
-
+require 'nvim-tree'.setup({
+  sort_by = "case_sensitive",
+  view = {
+    adaptive_size = true
+  }
+})
 vim.api.nvim_set_keymap('n', '<C-n>', ':NvimTreeToggle<CR>', opts)
 vim.api.nvim_set_keymap('n', '<leader>r', '<:NvimTreeRefresh<CR>', opts)
 vim.api.nvim_set_keymap('n', '<leader>n', ':NvimTreeFindFileToggle<CR>', opts)
@@ -566,19 +573,41 @@ vim.g.camelcasemotion_key = '<leader>'
 -- vim.g.gitblame_enabled = 1
 -- dap debugger
 -- telescope-dap
+local dap = require('dap')
+dap.adapters.node2 = {
+  type = 'executable',
+  command = 'node',
+  args = { os.getenv('HOME') .. '/.code/vscode-node-debug2/out/src/nodeDebug.js' },
+}
+dap.configurations.javascript = {
+  {
+    name = 'Debug Jest Tests',
+    type = 'node2',
+    request = 'launch',
+    cwd = vim.fn.getcwd(),
+    runtimeArgs = { '--inspect-brk', '${workspaceRoot}/apps/planner/node_modules/.bin/jest', '--runInBand' },
+    args = { '--no-cache' },
+    sourceMaps = 'inline',
+    protocol = 'inspector',
+    console = 'integratedTerminal',
+    port = 9229,
+    disableOptimisticBPs = true
+  }
+}
+-- require('dap.ext.vscode').load_launchjs()
 require("telescope").load_extension "dap"
-require('dap.ext.vscode').load_launchjs()
+require("nvim-dap-virtual-text").setup()
 -- nvim-dap-ui
-require("dapui").setup {}
+require("dapui").setup()
 local mappingOpts = { noremap = true, silent = true }
--- languages
-require("config.dap.node").setup()
 vim.api.nvim_set_keymap('n', '<F5>', [[<cmd>lua require'dap'.continue()<CR>]], mappingOpts)
 vim.api.nvim_set_keymap('n', '<F10>', [[<cmd>lua require'dap'.step_over()<CR>]], mappingOpts)
 vim.api.nvim_set_keymap('n', '<F11>', [[<cmd>lua require'dap'.step_into()<CR>]], mappingOpts)
 vim.api.nvim_set_keymap('n', '<F12>', [[<cmd>lua require'dap'.step_out()<CR>]], mappingOpts)
 vim.api.nvim_set_keymap('n', '<leader>b', [[<cmd>lua require'dap'.toggle_breakpoint()<CR>]], mappingOpts)
-vim.api.nvim_set_keymap('n', '<leader>B', [[<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>]], mappingOpts)
-vim.api.nvim_set_keymap('n', '<leader>lp', [[<cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>]], mappingOpts)
+vim.api.nvim_set_keymap('n', '<leader>B',
+  [[<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>]], mappingOpts)
+vim.api.nvim_set_keymap('n', '<leader>lp',
+  [[<cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>]], mappingOpts)
 vim.api.nvim_set_keymap('n', '<leader>dr', [[<cmd>lua require'dap'.repl.open()<CR>]], mappingOpts)
 vim.api.nvim_set_keymap('n', '<leader>dl', [[<cmd>lua require'dap'.run_last()<CR>]], mappingOpts)
