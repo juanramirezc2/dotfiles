@@ -414,8 +414,6 @@ vim.api.nvim_set_keymap('n', '<leader>gp', ':Git push<CR>', opts)
 -- neogit
 vim.api.nvim_set_keymap('n', '<leader>gd', ':DiffviewOpen<CR>', opts)
 vim.api.nvim_set_keymap('n', '<leader>gD', ':DiffviewOpen main<CR>', opts)
-vim.api.nvim_set_keymap('n', '<leader>gl', ':Neogit log<CR>', opts)
-vim.api.nvim_set_keymap('n', '<leader>gp', '::Neogit push<CR>', opts)
 
 local neogit = require('neogit')
 
