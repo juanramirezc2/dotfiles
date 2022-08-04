@@ -410,6 +410,7 @@ local opts = { noremap = true, silent = true }
 -- fugitive
 vim.api.nvim_set_keymap('n', '<leader>gr', ':Gread<CR>', opts)
 vim.api.nvim_set_keymap('n', '<leader>gs', ':Git<CR>', opts)
+vim.api.nvim_set_keymap('n', '<leader>gp', ':Git push<CR>', opts)
 -- neogit
 vim.api.nvim_set_keymap('n', '<leader>gd', ':DiffviewOpen<CR>', opts)
 vim.api.nvim_set_keymap('n', '<leader>gD', ':DiffviewOpen main<CR>', opts)
