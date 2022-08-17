@@ -1,7 +1,7 @@
 # gitconfig
 [user]
 	name = "Juan Ramirez "
-	email = tuxgabo@gmail.com
+	email = jgramirezc2@gmail.com
 	username = juangabrielr4
 [alias]
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative

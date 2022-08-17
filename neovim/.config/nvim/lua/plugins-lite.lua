@@ -31,6 +31,8 @@ require('packer').startup(function(use)
   -- Highlight, edit, and navigate code using a fast incremental parsing library
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
   -- Treesitter extra modules {{
+  use 'nvim-treesitter/nvim-treesitter-context'
+  use "windwp/nvim-autopairs"
   use 'nvim-treesitter/nvim-treesitter-textobjects'
   use 'windwp/nvim-ts-autotag' -- Use treesitter to autoclose and autorename html tag
   use 'andymass/vim-matchup'
@@ -245,6 +247,8 @@ require('nvim-treesitter.configs').setup {
     }
   },
 }
+-- tresitter context
+require 'treesitter-context'.setup()
 -- Fold based on tree sitter
 vim.o.foldmethod = 'expr'
 vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
@@ -516,6 +520,9 @@ lint.linters_by_ft = {
 vim.cmd([[
   au BufWritePost <buffer> lua require('lint').try_lint()
 ]])
+--nvim autopairs
+require("nvim-autopairs").setup()
+
 -- yanky nvim
 local utils = require("yanky.utils")
 local mapping = require("yanky.telescope.mapping")
