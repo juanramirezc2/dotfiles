@@ -24,6 +24,7 @@ set -ga terminal-overrides "*:kUP3=\e[1;9A,*:kDN3=\e[1;9B,*:kRIT3=\e[1;9C,*:kLFT
 #   - true
 #   - false (default)
 tmux_conf_new_window_retain_current_path=false
+set -g visual-bell on
 
 # new pane retains current path, possible values are:
 #   - true (default)
