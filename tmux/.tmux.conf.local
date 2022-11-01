@@ -3,8 +3,6 @@
 # (‑●‑●)> dual licensed under the WTFPL v2 license and the MIT license,
 #         without any warranty.
 #         Copyright 2012— Gregory Pakosz (@gpakosz).
-
-
 # general overrides
 set -g default-terminal $TERM
 set-option -ga terminal-overrides ",$TERM:Tc"
@@ -24,7 +22,8 @@ set -ga terminal-overrides "*:kUP3=\e[1;9A,*:kDN3=\e[1;9B,*:kRIT3=\e[1;9C,*:kLFT
 #   - true
 #   - false (default)
 tmux_conf_new_window_retain_current_path=false
-set -g visual-bell on
+set -g visual-bell off
+set -g bell-action none
 
 # new pane retains current path, possible values are:
 #   - true (default)
