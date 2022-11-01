@@ -50,11 +50,16 @@ require('packer').startup(function(use)
   })
   use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
   use 'williamboman/nvim-lsp-installer' -- Automatically install language servers to stdpath
-  use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
-  use 'onsails/lspkind.nvim' -- tiny plugin adds vscode-like pictograms to neovim built-in lsp
+  -- cmp addons
   use 'hrsh7th/cmp-nvim-lsp'
-  use 'L3MON4D3/LuaSnip' -- For luasnip users.
+  use 'hrsh7th/cmp-buffer'
+  use 'hrsh7th/cmp-path'
+  use 'hrsh7th/cmp-cmdline'
+  use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
   use 'saadparwaiz1/cmp_luasnip'
+  use 'onsails/lspkind.nvim' -- tiny plugin adds vscode-like pictograms to neovim built-in lsp
+  -- end of cmp addons
+  use 'L3MON4D3/LuaSnip' -- For luasnip users.
   use 'rcarriga/nvim-notify' -- notification
   use { 'sbdchd/neoformat' }
   use { "gbprod/yanky.nvim" } -- improve yank and put functionalities for Neovim.
@@ -65,6 +70,7 @@ require('packer').startup(function(use)
       'kyazdani42/nvim-web-devicons', -- optional, for file icon
     }, tag = 'nightly' -- optional, updated every week. (see issue #1193)
   }
+  use 'NvChad/nvim-colorizer.lua' -- A high-performance color highlighter for Neovim which has no external dependencies! 
   -- use 'bkad/CamelCaseMotion' -- move cammel case words
   -- use 'f-person/git-blame.nvim'
   -- colorschemes
@@ -76,6 +82,7 @@ require('packer').startup(function(use)
   use 'olimorris/onedarkpro.nvim'
   use 'Th3Whit3Wolf/onebuddy'
   use 'Th3Whit3Wolf/one-nvim'
+  use 'Shatur/neovim-ayu'
   -- Debugger Adaptor Protocol
   use 'mfussenegger/nvim-dap'
   use "rcarriga/nvim-dap-ui"
@@ -98,7 +105,7 @@ require("gruvbox").setup({
   invert_tabline = false,
   invert_intend_guides = false,
   inverse = true, -- invert background for search, diffs, statuslines and errors
-  -- contrast = "soft", -- can be "hard", "soft" or empty string
+  contrast = "soft", -- can be "hard", "soft" or empty string
   overrides = {},
 })
 vim.o.termguicolors = true
@@ -136,7 +143,7 @@ require('gitsigns').setup {
 -- Telescope
 require('telescope').setup {
   defaults = {
-    layout_strategy = 'vertical',
+    path_display = { "smart"},
     dynamic_preview_title = true,
     mappings = {
       i = {
@@ -275,9 +282,9 @@ local on_attach = function(_, bufnr)
 
   nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
   nmap('gi', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
-  nmap('gr', require('telescope.builtin').lsp_references)
-  nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
-  nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+  vim.api.nvim_set_keymap('n', 'gr', [[<cmd>lua require('telescope.builtin').lsp_references({include_declaration=false,show_line=false})<CR>]], {})
+  vim.api.nvim_set_keymap('n', '<leader>ds', [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]], {})
+  vim.api.nvim_set_keymap('n', '<leader>ws', [[<cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<CR>]], {})
 
   -- See `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
@@ -299,7 +306,7 @@ local on_attach = function(_, bufnr)
 end
 
 -- nvim-cmp supports additional completion capabilities
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 -- Enable the following language servers
 local servers = { 'tsserver', 'sumneko_lua' }
@@ -345,7 +352,7 @@ lspconfig.sumneko_lua.setup {
   },
 }
 
--- nvim-cmp setup
+---{{ nvim-cmp setup
 local lspkind = require('lspkind')
 local cmp = require 'cmp'
 cmp.setup {
@@ -409,11 +416,37 @@ cmp.setup {
     },
   },
 }
+-- Set configuration for specific filetype.
+  cmp.setup.filetype('gitcommit', {
+    sources = cmp.config.sources({
+      { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
+    }, {
+      { name = 'buffer' },
+    })
+  })
 
-local opts = { noremap = true, silent = true }
+  -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+  cmp.setup.cmdline({ '/', '?' }, {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+      { name = 'buffer' }
+    }
+  })
+
+  -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+  cmp.setup.cmdline(':', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+      { name = 'path' }
+    }, {
+      { name = 'cmdline' }
+    })
+  })
+----}}
 -- fugitive
+local opts = { noremap = true, silent = true }
 vim.api.nvim_set_keymap('n', '<leader>gr', ':Gread<CR>', opts)
-vim.api.nvim_set_keymap('n', '<leader>gs', ':Git<CR>', opts)
+vim.api.nvim_set_keymap('n', '<leader>gs', ':Neogit<CR>', opts)
 vim.api.nvim_set_keymap('n', '<leader>gp', ':Git push<CR>', opts)
 -- neogit
 vim.api.nvim_set_keymap('n', '<leader>gd', ':DiffviewOpen<CR>', opts)
@@ -585,6 +618,7 @@ dap.adapters.node2 = {
   command = 'node',
   args = { os.getenv('HOME') .. '/.code/vscode-node-debug2/out/src/nodeDebug.js' },
 }
+
 dap.configurations.javascript = {
   {
     name = 'Debug Jest Tests',
@@ -617,3 +651,26 @@ vim.api.nvim_set_keymap('n', '<leader>lp',
   [[<cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>]], mappingOpts)
 vim.api.nvim_set_keymap('n', '<leader>dr', [[<cmd>lua require'dap'.repl.open()<CR>]], mappingOpts)
 vim.api.nvim_set_keymap('n', '<leader>dl', [[<cmd>lua require'dap'.run_last()<CR>]], mappingOpts)
+
+-- nvim-colorizer.lua
+require'colorizer'.setup({
+  user_default_options = {
+    RGB = true, -- #RGB hex codes
+    RRGGBB = true, -- #RRGGBB hex codes
+    names = false, -- "Name" codes like Blue or blue
+    RRGGBBAA = false, -- #RRGGBBAA hex codes
+    AARRGGBB = false, -- 0xAARRGGBB hex codes
+    rgb_fn = false, -- CSS rgb() and rgba() functions
+    hsl_fn = false, -- CSS hsl() and hsla() functions
+    css = false, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
+    css_fn = false, -- Enable all CSS *functions*: rgb_fn, hsl_fn
+    -- Available modes for `mode`: foreground, background,  virtualtext
+    mode = "background", -- Set the display mode.
+    -- Available methods are false / true / "normal" / "lsp" / "both"
+    -- True is same as normal
+    tailwind = false, -- Enable tailwind colors
+    -- parsers can contain values used in |user_default_options|
+    sass = { enable = false, parsers = { css }, }, -- Enable sass colors
+    virtualtext = "■",
+  }
+})

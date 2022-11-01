@@ -18,7 +18,7 @@ local vnoremap = utils.vnoremap
 -- o.background = 'light'
 --Make line numbers default
 vim.wo.number       = true
-vim.opt.relativenumber = true -- Set relative number
+-- vim.opt.relativenumber = true -- Set relative number
 vim.o.filetype      = true
 vim.opt.colorcolumn = { 80, 120 }
 --Enable mouse mode
@@ -42,7 +42,7 @@ vim.o.splitright    = true -- Force Split Right
 vim.wo.cursorline   = true
 vim.o.jumpoptions   = "stack"
 --Save undo history
-vim.opt.undofile    = true
+-- vim.opt.undofile    = true
 -- don't use backup files
 opt.backup          = false
 -- don't backup the file while editing
