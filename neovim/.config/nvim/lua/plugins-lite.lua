@@ -7,8 +7,8 @@ end
 
 vim.cmd [[
   augroup Packer
-    autocmd!
-    autocmd BufWritePost init.lua PackerCompile
+  autocmd!
+  autocmd BufWritePost init.lua PackerCompile
   augroup end
 ]]
 
@@ -38,8 +38,8 @@ require('packer').startup(function(use)
   use {'neoclide/coc.nvim', branch = 'release'}
   -- status line 
   use {
-  'nvim-lualine/lualine.nvim',
-  requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+    'nvim-lualine/lualine.nvim',
+    requires = { 'kyazdani42/nvim-web-devicons', opt = true }
   }
   -- nvim surround
   use({
@@ -100,7 +100,7 @@ require('lualine').setup {
   },
   sections = {
     lualine_a = {'mode'},
-    lualine_b = {'diagnostics'},
+    lualine_b = {'diff', 'diagnostics'},
     lualine_c = {{'filename', path = 1}},
     lualine_x = {'encoding', 'fileformat', 'filetype'},
     lualine_y = {'progress'},
@@ -121,15 +121,15 @@ require('lualine').setup {
 }
 ------------------------- COC NVIM {{{{{{{{{{{
 vim.g.coc_global_extensions = {
-    "coc-explorer",
-    "coc-tsserver",
-    "coc-json",
-    "coc-eslint",
-    "coc-snippets",
-    "coc-prettier",
-    "coc-lua",
-    "coc-react-refactor",
-    "coc-git"
+  "coc-explorer",
+  "coc-tsserver",
+  "coc-json",
+  "coc-eslint",
+  "coc-snippets",
+  "coc-prettier",
+  "coc-lua",
+  "coc-react-refactor",
+  "coc-git"
 }
 
 -- Some servers have issues with backup files, see #649.
@@ -147,8 +147,8 @@ vim.opt.signcolumn = "yes"
 local keyset = vim.keymap.set
 -- Auto complete
 function _G.check_back_space()
-    local col = vim.fn.col('.') - 1
-    return col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') ~= nil
+  local col = vim.fn.col('.') - 1
+  return col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') ~= nil
 end
 
 -- Use tab for trigger completion with characters ahead and navigate.
@@ -183,14 +183,14 @@ keyset("n", "gr", "<Plug>(coc-references)", {silent = true})
 
 -- Use K to show documentation in preview window.
 function _G.show_docs()
-    local cw = vim.fn.expand('<cword>')
-    if vim.fn.index({'vim', 'help'}, vim.bo.filetype) >= 0 then
-        vim.api.nvim_command('h ' .. cw)
-    elseif vim.api.nvim_eval('coc#rpc#ready()') then
-        vim.fn.CocActionAsync('doHover')
-    else
-        vim.api.nvim_command('!' .. vim.o.keywordprg .. ' ' .. cw)
-    end
+  local cw = vim.fn.expand('<cword>')
+  if vim.fn.index({'vim', 'help'}, vim.bo.filetype) >= 0 then
+    vim.api.nvim_command('h ' .. cw)
+  elseif vim.api.nvim_eval('coc#rpc#ready()') then
+    vim.fn.CocActionAsync('doHover')
+  else
+    vim.api.nvim_command('!' .. vim.o.keywordprg .. ' ' .. cw)
+  end
 end
 keyset("n", "K", '<CMD>lua _G.show_docs()<CR>', {silent = true})
 
@@ -198,9 +198,9 @@ keyset("n", "K", '<CMD>lua _G.show_docs()<CR>', {silent = true})
 -- Highlight the symbol and its references when holding the cursor.
 vim.api.nvim_create_augroup("CocGroup", {})
 vim.api.nvim_create_autocmd("CursorHold", {
-    group = "CocGroup",
-    command = "silent call CocActionAsync('highlight')",
-    desc = "Highlight symbol under cursor on CursorHold"
+  group = "CocGroup",
+  command = "silent call CocActionAsync('highlight')",
+  desc = "Highlight symbol under cursor on CursorHold"
 })
 
 
@@ -215,18 +215,18 @@ keyset("n", "<leader>f", "<Plug>(coc-format-selected)", {silent = true})
 
 -- Setup formatexpr specified filetype(s).
 vim.api.nvim_create_autocmd("FileType", {
-    group = "CocGroup",
-    pattern = "typescript,json",
-    command = "setl formatexpr=CocAction('formatSelected')",
-    desc = "Setup formatexpr specified filetype(s)."
+  group = "CocGroup",
+  pattern = "typescript,json",
+  command = "setl formatexpr=CocAction('formatSelected')",
+  desc = "Setup formatexpr specified filetype(s)."
 })
 
 -- Update signature help on jump placeholder.
 vim.api.nvim_create_autocmd("User", {
-    group = "CocGroup",
-    pattern = "CocJumpPlaceholder",
-    command = "call CocActionAsync('showSignatureHelp')",
-    desc = "Update signature help on jump placeholder"
+  group = "CocGroup",
+  pattern = "CocJumpPlaceholder",
+  command = "call CocActionAsync('showSignatureHelp')",
+  desc = "Update signature help on jump placeholder"
 })
 
 
@@ -266,9 +266,9 @@ local opts = {silent = true, nowait = true, expr = true}
 keyset("n", "<C-f>", 'coc#float#has_scroll() ? coc#float#scroll(1) : "<C-f>"', opts)
 keyset("n", "<C-b>", 'coc#float#has_scroll() ? coc#float#scroll(0) : "<C-b>"', opts)
 keyset("i", "<C-f>",
-       'coc#float#has_scroll() ? "<c-r>=coc#float#scroll(1)<cr>" : "<Right>"', opts)
+  'coc#float#has_scroll() ? "<c-r>=coc#float#scroll(1)<cr>" : "<Right>"', opts)
 keyset("i", "<C-b>",
-       'coc#float#has_scroll() ? "<c-r>=coc#float#scroll(0)<cr>" : "<Left>"', opts)
+  'coc#float#has_scroll() ? "<c-r>=coc#float#scroll(0)<cr>" : "<Left>"', opts)
 keyset("v", "<C-f>", 'coc#float#has_scroll() ? coc#float#scroll(1) : "<C-f>"', opts)
 keyset("v", "<C-b>", 'coc#float#has_scroll() ? coc#float#scroll(0) : "<C-b>"', opts)
 
