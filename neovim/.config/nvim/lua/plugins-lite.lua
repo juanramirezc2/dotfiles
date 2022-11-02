@@ -17,9 +17,6 @@ require('packer').startup(function(use)
   use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
   use 'rhysd/git-messenger.vim' -- display messages of git commits
   use 'tpope/vim-unimpaired' -- Pairs of handy bracket mappings
-  use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
-  use 'tpope/vim-fugitive' --Git wrapper so awesome, it should be illegal
-  use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
   -- UI to select things (files, grep results, open buffers...)
   use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
   use { 'nvim-telescope/telescope-node-modules.nvim' }
@@ -27,7 +24,6 @@ require('packer').startup(function(use)
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
   -- Add indentation guides even on blank lines
   use 'lukas-reineke/indent-blankline.nvim'
-  use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
   -- Highlight, edit, and navigate code using a fast incremental parsing library
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
   -- Treesitter extra modules {{
@@ -36,11 +32,13 @@ require('packer').startup(function(use)
   use 'nvim-treesitter/nvim-treesitter-textobjects'
   use 'windwp/nvim-ts-autotag' -- Use treesitter to autoclose and autorename html tag
   use 'andymass/vim-matchup'
-  -- linter
-  use 'mfussenegger/nvim-lint'
-  --}}
   -- Coc nvim
   use {'neoclide/coc.nvim', branch = 'release'}
+  -- status line 
+  use {
+  'nvim-lualine/lualine.nvim',
+  requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+  }
   -- nvim surround
   use({
     "kylechui/nvim-surround",
@@ -52,15 +50,9 @@ require('packer').startup(function(use)
   })
 
   use 'rcarriga/nvim-notify' -- notification
-  use { 'sbdchd/neoformat' }
   use { "gbprod/yanky.nvim" } -- improve yank and put functionalities for Neovim.
   use 'tpope/vim-sleuth' -- Detect tabstop and shiftwidth automatically
-  use {
-    'kyazdani42/nvim-tree.lua',
-    requires = {
-      'kyazdani42/nvim-web-devicons', -- optional, for file icon
-    }, tag = 'nightly' -- optional, updated every week. (see issue #1193)
-  }
+
   use 'NvChad/nvim-colorizer.lua' -- A high-performance color highlighter for Neovim which has no external dependencies! 
   -- use 'bkad/CamelCaseMotion' -- move cammel case words
   -- use 'f-person/git-blame.nvim'
@@ -74,22 +66,30 @@ require('packer').startup(function(use)
   use 'Th3Whit3Wolf/onebuddy'
   use 'Th3Whit3Wolf/one-nvim'
   use 'Shatur/neovim-ayu'
+  -- Git helpers
+  use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
+  use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
   -- Debugger Adaptor Protocol
   use 'mfussenegger/nvim-dap'
   use "rcarriga/nvim-dap-ui"
   use "nvim-telescope/telescope-dap.nvim"
   use 'theHamsta/nvim-dap-virtual-text'
 end)
-
+-- Lua line
+require('lualine').setup()
 ------------------------- COC NVIM {{{{{{{{{{{
 vim.g.coc_global_extensions = {
+    "coc-explorer",
     "coc-tsserver",
     "coc-json",
     "coc-eslint",
     "coc-snippets",
     "coc-prettier",
-    "coc-lua"
+    "coc-lua",
+    "coc-react-refactor",
+    "coc-git"
 }
+
 -- Some servers have issues with backup files, see #649.
 vim.opt.backup = false
 vim.opt.writebackup = false
@@ -311,17 +311,6 @@ vim.g.indent_blankline_filetype_exclude = { 'help', 'packer' }
 vim.g.indent_blankline_buftype_exclude = { 'terminal', 'nofile' }
 vim.g.indent_blankline_show_trailing_blankline_indent = false
 
--- Gitsigns
-require('gitsigns').setup {
-  signs = {
-    add = { text = '+' },
-    change = { text = '~' },
-    delete = { text = '_' },
-    topdelete = { text = '‾' },
-    changedelete = { text = '~' },
-  },
-}
-
 -- Telescope
 require('telescope').setup {
   defaults = {
@@ -442,169 +431,9 @@ require 'treesitter-context'.setup()
 vim.o.foldmethod = 'expr'
 vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
 
--- fugitive
-local opts = { noremap = true, silent = true }
-vim.api.nvim_set_keymap('n', '<leader>gr', ':Gread<CR>', opts)
-vim.api.nvim_set_keymap('n', '<leader>gs', ':Neogit<CR>', opts)
-vim.api.nvim_set_keymap('n', '<leader>gp', ':Git push<CR>', opts)
--- neogit
-vim.api.nvim_set_keymap('n', '<leader>gd', ':DiffviewOpen<CR>', opts)
-vim.api.nvim_set_keymap('n', '<leader>gD', ':DiffviewOpen main<CR>', opts)
-
-local neogit = require('neogit')
-
-neogit.setup {
-  disable_commit_confirmation = true,
-  disable_signs = false,
-  disable_hint = false,
-  disable_context_highlighting = false,
-  -- Neogit refreshes its internal state after specific events, which can be expensive depending on the repository size.
-  -- Disabling `auto_refresh` will make it so you have to manually refresh the status after you open it.
-  auto_refresh = true,
-  disable_builtin_notifications = false,
-  use_magit_keybindings = false,
-  commit_popup = {
-    kind = "split",
-  },
-  -- Change the default way of opening neogit
-  kind = "tab",
-  -- customize displayed signs
-  signs = {
-    -- { CLOSED, OPENED }
-    section = { ">", "v" },
-    item = { ">", "v" },
-    hunk = { "", "" },
-  },
-  integrations = {
-    diffview = true
-  },
-  -- Setting any section to `false` will make the section not render at all
-  sections = {
-    untracked = {
-      folded = false
-    },
-    unstaged = {
-      folded = false
-    },
-    staged = {
-      folded = false
-    },
-    stashes = {
-      folded = true
-    },
-    unpulled = {
-      folded = true
-    },
-    unmerged = {
-      folded = false
-    },
-    recent = {
-      folded = true
-    },
-  },
-  -- override/add mappings
-  mappings = {
-    -- modify status buffer mappings
-    status = {
-      -- Adds a mapping with "B" as key that does the "BranchPopup" command
-      ["w"] = "StashPopup",
-      -- Removes the default mapping of "s"
-      ["Z"] = "",
-    }
-  }
-}
-
--- Neoformat
-vim.g.neoformat_try_node_exe = 1
-vim.api.nvim_set_keymap('n', '<leader>f', ':Neoformat <CR>', opts)
--- format on save
--- fix for undojoin issue https://github.com/sbdchd/neoformat/issues/134#issuecomment-347180213
-vim.cmd([[
-  augroup fmt
-    autocmd!
-    au BufWritePre * try | undojoin | Neoformat | catch /^Vim\%((\a\+)\)\=:E790/ | finally | silent Neoformat | endtry
-  augroup END
-]])
--- Nvim-tree
-require 'nvim-tree'.setup({
-  sort_by = "case_sensitive",
-  view = {
-    adaptive_size = true
-  }
-})
-vim.api.nvim_set_keymap('n', '<C-n>', ':NvimTreeToggle<CR>', opts)
-vim.api.nvim_set_keymap('n', '<leader>r', '<:NvimTreeRefresh<CR>', opts)
-vim.api.nvim_set_keymap('n', '<leader>n', ':NvimTreeFindFileToggle<CR>', opts)
-
--- nvim lint -----------------------------
-local lint = require('lint')
-lint.linters_by_ft = {
-  typescript = { 'eslint' },
-  typescriptreact = { 'eslint' },
-  javascript = { 'eslint' },
-  javascriptreact = { 'eslint' },
-
-}
-
--- vim.api.nvim_command([[au BufWritePost <buffer> lua require('lint').try_lint()]])
--- vim.api.nvim_exec([[au BufWritePost <buffer> lua require('lint').try_lint()]], false)
--- vim.api.nvim_set_keymap('n', '<leader>li', [[<buffer>lua require('lint').try_lint()<CR>]], { noremap = true, silent = false })
-vim.cmd([[
-  au BufWritePost <buffer> lua require('lint').try_lint()
-]])
 --nvim autopairs
 require("nvim-autopairs").setup()
 
--- yanky nvim
-local utils = require("yanky.utils")
-local mapping = require("yanky.telescope.mapping")
-require("yanky").setup({
-  ring = {
-    history_length = 40,
-    storage = "shada",
-    sync_with_numbered_registers = true,
-  },
-  picker = {
-    telescope = {
-      default = mapping.put("p"),
-      i = {
-        ["<c-p>"] = mapping.put("p"),
-        ["<c-k>"] = mapping.put("P"),
-        ["<c-x>"] = mapping.delete(),
-        ["<c-r>"] = mapping.set_register(utils.get_default_register()),
-      },
-      n = {
-        p = mapping.put("p"),
-        P = mapping.put("P"),
-        d = mapping.delete(),
-        r = mapping.set_register(utils.get_default_register())
-      },
-    }
-  },
-  system_clipboard = {
-    sync_with_ring = false,
-  },
-  highlight = {
-    on_put = true,
-    on_yank = true,
-    timer = 500,
-  },
-})
-vim.keymap.set("n", "p", "<Plug>(YankyPutAfter)", {})
-vim.keymap.set("n", "P", "<Plug>(YankyPutBefore)", {})
-vim.keymap.set("x", "p", "<Plug>(YankyPutAfter)", {})
-vim.keymap.set("x", "P", "<Plug>(YankyPutBefore)", {})
-vim.keymap.set("n", "gp", "<Plug>(YankyGPutAfter)", {})
-vim.keymap.set("n", "gP", "<Plug>(YankyGPutBefore)", {})
-vim.keymap.set("x", "gp", "<Plug>(YankyGPutAfter)", {})
-vim.keymap.set("x", "gP", "<Plug>(YankyGPutBefore)", {})
--- Yank-ring
-vim.api.nvim_set_keymap("n", "<c-n>", "<Plug>(YankyCycleForward)", {})
-vim.api.nvim_set_keymap("n", "<c-p>", "<Plug>(YankyCycleBackward)", {})
-require("telescope").load_extension("yank_history")
--- Yank Preserve cursor position
-vim.keymap.set("n", "y", "<Plug>(YankyYank)", {})
-vim.keymap.set("x", "y", "<Plug>(YankyYank)", {})
 -- Camel case Motion
 vim.g.camelcasemotion_key = '<leader>'
 -- Git blame
@@ -673,3 +502,73 @@ require'colorizer'.setup({
     virtualtext = "■",
   }
 })
+-- Coc Explorer
+vim.api.nvim_set_keymap('n','<leader>e', '<CMD>CocCommand explorer  --preset floating --sources file+<CR>', { silent = true, noremap = false })
+
+-- neogit
+vim.api.nvim_set_keymap('n', '<leader>gs', ':Neogit<CR>', opts)
+vim.api.nvim_set_keymap('n', '<leader>gd', ':DiffviewOpen<CR>', opts)
+vim.api.nvim_set_keymap('n', '<leader>gD', ':DiffviewOpen main<CR>', opts)
+
+local neogit = require('neogit')
+
+neogit.setup {
+  disable_commit_confirmation = true,
+  disable_signs = false,
+  disable_hint = false,
+  disable_context_highlighting = false,
+  -- Neogit refreshes its internal state after specific events, which can be expensive depending on the repository size.
+  -- Disabling `auto_refresh` will make it so you have to manually refresh the status after you open it.
+  auto_refresh = true,
+  disable_builtin_notifications = false,
+  use_magit_keybindings = false,
+  commit_popup = {
+    kind = "split",
+  },
+  -- Change the default way of opening neogit
+  kind = "tab",
+  -- customize displayed signs
+  signs = {
+    -- { CLOSED, OPENED }
+    section = { ">", "v" },
+    item = { ">", "v" },
+    hunk = { "", "" },
+  },
+  integrations = {
+    diffview = true
+  },
+  -- Setting any section to `false` will make the section not render at all
+  sections = {
+    untracked = {
+      folded = false
+    },
+    unstaged = {
+      folded = false
+    },
+    staged = {
+      folded = false
+    },
+    stashes = {
+      folded = true
+    },
+    unpulled = {
+      folded = true
+    },
+    unmerged = {
+      folded = false
+    },
+    recent = {
+      folded = true
+    },
+  },
+  -- override/add mappings
+  mappings = {
+    -- modify status buffer mappings
+    status = {
+      -- Adds a mapping with "B" as key that does the "BranchPopup" command
+      ["w"] = "StashPopup",
+      -- Removes the default mapping of "s"
+      ["Z"] = "",
+    }
+  }
+}

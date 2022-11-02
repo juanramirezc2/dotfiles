@@ -82,6 +82,7 @@ alias ga='git add'
 alias gp='git push'
 alias ls='ls -FHG'
 alias n='nvim'
+alias nve="nvim -c 'CocCommand explorer'"
 alias luamake= "$PATH:$HOME/.code/lua-language-server/3rd/luamake/luamake" 
 # change cwd on ranger exit
 export RANGER_LOAD_DEFAULT_RC=false
