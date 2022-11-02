@@ -76,7 +76,18 @@ require('packer').startup(function(use)
   use 'theHamsta/nvim-dap-virtual-text'
 end)
 -- Lua line
-require('lualine').setup()
+require('lualine').setup{
+  options = {
+    sections = {
+    lualine_a = {'mode', icons_enabled = true},
+    lualine_b = false,
+    lualine_c = {'filename', path = 1},
+    lualine_x = {'fileformat', 'filetype'},
+    lualine_y = {'progress'},
+    lualine_z = {'location'}
+  },
+  }
+}
 ------------------------- COC NVIM {{{{{{{{{{{
 vim.g.coc_global_extensions = {
     "coc-explorer",

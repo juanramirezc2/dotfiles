@@ -1,5 +1,4 @@
 {
-  "coc.preferences.formatOnSave": true,
   "explorer.icon.enableNerdfont": true,
   "eslint.workingDirectories": [
     { "pattern": "apps/*" },
@@ -7,6 +6,19 @@
     { "pattern": "widgets/*" }
   ],
 
+  // normal settings
+  "coc.preferences.colorSupport": true,
+  "coc.preferences.snippetStatusText": "Ⓢ ",
+  "coc.preferences.formatOnSaveFiletypes": [
+    "javascript",
+    "html",
+    "css",
+    "json",
+    "markdown",
+    "typescript",
+    "python",
+    "dart"
+  ],
   // suggest settings
   "suggest.noselect": false,
   "suggest.detailField": "abbr",
