@@ -16,8 +16,7 @@
     "json",
     "markdown",
     "typescript",
-    "python",
-    "dart"
+    "typescriptreact"
   ],
   // suggest settings
   "suggest.noselect": false,

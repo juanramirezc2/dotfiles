@@ -22,6 +22,8 @@ require('packer').startup(function(use)
   use { 'nvim-telescope/telescope-node-modules.nvim' }
   -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+  -- Coc and telescope
+  use { 'fannheyward/telescope-coc.nvim'}
   -- Add indentation guides even on blank lines
   use 'lukas-reineke/indent-blankline.nvim'
   -- Highlight, edit, and navigate code using a fast incremental parsing library
@@ -75,18 +77,47 @@ require('packer').startup(function(use)
   use "nvim-telescope/telescope-dap.nvim"
   use 'theHamsta/nvim-dap-virtual-text'
 end)
+
 -- Lua line
-require('lualine').setup{
+require('lualine').setup {
   options = {
-    sections = {
-    lualine_a = {'mode', icons_enabled = true},
-    lualine_b = false,
-    lualine_c = {'filename', path = 1},
-    lualine_x = {'fileformat', 'filetype'},
+    icons_enabled = true,
+    theme = 'auto',
+    component_separators = { left = '', right = ''},
+    section_separators = { left = '', right = ''},
+    disabled_filetypes = {
+      statusline = {'coc-explorer'},
+      winbar = {},
+    },
+    ignore_focus = {},
+    always_divide_middle = true,
+    globalstatus = false,
+    refresh = {
+      statusline = 1000,
+      tabline = 1000,
+      winbar = 1000,
+    }
+  },
+  sections = {
+    lualine_a = {'mode'},
+    lualine_b = {'diagnostics'},
+    lualine_c = {{'filename', path = 1}},
+    lualine_x = {'encoding', 'fileformat', 'filetype'},
     lualine_y = {'progress'},
     lualine_z = {'location'}
   },
-  }
+  inactive_sections = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = {'filename'},
+    lualine_x = {'location'},
+    lualine_y = {},
+    lualine_z = {}
+  },
+  tabline = {},
+  winbar = {},
+  inactive_winbar = {},
+  extensions = {}
 }
 ------------------------- COC NVIM {{{{{{{{{{{
 vim.g.coc_global_extensions = {
