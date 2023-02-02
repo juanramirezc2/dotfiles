@@ -64,7 +64,6 @@
   "diagnostic.checkCurrentLine": true,
   "diagnostic.virtualTextPrefix": " ❯❯❯ ",
   "diagnostic.virtualText": true,
-  "diagnostic.enableMessage": "never",
   // git settings
   "git.topRemovedSign.text": "▌",
   "git.changeRemovedSign.text": "▌",

@@ -129,7 +129,8 @@ vim.g.coc_global_extensions = {
   "coc-prettier",
   "coc-lua",
   "coc-react-refactor",
-  "coc-git"
+  "coc-git",
+  "coc-pyright"
 }
 
 -- Some servers have issues with backup files, see #649.
@@ -545,7 +546,12 @@ require'colorizer'.setup({
   }
 })
 -- Coc Explorer
-vim.api.nvim_set_keymap('n','<leader>e', '<CMD>CocCommand explorer  --preset floating --sources file+<CR>', { silent = true, noremap = false })
+vim.api.nvim_set_keymap('n','<leader>e', '<CMD>CocCommand explorer  --sources file+<CR>', { silent = true, noremap = false })
+
+-- Coc Git
+vim.api.nvim_set_keymap('n','<leader>go', '<CMD>CocCommand git.browserOpen<CR>', { silent = false, noremap = false })
+vim.api.nvim_set_keymap('n','<leader>goc', '<CMD>CocCommand git.copyUrl<CR>', { silent = false, noremap = false })
+
 
 -- neogit
 vim.api.nvim_set_keymap('n', '<leader>gs', ':Neogit<CR>', opts)
@@ -614,3 +620,44 @@ neogit.setup {
     }
   }
 }
+
+-- Yanky nvim
+require("telescope").load_extension("yank_history")
+local utils = require("yanky.utils")
+local mapping = require("yanky.telescope.mapping")
+require("yanky").setup({
+  ring = {
+    history_length = 100,
+    storage = "shada",
+    sync_with_numbered_registers = true,
+    cancel_event = "update",
+  },
+  system_clipboard = {
+    sync_with_ring = true,
+  },
+  picker = {
+    telescope = {
+      mappings = {
+        default = mapping.put("p"),
+        i = {
+          ["<c-p>"] = nil,
+          ["<c-k>"] = mapping.put("P"),
+          ["<c-x>"] = mapping.delete(),
+          ["<c-r>"] = mapping.set_register(utils.get_default_register()),
+        },
+        n = {
+          p = mapping.put("p"),
+          P = mapping.put("P"),
+          d = mapping.delete(),
+          r = mapping.set_register(utils.get_default_register())
+        },
+      }
+    }
+  }
+})
+vim.keymap.set({"n","x"}, "p", "<Plug>(YankyPutAfter)")
+vim.keymap.set({"n","x"}, "P", "<Plug>(YankyPutBefore)")
+vim.keymap.set({"n","x"}, "gp", "<Plug>(YankyGPutAfter)")
+vim.keymap.set({"n","x"}, "gP", "<Plug>(YankyGPutBefore)")
+vim.keymap.set("n", "<c-n>", "<Plug>(YankyCycleForward)")
+vim.keymap.set("n", "<c-p>", "<Plug>(YankyCycleBackward)")
