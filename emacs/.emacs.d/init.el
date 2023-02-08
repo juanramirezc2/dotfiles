@@ -2,8 +2,8 @@
 ;;       in Emacs and init.el will be generated automatically!
 
 ;; You will most likely need to adjust this font size for your system!
-(defvar efs/default-font-size 140)
-(defvar efs/default-variable-font-size 140)
+(defvar efs/default-font-size 135)
+(defvar efs/default-variable-font-size 135)
 
 ;; Make frame transparency overridable
 (defvar efs/frame-transparency '(90 . 90))
@@ -149,7 +149,7 @@
   :commands command-log-mode)
 
 (use-package doom-themes
-  :init (load-theme 'doom-palenight t))
+  :init (load-theme 'doom-gruvbox-light t))
 
 (use-package all-the-icons)
 
@@ -606,18 +606,26 @@
 
 
 (use-package eglot
-  :ensure nil)
+  :ensure nil
+  :hook (typescript-mode . eglot-ensure)
+  :config
+  (define-key eglot-mode-map (kbd "C-c r") 'eglot-rename)
+  (define-key eglot-mode-map (kbd "C-c o") 'eglot-code-action-organize-imports)
+  (define-key eglot-mode-map (kbd "<f6>") 'xref-find-definitions)
+  )
 
 (use-package company
   :after eglot
-  :hook (eglot . company-mode)
+  :hook (eglot-managed-mode . company-mode)
   :bind (:map company-active-map
          ("<tab>" . company-complete-selection))
         (:map eglot-mode-map
          ("<tab>" . company-indent-or-complete-common))
-  :custom
-  (company-minimum-prefix-length 1)
-  (company-idle-delay 0.0))
+  )
+
+
+(use-package company-box
+  :hook (company-mode . company-box-mode))
 
 
 (custom-set-variables
