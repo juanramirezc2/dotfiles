@@ -53,6 +53,11 @@
   (auto-package-update-maybe)
   (auto-package-update-at-time "09:00"))
 
+;; Enable Chord
+(use-package use-package-chords
+  :ensure t
+  :config (key-chord-mode 1))
+
 ;; Rip Greap package
 (use-package rg)
 
@@ -120,6 +125,7 @@
   (efs/leader-keys
     "t"  '(:ignore t :which-key "toggles")
     "tt" '(counsel-load-theme :which-key "choose theme")
+    "gs" 'magit-status
     "fde" '(lambda () (interactive) (find-file (expand-file-name "~/.emacs.d/Emacs.org")))))
 
 (use-package evil
@@ -138,7 +144,9 @@
   (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
 
   (evil-set-initial-state 'messages-buffer-mode 'normal)
-  (evil-set-initial-state 'dashboard-mode 'normal))
+  (evil-set-initial-state 'dashboard-mode 'normal)
+  :chords
+  ("jk" . evil-normal-state))
 
 (use-package evil-collection
   :after evil
@@ -607,7 +615,7 @@
 
 (use-package eglot
   :ensure nil
-  :hook (typescript-mode . eglot-ensure)
+  :hook (typescript-mode-hook . eglot-ensure)
   :config
   (define-key eglot-mode-map (kbd "C-c r") 'eglot-rename)
   (define-key eglot-mode-map (kbd "C-c o") 'eglot-code-action-organize-imports)
@@ -636,7 +644,7 @@
  '(custom-safe-themes
    '("51c71bb27bdab69b505d9bf71c99864051b37ac3de531d91fdad1598ad247138" "7e068da4ba88162324d9773ec066d93c447c76e9f4ae711ddd0c5d3863489c52" "a44e2d1636a0114c5e407a748841f6723ed442dc3a0ed086542dc71b92a87aee" "afa47084cb0beb684281f480aa84dab7c9170b084423c7f87ba755b15f6776ef" "467dc6fdebcf92f4d3e2a2016145ba15841987c71fbe675dcfe34ac47ffb9195" "e3daa8f18440301f3e54f2093fe15f4fe951986a8628e98dcd781efbec7a46f2" default))
  '(package-selected-packages
-   '(rg dired-hide-dotfiles dired-open all-the-icons-dired dired-single eshell-git-prompt vterm eterm-256color rainbow-delimiters evil-nerd-commenter forge magit counsel-projectile projectile company-box company pyvenv python-mode typescript-mode dap-mode lsp-ivy lsp-treemacs lsp-ui lsp-mode visual-fill-column org-bullets hydra helpful ivy-prescient counsel ivy-rich ivy which-key doom-modeline all-the-icons doom-themes command-log-mode evil-collection evil general no-littering auto-package-update)))
+   '(use-package-chords rg dired-hide-dotfiles dired-open all-the-icons-dired dired-single eshell-git-prompt vterm eterm-256color rainbow-delimiters evil-nerd-commenter forge magit counsel-projectile projectile company-box company pyvenv python-mode typescript-mode dap-mode lsp-ivy lsp-treemacs lsp-ui lsp-mode visual-fill-column org-bullets hydra helpful ivy-prescient counsel ivy-rich ivy which-key doom-modeline all-the-icons doom-themes command-log-mode evil-collection evil general no-littering auto-package-update)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
