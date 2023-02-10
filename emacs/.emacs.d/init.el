@@ -126,6 +126,7 @@
     "t"  '(:ignore t :which-key "toggles")
     "tt" '(counsel-load-theme :which-key "choose theme")
     "gs" 'magit-status
+    "ts" '(hydra-text-scale/body :which-key "scale text")
     "fde" '(lambda () (interactive) (find-file (expand-file-name "~/.emacs.d/Emacs.org")))))
 
 (use-package evil
@@ -232,9 +233,6 @@
   ("j" text-scale-increase "in")
   ("k" text-scale-decrease "out")
   ("f" nil "finished" :exit t))
-
-(efs/leader-keys
-  "ts" '(hydra-text-scale/body :which-key "scale text"))
 
 (defun efs/org-font-setup ()
   ;; Replace list hyphen with dot
