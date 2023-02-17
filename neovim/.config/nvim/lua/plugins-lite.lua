@@ -42,7 +42,8 @@ require('packer').startup(function(use)
     'nvim-treesitter/nvim-treesitter-textobjects',
     after = 'nvim-treesitter',
   }
-
+  -- Linter
+  use 'mfussenegger/nvim-lint'
   -- Git related plugins
   use 'tpope/vim-fugitive'
   use 'tpope/vim-rhubarb'
@@ -492,5 +493,14 @@ neogit.setup {
   }
 }
 
+-- linter
+require('lint').linters_by_ft = {
+  typescriptreact = {'eslint',}
+}
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+  callback = function()
+    require("lint").try_lint()
+  end,
+})
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
