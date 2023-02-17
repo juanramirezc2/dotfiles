@@ -55,6 +55,7 @@ require('packer').startup(function(use)
   use 'f-person/git-blame.nvim'
 
   --use 'navarasu/onedark.nvim' -- Theme inspired by Atom
+  use { "ellisonleao/gruvbox.nvim" }
   use 'shaunsingh/solarized.nvim'
   use 'nvim-lualine/lualine.nvim' -- Fancier statusline
   use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
@@ -103,15 +104,6 @@ vim.api.nvim_create_autocmd('BufWritePost', {
 -- [[ Setting options ]]
 -- See `:help vim.o`
 
--- Set highlight on search
-vim.o.hlsearch = false
-
--- Make line numbers default
-vim.wo.number = true
-
--- Enable mouse mode
-vim.o.mouse = 'a'
-
 -- Enable break indent
 vim.o.breakindent = true
 
@@ -129,8 +121,8 @@ vim.wo.signcolumn = 'yes'
 -- Set colorscheme
 vim.o.background = "light"
 vim.o.termguicolors = true
-require('solarized').set()
--- vim.cmd [[colorscheme onedark]]
+-- require('solarized').set()
+vim.cmd [[colorscheme gruvbox]]
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
@@ -166,7 +158,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 require('lualine').setup {
   options = {
     icons_enabled = false,
-    theme = 'solarized',
     component_separators = '|',
     section_separators = '',
   },
