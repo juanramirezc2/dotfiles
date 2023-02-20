@@ -31,6 +31,8 @@ require('packer').startup(function(use)
     requires = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
   }
 
+  use "gbprod/yanky.nvim"
+
   use { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     run = function()
@@ -54,7 +56,14 @@ require('packer').startup(function(use)
     'sindrets/diffview.nvim'
   }}
   use 'f-person/git-blame.nvim'
-
+  -- File navigation
+  use {
+    'nvim-tree/nvim-tree.lua',
+    requires = {
+      'nvim-tree/nvim-web-devicons', -- optional, for file icons
+    },
+    tag = 'nightly' -- optional, updated every week. (see issue #1193)
+  }
   --use 'navarasu/onedark.nvim' -- Theme inspired by Atom
   use { "ellisonleao/gruvbox.nvim" }
   use 'shaunsingh/solarized.nvim'
@@ -190,6 +199,8 @@ require('gitsigns').setup {
 -- See `:help telescope` and `:help telescope.setup()`
 require('telescope').setup {
   defaults = {
+    layout_strategy = 'vertical',
+    layout_config = { height = 0.95 },
     mappings = {
       i = {
         ['<C-u>'] = false,
@@ -217,7 +228,7 @@ vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { des
 vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
 vim.api.nvim_set_keymap('n', '<leader>sc', [[<cmd>lua require('telescope.builtin').colorscheme()<CR>]], { desc = '[S]earch [C]olorscheme'})
 vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
-vim.keymap.set('n', '<leader>sl', require('telescope.builtin').resume(), {desc = '[S]earch [L]ast'})
+vim.keymap.set('n', '<leader>sl', require('telescope.builtin').resume, { desc = '[S]earch [L]ast' })
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 
@@ -503,5 +514,123 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
     require("lint").try_lint()
   end,
 })
+
+-- nvim tree
+local lib = require("nvim-tree.lib")
+local view = require("nvim-tree.view")
+
+
+local function collapse_all()
+    require("nvim-tree.actions.tree-modifiers.collapse-all").fn()
+end
+
+local function edit_or_open()
+    -- open as vsplit on current node
+    local action = "edit"
+    local node = lib.get_node_at_cursor()
+
+    -- Just copy what's done normally with vsplit
+    if node.link_to and not node.nodes then
+        require('nvim-tree.actions.node.open-file').fn(action, node.link_to)
+        view.close() -- Close the tree if file was opened
+
+    elseif node.nodes ~= nil then
+        lib.expand_or_collapse(node)
+
+    else
+        require('nvim-tree.actions.node.open-file').fn(action, node.absolute_path)
+        view.close() -- Close the tree if file was opened
+    end
+
+end
+
+local function vsplit_preview()
+    -- open as vsplit on current node
+    local action = "vsplit"
+    local node = lib.get_node_at_cursor()
+
+    -- Just copy what's done normally with vsplit
+    if node.link_to and not node.nodes then
+        require('nvim-tree.actions.node.open-file').fn(action, node.link_to)
+
+    elseif node.nodes ~= nil then
+        lib.expand_or_collapse(node)
+
+    else
+        require('nvim-tree.actions.node.open-file').fn(action, node.absolute_path)
+
+    end
+
+    -- Finally refocus on tree if it was lost
+    view.focus()
+end
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+vim.api.nvim_set_keymap("n", "<C-e>", ":NvimTreeFindFileToggle<cr>" ,{silent = true, noremap = true})
+local config = {
+    view = {
+        mappings = {
+            custom_only = false,
+            list = {
+                { key = "l", action = "edit", action_cb = edit_or_open },
+                { key = "L", action = "vsplit_preview", action_cb = vsplit_preview },
+                { key = "h", action = "close_node" },
+                { key = "H", action = "collapse_all", action_cb = collapse_all }
+            }
+        },
+    },
+    actions = {
+        open_file = {
+            quit_on_open = false
+        }
+    }
+}
+require('nvim-tree').setup(config)
+
+-- Yanky 
+local utils = require("yanky.utils")
+local mapping = require("yanky.telescope.mapping")
+
+vim.keymap.set({"n","x"}, "p", "<Plug>(YankyPutAfter)")
+vim.keymap.set({"n","x"}, "P", "<Plug>(YankyPutBefore)")
+vim.keymap.set({"n","x"}, "gp", "<Plug>(YankyGPutAfter)")
+vim.keymap.set({"n","x"}, "gP", "<Plug>(YankyGPutBefore)")
+---- kill ring
+vim.keymap.set("n", "<c-n>", "<Plug>(YankyCycleForward)")
+vim.keymap.set("n", "<c-p>", "<Plug>(YankyCycleBackward)")
+
+require("yanky").setup({
+  ring = {
+    history_length = 100,
+    storage = "shada",
+    sync_with_numbered_registers = true,
+    cancel_event = "update",
+  },
+  system_clipboard = {
+    sync_with_ring = true,
+  },
+  picker = {
+    telescope = {
+      mappings = {
+        default = mapping.put("p"),
+        i = {
+          ["<c-p>"] = nil,
+          ["<c-k>"] = mapping.put("P"),
+          ["<c-x>"] = mapping.delete(),
+          ["<c-r>"] = mapping.set_register(utils.get_default_register()),
+        },
+        n = {
+          p = mapping.put("p"),
+          P = mapping.put("P"),
+          d = mapping.delete(),
+          r = mapping.set_register(utils.get_default_register())
+        },
+      }
+    }
+  }
+})
+
+vim.keymap.set('n', '<leader>sy', require("telescope").extensions.yank_history.yank_history, { desc = '[S]earch current [W]ord' })
+require("telescope").load_extension("yank_history")
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
