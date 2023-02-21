@@ -80,6 +80,9 @@ require('packer').startup(function(use)
   use 'tpope/vim-sleuth' -- Detect tabstop and shiftwidth automatically
   use 'tpope/vim-unimpaired' -- [] bracket shorcuts
 
+  -- jump to places
+  use 'ggandor/leap.nvim'
+
   -- Fuzzy Finder (files, lsp, etc)
   use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } }
 
@@ -633,5 +636,7 @@ vim.keymap.set('n', '<leader>sy', require("telescope").extensions.yank_history.y
 require("telescope").load_extension("yank_history")
 -- Git messenger
 vim.api.nvim_set_keymap('n', '<leader>gm', [[:GitMessenger<CR>]], { desc = '[S]earch [C]olorscheme'})
+-- Leap config
+require('leap').add_default_mappings()
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
