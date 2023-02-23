@@ -315,12 +315,14 @@ require('Comment').setup()
 
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
+local trouble = require("trouble.providers.telescope")
 require('telescope').setup {
   defaults = {
     layout_strategy = 'vertical',
     layout_config = { height = 0.95 },
     mappings = {
       i = {
+        ["<c-t>"] = trouble.open_with_trouble,
         ['<C-u>'] = false,
         ['<C-d>'] = false,
       },
@@ -694,8 +696,6 @@ null_ls.setup({
     null_ls.builtins.completion.spell,
   },
 })
-
-
 
 -- trouble 
 
