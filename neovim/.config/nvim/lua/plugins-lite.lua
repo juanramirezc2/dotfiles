@@ -30,9 +30,9 @@ require('packer').startup(function(use)
     'hrsh7th/nvim-cmp',
     requires = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
   }
-
+  
   use "gbprod/yanky.nvim"
-
+  use "RRethy/vim-illuminate" -- automatically highlighting other uses of the word under the cursor 
   use { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     run = function()
@@ -52,10 +52,10 @@ require('packer').startup(function(use)
   use 'tpope/vim-rhubarb'
   use 'lewis6991/gitsigns.nvim'
   use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
-  use { 'TimUntersberger/neogit', requires ={
+  use { 'TimUntersberger/neogit', requires = {
     'nvim-lua/plenary.nvim',
     'sindrets/diffview.nvim'
-  }}
+  } }
   use 'rhysd/git-messenger.vim'
   -- File navigation
   use {
@@ -72,6 +72,16 @@ require('packer').startup(function(use)
   use { "ellisonleao/gruvbox.nvim" }
   use 'shaunsingh/solarized.nvim'
   use 'Shatur/neovim-ayu'
+  use 'savq/melange-nvim'
+  use 'Th3Whit3Wolf/onebuddy'
+  use 'Th3Whit3Wolf/one-nvim'
+  use 'Th3Whit3Wolf/space-nvim'
+  use 'ishan9299/modus-theme-vim'
+  use 'sainnhe/edge'
+  use 'jim-at-jibba/ariake-vim-colors'
+  use 'marko-cerovac/material.nvim'
+  use 'adisen99/codeschool.nvim'
+  -- use 'RRethy/nvim-base16'
 
   --
   use 'nvim-lualine/lualine.nvim' -- Fancier statusline
@@ -82,6 +92,7 @@ require('packer').startup(function(use)
 
   -- jump to places
   use 'ggandor/leap.nvim'
+  use 'ggandor/flit.nvim'
 
   -- Fuzzy Finder (files, lsp, etc)
   use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } }
@@ -237,7 +248,8 @@ end, { desc = '[/] Fuzzily search in current buffer]' })
 
 vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
 vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
-vim.api.nvim_set_keymap('n', '<leader>sc', [[<cmd>lua require('telescope.builtin').colorscheme()<CR>]], { desc = '[S]earch [C]olorscheme'})
+vim.api.nvim_set_keymap('n', '<leader>sc', [[<cmd>lua require('telescope.builtin').colorscheme()<CR>]],
+  { desc = '[S]earch [C]olorscheme' })
 vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>sl', require('telescope.builtin').resume, { desc = '[S]earch [L]ast' })
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
@@ -409,7 +421,7 @@ cmp.setup {
     end,
   },
   mapping = cmp.mapping.preset.insert {
-    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-d>'] = cmp.mapping.scroll_docs( -4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<c-y>'] = cmp.mapping.confirm {
@@ -428,8 +440,8 @@ cmp.setup {
     ['<S-Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
-      elseif luasnip.jumpable(-1) then
-        luasnip.jump(-1)
+      elseif luasnip.jumpable( -1) then
+        luasnip.jump( -1)
       else
         fallback()
       end
@@ -440,7 +452,7 @@ cmp.setup {
     { name = 'luasnip' },
   },
 }
- 
+
 -- Neogit
 local neogit = require('neogit')
 vim.api.nvim_set_keymap('n', '<leader>gs', ':Neogit<CR>', {})
@@ -509,7 +521,7 @@ neogit.setup {
 
 -- linter
 require('lint').linters_by_ft = {
-  typescriptreact = {'eslint',}
+  typescriptreact = { 'eslint', }
 }
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
   callback = function()
@@ -523,80 +535,74 @@ local view = require("nvim-tree.view")
 
 
 local function collapse_all()
-    require("nvim-tree.actions.tree-modifiers.collapse-all").fn()
+  require("nvim-tree.actions.tree-modifiers.collapse-all").fn()
 end
 
 local function edit_or_open()
-    -- open as vsplit on current node
-    local action = "edit"
-    local node = lib.get_node_at_cursor()
+  -- open as vsplit on current node
+  local action = "edit"
+  local node = lib.get_node_at_cursor()
 
-    -- Just copy what's done normally with vsplit
-    if node.link_to and not node.nodes then
-        require('nvim-tree.actions.node.open-file').fn(action, node.link_to)
-        view.close() -- Close the tree if file was opened
-
-    elseif node.nodes ~= nil then
-        lib.expand_or_collapse(node)
-
-    else
-        require('nvim-tree.actions.node.open-file').fn(action, node.absolute_path)
-        view.close() -- Close the tree if file was opened
-    end
-
+  -- Just copy what's done normally with vsplit
+  if node.link_to and not node.nodes then
+    require('nvim-tree.actions.node.open-file').fn(action, node.link_to)
+    view.close() -- Close the tree if file was opened
+  elseif node.nodes ~= nil then
+    lib.expand_or_collapse(node)
+  else
+    require('nvim-tree.actions.node.open-file').fn(action, node.absolute_path)
+    view.close() -- Close the tree if file was opened
+  end
 end
 
 local function vsplit_preview()
-    -- open as vsplit on current node
-    local action = "vsplit"
-    local node = lib.get_node_at_cursor()
+  -- open as vsplit on current node
+  local action = "vsplit"
+  local node = lib.get_node_at_cursor()
 
-    -- Just copy what's done normally with vsplit
-    if node.link_to and not node.nodes then
-        require('nvim-tree.actions.node.open-file').fn(action, node.link_to)
+  -- Just copy what's done normally with vsplit
+  if node.link_to and not node.nodes then
+    require('nvim-tree.actions.node.open-file').fn(action, node.link_to)
+  elseif node.nodes ~= nil then
+    lib.expand_or_collapse(node)
+  else
+    require('nvim-tree.actions.node.open-file').fn(action, node.absolute_path)
+  end
 
-    elseif node.nodes ~= nil then
-        lib.expand_or_collapse(node)
-
-    else
-        require('nvim-tree.actions.node.open-file').fn(action, node.absolute_path)
-
-    end
-
-    -- Finally refocus on tree if it was lost
-    view.focus()
+  -- Finally refocus on tree if it was lost
+  view.focus()
 end
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
-vim.api.nvim_set_keymap("n", "<C-e>", ":NvimTreeFindFileToggle<cr>" ,{silent = true, noremap = true})
+vim.api.nvim_set_keymap("n", "<C-e>", ":NvimTreeFindFileToggle<cr>", { silent = true, noremap = true })
 local config = {
-    view = {
-        mappings = {
-            custom_only = false,
-            list = {
-                { key = "l", action = "edit", action_cb = edit_or_open },
-                { key = "L", action = "vsplit_preview", action_cb = vsplit_preview },
-                { key = "h", action = "close_node" },
-                { key = "H", action = "collapse_all", action_cb = collapse_all }
-            }
-        },
+  view = {
+    mappings = {
+      custom_only = false,
+      list = {
+        { key = "l", action = "edit",           action_cb = edit_or_open },
+        { key = "L", action = "vsplit_preview", action_cb = vsplit_preview },
+        { key = "h", action = "close_node" },
+        { key = "H", action = "collapse_all",   action_cb = collapse_all }
+      }
     },
-    actions = {
-        open_file = {
-            quit_on_open = false
-        }
+  },
+  actions = {
+    open_file = {
+      quit_on_open = false
     }
+  }
 }
 require('nvim-tree').setup(config)
 
--- Yanky 
+-- Yanky
 local utils = require("yanky.utils")
 local mapping = require("yanky.telescope.mapping")
 
-vim.keymap.set({"n","x"}, "p", "<Plug>(YankyPutAfter)")
-vim.keymap.set({"n","x"}, "P", "<Plug>(YankyPutBefore)")
-vim.keymap.set({"n","x"}, "gp", "<Plug>(YankyGPutAfter)")
-vim.keymap.set({"n","x"}, "gP", "<Plug>(YankyGPutBefore)")
+vim.keymap.set({ "n", "x" }, "p", "<Plug>(YankyPutAfter)")
+vim.keymap.set({ "n", "x" }, "P", "<Plug>(YankyPutBefore)")
+vim.keymap.set({ "n", "x" }, "gp", "<Plug>(YankyGPutAfter)")
+vim.keymap.set({ "n", "x" }, "gP", "<Plug>(YankyGPutBefore)")
 ---- kill ring
 vim.keymap.set("n", "<c-n>", "<Plug>(YankyCycleForward)")
 vim.keymap.set("n", "<c-p>", "<Plug>(YankyCycleBackward)")
@@ -632,11 +638,15 @@ require("yanky").setup({
   }
 })
 
-vim.keymap.set('n', '<leader>sy', require("telescope").extensions.yank_history.yank_history, { desc = '[S]earch current [W]ord' })
+vim.keymap.set('n', '<leader>sy', require("telescope").extensions.yank_history.yank_history,
+  { desc = '[S]earch current [W]ord' })
 require("telescope").load_extension("yank_history")
 -- Git messenger
-vim.api.nvim_set_keymap('n', '<leader>gm', [[:GitMessenger<CR>]], { desc = '[S]earch [C]olorscheme'})
+vim.api.nvim_set_keymap('n', '<leader>gm', [[:GitMessenger<CR>]], { desc = '[S]earch [C]olorscheme' })
 -- Leap config
 require('leap').add_default_mappings()
+-- Flit config
+require('flit').setup()
+
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
