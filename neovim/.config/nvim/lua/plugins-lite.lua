@@ -30,9 +30,10 @@ require('packer').startup(function(use)
     'hrsh7th/nvim-cmp',
     requires = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
   }
-  use {'stevearc/dressing.nvim'} -- Better UI for neovim
-  use {-- Better Notifications
-    'rcarriga/nvim-notify' ,
+
+  use { 'stevearc/dressing.nvim' } -- Better UI for neovim
+  use { -- Better Notifications
+    'rcarriga/nvim-notify',
     config = function()
       local notify = require('notify')
       notify.setup({
@@ -136,9 +137,11 @@ require('packer').startup(function(use)
     'nvim-treesitter/nvim-treesitter-textobjects',
     after = 'nvim-treesitter',
   }
-  -- Linter
-  use 'mfussenegger/nvim-lint'
 
+  use { -- A pretty diagnostics, references, telescope results, quickfix and location list to help you solve all the trouble your code is causing.
+    "folke/trouble.nvim",
+    requires = "nvim-tree/nvim-web-devicons",
+  }
   -- Git related plugins
   use 'tpope/vim-fugitive'
   use 'tpope/vim-rhubarb'
@@ -156,6 +159,7 @@ require('packer').startup(function(use)
       }
     end
   }
+  use { 'jose-elias-alvarez/null-ls.nvim', requires = 'nvim-lua/plenary.nvim' }
   use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
   use { 'TimUntersberger/neogit', requires = {
     'nvim-lua/plenary.nvim',
@@ -548,16 +552,6 @@ neogit.setup {
   }
 }
 
--- linter
-require('lint').linters_by_ft = {
-  typescriptreact = { 'eslint', }
-}
-vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-  callback = function()
-    require("lint").try_lint()
-  end,
-})
-
 -- nvim tree
 local lib = require("nvim-tree.lib")
 local view = require("nvim-tree.view")
@@ -677,7 +671,7 @@ require('leap').add_default_mappings()
 -- Flit config
 require('flit').setup()
 
--- blank line 
+-- blank line
 -- See `:help indent_blankline.txt`
 require('indent_blankline').setup {
   char = "│",
@@ -689,6 +683,43 @@ require('indent_blankline').setup {
 -- vim.opt.list = true
 -- vim.opt.listchars:append "eol:↴"
 -- nvim-navic
+
+-- null ls nvim
+local null_ls = require("null-ls")
+
+null_ls.setup({
+  sources = {
+    null_ls.builtins.formatting.prettierd,
+    null_ls.builtins.diagnostics.eslint,
+    null_ls.builtins.completion.spell,
+  },
+})
+
+
+
+-- trouble 
+
+
+require("trouble").setup()
+-- Lua
+vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>",
+  {silent = true, noremap = true}
+)
+vim.keymap.set("n", "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>",
+  {silent = true, noremap = true}
+)
+vim.keymap.set("n", "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>",
+  {silent = true, noremap = true}
+)
+vim.keymap.set("n", "<leader>xl", "<cmd>TroubleToggle loclist<cr>",
+  {silent = true, noremap = true}
+)
+vim.keymap.set("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>",
+  {silent = true, noremap = true}
+)
+vim.keymap.set("n", "gR", "<cmd>TroubleToggle lsp_references<cr>",
+  {silent = true, noremap = true}
+)
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
