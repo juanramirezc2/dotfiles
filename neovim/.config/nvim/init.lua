@@ -31,10 +31,6 @@ vim.opt.shiftwidth  = 2
 vim.o.scrolloff     = 12 -- Vertical Scroll Offset
 vim.o.sidescrolloff = 8 -- Horizontal Scroll Offset
 vim.o.mouse         = 'a' -- Enable mouse mode
--- Show invisible characters
-vim.opt.list = true
-vim.opt.listchars:append "space:⋅"
-vim.opt.listchars:append "eol:↴"
 --Enable break indent
 vim.o.breakindent   = true
 vim.o.splitbelow    = true -- Force Split Below
