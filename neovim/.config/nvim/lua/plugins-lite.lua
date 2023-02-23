@@ -626,13 +626,29 @@ require('indent_blankline').setup {
 
 -- null ls nvim
 local null_ls = require("null-ls")
-
-null_ls.setup({
+vim.cmd('map <Leader>ln :NullLsInfo<CR>')
+-- format on save using lsp format
+local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+require("null-ls").setup({
   sources = {
     null_ls.builtins.formatting.prettierd,
     null_ls.builtins.diagnostics.eslint,
     null_ls.builtins.completion.spell,
   },
+  -- you can reuse a shared lspconfig on_attach callback here
+  on_attach = function(client, bufnr)
+    if client.supports_method("textDocument/formatting") then
+      vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        group = augroup,
+        buffer = bufnr,
+        callback = function()
+          vim.lsp.buf.format({ bufnr = bufnr })
+          -- vim.lsp.buf.formatting_sync()
+        end,
+      })
+    end
+  end,
 })
 
 -- trouble 
@@ -660,7 +676,7 @@ vim.keymap.set("n", "gR", "<cmd>TroubleToggle lsp_references<cr>",
 )
 
 -- neo-tree
-vim.keymap.set('n', '<leader>fe', function() require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd() }) end, {desc='Explorer NeoTree (cwd)'})
+vim.keymap.set('n', '<leader>ex', function() require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd() }) end, {desc='Explorer NeoTree (cwd)'})
 
 -- Unless you are still migrating, remove the deprecated commands from v1.x
 vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
