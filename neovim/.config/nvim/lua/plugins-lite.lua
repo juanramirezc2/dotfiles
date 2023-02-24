@@ -32,6 +32,11 @@ require('packer').startup(function(use)
   }
 
   use { 'stevearc/dressing.nvim' } -- Better UI for neovim
+  use {'NvChad/nvim-colorizer.lua',
+    config= function()
+      require 'colorizer'.setup({})
+    end
+  }
   use { -- Better Notifications
     'rcarriga/nvim-notify',
     config = function()
@@ -50,7 +55,10 @@ require('packer').startup(function(use)
   }
   use "gbprod/yanky.nvim"
   use {-- automatically highlighting other uses of the word under the cursor
-  "RRethy/vim-illuminate"
+  "RRethy/vim-illuminate",
+    config = function()
+
+    end
   }
 
   use { -- Highlight, edit, and navigate code
@@ -88,50 +96,6 @@ require('packer').startup(function(use)
             node_decremental = '<c-backspace>',
           },
         },
-        textobjects = {
-          select = {
-            enable = true,
-            lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
-            keymaps = {
-              -- You can use the capture groups defined in textobjects.scm
-              ['aa'] = '@parameter.outer',
-              ['ia'] = '@parameter.inner',
-              ['af'] = '@function.outer',
-              ['if'] = '@function.inner',
-              ['ac'] = '@class.outer',
-              ['ic'] = '@class.inner',
-            },
-          },
-          move = {
-            enable = true,
-            set_jumps = true, -- whether to set jumps in the jumplist
-            goto_next_start = {
-              [']m'] = '@function.outer',
-              [']]'] = '@class.outer',
-            },
-            goto_next_end = {
-              [']M'] = '@function.outer',
-              [']['] = '@class.outer',
-            },
-            goto_previous_start = {
-              ['[m'] = '@function.outer',
-              ['[['] = '@class.outer',
-            },
-            goto_previous_end = {
-              ['[M'] = '@function.outer',
-              ['[]'] = '@class.outer',
-            },
-          },
-          swap = {
-            enable = true,
-            swap_next = {
-              ['<leader>a'] = '@parameter.inner',
-            },
-            swap_previous = {
-              ['<leader>A'] = '@parameter.inner',
-            },
-          },
-        },
       }
     end
   }
@@ -145,10 +109,6 @@ require('packer').startup(function(use)
       "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
       "MunifTanjim/nui.nvim",
     }
-  }
-  use { -- Additional text objects via treesitter
-    'nvim-treesitter/nvim-treesitter-textobjects',
-    after = 'nvim-treesitter',
   }
 
   use { -- A pretty diagnostics, references, telescope results, quickfix and location list to help you solve all the trouble your code is causing.
@@ -902,26 +862,27 @@ require("neo-tree").setup({
 vim.cmd([[nnoremap \ :Neotree reveal<cr>]])
 -- vim illuminate
 -- default configuration
-require('illuminate').configure({
+require("illuminate").configure(
+  {
     -- providers: provider used to get references in the buffer, ordered by priority
     providers = {
-        'lsp',
-        'treesitter',
-        'regex',
+      'lsp',
+      'treesitter',
+      'regex',
     },
     -- delay: delay in milliseconds
-    delay = 100,
+    delay = 200,
     -- filetype_overrides: filetype specific overrides.
     -- The keys are strings to represent the filetype while the values are tables that
     -- supports the same keys passed to .configure except for filetypes_denylist and filetypes_allowlist
     filetype_overrides = {},
     -- filetypes_denylist: filetypes to not illuminate, this overrides filetypes_allowlist
     filetypes_denylist = {
-        'dirvish',
-        'fugitive',
-        'ql',
-        'NeogitStatus',
-        'NeogitCommitMessage'
+      'dirvish',
+      'fugitive',
+      'ql',
+      'NeogitStatus',
+      'NeogitCommitMessage'
     },
     -- filetypes_allowlist: filetypes to illuminate, this is overriden by filetypes_denylist
     filetypes_allowlist = {},
@@ -950,7 +911,27 @@ require('illuminate').configure({
     large_file_overrides = nil,
     -- min_count_to_highlight: minimum number of matches required to perform highlighting
     min_count_to_highlight = 1,
+  }
+)
+
+local function map(key, dir, buffer)
+  vim.keymap.set("n", key, function()
+    require("illuminate")["goto_" .. dir .. "_reference"](false)
+  end, { desc = dir:sub(1, 1):upper() .. dir:sub(2) .. " Reference", buffer = buffer })
+end
+
+map("]]", "next")
+map("[[", "prev")
+
+-- also set it after loading ftplugins, since a lot overwrite [[ and ]]
+vim.api.nvim_create_autocmd("FileType", {
+  callback = function()
+    local buffer = vim.api.nvim_get_current_buf()
+    map("]]", "next", buffer)
+    map("[[", "prev", buffer)
+  end,
 })
+
 vim.api.nvim_set_hl(0,'IlluminatedWordText',{ bg='#ff6666' })
 vim.api.nvim_set_hl(0,'IlluminatedWordRead',{ bg='#59F94F' })
 vim.api.nvim_set_hl(0,'IlluminatedWordWrite',{ bg='#0099ff' })
