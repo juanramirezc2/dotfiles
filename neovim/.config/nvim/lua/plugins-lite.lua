@@ -17,7 +17,7 @@ require('packer').startup(function(use)
       -- Automatically install LSPs to stdpath for neovim
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
-
+      'jose-elias-alvarez/typescript.nvim',
       -- Useful status updates for LSP
       'j-hui/fidget.nvim',
 
@@ -34,7 +34,7 @@ require('packer').startup(function(use)
   use { 'stevearc/dressing.nvim' } -- Better UI for neovim
   use {'NvChad/nvim-colorizer.lua',
     config= function()
-      require 'colorizer'.setup({})
+      require 'colorizer'.setup()
     end
   }
   use { -- Better Notifications
@@ -324,9 +324,12 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
 
--- LSP settings.
+
+
+
+-- LSP settings ------------------------{{{{{{{{{{{{{{{{{{{{{{{{
 --  This function gets run when an LSP connects to a particular buffer.
-local on_attach = function(_, bufnr)
+local on_attach = function(client, bufnr)
   -- NOTE: Remember that lua is a real programming language, and as such it is possible
   -- to define small helper and utility functions so you don't have to repeat yourself
   -- many times.
@@ -362,6 +365,12 @@ local on_attach = function(_, bufnr)
   nmap('<leader>wl', function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, '[W]orkspace [L]ist Folders')
+
+  if client.name == "tsserver" then
+    -- stylua: ignore
+    vim.keymap.set("n", "<leader>co", "<cmd>TypescriptOrganizeImports<CR>", { buffer = bufnr, desc = "Organize Imports" })
+    vim.keymap.set("n", "<leader>cR", "<cmd>TypescriptRenameFile<CR>", { desc = "Rename File", buffer = bufnr })
+  end
 
   -- Create a command `:Format` local to the LSP buffer
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
@@ -405,8 +414,20 @@ mason_lspconfig.setup_handlers {
       settings = servers[server_name],
     }
   end,
+  ["tsserver"] = function ()
+    require("typescript").setup({
+      disable_commands = false, -- prevent the plugin from creating Vim commands
+      debug = false, -- enable debug logging for commands
+      go_to_source_definition = {
+        fallback = true, -- fall back to standard LSP definition on failure
+      },
+      server = {
+      capabilities = capabilities,
+      on_attach = on_attach
+    }})
+    end
 }
-
+-- end LSP Settings ---------------}}}}}}}}}}}}}}}}}}}}}}}}
 -- Turn on lsp status information
 require('fidget').setup()
 
