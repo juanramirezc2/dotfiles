@@ -598,10 +598,13 @@ require('flit').setup()
 -- blank line
 -- See `:help indent_blankline.txt`
 require('indent_blankline').setup {
-  char = "│",
-  show_trailing_blankline_indent = false,
+  -- char = "│",
+  -- show_trailing_blankline_indent = false,
+  -- show_current_context = true,
+  -- show_current_context_start = false,
+  space_char_blankline = " ",
   show_current_context = true,
-  show_current_context_start = false,
+  show_current_context_start = true,
 }
 -- Show invisible characters
 -- vim.opt.list = true
