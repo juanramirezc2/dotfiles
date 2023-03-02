@@ -31,6 +31,10 @@ require('packer').startup(function(use)
     requires = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
   }
 
+  use { -- vscode-like pictograms for neovim lsp completion items
+    'onsails/lspkind.nvim'
+  }
+
   use { 'stevearc/dressing.nvim' } -- Better UI for neovim
   use {'NvChad/nvim-colorizer.lua',
     config= function()
@@ -244,7 +248,7 @@ vim.g.material_style = "lighter"
 vim.o.background = "light"
 vim.o.termguicolors = true
 -- require('solarized').set()
-vim.cmd [[colorscheme material]]
+vim.cmd [[colorscheme gruvbox]]
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
@@ -447,6 +451,7 @@ require('fidget').setup()
 -- nvim-cmp setup
 local cmp = require 'cmp'
 local luasnip = require 'luasnip'
+local lspkind = require('lspkind')
 
 cmp.setup {
   snippet = {
@@ -485,6 +490,13 @@ cmp.setup {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
   },
+   formatting = {
+    format = lspkind.cmp_format({
+      mode = 'symbol', -- show only symbol annotations
+      maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+      ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+    })
+  }
 }
 
 -- Neogit
