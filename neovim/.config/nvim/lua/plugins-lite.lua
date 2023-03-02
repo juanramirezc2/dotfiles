@@ -133,6 +133,7 @@ require('packer').startup(function(use)
     end
   }
   use { 'jose-elias-alvarez/null-ls.nvim', requires = 'nvim-lua/plenary.nvim' }
+  use('MunifTanjim/prettier.nvim')
   use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
   use { 'TimUntersberger/neogit', requires = {
     'nvim-lua/plenary.nvim',
@@ -227,11 +228,23 @@ vim.o.smartcase = true
 vim.o.updatetime = 250
 vim.wo.signcolumn = 'yes'
 
+
+-- ColorScheme settings
+require("gruvbox").setup({
+  contrast = "hard", -- can be "hard", "soft" or empty string
+})
+require('material').setup({
+    high_visibility = {
+        lighter = true, -- Enable higher contrast text for lighter style
+        darker = true -- Enable higher contrast text for darker style
+    },
+})
 -- Set colorscheme
+vim.g.material_style = "lighter"
 vim.o.background = "light"
 vim.o.termguicolors = true
 -- require('solarized').set()
-vim.cmd [[colorscheme gruvbox]]
+vim.cmd [[colorscheme material]]
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
@@ -615,29 +628,62 @@ require('indent_blankline').setup {
 local null_ls = require("null-ls")
 vim.cmd('map <Leader>ln :NullLsInfo<CR>')
 -- format on save using lsp format
-local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+local group = vim.api.nvim_create_augroup("lsp_format_on_save", { clear = false })
+local event = "BufWritePre" -- or "BufWritePost"
+local async = event == "BufWritePost"
+
 require("null-ls").setup({
   sources = {
-    null_ls.builtins.formatting.prettierd,
     null_ls.builtins.diagnostics.eslint,
     null_ls.builtins.completion.spell,
   },
   -- you can reuse a shared lspconfig on_attach callback here
   on_attach = function(client, bufnr)
-    if client.supports_method("textDocument/formatting") then
-      vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-      vim.api.nvim_create_autocmd("BufWritePre", {
-        group = augroup,
+     if client.supports_method("textDocument/formatting") then
+      vim.keymap.set("n", "<Leader>f", function()
+        vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
+      end, { buffer = bufnr, desc = "[lsp] format" })
+
+      -- format on save
+      vim.api.nvim_clear_autocmds({ buffer = bufnr, group = group })
+      vim.api.nvim_create_autocmd(event, {
         buffer = bufnr,
+        group = group,
         callback = function()
-          vim.lsp.buf.format({ bufnr = bufnr })
-          -- vim.lsp.buf.formatting_sync()
+          vim.lsp.buf.format({ bufnr = bufnr, async = async })
         end,
+        desc = "[lsp] format on save",
       })
+    end
+
+    if client.supports_method("textDocument/rangeFormatting") then
+      vim.keymap.set("x", "<Leader>f", function()
+        vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
+      end, { buffer = bufnr, desc = "[lsp] format" })
     end
   end,
 })
 
+-- Prettier.nvim
+local prettier = require("prettier")
+
+prettier.setup({
+  bin = 'prettierd', -- or `'prettierd'` (v0.22+)
+  filetypes = {
+    "css",
+    "graphql",
+    "html",
+    "javascript",
+    "javascriptreact",
+    "json",
+    "less",
+    "markdown",
+    "scss",
+    "typescript",
+    "typescriptreact",
+    "yaml",
+  },
+})
 -- trouble 
 require("trouble").setup(
   { use_diagnostic_signs = true }
@@ -906,7 +952,8 @@ require("illuminate").configure(
       'fugitive',
       'ql',
       'NeogitStatus',
-      'NeogitCommitMessage'
+      'NeogitCommitMessage',
+      'neo-tree'
     },
     -- filetypes_allowlist: filetypes to illuminate, this is overriden by filetypes_denylist
     filetypes_allowlist = {},

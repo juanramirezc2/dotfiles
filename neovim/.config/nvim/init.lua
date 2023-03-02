@@ -20,7 +20,7 @@ local vnoremap = utils.vnoremap
 vim.wo.number       = true
 -- vim.opt.relativenumber = true -- Set relative number
 vim.o.filetype      = true
-vim.opt.colorcolumn = { 80, 120 }
+-- vim.opt.colorcolumn = { 80, 120 }
 --Enable mouse mode
 vim.o.mouse         = 'a'
 vim.opt.expandtab   = true
