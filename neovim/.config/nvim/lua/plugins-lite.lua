@@ -74,10 +74,7 @@ require('packer').startup(function(use)
       pcall(require('nvim-treesitter.install').update { with_sync = true })
     end,
   }
-  use {
-    "windwp/nvim-autopairs",
-    config = function() require("nvim-autopairs").setup {} end
-  }
+  use "windwp/nvim-autopairs"
 
   use "windwp/nvim-ts-autotag"
 
@@ -487,6 +484,7 @@ mason_lspconfig.setup_handlers {
 -- Turn on lsp status information
 require('fidget').setup()
 
+require("nvim-autopairs").setup {}
 -- nvim-cmp setup
 -- If you want insert `(` after select function or method item
 local cmp = require 'cmp'
