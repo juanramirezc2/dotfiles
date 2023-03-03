@@ -73,44 +73,6 @@ require('packer').startup(function(use)
     run = function()
       pcall(require('nvim-treesitter.install').update { with_sync = true })
     end,
-    config = function()
-      require('nvim-treesitter.configs').setup {
-        ensure_installed = {
-          "bash",
-          "help",
-          "html",
-          "javascript",
-          "json",
-          "lua",
-          "markdown",
-          "markdown_inline",
-          "python",
-          "query",
-          "regex",
-          "tsx",
-          "typescript",
-          "vim",
-          "yaml",
-        },
-        highlight = { enable = true },
-        indent = { enable = true, disable = { 'python' } },
-        incremental_selection = {
-          enable = true,
-          keymaps = {
-            init_selection = '<c-space>',
-            node_incremental = '<c-space>',
-            scope_incremental = '<c-s>',
-            node_decremental = '<c-backspace>',
-          },
-        },
-        matchup = {
-          enable = true,              -- mandatory, false will disable the whole extension
-        },
-        autotag = {
-          enable = true,
-        }
-      }
-    end
   }
 
   use "windwp/nvim-ts-autotag"
@@ -166,12 +128,11 @@ require('packer').startup(function(use)
   use 'savq/melange-nvim'
   use 'Th3Whit3Wolf/onebuddy'
   use 'Th3Whit3Wolf/one-nvim'
-  use 'Th3Whit3Wolf/space-nvim'
   use 'ishan9299/modus-theme-vim'
   use 'sainnhe/edge'
   use 'jim-at-jibba/ariake-vim-colors'
   use 'marko-cerovac/material.nvim'
-  use 'adisen99/codeschool.nvim'
+  use "EdenEast/nightfox.nvim" -- Packer
   -- use 'RRethy/nvim-base16'
 
   --
@@ -303,9 +264,68 @@ require('lualine').setup {
 -- Enable Comment.nvim
 require('Comment').setup()
 
--- Gitsigns
--- See `:help gitsigns.txt`
 
+-- returns the root directory based on:
+-- * lsp workspace folders
+-- * lsp root_dir
+-- * root pattern of filename of the current buffer
+-- * root pattern of cwd
+---@return string
+function Get_root()
+  ---@type string?
+  local path = vim.api.nvim_buf_get_name(0)
+  path = path ~= "" and vim.loop.fs_realpath(path) or nil
+  ---@type string[]
+  local roots = {}
+  if path then
+    for _, client in pairs(vim.lsp.get_active_clients({ bufnr = 0 })) do
+      local workspace = client.config.workspace_folders
+      local paths = workspace and vim.tbl_map(function(ws)
+        return vim.uri_to_fname(ws.uri)
+      end, workspace) or client.config.root_dir and { client.config.root_dir } or {}
+      for _, p in ipairs(paths) do
+        local r = vim.loop.fs_realpath(p)
+        if path:find(r, 1, true) then
+          roots[#roots + 1] = r
+        end
+      end
+    end
+  end
+  table.sort(roots, function(a, b)
+    return #a > #b
+  end)
+  ---@type string?
+  local root = roots[1]
+  if not root then
+    path = path and vim.fs.dirname(path) or vim.loop.cwd()
+    ---@type string?
+    root = vim.fs.find({ ".git", "lua" }, { path = path, upward = true })[1]
+    root = root and vim.fs.dirname(root) or vim.loop.cwd()
+  end
+  ---@cast root string
+  return root
+end
+
+-- this will return a function that calls telescope.
+-- cwd will default to lazyvim.util.get_root
+-- for `files`, git_files or find_files will be chosen depending on .git
+function Util(builtin, opts)
+  local params = { builtin = builtin, opts = opts }
+  return function()
+    builtin = params.builtin
+    opts = params.opts
+    opts = vim.tbl_deep_extend("force", { cwd = Get_root() }, opts or {})
+    if builtin == "files" then
+      if vim.loop.fs_stat((opts.cwd or vim.loop.cwd()) .. "/.git") then
+        opts.show_untracked = true
+        builtin = "git_files"
+      else
+        builtin = "find_files"
+      end
+    end
+    require("telescope.builtin")[builtin](opts)
+  end
+end
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
 local trouble = require("trouble.providers.telescope")
@@ -327,8 +347,7 @@ require('telescope').setup {
 pcall(require('telescope').load_extension, 'fzf')
 
 -- See `:help telescope.builtin`
-vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
-vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
+vim.keymap.set('n', '<leader>fr', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
 vim.keymap.set('n', '<leader>/', function()
   -- You can pass additional configuration to telescope to change theme, layout, etc.
   require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
@@ -337,13 +356,18 @@ vim.keymap.set('n', '<leader>/', function()
   })
 end, { desc = '[/] Fuzzily search in current buffer]' })
 
-vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
+vim.api.nvim_set_keymap('n','<leader><space>',"<cmd>Telescope buffers show_all_buffers=true<cr>", { desc = '[ ] Find existing buffers'} )
+vim.keymap.set('n', '<leader>uC', Util("colorscheme", { enable_preview = true }), { desc = '[S]earch [C]olorscheme' })
+vim.keymap.set('n', '<leader>ff', Util("files") , { desc = '[S]earch [F]iles' })
+vim.keymap.set('n', '<leader>fF', Util("files", { cwd = false }), { desc = '[S]earch [C]olorscheme' })
+vim.api.nvim_set_keymap('n', '<leader>:', "<cmd>Telescope command_history<cr>", { desc = 'Command History' })
+vim.api.nvim_set_keymap('n', '<leader>sm', "<cmd>Telescope marks<cr>", { desc = 'Jump to Mark' })
+vim.api.nvim_set_keymap('n', '<leader>sd', "<cmd>Telescope diagnostics<cr>", { desc = 'Diagnostics' })
 vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
-vim.api.nvim_set_keymap('n', '<leader>sc', [[<cmd>lua require('telescope.builtin').colorscheme()<CR>]],
-  { desc = '[S]earch [C]olorscheme' })
-vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
+vim.keymap.set('n', '<leader>sw', Util("grep_string"), { desc = '[S]earch current [W]ord' })
+vim.keymap.set('n', '<leader>sW', Util("grep_string", { cwd = false }), { desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>sl', require('telescope.builtin').resume, { desc = '[S]earch [L]ast' })
-vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
+vim.keymap.set('n', '<leader>sg', Util("live_grep"), { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 
 -- Diagnostic keymaps
@@ -955,6 +979,45 @@ require("neo-tree").setup({
 })
 
 vim.cmd([[nnoremap \ :Neotree reveal<cr>]])
+
+-- Treesitter config 
+
+require('nvim-treesitter.configs').setup {
+  ensure_installed = {
+    "bash",
+    "help",
+    "html",
+    "javascript",
+    "json",
+    "lua",
+    "markdown",
+    "markdown_inline",
+    "python",
+    "query",
+    "regex",
+    "tsx",
+    "typescript",
+    "vim",
+    "yaml",
+  },
+  highlight = { enable = true },
+  indent = { enable = true, disable = { 'python' } },
+incremental_selection = {
+    enable = true,
+    keymaps = {
+  init_selection = '<c-space>',
+node_incremental = '<c-space>',
+scope_incremental = '<c-s>',
+node_decremental = '<c-backspace>',
+},
+  },
+  matchup = {
+    enable = true,              -- mandatory, false will disable the whole extension
+},
+  autotag = {
+    enable = true,
+  }
+}
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
