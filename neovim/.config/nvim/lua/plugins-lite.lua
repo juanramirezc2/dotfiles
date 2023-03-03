@@ -59,12 +59,15 @@ require('packer').startup(function(use)
   }
   use "gbprod/yanky.nvim"
   use {-- automatically highlighting other uses of the word under the cursor
-  "RRethy/vim-illuminate",
-    config = function()
+  "RRethy/vim-illuminate", } 
 
+  use {
+    'andymass/vim-matchup',
+    setup = function()
+      -- may set any options here
+      vim.g.matchup_matchparen_offscreen = { method = "popup" }
     end
   }
-
   use { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     run = function()
@@ -100,10 +103,18 @@ require('packer').startup(function(use)
             node_decremental = '<c-backspace>',
           },
         },
+        matchup = {
+          enable = true,              -- mandatory, false will disable the whole extension
+        },
+        autotag = {
+          enable = true,
+        }
       }
     end
   }
-  
+
+  use "windwp/nvim-ts-autotag"
+
   -- file navigation 
   use {
   "nvim-neo-tree/neo-tree.nvim",
@@ -646,7 +657,9 @@ local async = event == "BufWritePost"
 
 require("null-ls").setup({
   sources = {
-    null_ls.builtins.diagnostics.eslint,
+    null_ls.builtins.code_actions.eslint_d,
+    null_ls.builtins.formatting.prettierd,
+    null_ls.builtins.diagnostics.eslint_d,
     null_ls.builtins.completion.spell,
   },
   -- you can reuse a shared lspconfig on_attach callback here
@@ -942,81 +955,6 @@ require("neo-tree").setup({
 })
 
 vim.cmd([[nnoremap \ :Neotree reveal<cr>]])
--- vim illuminate
--- default configuration
-require("illuminate").configure(
-  {
-    -- providers: provider used to get references in the buffer, ordered by priority
-    providers = {
-      'lsp',
-      'treesitter',
-      'regex',
-    },
-    -- delay: delay in milliseconds
-    delay = 200,
-    -- filetype_overrides: filetype specific overrides.
-    -- The keys are strings to represent the filetype while the values are tables that
-    -- supports the same keys passed to .configure except for filetypes_denylist and filetypes_allowlist
-    filetype_overrides = {},
-    -- filetypes_denylist: filetypes to not illuminate, this overrides filetypes_allowlist
-    filetypes_denylist = {
-      'dirvish',
-      'fugitive',
-      'ql',
-      'NeogitStatus',
-      'NeogitCommitMessage',
-      'neo-tree'
-    },
-    -- filetypes_allowlist: filetypes to illuminate, this is overriden by filetypes_denylist
-    filetypes_allowlist = {},
-    -- modes_denylist: modes to not illuminate, this overrides modes_allowlist
-    -- See `:help mode()` for possible values
-    modes_denylist = {},
-    -- modes_allowlist: modes to illuminate, this is overriden by modes_denylist
-    -- See `:help mode()` for possible values
-    modes_allowlist = {},
-    -- providers_regex_syntax_denylist: syntax to not illuminate, this overrides providers_regex_syntax_allowlist
-    -- Only applies to the 'regex' provider
-    -- Use :echom synIDattr(synIDtrans(synID(line('.'), col('.'), 1)), 'name')
-    providers_regex_syntax_denylist = {},
-    -- providers_regex_syntax_allowlist: syntax to illuminate, this is overriden by providers_regex_syntax_denylist
-    -- Only applies to the 'regex' provider
-    -- Use :echom synIDattr(synIDtrans(synID(line('.'), col('.'), 1)), 'name')
-    providers_regex_syntax_allowlist = {},
-    -- under_cursor: whether or not to illuminate under the cursor
-    under_cursor = true,
-    -- large_file_cutoff: number of lines at which to use large_file_config
-    -- The `under_cursor` option is disabled when this cutoff is hit
-    large_file_cutoff = nil,
-    -- large_file_config: config to use for large files (based on large_file_cutoff).
-    -- Supports the same keys passed to .configure
-    -- If nil, vim-illuminate will be disabled for large files.
-    large_file_overrides = nil,
-    -- min_count_to_highlight: minimum number of matches required to perform highlighting
-    min_count_to_highlight = 1,
-  }
-)
 
-local function map(key, dir, buffer)
-  vim.keymap.set("n", key, function()
-    require("illuminate")["goto_" .. dir .. "_reference"](false)
-  end, { desc = dir:sub(1, 1):upper() .. dir:sub(2) .. " Reference", buffer = buffer })
-end
-
-map("]]", "next")
-map("[[", "prev")
-
--- also set it after loading ftplugins, since a lot overwrite [[ and ]]
-vim.api.nvim_create_autocmd("FileType", {
-  callback = function()
-    local buffer = vim.api.nvim_get_current_buf()
-    map("]]", "next", buffer)
-    map("[[", "prev", buffer)
-  end,
-})
-
-vim.api.nvim_set_hl(0,'IlluminatedWordText',{ bg='#ff6666' })
-vim.api.nvim_set_hl(0,'IlluminatedWordRead',{ bg='#59F94F' })
-vim.api.nvim_set_hl(0,'IlluminatedWordWrite',{ bg='#0099ff' })
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
