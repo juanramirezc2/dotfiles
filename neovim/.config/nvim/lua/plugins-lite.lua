@@ -59,7 +59,7 @@ require('packer').startup(function(use)
   }
   use "gbprod/yanky.nvim"
   use {-- automatically highlighting other uses of the word under the cursor
-  "RRethy/vim-illuminate", } 
+    "RRethy/vim-illuminate", } 
 
   use {
     'andymass/vim-matchup',
@@ -74,12 +74,16 @@ require('packer').startup(function(use)
       pcall(require('nvim-treesitter.install').update { with_sync = true })
     end,
   }
+  use {
+    "windwp/nvim-autopairs",
+    config = function() require("nvim-autopairs").setup {} end
+  }
 
   use "windwp/nvim-ts-autotag"
 
   -- file navigation 
   use {
-  "nvim-neo-tree/neo-tree.nvim",
+    "nvim-neo-tree/neo-tree.nvim",
     branch = "v2.x",
     requires = { 
       "nvim-lua/plenary.nvim",
@@ -210,10 +214,10 @@ require("gruvbox").setup({
   contrast = "hard", -- can be "hard", "soft" or empty string
 })
 require('material').setup({
-    high_visibility = {
-        lighter = true, -- Enable higher contrast text for lighter style
-        darker = true -- Enable higher contrast text for darker style
-    },
+  high_visibility = {
+    lighter = true, -- Enable higher contrast text for lighter style
+    darker = true -- Enable higher contrast text for darker style
+  },
 })
 -- Set colorscheme
 vim.g.material_style = "lighter"
@@ -474,17 +478,23 @@ mason_lspconfig.setup_handlers {
         fallback = true, -- fall back to standard LSP definition on failure
       },
       server = {
-      capabilities = capabilities,
-      on_attach = on_attach
-    }})
-    end
+        capabilities = capabilities,
+        on_attach = on_attach
+      }})
+  end
 }
 -- end LSP Settings ---------------}}}}}}}}}}}}}}}}}}}}}}}}
 -- Turn on lsp status information
 require('fidget').setup()
 
 -- nvim-cmp setup
+-- If you want insert `(` after select function or method item
 local cmp = require 'cmp'
+local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+cmp.event:on(
+  'confirm_done',
+  cmp_autopairs.on_confirm_done()
+)
 local luasnip = require 'luasnip'
 local lspkind = require('lspkind')
 
@@ -525,7 +535,7 @@ cmp.setup {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
   },
-   formatting = {
+  formatting = {
     format = lspkind.cmp_format({
       mode = 'symbol', -- show only symbol annotations
       maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
@@ -688,7 +698,7 @@ require("null-ls").setup({
   },
   -- you can reuse a shared lspconfig on_attach callback here
   on_attach = function(client, bufnr)
-     if client.supports_method("textDocument/formatting") then
+    if client.supports_method("textDocument/formatting") then
       vim.keymap.set("n", "<Leader>f", function()
         vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
       end, { buffer = bufnr, desc = "[lsp] format" })
@@ -1002,18 +1012,18 @@ require('nvim-treesitter.configs').setup {
   },
   highlight = { enable = true },
   indent = { enable = true, disable = { 'python' } },
-incremental_selection = {
+  incremental_selection = {
     enable = true,
     keymaps = {
-  init_selection = '<c-space>',
-node_incremental = '<c-space>',
-scope_incremental = '<c-s>',
-node_decremental = '<c-backspace>',
-},
+      init_selection = '<c-space>',
+      node_incremental = '<c-space>',
+      scope_incremental = '<c-s>',
+      node_decremental = '<c-backspace>',
+    },
   },
   matchup = {
     enable = true,              -- mandatory, false will disable the whole extension
-},
+  },
   autotag = {
     enable = true,
   }
