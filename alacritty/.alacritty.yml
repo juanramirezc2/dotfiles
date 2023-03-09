@@ -112,10 +112,10 @@ font:
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
     # family: Source Code Pro
-    family: JetBrains Mono
+    family: MonoLisa
 
     # The `style` can be specified to pick a specific face.
-    style: Light
+    style: Regular
 
   # Bold font face
   bold:
@@ -124,10 +124,10 @@ font:
     # If the bold family is not specified, it will fall back to the
     # value specified for the normal font.
     # family: Source Code Pro
-    family: JetBrains Mono
+    family: MonoLisa
 
     # The `style` can be specified to pick a specific face.
-    style: Medium
+    style: Bold
 
   # Italic font face
   italic:
@@ -136,10 +136,10 @@ font:
     # If the italic family is not specified, it will fall back to the
     # value specified for the normal font.
     # family: Source Code Pro
-    family: JetBrains Mono
+    family: MonoLisa
 
     # The `style` can be specified to pick a specific face.
-    style: Light Italic
+    style: Regular Italic
 
   # Bold italic font face
   bold_italic:
@@ -147,13 +147,13 @@ font:
     #
     # If the bold italic family is not specified, it will fall back to the
     # value specified for the normal font.
-    family: JetBrains Mono
+    family: MonoLisa
 
     # The `style` can be specified to pick a specific face.
-    style: Medium Italic
+    style: Bold Italic
 
   # Point size
-  size: 14
+  size: 13
 # Offset is the extra space around each character. `offset.y` can be thought
 # of as modifying the line spacing, and `offset.x` as modifying the letter
 # spacing.
@@ -161,16 +161,15 @@ font:
 #  x: 0
 #  y: 0
 
-  # Glyph offset determines the locations of the glyphs within their cells with
-  # the default being at the bottom. Increasing `x` moves the glyph to the
-  # right, increasing `y` moves the glyph upward.
-  #glyph_offset:
-  #  x: 0
-  #  y: 0
-
+# Glyph offset determines the locations of the glyphs within their cells with
+# the default being at the bottom. Increasing `x` moves the glyph to the
+# right, increasing `y` moves the glyph upward.
+#glyph_offset:
+#  x: 0
+#  y: 0
 
 # If `true`, bold text is drawn using the bright color variants.
-draw_bold_text_with_bright_colors: true
+# draw_bold_text_with_bright_colors: true
 # Colors (Tomorrow Night)
 #colors:
 # Default colors

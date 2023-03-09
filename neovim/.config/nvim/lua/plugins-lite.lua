@@ -123,7 +123,6 @@ require('packer').startup(function(use)
     end
   }
   use { 'jose-elias-alvarez/null-ls.nvim', requires = 'nvim-lua/plenary.nvim' }
-  use('MunifTanjim/prettier.nvim')
   use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
   use { 'TimUntersberger/neogit', requires = {
     'nvim-lua/plenary.nvim',
@@ -692,6 +691,7 @@ require('indent_blankline').setup {
 -- vim.opt.listchars:append "eol:↴"
 -- nvim-navic
 
+
 -- null ls nvim
 local null_ls = require("null-ls")
 vim.cmd('map <Leader>ln :NullLsInfo<CR>')
@@ -705,7 +705,7 @@ require("null-ls").setup({
     null_ls.builtins.code_actions.eslint_d,
     null_ls.builtins.formatting.prettierd,
     null_ls.builtins.diagnostics.eslint_d,
-    null_ls.builtins.completion.spell,
+    -- null_ls.builtins.completion.spell,
   },
   -- you can reuse a shared lspconfig on_attach callback here
   on_attach = function(client, bufnr)
@@ -734,26 +734,6 @@ require("null-ls").setup({
   end,
 })
 
--- Prettier.nvim
-local prettier = require("prettier")
-
-prettier.setup({
-  bin = 'prettierd', -- or `'prettierd'` (v0.22+)
-  filetypes = {
-    "css",
-    "graphql",
-    "html",
-    "javascript",
-    "javascriptreact",
-    "json",
-    "less",
-    "markdown",
-    "scss",
-    "typescript",
-    "typescriptreact",
-    "yaml",
-  },
-})
 -- trouble 
 require("trouble").setup(
   { use_diagnostic_signs = true }
