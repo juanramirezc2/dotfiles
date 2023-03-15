@@ -75,6 +75,8 @@ require('packer').startup(function(use)
     end,
   }
   use "windwp/nvim-autopairs"
+  -- Delete Neovim buffers without losing window layout
+  use 'famiu/bufdelete.nvim'
 
   use "windwp/nvim-ts-autotag"
 
@@ -389,8 +391,6 @@ vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
-
-
 
 
 -- LSP settings ------------------------{{{{{{{{{{{{{{{{{{{{{{{{
@@ -774,8 +774,8 @@ require("neo-tree").setup({
       enable_character_fade = true
     },
     indent = {
-      indent_size = 2,
-      padding = 1, -- extra padding on left hand side
+      indent_size = 1.5,
+      padding = 0.5, -- extra padding on left hand side
       -- indent guides
       with_markers = true,
       indent_marker = "│",
@@ -834,7 +834,7 @@ require("neo-tree").setup({
         nowait = false, -- disable `nowait` if you have existing combos starting with this char that you want to use
       },
       ["<2-LeftMouse>"] = "open",
-      ["<cr>"] = "none",
+      ["<cr>"] = "focus_preview",
       ["<esc>"] = "revert_preview",
       ["P"] = { "toggle_preview", config = { use_float = true } },
       ["l"] = "open",
@@ -1007,5 +1007,10 @@ require("noice").setup({
     lsp_doc_border = false, -- add a border to hover docs and signature help
   },
 })
+
+
+-- bufdelete.nvim mappings
+vim.keymap.set('n', '<leader>bd', function() require('bufdelete').bufdelete(0, true) end, { desc = '[B]uffer [D]elete' })
+
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
