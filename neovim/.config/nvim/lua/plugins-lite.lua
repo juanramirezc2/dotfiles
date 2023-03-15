@@ -351,8 +351,7 @@ require('telescope').setup {
     mappings = {
       i = {
         ["<c-t>"] = trouble.open_with_trouble,
-        ['<C-u>'] = false,
-        ['<C-d>'] = false,
+        ['<c-d>'] = require('telescope.actions').delete_buffer
       },
     },
   },
