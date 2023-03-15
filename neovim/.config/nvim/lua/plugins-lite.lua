@@ -344,14 +344,26 @@ end
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
 local trouble = require("trouble.providers.telescope")
+local actions = require "telescope.actions"
 require('telescope').setup {
   defaults = {
+    vimgrep_arguments = { --To trim the indentation at the beginning of presented line in the result window,
+      "rg",
+      "--color=never",
+      "--no-heading",
+      "--with-filename",
+      "--line-number",
+      "--column",
+      "--smart-case",
+      "--trim" -- add this value
+    },
     layout_strategy = 'vertical',
     layout_config = { height = 0.95 },
     mappings = {
       i = {
         ["<c-t>"] = trouble.open_with_trouble,
-        ['<c-d>'] = require('telescope.actions').delete_buffer
+        ["<c-d>"] = actions.delete_buffer + actions.move_to_top,
+        ["<C-u>"] = false
       },
     },
   },
