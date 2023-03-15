@@ -363,7 +363,11 @@ require('telescope').setup {
       i = {
         ["<c-t>"] = trouble.open_with_trouble,
         ["<c-d>"] = actions.delete_buffer + actions.move_to_top,
-        ["<C-u>"] = false
+        ["<C-u>"] = false,
+        ["<C-d>"] = false,
+        ["<CR>"] = false,
+        ["<C-l>"] = actions.select_default,
+
       },
     },
   },
@@ -529,9 +533,13 @@ cmp.setup {
   mapping = cmp.mapping.preset.insert {
     ['<C-d>'] = cmp.mapping.scroll_docs( -4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-j>'] = cmp.mapping.select_next_item({behavior = "insert"}),
+    ['<C-k>'] = cmp.mapping.select_prev_item({behavior = "insert"}),
+    ['C-n'] = false,
+    ['C-p'] = false,
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<c-y>'] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Replace,
+      behavior = cmp.ConfirmBehavior.insert,
       select = true,
     },
     ['<Tab>'] = cmp.mapping(function(fallback)
