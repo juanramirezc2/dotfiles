@@ -367,6 +367,8 @@ require('telescope').setup {
         ["<C-d>"] = false,
         ["<CR>"] = false,
         ["<C-l>"] = actions.select_default,
+        ["<C-j>"] = actions.move_selection_next,
+        ["<C-k>"] = actions.move_selection_previous,
 
       },
     },
@@ -533,10 +535,6 @@ cmp.setup {
   mapping = cmp.mapping.preset.insert {
     ['<C-d>'] = cmp.mapping.scroll_docs( -4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-j>'] = cmp.mapping.select_next_item({behavior = "insert"}),
-    ['<C-k>'] = cmp.mapping.select_prev_item({behavior = "insert"}),
-    ['C-n'] = false,
-    ['C-p'] = false,
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<c-y>'] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.insert,
@@ -770,14 +768,10 @@ vim.keymap.set('n', '<leader>fE', function() require("neo-tree.command").execute
 vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
 
 -- If you want icons for diagnostic errors, you'll need to define them somewhere:
-vim.fn.sign_define("DiagnosticSignError",
-  {text = " ", texthl = "DiagnosticSignError"})
-vim.fn.sign_define("DiagnosticSignWarn",
-  {text = " ", texthl = "DiagnosticSignWarn"})
-vim.fn.sign_define("DiagnosticSignInfo",
-  {text = " ", texthl = "DiagnosticSignInfo"})
-vim.fn.sign_define("DiagnosticSignHint",
-  {text = "", texthl = "DiagnosticSignHint"})
+vim.fn.sign_define("DiagnosticSignError", {text = " ", texthl = "DiagnosticSignError"})
+vim.fn.sign_define("DiagnosticSignWarn", {text = " ", texthl = "DiagnosticSignWarn"})
+vim.fn.sign_define("DiagnosticSignInfo", {text = " ", texthl = "DiagnosticSignInfo"})
+vim.fn.sign_define("DiagnosticSignHint", {text = "", texthl = "DiagnosticSignHint"})
 -- NOTE: this is changed from v1.x, which used the old style of highlight groups
 -- in the form "LspDiagnosticsSignWarning"
 
@@ -793,8 +787,8 @@ require("neo-tree").setup({
       enable_character_fade = true
     },
     indent = {
-      indent_size = 1.5,
-      padding = 0.5, -- extra padding on left hand side
+      indent_size = 2,
+      padding = 1, -- extra padding on left hand side
       -- indent guides
       with_markers = true,
       indent_marker = "│",

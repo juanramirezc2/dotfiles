@@ -100,7 +100,6 @@ window:
 
 # Scrolling distance multiplier.
 #multiplier: 3
-
 # Font configuration
 font:
   # Normal (roman) font face
@@ -112,7 +111,7 @@ font:
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
     # family: Source Code Pro
-    family: MonoLisa
+    family: Hack
 
     # The `style` can be specified to pick a specific face.
     style: Regular
@@ -124,7 +123,7 @@ font:
     # If the bold family is not specified, it will fall back to the
     # value specified for the normal font.
     # family: Source Code Pro
-    family: MonoLisa
+    family: Hack
 
     # The `style` can be specified to pick a specific face.
     style: Bold
@@ -136,7 +135,7 @@ font:
     # If the italic family is not specified, it will fall back to the
     # value specified for the normal font.
     # family: Source Code Pro
-    family: MonoLisa
+    family: Hack
 
     # The `style` can be specified to pick a specific face.
     style: Regular Italic
@@ -147,7 +146,7 @@ font:
     #
     # If the bold italic family is not specified, it will fall back to the
     # value specified for the normal font.
-    family: MonoLisa
+    family: Hack
 
     # The `style` can be specified to pick a specific face.
     style: Bold Italic
