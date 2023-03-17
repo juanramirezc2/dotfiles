@@ -1002,11 +1002,11 @@ require("noice").setup({
   },
 })
 
-
 -- bufdelete.nvim mappings
 vim.keymap.set('n', '<leader>bd', function() require('bufdelete').bufdelete(0, true) end, { desc = '[B]uffer [D]elete' })
+
 -- Git signs setup
-require('gitsigns').setup {
+require('gitsigns').setup ({
   signs = {
     add = { text = "▎" },
     change = { text = "▎" },
@@ -1053,7 +1053,7 @@ require('gitsigns').setup {
     -- Text object
     map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
   end
-}
+})
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
