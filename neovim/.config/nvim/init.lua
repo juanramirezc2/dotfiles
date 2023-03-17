@@ -87,13 +87,6 @@ nnoremap("<C-v>", '"*p')
 
 vnoremap('<C-x>', '"+d')
 nnoremap('<C-x>', '"+d')
--- neovim terminal
-vim.api.nvim_set_keymap('t', '<ESC>', [[<C-\><C-n>]], { noremap = true })
-vim.api.nvim_set_keymap('t', '<C-d>', [[<C-\><C-d>]], { noremap = true })
--- buffer management
-nnoremap("<leader>bd", ':bdelete<cr>')
-nnoremap("<leader>l", ':bnext<cr>')
-nnoremap("<leader>h", ':bprevious<cr>')
 -- replace without deleting in visual
 vnoremap("<leader>p", [["_dp]])
 -- Search Selection
