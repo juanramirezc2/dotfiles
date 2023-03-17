@@ -342,7 +342,6 @@ require('telescope').setup {
       "--smart-case",
       "--trim" -- add this value
     },
-    layout_strategy = 'vertical',
     layout_config = { height = 0.95 },
     mappings = {
       i = {
