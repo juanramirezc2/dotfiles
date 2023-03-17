@@ -116,7 +116,6 @@ require('packer').startup(function(use)
     'nvim-lua/plenary.nvim',
     'sindrets/diffview.nvim'
   } }
-  use 'rhysd/git-messenger.vim'
   use "SmiteshP/nvim-navic"
 
   -- colorschemes
@@ -667,8 +666,6 @@ require("yanky").setup({
 vim.keymap.set('n', '<leader>sy', require("telescope").extensions.yank_history.yank_history,
   { desc = '[S]earch current [W]ord' })
 require("telescope").load_extension("yank_history")
--- Git messenger
-vim.api.nvim_set_keymap('n', '<leader>gm', [[:GitMessenger<CR>]], { desc = '[S]earch [C]olorscheme' })
 -- Leap config
 require('leap').add_default_mappings()
 -- Flit config
