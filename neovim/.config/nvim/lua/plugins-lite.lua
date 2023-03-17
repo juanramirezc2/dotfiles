@@ -1007,6 +1007,7 @@ vim.keymap.set('n', '<leader>bd', function() require('bufdelete').bufdelete(0, t
 
 -- Git signs setup
 require('gitsigns').setup ({
+  debug_mode = true,
   signs = {
     add = { text = "▎" },
     change = { text = "▎" },
