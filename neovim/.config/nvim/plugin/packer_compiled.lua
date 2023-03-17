@@ -89,6 +89,11 @@ _G.packer_plugins = {
     path = "/Users/jgramirez/.local/share/nvim/site/pack/packer/start/ariake-vim-colors",
     url = "https://github.com/jim-at-jibba/ariake-vim-colors"
   },
+  ["bufdelete.nvim"] = {
+    loaded = true,
+    path = "/Users/jgramirez/.local/share/nvim/site/pack/packer/start/bufdelete.nvim",
+    url = "https://github.com/famiu/bufdelete.nvim"
+  },
   catppuccin = {
     loaded = true,
     path = "/Users/jgramirez/.local/share/nvim/site/pack/packer/start/catppuccin",
@@ -135,7 +140,6 @@ _G.packer_plugins = {
     url = "https://github.com/rhysd/git-messenger.vim"
   },
   ["gitsigns.nvim"] = {
-    config = { "\27LJ\2\nù\1\0\0\5\0\18\0\0216\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\16\0005\3\4\0005\4\3\0=\4\5\0035\4\6\0=\4\a\0035\4\b\0=\4\t\0035\4\n\0=\4\v\0035\4\f\0=\4\r\0035\4\14\0=\4\15\3=\3\17\2B\0\2\1K\0\1\0\nsigns\1\0\0\14untracked\1\0\1\ttext\bâ–Ž\17changedelete\1\0\1\ttext\bâ–Ž\14topdelete\1\0\1\ttext\bï¤‰\vdelete\1\0\1\ttext\bï¤‰\vchange\1\0\1\ttext\bâ–Ž\badd\1\0\0\1\0\1\ttext\bâ–Ž\nsetup\rgitsigns\frequire\0" },
     loaded = true,
     path = "/Users/jgramirez/.local/share/nvim/site/pack/packer/start/gitsigns.nvim",
     url = "https://github.com/lewis6991/gitsigns.nvim"
@@ -386,10 +390,6 @@ time([[packadd for vim-matchup]], false)
 time([[Config for nvim-notify]], true)
 try_loadstring("\27LJ\2\n@\0\0\3\0\5\1\a6\0\0\0009\0\1\0006\2\2\0009\2\3\0029\2\4\2\24\2\0\2D\0\2\0\nlines\6o\bvim\nfloor\tmath\1€€ ÿ\3B\0\0\3\0\5\1\a6\0\0\0009\0\1\0006\2\2\0009\2\3\0029\2\4\2\24\2\0\2D\0\2\0\fcolumns\6o\bvim\nfloor\tmath\1€€ ÿ\3w\1\0\5\0\b\0\v6\0\0\0'\2\1\0B\0\2\0029\1\2\0005\3\3\0003\4\4\0=\4\5\0033\4\6\0=\4\a\3B\1\2\1K\0\1\0\14max_width\0\15max_height\0\1\0\2\ftimeout\3¸\23\rtop_down\2\nsetup\vnotify\frequire\0", "config", "nvim-notify")
 time([[Config for nvim-notify]], false)
--- Config for: gitsigns.nvim
-time([[Config for gitsigns.nvim]], true)
-try_loadstring("\27LJ\2\nù\1\0\0\5\0\18\0\0216\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\16\0005\3\4\0005\4\3\0=\4\5\0035\4\6\0=\4\a\0035\4\b\0=\4\t\0035\4\n\0=\4\v\0035\4\f\0=\4\r\0035\4\14\0=\4\15\3=\3\17\2B\0\2\1K\0\1\0\nsigns\1\0\0\14untracked\1\0\1\ttext\bâ–Ž\17changedelete\1\0\1\ttext\bâ–Ž\14topdelete\1\0\1\ttext\bï¤‰\vdelete\1\0\1\ttext\bï¤‰\vchange\1\0\1\ttext\bâ–Ž\badd\1\0\0\1\0\1\ttext\bâ–Ž\nsetup\rgitsigns\frequire\0", "config", "gitsigns.nvim")
-time([[Config for gitsigns.nvim]], false)
 -- Config for: nvim-colorizer.lua
 time([[Config for nvim-colorizer.lua]], true)
 try_loadstring("\27LJ\2\n7\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\14colorizer\frequire\0", "config", "nvim-colorizer.lua")
