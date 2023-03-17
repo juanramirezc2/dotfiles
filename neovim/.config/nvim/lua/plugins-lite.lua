@@ -121,6 +121,44 @@ require('packer').startup(function(use)
           changedelete = { text = "▎" },
           untracked = { text = "▎" },
         },
+        on_attach = function(bufnr)
+          local gs = package.loaded.gitsigns
+
+          local function map(mode, l, r, opts)
+            opts = opts or {}
+            opts.buffer = bufnr
+            vim.keymap.set(mode, l, r, opts)
+          end
+
+          -- Navigation
+          map('n', ']c', function()
+            if vim.wo.diff then return ']c' end
+            vim.schedule(function() gs.next_hunk() end)
+            return '<Ignore>'
+          end, {expr=true})
+
+          map('n', '[c', function()
+            if vim.wo.diff then return '[c' end
+            vim.schedule(function() gs.prev_hunk() end)
+            return '<Ignore>'
+          end, {expr=true})
+
+          -- Actions
+          map({'n', 'v'}, '<leader>hs', ':Gitsigns stage_hunk<CR>')
+          map({'n', 'v'}, '<leader>hr', ':Gitsigns reset_hunk<CR>')
+          map('n', '<leader>hS', gs.stage_buffer)
+          map('n', '<leader>hu', gs.undo_stage_hunk)
+          map('n', '<leader>hR', gs.reset_buffer)
+          map('n', '<leader>hp', gs.preview_hunk)
+          map('n', '<leader>hb', function() gs.blame_line{full=true} end)
+          map('n', '<leader>tb', gs.toggle_current_line_blame)
+          map('n', '<leader>hd', gs.diffthis)
+          map('n', '<leader>hD', function() gs.diffthis('~') end)
+          map('n', '<leader>td', gs.toggle_deleted)
+
+          -- Text object
+          map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+        end
       }
     end
   }
@@ -365,11 +403,6 @@ require('telescope').setup {
         ["<c-d>"] = actions.delete_buffer + actions.move_to_top,
         ["<C-u>"] = false,
         ["<C-d>"] = false,
-        ["<CR>"] = false,
-        ["<C-l>"] = actions.select_default,
-        ["<C-j>"] = actions.move_selection_next,
-        ["<C-k>"] = actions.move_selection_previous,
-
       },
     },
   },
@@ -673,7 +706,7 @@ require("yanky").setup({
           ["<c-r>"] = mapping.set_register(utils.get_default_register()),
         },
         n = {
-          p = mapping.put("p"),
+          p = nil,
           P = mapping.put("P"),
           d = mapping.delete(),
           r = mapping.set_register(utils.get_default_register())
@@ -842,15 +875,15 @@ require("neo-tree").setup({
       nowait = true,
     },
     mappings = {
-      ["<space>"] = {
+      ["<space>"] = false ,
+      ["<2-LeftMouse>"] = "open",
+      ["<cr>"] = "open",
+      ["<esc>"] = "revert_preview",
+      ["P"] = { "toggle_preview", config = { use_float = true } },
+      ["l"] = {
         "toggle_node",
         nowait = false, -- disable `nowait` if you have existing combos starting with this char that you want to use
       },
-      ["<2-LeftMouse>"] = "open",
-      ["<cr>"] = "focus_preview",
-      ["<esc>"] = "revert_preview",
-      ["P"] = { "toggle_preview", config = { use_float = true } },
-      ["l"] = "open",
       ["S"] = "open_split",
       ["s"] = "open_vsplit",
       ["t"] = "open_tabnew",
