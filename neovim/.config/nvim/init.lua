@@ -93,9 +93,6 @@ vnoremap("<leader>p", [["_dp]])
 vnoremap("//", [[y/\V<C-r>=escape(@",'/\')<CR><CR>]])
 -- Switch to alternative buffer
 nnoremap("<leader><tab>", "<C-^>")
---Remap for dealing with word wrap
-vim.api.nvim_set_keymap('n', 'k', "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = true, silent = true })
-vim.api.nvim_set_keymap('n', 'j', "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true, silent = true })
 
 -- plugin configs
 -- local plugins = require("plugins")
@@ -119,3 +116,7 @@ vim.g.netrw_browse_split = 4
 vim.g.netrw_keepdir = 0
 -- hide dotfiles
 -- vim.g.netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
+
+--Remap for dealing with word wrap
+--vim.api.nvim_set_keymap('n', 'k', "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = true, silent = true })
+--vim.api.nvim_set_keymap('n', 'j', "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true, silent = true })

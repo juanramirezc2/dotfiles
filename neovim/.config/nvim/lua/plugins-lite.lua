@@ -246,8 +246,15 @@ vim.g.maplocalleader = ' '
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 -- Remap for dealing with word wrap
-vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+-- vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+-- vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+
+vim.api.nvim_set_keymap('n', 'k', [[v:count ? (v:count > 5 ? "m'" . v:count : '') . 'k' : 'gk']] , { noremap = true, expr = true, silent = true })
+vim.api.nvim_set_keymap('n', 'j', [[v:count ? (v:count > 5 ? "m'" . v:count : '') . 'j' : 'gj']], { noremap = true, expr = true, silent = true })
+
+-- Store relative line number jumps in the jumplist if they exceed a threshold.
+-- vim.keymap.set('n', 'k', function() return (vim.v.count > 5 and "m'" .. vim.v.count or 'gk') .. 'k' end, { expr = true })
+-- vim.keymap.set('n', 'j', function() return (vim.v.count > 5 and "m'" .. vim.v.count or 'gj') .. 'j' end, { expr = true })
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
@@ -1358,9 +1365,9 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
-vim.api.nvim_set_hl(0,'IlluminatedWordText',{ bg='#ff6666' })
-vim.api.nvim_set_hl(0,'IlluminatedWordRead',{ bg='#59F94F' })
-vim.api.nvim_set_hl(0,'IlluminatedWordWrite',{ bg='#0099ff' })
+-- vim.api.nvim_set_hl(0,'IlluminatedWordText',{ bg='#ff6666' })
+vim.api.nvim_set_hl(0,'IlluminatedWordRead',{ link = "WildMenu" })
+vim.api.nvim_set_hl(0,'IlluminatedWordWrite',{ link='Visual' })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
