@@ -722,9 +722,9 @@ vim.cmd('map <Leader>ln :NullLsInfo<CR>')
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 require("null-ls").setup({
   sources = {
-    null_ls.builtins.code_actions.eslint,
-    null_ls.builtins.formatting.prettier,
-    null_ls.builtins.diagnostics.eslint,
+    null_ls.builtins.code_actions.eslintd,
+    null_ls.builtins.formatting.prettierd,
+    null_ls.builtins.diagnostics.eslintd,
     -- null_ls.builtins.completion.spell,
   },
   -- you can reuse a shared lspconfig on_attach callback here
@@ -976,6 +976,7 @@ require('nvim-treesitter.configs').setup {
     "help",
     "html",
     "javascript",
+    'jsdoc',
     "json",
     "lua",
     "markdown",
