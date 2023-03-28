@@ -725,6 +725,7 @@ require("null-ls").setup({
     null_ls.builtins.code_actions.eslintd,
     null_ls.builtins.formatting.prettierd,
     null_ls.builtins.diagnostics.eslintd,
+    null_ls.builtins.diagnostics.commitlint,
     -- null_ls.builtins.completion.spell,
   },
   -- you can reuse a shared lspconfig on_attach callback here
