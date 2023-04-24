@@ -29,7 +29,9 @@ require('packer').startup(function(use)
     'hrsh7th/nvim-cmp',
     requires = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
   }
-
+  use {
+    'f-person/git-blame.nvim'
+  }
   use { -- vscode-like pictograms for neovim lsp completion items
     'onsails/lspkind.nvim'
   }
@@ -228,6 +230,10 @@ require('material').setup({
 vim.g.material_style = "lighter"
 vim.o.background = "light"
 vim.o.termguicolors = true
+vim.api.nvim_set_hl(0,'Cursor',{ bg='#39d939' })
+vim.api.nvim_set_hl(0,'Cursor2',{ bg='#ff6666' })
+vim.opt.guicursor="n-v-c:block-Cursor/lCursor,i-ci-ve:ver25-Cursor2/lCursor2,r-cr:hor20,o:hor50"
+
 -- require('solarized').set()
 vim.cmd [[colorscheme gruvbox]]
 
@@ -246,11 +252,12 @@ vim.g.maplocalleader = ' '
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 -- Remap for dealing with word wrap
--- vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
--- vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
-vim.api.nvim_set_keymap('n', 'k', [[v:count ? (v:count > 5 ? "m'" . v:count : '') . 'k' : 'gk']] , { noremap = true, expr = true, silent = true })
-vim.api.nvim_set_keymap('n', 'j', [[v:count ? (v:count > 5 ? "m'" . v:count : '') . 'j' : 'gj']], { noremap = true, expr = true, silent = true })
+
+-- vim.api.nvim_set_keymap('n', 'k', [[v:count ? (v:count > 5 ? "m'" . v:count : '') . 'k' : 'gk']] , { noremap = true, expr = true, silent = true })
+-- vim.api.nvim_set_keymap('n', 'j', [[v:count ? (v:count > 5 ? "m'" . v:count : '') . 'j' : 'gj']], { noremap = true, expr = true, silent = true })
 
 -- Store relative line number jumps in the jumplist if they exceed a threshold.
 -- vim.keymap.set('n', 'k', function() return (vim.v.count > 5 and "m'" .. vim.v.count or 'gk') .. 'k' end, { expr = true })
@@ -722,10 +729,10 @@ vim.cmd('map <Leader>ln :NullLsInfo<CR>')
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 require("null-ls").setup({
   sources = {
-    null_ls.builtins.code_actions.eslintd,
-    null_ls.builtins.formatting.prettierd,
-    null_ls.builtins.diagnostics.eslintd,
-    null_ls.builtins.diagnostics.commitlint,
+    null_ls.builtins.code_actions.eslint_d,
+    null_ls.builtins.formatting.prettier,
+    null_ls.builtins.diagnostics.eslint_d,
+    -- null_ls.builtins.diagnostics.commitlint,
     -- null_ls.builtins.completion.spell,
   },
   -- you can reuse a shared lspconfig on_attach callback here
@@ -850,13 +857,10 @@ require("neo-tree").setup({
     mappings = {
       ["<space>"] = false ,
       ["<2-LeftMouse>"] = "open",
-      ["<cr>"] = "open",
+      ["<cr>"] = false,
       ["<esc>"] = "revert_preview",
       ["P"] = { "toggle_preview", config = { use_float = true } },
-      ["l"] = {
-        "toggle_node",
-        nowait = false, -- disable `nowait` if you have existing combos starting with this char that you want to use
-      },
+      ["l"] = "open",
       ["S"] = "open_split",
       ["s"] = "open_vsplit",
       ["t"] = "open_tabnew",
@@ -980,6 +984,8 @@ require('nvim-treesitter.configs').setup {
     'jsdoc',
     "json",
     "lua",
+    "luadoc",
+    "luap",
     "markdown",
     "markdown_inline",
     "python",
@@ -988,6 +994,7 @@ require('nvim-treesitter.configs').setup {
     "tsx",
     "typescript",
     "vim",
+    "vimdoc",
     "yaml",
   },
   highlight = { enable = true },
@@ -1021,8 +1028,8 @@ require("noice").setup({
   -- you can enable a preset for easier configuration
   presets = {
     long_message_to_split = true, -- long messages will be sent to a split
-    inc_rename = false, -- enables an input dialog for inc-rename.nvim
-    lsp_doc_border = false, -- add a border to hover docs and signature help
+    bottom_search = true,
+    command_palette = true,
   },
   views = {
       cmdline_popup = {
@@ -1371,5 +1378,10 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_set_hl(0,'IlluminatedWordRead',{ link = "WildMenu" })
 vim.api.nvim_set_hl(0,'IlluminatedWordWrite',{ link='Visual' })
 
+-- git blame shorter
+-- vim.g.gitblame_message_template = '   <summary> • <date> • <author>'
+vim.g.gitblame_message_template = '  • <author> • <date>'
+vim.g.gitblame_date_format = '%r'
+vim.g.gitblame_delay = 1000
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

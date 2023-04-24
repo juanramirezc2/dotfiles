@@ -1,7 +1,6 @@
 -- local env = vim.env
 local utils = require("utils")
 local fn = vim.fn
-local opt = vim.opt
 local cmd = vim.cmd
 local g = vim.g
 local o = vim.o
@@ -18,16 +17,9 @@ local vnoremap = utils.vnoremap
 -- o.background = 'light'
 --Make line numbers default
 vim.wo.number       = true
--- vim.opt.relativenumber = true -- Set relative number
 vim.o.filetype      = true
--- vim.opt.colorcolumn = { 80, 120 }
 --Enable mouse mode
 vim.o.mouse         = 'a'
-vim.opt.expandtab   = true
---vim.opt.guicursor = "guicursor=n-v-c:block,i-ci-ve:ver25, r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor, sm:block-blinkwait175-blinkoff150-blinkon175"
-vim.opt.tabstop     = 2
-vim.opt.softtabstop = 2
-vim.opt.shiftwidth  = 2
 vim.o.scrolloff     = 12 -- Vertical Scroll Offset
 vim.o.sidescrolloff = 8 -- Horizontal Scroll Offset
 vim.o.mouse         = 'a' -- Enable mouse mode
@@ -36,19 +28,10 @@ vim.o.breakindent   = true
 vim.o.splitbelow    = true -- Force Split Below
 vim.o.splitright    = true -- Force Split Right
 -- Enable cursor line
-vim.wo.cursorline   = true
+-- vim.wo.cursorline   = true
 vim.o.jumpoptions   = "stack"
---Save undo history
--- vim.opt.undofile    = true
--- don't use backup files
-opt.backup          = false
--- don't backup the file while editing
-opt.writebackup     = false
--- don't create swap files for new buffers
-opt.swapfile        = false
 o.foldlevelstart    = 99
 o.autoindent        = true
-vim.opt.guicursor   = "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175"
 o.smartindent       = true
 --Case insensitive searching UNLESS /C or capital in search
 vim.o.ignorecase    = true
@@ -58,13 +41,8 @@ vim.o.smartcase     = true
 vim.o.updatetime = 250
 vim.wo.signcolumn = 'yes'
 
--- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menu,menuone,noselect'
-
 --Remap space as leader key
 vim.api.nvim_set_keymap('', '<Space>', '<Nop>', { noremap = true, silent = true })
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
@@ -93,30 +71,65 @@ vnoremap("<leader>p", [["_dp]])
 vnoremap("//", [[y/\V<C-r>=escape(@",'/\')<CR><CR>]])
 -- Switch to alternative buffer
 nnoremap("<leader><tab>", "<C-^>")
+-- nvim lazy config ---- {{{{{{{{{{{{{{{{{{{{{{{{{{{
+-- This file is automatically loaded by plugins.config
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
+local opt = vim.opt
+
+opt.autowrite = true -- Enable auto write
+opt.clipboard = "unnamedplus" -- Sync with system clipboard
+opt.completeopt = "menu,menuone,noselect"
+opt.conceallevel = 3 -- Hide * markup for bold and italic
+opt.confirm = true -- Confirm to save changes before exiting modified buffer
+opt.cursorline = true -- Enable highlighting of the current line
+opt.expandtab = true -- Use spaces instead of tabs
+opt.formatoptions = "jcroqlnt" -- tcqj
+opt.grepformat = "%f:%l:%c:%m"
+opt.grepprg = "rg --vimgrep"
+opt.ignorecase = true -- Ignore case
+opt.inccommand = "nosplit" -- preview incremental substitute
+opt.laststatus = 0
+opt.list = true -- Show some invisible characters (tabs...
+opt.mouse = "a" -- Enable mouse mode
+opt.number = true -- Print line number
+opt.pumblend = 10 -- Popup blend
+opt.pumheight = 10 -- Maximum number of entries in a popup
+opt.relativenumber = true -- Relative line numbers
+opt.scrolloff = 4 -- Lines of context
+opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize" }
+opt.shiftround = true -- Round indent
+opt.shiftwidth = 2 -- Size of an indent
+opt.shortmess:append({ W = true, I = true, c = true })
+opt.showmode = false -- Dont show mode since we have a statusline
+opt.sidescrolloff = 8 -- Columns of context
+opt.signcolumn = "yes" -- Always show the signcolumn, otherwise it would shift the text each time
+opt.smartcase = true -- Don't ignore case with capitals
+opt.smartindent = true -- Insert indents automatically
+opt.spelllang = { "en" }
+opt.splitbelow = true -- Put new windows below current
+opt.splitright = true -- Put new windows right of current
+opt.tabstop = 2 -- Number of spaces tabs count for
+opt.termguicolors = true -- True color support
+opt.timeoutlen = 300
+opt.undofile = true
+opt.undolevels = 10000
+opt.updatetime = 200 -- Save swap file and trigger CursorHold
+opt.wildmode = "longest:full,full" -- Command-line completion mode
+opt.winminwidth = 5 -- Minimum window width
+opt.wrap = false -- Disable line wrap
+
+if vim.fn.has("nvim-0.9.0") == 1 then
+  opt.splitkeep = "screen"
+  opt.shortmess:append({ C = true })
+end
+
+-- Fix markdown indentation settings
+vim.g.markdown_recommended_style = 0
+-- }}}}}}}}}}}}}}}}}}}}}}}}}}}
+
+nnoremap("<leader>vr", ':e $MYVIMRC<CR>')
 -- plugin configs
 -- local plugins = require("plugins")
 require("plugins-lite")
--- Set colorscheme
--- g.gruvbox_contrast_dark = 'soft'
--- cmd [[colorscheme gruvbox]]
-nnoremap("<leader>vr", ':e $MYVIMRC<CR>')
--- Netrw config
-nnoremap("<leader>dd", ":Lexplore %:p:h<CR>")
-nnoremap("<leader>da", ":Lexplore<CR>")
--- Hit enter in the file browser to open the selected
--- file with :vsplit to the right of the browser.
-vim.g.netrw_altv = 1
--- Default to tree mode
-vim.g.netrw_liststyle = 3
-vim.g.netrw_winsize = 25
--- remove the top banner
-vim.g.netrw_banner = 0
-vim.g.netrw_browse_split = 4
-vim.g.netrw_keepdir = 0
--- hide dotfiles
--- vim.g.netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
-
---Remap for dealing with word wrap
---vim.api.nvim_set_keymap('n', 'k', "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = true, silent = true })
---vim.api.nvim_set_keymap('n', 'j', "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true, silent = true })
