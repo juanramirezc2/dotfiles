@@ -6,11 +6,9 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
   vim.fn.system { 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path }
   vim.cmd [[packadd packer.nvim]]
 end
-
 require('packer').startup(function(use)
   -- Package manager
   use 'wbthomason/packer.nvim'
-
   use { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
     requires = {
@@ -37,11 +35,12 @@ require('packer').startup(function(use)
   }
 
   use { 'stevearc/dressing.nvim' } -- Better UI for neovim
-  use {'NvChad/nvim-colorizer.lua',
-    config= function()
+  use { 'NvChad/nvim-colorizer.lua',
+    config = function()
       require 'colorizer'.setup()
     end
   }
+
   use { -- Better Notifications
     'rcarriga/nvim-notify',
     config = function()
@@ -58,9 +57,10 @@ require('packer').startup(function(use)
       })
     end
   }
+
   use "gbprod/yanky.nvim"
 
-  use {-- automatically highlighting other uses of the word under the cursor
+  use { -- automatically highlighting other uses of the word under the cursor
     "RRethy/vim-illuminate", }
 
   use {
@@ -82,11 +82,11 @@ require('packer').startup(function(use)
 
   use "windwp/nvim-ts-autotag"
 
-  -- file navigation 
+  -- file navigation
   use {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v2.x",
-    requires = { 
+    requires = {
       "nvim-lua/plenary.nvim",
       "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
       "MunifTanjim/nui.nvim",
@@ -97,8 +97,10 @@ require('packer').startup(function(use)
     "folke/trouble.nvim",
     requires = "nvim-tree/nvim-web-devicons",
   }
+
   -- Packer
-  use({ -- Highly experimental plugin that completely replaces the UI for messages, cmdline and the popupmenu
+  use({
+        -- Highly experimental plugin that completely replaces the UI for messages, cmdline and the popupmenu
     "folke/noice.nvim",
     requires = {
       -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
@@ -111,16 +113,17 @@ require('packer').startup(function(use)
   })
   -- Git related plugins
   use { -- About Edit and review GitHub issues and pull requests from the comfort of your favorite editor
-  'pwntester/octo.nvim',
-  requires = {
-    'nvim-lua/plenary.nvim',
-    'nvim-telescope/telescope.nvim',
-    'kyazdani42/nvim-web-devicons',
+    'pwntester/octo.nvim',
+    requires = {
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope.nvim',
+      'kyazdani42/nvim-web-devicons',
+    }
   }
-}
+
   use 'tpope/vim-fugitive'
   use 'tpope/vim-rhubarb'
-  use { 'lewis6991/gitsigns.nvim'}
+  use { 'lewis6991/gitsigns.nvim' }
   use { 'jose-elias-alvarez/null-ls.nvim', requires = 'nvim-lua/plenary.nvim' }
   use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
   use { 'TimUntersberger/neogit', requires = {
@@ -148,13 +151,13 @@ require('packer').startup(function(use)
 
   --
   use 'nvim-lualine/lualine.nvim' -- Fancier statusline
-  use { -- Add indentation guides even on blank lines
+  use {                           -- Add indentation guides even on blank lines
     'lukas-reineke/indent-blankline.nvim',
   }
 
   use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
-  use 'tpope/vim-sleuth' -- Detect tabstop and shiftwidth automatically
-  use 'tpope/vim-unimpaired' -- [] bracket shorcuts
+  use 'tpope/vim-sleuth'      -- Detect tabstop and shiftwidth automatically
+  use 'tpope/vim-unimpaired'  -- [] bracket shorcuts
 
   -- jump to places
   use 'ggandor/leap.nvim'
@@ -223,16 +226,16 @@ require("gruvbox").setup({
 require('material').setup({
   high_visibility = {
     lighter = true, -- Enable higher contrast text for lighter style
-    darker = true -- Enable higher contrast text for darker style
+    darker = true   -- Enable higher contrast text for darker style
   },
 })
 -- Set colorscheme
 vim.g.material_style = "lighter"
 vim.o.background = "light"
 vim.o.termguicolors = true
-vim.api.nvim_set_hl(0,'Cursor',{ bg='#39d939' })
-vim.api.nvim_set_hl(0,'Cursor2',{ bg='#ff6666' })
-vim.opt.guicursor="n-v-c:block-Cursor/lCursor,i-ci-ve:ver25-Cursor2/lCursor2,r-cr:hor20,o:hor50"
+vim.api.nvim_set_hl(0, 'Cursor', { bg = '#39d939' })
+vim.api.nvim_set_hl(0, 'Cursor2', { bg = '#ff6666' })
+vim.opt.guicursor = "n-v-c:block-Cursor/lCursor,i-ci-ve:ver25-Cursor2/lCursor2,r-cr:hor20,o:hor50"
 
 -- require('solarized').set()
 vim.cmd [[colorscheme gruvbox]]
@@ -304,8 +307,8 @@ function Get_root()
     for _, client in pairs(vim.lsp.get_active_clients({ bufnr = 0 })) do
       local workspace = client.config.workspace_folders
       local paths = workspace and vim.tbl_map(function(ws)
-        return vim.uri_to_fname(ws.uri)
-      end, workspace) or client.config.root_dir and { client.config.root_dir } or {}
+            return vim.uri_to_fname(ws.uri)
+          end, workspace) or client.config.root_dir and { client.config.root_dir } or {}
       for _, p in ipairs(paths) do
         local r = vim.loop.fs_realpath(p)
         if path:find(r, 1, true) then
@@ -349,6 +352,7 @@ function Util(builtin, opts)
     require("telescope.builtin")[builtin](opts)
   end
 end
+
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
 local trouble = require("trouble.providers.telescope")
@@ -390,9 +394,10 @@ vim.keymap.set('n', '<leader>/', function()
   })
 end, { desc = '[/] Fuzzily search in current buffer]' })
 
-vim.api.nvim_set_keymap('n','<leader><space>',"<cmd>Telescope buffers show_all_buffers=true<cr>", { desc = '[ ] Find existing buffers'} )
+vim.api.nvim_set_keymap('n', '<leader><space>', "<cmd>Telescope buffers show_all_buffers=true<cr>",
+{ desc = '[ ] Find existing buffers' })
 vim.keymap.set('n', '<leader>uC', Util("colorscheme", { enable_preview = true }), { desc = '[S]earch [C]olorscheme' })
-vim.keymap.set('n', '<leader>ff', Util("files") , { desc = '[S]earch [F]iles' })
+vim.keymap.set('n', '<leader>ff', Util("files"), { desc = '[S]earch [F]iles' })
 vim.keymap.set('n', '<leader>fF', Util("files", { cwd = false }), { desc = '[S]earch [C]olorscheme' })
 vim.api.nvim_set_keymap('n', '<leader>:', "<cmd>Telescope command_history<cr>", { desc = 'Command History' })
 vim.api.nvim_set_keymap('n', '<leader>sm', "<cmd>Telescope marks<cr>", { desc = 'Jump to Mark' })
@@ -511,17 +516,18 @@ mason_lspconfig.setup_handlers {
       settings = servers[server_name],
     }
   end,
-  ["tsserver"] = function ()
+  ["tsserver"] = function()
     require("typescript").setup({
       disable_commands = false, -- prevent the plugin from creating Vim commands
-      debug = false, -- enable debug logging for commands
+      debug = false,            -- enable debug logging for commands
       go_to_source_definition = {
-        fallback = true, -- fall back to standard LSP definition on failure
+        fallback = true,        -- fall back to standard LSP definition on failure
       },
       server = {
         capabilities = capabilities,
         on_attach = on_attach
-      }})
+      }
+    })
   end
 }
 -- end LSP Settings ---------------}}}}}}}}}}}}}}}}}}}}}}}}
@@ -547,7 +553,7 @@ cmp.setup {
     end,
   },
   mapping = cmp.mapping.preset.insert {
-    ['<C-d>'] = cmp.mapping.scroll_docs( -4),
+    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<c-y>'] = cmp.mapping.confirm {
@@ -566,8 +572,8 @@ cmp.setup {
     ['<S-Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
-      elseif luasnip.jumpable( -1) then
-        luasnip.jump( -1)
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
       else
         fallback()
       end
@@ -579,8 +585,8 @@ cmp.setup {
   },
   formatting = {
     format = lspkind.cmp_format({
-      mode = 'symbol', -- show only symbol annotations
-      maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+      mode = 'symbol',       -- show only symbol annotations
+      maxwidth = 50,         -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
       ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
     })
   }
@@ -750,41 +756,44 @@ require("null-ls").setup({
   end,
 })
 
--- trouble 
+-- trouble
 require("trouble").setup(
   { use_diagnostic_signs = true }
 )
 -- Lua
 vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>",
-  {silent = true, noremap = true}
+  { silent = true, noremap = true }
 )
 vim.keymap.set("n", "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>",
-  {silent = true, noremap = true}
+  { silent = true, noremap = true }
 )
 vim.keymap.set("n", "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>",
-  {silent = true, noremap = true}
+  { silent = true, noremap = true }
 )
 vim.keymap.set("n", "<leader>xl", "<cmd>TroubleToggle loclist<cr>",
-  {silent = true, noremap = true}
+  { silent = true, noremap = true }
 )
 vim.keymap.set("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>",
-  {silent = true, noremap = true}
+  { silent = true, noremap = true }
 )
 vim.keymap.set("n", "gR", "<cmd>TroubleToggle lsp_references<cr>",
-  {silent = true, noremap = true}
+  { silent = true, noremap = true }
 )
 
-vim.keymap.set('n', '<leader>fe', function() require("neo-tree.command").execute({ toggle = true, dir = Get_root() }) end, {desc='Explorer NeoTree (root dir)'})
-vim.keymap.set('n', '<leader>fE', function() require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd() }) end, {desc='Explorer NeoTree (cwd)'})
+vim.keymap.set('n', '<leader>fe', function() require("neo-tree.command").execute({ toggle = true, dir = Get_root() }) end,
+{ desc = 'Explorer NeoTree (root dir)' })
+vim.keymap.set('n', '<leader>fE',
+function() require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd() }) end,
+{ desc = 'Explorer NeoTree (cwd)' })
 
 -- Unless you are still migrating, remove the deprecated commands from v1.x
 vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
 
 -- If you want icons for diagnostic errors, you'll need to define them somewhere:
-vim.fn.sign_define("DiagnosticSignError", {text = " ", texthl = "DiagnosticSignError"})
-vim.fn.sign_define("DiagnosticSignWarn", {text = " ", texthl = "DiagnosticSignWarn"})
-vim.fn.sign_define("DiagnosticSignInfo", {text = " ", texthl = "DiagnosticSignInfo"})
-vim.fn.sign_define("DiagnosticSignHint", {text = "", texthl = "DiagnosticSignHint"})
+vim.fn.sign_define("DiagnosticSignError", { text = " ", texthl = "DiagnosticSignError" })
+vim.fn.sign_define("DiagnosticSignWarn", { text = " ", texthl = "DiagnosticSignWarn" })
+vim.fn.sign_define("DiagnosticSignInfo", { text = " ", texthl = "DiagnosticSignInfo" })
+vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint" })
 -- NOTE: this is changed from v1.x, which used the old style of highlight groups
 -- in the form "LspDiagnosticsSignWarning"
 
@@ -794,7 +803,7 @@ require("neo-tree").setup({
   enable_git_status = true,
   enable_diagnostics = true,
   sort_case_insensitive = false, -- used when sorting files and directories in the tree
-  sort_function = nil , -- use a custom function for sorting files and directories in the tree 
+  sort_function = nil,           -- use a custom function for sorting files and directories in the tree
   default_component_configs = {
     container = {
       enable_character_fade = true
@@ -834,10 +843,10 @@ require("neo-tree").setup({
     git_status = {
       symbols = {
         -- Change type
-        added     = "", -- or "✚", but this is redundant info if you use git_status_colors on the name
-        modified  = "", -- or "", but this is redundant info if you use git_status_colors on the name
-        deleted   = "✖",-- this can only be used in the git_status source
-        renamed   = "",-- this can only be used in the git_status source
+        added     = "",  -- or "✚", but this is redundant info if you use git_status_colors on the name
+        modified  = "",  -- or "", but this is redundant info if you use git_status_colors on the name
+        deleted   = "✖", -- this can only be used in the git_status source
+        renamed   = "", -- this can only be used in the git_status source
         -- Status type
         untracked = "",
         ignored   = "",
@@ -855,7 +864,7 @@ require("neo-tree").setup({
       nowait = true,
     },
     mappings = {
-      ["<space>"] = false ,
+      ["<space>"] = false,
       ["<2-LeftMouse>"] = "open",
       ["<cr>"] = false,
       ["<esc>"] = "revert_preview",
@@ -918,7 +927,7 @@ require("neo-tree").setup({
     follow_current_file = true, -- This will find and focus the file in the active buffer every
     bind_to_cwd = false,
     -- time the current file is changed while the tree is open.
-    group_empty_dirs = false, -- when true, empty folders will be grouped together
+    group_empty_dirs = false,               -- when true, empty folders will be grouped together
     hijack_netrw_behavior = "open_default", -- netrw disabled, opening a directory opens neo-tree
     -- in whatever position is specified in window.position
     -- "open_current",  -- netrw disabled, opening a directory opens within the
@@ -945,7 +954,7 @@ require("neo-tree").setup({
   buffers = {
     follow_current_file = true, -- This will find and focus the file in the active buffer every
     -- time the current file is changed while the tree is open.
-    group_empty_dirs = true, -- when true, empty folders will be grouped together
+    group_empty_dirs = true,    -- when true, empty folders will be grouped together
     show_unloaded = true,
     window = {
       mappings = {
@@ -973,7 +982,7 @@ require("neo-tree").setup({
 
 vim.cmd([[nnoremap \ :Neotree reveal<cr>]])
 
--- Treesitter config 
+-- Treesitter config
 
 require('nvim-treesitter.configs').setup {
   ensure_installed = {
@@ -1009,7 +1018,7 @@ require('nvim-treesitter.configs').setup {
     },
   },
   matchup = {
-    enable = true,              -- mandatory, false will disable the whole extension
+    enable = true, -- mandatory, false will disable the whole extension
   },
   autotag = {
     enable = true,
@@ -1025,6 +1034,16 @@ require("noice").setup({
       ["cmp.entry.get_documentation"] = true,
     },
   },
+  messages = {
+    -- NOTE: If you enable messages, then the cmdline is enabled automatically.
+    -- This is a current Neovim limitation.
+    enabled = true, -- enables the Noice messages UI
+    view = "mini", -- default view for messages
+    view_error = "notify", -- view for errors
+    view_warn = "notify", -- view for warnings
+    view_history = "messages", -- view for :messages
+    view_search = "virtualtext", -- view for search count messages. Set to `false` to disable
+  },
   -- you can enable a preset for easier configuration
   presets = {
     long_message_to_split = true, -- long messages will be sent to a split
@@ -1032,48 +1051,48 @@ require("noice").setup({
     command_palette = true,
   },
   views = {
-      cmdline_popup = {
-        position = {
-          row = "50%",
-          col = "50%",
-        },
-        size = {
-          width = 60,
-          height = "auto",
-        },
-        border = {
-          style = "double",
-          padding = { 1, 2 },
-        },
+    cmdline_popup = {
+      position = {
+        row = "50%",
+        col = "50%",
       },
-      popupmenu = {
-        relative = "editor",
-        position = {
-          row = 8,
-          col = "50%",
-        },
-        size = {
-          width = 60,
-          height = 10,
-        },
-        border = {
-          style = "double",
-          padding = { 0, 1 },
-        },
-        win_options = {
-          winhighlight = { Normal = "Normal", FloatBorder = "DiagnosticInfo" },
-        },
+      size = {
+        width = 60,
+        height = "auto",
+      },
+      border = {
+        style = "double",
+        padding = { 1, 2 },
       },
     },
+    popupmenu = {
+      relative = "editor",
+      position = {
+        row = 8,
+        col = "50%",
+      },
+      size = {
+        width = 60,
+        height = 10,
+      },
+      border = {
+        style = "double",
+        padding = { 0, 1 },
+      },
+      win_options = {
+        winhighlight = { Normal = "Normal", FloatBorder = "DiagnosticInfo" },
+      },
+    },
+  },
 })
 
 -- bufdelete.nvim mappings
 vim.keymap.set('n', '<leader>bd', function() require('bufdelete').bufdelete(0, true) end, { desc = '[B]uffer [D]elete' })
 
 -- Git signs setup
-require('gitsigns').setup ({
-  debug_mode = true,
-  signs = {
+require('gitsigns').setup({
+  debug_mode                   = true,
+  signs                        = {
     add = { text = "▎" },
     change = { text = "▎" },
     delete = { text = "契" },
@@ -1081,28 +1100,28 @@ require('gitsigns').setup ({
     changedelete = { text = "▎" },
     untracked = { text = "▎" },
   },
-  signcolumn = true,  -- Toggle with `:Gitsigns toggle_signs`
-  numhl      = false, -- Toggle with `:Gitsigns toggle_numhl`
-  linehl     = false, -- Toggle with `:Gitsigns toggle_linehl`
-  word_diff  = false, -- Toggle with `:Gitsigns toggle_word_diff`
-  watch_gitdir = {
+  signcolumn                   = true, -- Toggle with `:Gitsigns toggle_signs`
+  numhl                        = false, -- Toggle with `:Gitsigns toggle_numhl`
+  linehl                       = false, -- Toggle with `:Gitsigns toggle_linehl`
+  word_diff                    = false, -- Toggle with `:Gitsigns toggle_word_diff`
+  watch_gitdir                 = {
     interval = 1000,
     follow_files = true
   },
-  attach_to_untracked = true,
-  current_line_blame = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
-  current_line_blame_opts = {
+  attach_to_untracked          = true,
+  current_line_blame           = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
+  current_line_blame_opts      = {
     virt_text = true,
     virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
     delay = 1000,
     ignore_whitespace = false,
   },
   current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d> - <summary>',
-  sign_priority = 6,
-  update_debounce = 100,
-  status_formatter = nil, -- Use default
-  max_file_length = 40000, -- Disable if file is longer than this (in lines)
-  preview_config = {
+  sign_priority                = 6,
+  update_debounce              = 100,
+  status_formatter             = nil, -- Use default
+  max_file_length              = 40000, -- Disable if file is longer than this (in lines)
+  preview_config               = {
     -- Options passed to nvim_open_win
     border = 'single',
     style = 'minimal',
@@ -1110,10 +1129,10 @@ require('gitsigns').setup ({
     row = 0,
     col = 1
   },
-  yadm = {
+  yadm                         = {
     enable = false
   },
-  on_attach = function(bufnr)
+  on_attach                    = function(bufnr)
     local gs = package.loaded.gitsigns
 
     local function map(mode, l, r, opts)
@@ -1127,64 +1146,68 @@ require('gitsigns').setup ({
       if vim.wo.diff then return ']c' end
       vim.schedule(function() gs.next_hunk() end)
       return '<Ignore>'
-    end, {expr=true})
+    end, { expr = true })
 
     map('n', '[c', function()
       if vim.wo.diff then return '[c' end
       vim.schedule(function() gs.prev_hunk() end)
       return '<Ignore>'
-    end, {expr=true})
+    end, { expr = true })
 
     -- Actions
-    map({'n', 'v'}, '<leader>hs', ':Gitsigns stage_hunk<CR>')
-    map({'n', 'v'}, '<leader>hr', ':Gitsigns reset_hunk<CR>')
+    map({ 'n', 'v' }, '<leader>hs', ':Gitsigns stage_hunk<CR>')
+    map({ 'n', 'v' }, '<leader>hr', ':Gitsigns reset_hunk<CR>')
     map('n', '<leader>hS', gs.stage_buffer)
     map('n', '<leader>hu', gs.undo_stage_hunk)
     map('n', '<leader>hR', gs.reset_buffer)
     map('n', '<leader>hp', gs.preview_hunk)
-    map('n', '<leader>hb', function() gs.blame_line{full=true} end)
+    map('n', '<leader>hb', function() gs.blame_line { full = true } end)
     map('n', '<leader>tb', gs.toggle_current_line_blame)
     map('n', '<leader>hd', gs.diffthis)
     map('n', '<leader>hD', function() gs.diffthis('~') end)
     map('n', '<leader>td', gs.toggle_deleted)
 
     -- Text object
-    map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+    map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
   end
 })
--- Octo nvim 
-require"octo".setup({
-  default_remote = {"upstream", "origin"}; -- order to try remotes
+-- Octo nvim
+require "octo".setup({
+  default_remote = { "upstream", "origin" }, -- order to try remotes
   ssh_aliases = {},                        -- SSH aliases. e.g. `ssh_aliases = {["github.com-work"] = "github.com"}`
-  reaction_viewer_hint_icon = "";         -- marker for user reactions
-  user_icon = " ";                        -- user icon
-  timeline_marker = "";                   -- timeline marker
-  timeline_indent = "2";                   -- timeline indentation
-  right_bubble_delimiter = "";            -- bubble delimiter
-  left_bubble_delimiter = "";             -- bubble delimiter
-  github_hostname = "";                    -- GitHub Enterprise host
-  snippet_context_lines = 4;               -- number or lines around commented lines
+  reaction_viewer_hint_icon = "",       -- marker for user reactions
+  user_icon = " ",                      -- user icon
+  timeline_marker = "",                 -- timeline marker
+  timeline_indent = "2",                   -- timeline indentation
+  right_bubble_delimiter = "",          -- bubble delimiter
+  left_bubble_delimiter = "",           -- bubble delimiter
+  github_hostname = "",                    -- GitHub Enterprise host
+  snippet_context_lines = 4,               -- number or lines around commented lines
   gh_env = {},                             -- extra environment variables to pass on to GitHub CLI, can be a table or function returning a table
   timeout = 5000,                          -- timeout for requests between the remote server
   ui = {
     use_signcolumn = true,                 -- show "modified" marks on the sign column
   },
   issues = {
-    order_by = {                           -- criteria to sort results of `Octo issue list`
-      field = "CREATED_AT",                -- either COMMENTS, CREATED_AT or UPDATED_AT (https://docs.github.com/en/graphql/reference/enums#issueorderfield)
-      direction = "DESC"                   -- either DESC or ASC (https://docs.github.com/en/graphql/reference/enums#orderdirection)
+    order_by = {
+                            -- criteria to sort results of `Octo issue list`
+      field = "CREATED_AT", -- either COMMENTS, CREATED_AT or UPDATED_AT (https://docs.github.com/en/graphql/reference/enums#issueorderfield)
+      direction =
+      "DESC"                -- either DESC or ASC (https://docs.github.com/en/graphql/reference/enums#orderdirection)
     }
   },
   pull_requests = {
-    order_by = {                           -- criteria to sort the results of `Octo pr list`
-      field = "CREATED_AT",                -- either COMMENTS, CREATED_AT or UPDATED_AT (https://docs.github.com/en/graphql/reference/enums#issueorderfield)
-      direction = "DESC"                   -- either DESC or ASC (https://docs.github.com/en/graphql/reference/enums#orderdirection)
+    order_by = {
+                                             -- criteria to sort the results of `Octo pr list`
+      field = "CREATED_AT",                  -- either COMMENTS, CREATED_AT or UPDATED_AT (https://docs.github.com/en/graphql/reference/enums#issueorderfield)
+      direction =
+      "DESC"                                 -- either DESC or ASC (https://docs.github.com/en/graphql/reference/enums#orderdirection)
     },
     always_select_remote_on_create = "false" -- always give prompt to select base remote repo when creating PRs
   },
   file_panel = {
-    size = 10,                             -- changed files panel rows
-    use_icons = true                       -- use web-devicons in file panel (if false, nvim-web-devicons does not need to be installed)
+    size = 10,       -- changed files panel rows
+    use_icons = true -- use web-devicons in file panel (if false, nvim-web-devicons does not need to be installed)
   },
   mappings = {
     issue = {
@@ -1375,8 +1398,8 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- vim.api.nvim_set_hl(0,'IlluminatedWordText',{ bg='#ff6666' })
-vim.api.nvim_set_hl(0,'IlluminatedWordRead',{ link = "WildMenu" })
-vim.api.nvim_set_hl(0,'IlluminatedWordWrite',{ link='Visual' })
+vim.api.nvim_set_hl(0, 'IlluminatedWordRead', { link = "WildMenu" })
+vim.api.nvim_set_hl(0, 'IlluminatedWordWrite', { link = 'Visual' })
 
 -- git blame shorter
 -- vim.g.gitblame_message_template = '   <summary> • <date> • <author>'
