@@ -100,7 +100,7 @@ require('packer').startup(function(use)
 
   -- Packer
   use({
-        -- Highly experimental plugin that completely replaces the UI for messages, cmdline and the popupmenu
+    -- Highly experimental plugin that completely replaces the UI for messages, cmdline and the popupmenu
     "folke/noice.nvim",
     requires = {
       -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
@@ -165,9 +165,10 @@ require('packer').startup(function(use)
 
   -- Fuzzy Finder (files, lsp, etc)
   use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } }
-
-  -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
-  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
+  use { -- File Browser extension for telescope.nvim
+    "nvim-telescope/telescope-file-browser.nvim",
+    requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
+  }
 
   -- Add custom plugins to packer from ~/.config/nvim/lua/custom/plugins.lua
   local has_plugins, plugins = pcall(require, 'custom.plugins')
@@ -380,9 +381,11 @@ require('telescope').setup {
     },
   },
 }
+-- Enable telescope file browser
+require("telescope").load_extension "file_browser"
 
--- Enable telescope fzf native, if installed
-pcall(require('telescope').load_extension, 'fzf')
+-- open file_browser with the path of the current buffer
+vim.keymap.set("n", "<leader>fb", require "telescope".extensions.file_browser.file_browser, { noremap = true })
 
 -- See `:help telescope.builtin`
 vim.keymap.set('n', '<leader>fr', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
@@ -395,7 +398,7 @@ vim.keymap.set('n', '<leader>/', function()
 end, { desc = '[/] Fuzzily search in current buffer]' })
 
 vim.api.nvim_set_keymap('n', '<leader><space>', "<cmd>Telescope buffers show_all_buffers=true<cr>",
-{ desc = '[ ] Find existing buffers' })
+  { desc = '[ ] Find existing buffers' })
 vim.keymap.set('n', '<leader>uC', Util("colorscheme", { enable_preview = true }), { desc = '[S]earch [C]olorscheme' })
 vim.keymap.set('n', '<leader>ff', Util("files"), { desc = '[S]earch [F]iles' })
 vim.keymap.set('n', '<leader>fF', Util("files", { cwd = false }), { desc = '[S]earch [C]olorscheme' })
@@ -406,8 +409,9 @@ vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc
 vim.keymap.set('n', '<leader>sw', Util("grep_string"), { desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>sW', Util("grep_string", { cwd = false }), { desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>sl', require('telescope.builtin').resume, { desc = '[S]earch [L]ast' })
-vim.keymap.set('n', '<leader>sg', Util("live_grep"), { desc = '[S]earch by [G]rep' })
-vim.keymap.set('n', '<leader>sG', Util("live_grep", { cwd = false }), { desc = '[S]earch by [G]rep' })
+vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
+-- vim.keymap.set('n', '<leader>sg', Util("live_grep"), { desc = '[S]earch by [G]rep' })
+-- vim.keymap.set('n', '<leader>sG', Util("live_grep", { cwd = false }), { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 
 -- Diagnostic keymaps
@@ -780,11 +784,6 @@ vim.keymap.set("n", "gR", "<cmd>TroubleToggle lsp_references<cr>",
   { silent = true, noremap = true }
 )
 
-vim.keymap.set('n', '<leader>fe', function() require("neo-tree.command").execute({ toggle = true, dir = Get_root() }) end,
-{ desc = 'Explorer NeoTree (root dir)' })
-vim.keymap.set('n', '<leader>fE',
-function() require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd() }) end,
-{ desc = 'Explorer NeoTree (cwd)' })
 
 -- Unless you are still migrating, remove the deprecated commands from v1.x
 vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
@@ -797,190 +796,32 @@ vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSig
 -- NOTE: this is changed from v1.x, which used the old style of highlight groups
 -- in the form "LspDiagnosticsSignWarning"
 
+-- Neo-tree configs {{{{
 require("neo-tree").setup({
-  close_if_last_window = false, -- Close Neo-tree if it is the last window left in the tab
-  popup_border_style = "rounded",
-  enable_git_status = true,
-  enable_diagnostics = true,
-  sort_case_insensitive = false, -- used when sorting files and directories in the tree
-  sort_function = nil,           -- use a custom function for sorting files and directories in the tree
-  default_component_configs = {
-    container = {
-      enable_character_fade = true
+  sync_root_with_cwd = true,
+  filesystem = {
+    follow_current_file = true,
+    use_libuv_file_watcher = true,
+  },
+  window = {
+    mappings = {
+      ["<space>"] = "none",
     },
+  },
+  default_component_configs = {
     indent = {
-      indent_size = 2,
-      padding = 1, -- extra padding on left hand side
-      -- indent guides
-      with_markers = true,
-      indent_marker = "│",
-      last_indent_marker = "└",
-      highlight = "NeoTreeIndentMarker",
-      -- expander config, needed for nesting files
-      with_expanders = nil, -- if nil and file nesting is enabled, will enable expanders
+      with_expanders = true,     -- if nil and file nesting is enabled, will enable expanders
       expander_collapsed = "",
       expander_expanded = "",
       expander_highlight = "NeoTreeExpander",
     },
-    icon = {
-      folder_closed = "",
-      folder_open = "",
-      folder_empty = "ﰊ",
-      -- The next two settings are only a fallback, if you use nvim-web-devicons and configure default icons there
-      -- then these will never be used.
-      default = "*",
-      highlight = "NeoTreeFileIcon"
-    },
-    modified = {
-      symbol = "[+]",
-      highlight = "NeoTreeModified",
-    },
-    name = {
-      trailing_slash = false,
-      use_git_status_colors = true,
-      highlight = "NeoTreeFileName",
-    },
-    git_status = {
-      symbols = {
-        -- Change type
-        added     = "",  -- or "✚", but this is redundant info if you use git_status_colors on the name
-        modified  = "",  -- or "", but this is redundant info if you use git_status_colors on the name
-        deleted   = "✖", -- this can only be used in the git_status source
-        renamed   = "", -- this can only be used in the git_status source
-        -- Status type
-        untracked = "",
-        ignored   = "",
-        unstaged  = "",
-        staged    = "",
-        conflict  = "",
-      }
-    },
   },
-  window = {
-    position = "left",
-    width = 40,
-    mapping_options = {
-      noremap = true,
-      nowait = true,
-    },
-    mappings = {
-      ["<space>"] = false,
-      ["<2-LeftMouse>"] = "open",
-      ["<cr>"] = false,
-      ["<esc>"] = "revert_preview",
-      ["P"] = { "toggle_preview", config = { use_float = true } },
-      ["l"] = "open",
-      ["S"] = "open_split",
-      ["s"] = "open_vsplit",
-      ["t"] = "open_tabnew",
-      ["w"] = "open_with_window_picker",
-      ["h"] = "close_node",
-      ["z"] = "close_all_nodes",
-      ["a"] = {
-        "add",
-        -- this command supports BASH style brace expansion ("x{a,b,c}" -> xa,xb,xc). see `:h neo-tree-file-actions` for details
-        -- some commands may take optional config options, see `:h neo-tree-mappings` for details
-        config = {
-          show_path = "none" -- "none", "relative", "absolute"
-        }
-      },
-      ["A"] = "add_directory", -- also accepts the optional config.show_path option like "add". this also supports BASH style brace expansion.
-      ["d"] = "delete",
-      ["r"] = "rename",
-      ["y"] = "copy_to_clipboard",
-      ["x"] = "cut_to_clipboard",
-      ["p"] = "paste_from_clipboard",
-      ["c"] = "copy", -- takes text input for destination, also accepts the optional config.show_path option like "add":
-      ["m"] = "move", -- takes text input for destination, also accepts the optional config.show_path option like "add".
-      ["q"] = "close_window",
-      ["R"] = "refresh",
-      ["?"] = "show_help",
-      ["<"] = "prev_source",
-      [">"] = "next_source",
-    }
-  },
-  nesting_rules = {},
-  filesystem = {
-    filtered_items = {
-      visible = false, -- when true, they will just be displayed differently than normal items
-      hide_dotfiles = false,
-      hide_gitignored = true,
-      hide_hidden = true, -- only works on Windows for hidden files/directories
-      hide_by_name = {
-        "node_modules"
-      },
-      hide_by_pattern = { -- uses glob style patterns
-        "*.meta",
-        "*/src/*/tsconfig.json",
-      },
-      always_show = { -- remains visible even if other settings would normally hide it
-        ".gitignored",
-      },
-      never_show = { -- remains hidden even if visible is toggled to true, this overrides always_show
-        ".DS_Store",
-        "thumbs.db"
-      },
-      never_show_by_pattern = { -- uses glob style patterns
-        ".null-ls_*",
-      },
-    },
-    follow_current_file = true, -- This will find and focus the file in the active buffer every
-    bind_to_cwd = false,
-    -- time the current file is changed while the tree is open.
-    group_empty_dirs = false,               -- when true, empty folders will be grouped together
-    hijack_netrw_behavior = "open_default", -- netrw disabled, opening a directory opens neo-tree
-    -- in whatever position is specified in window.position
-    -- "open_current",  -- netrw disabled, opening a directory opens within the
-    -- window like netrw would, regardless of window.position
-    -- "disabled",    -- netrw left alone, neo-tree does not handle opening dirs
-    use_libuv_file_watcher = false, -- This will use the OS level file watchers to detect changes
-    -- instead of relying on nvim autocmd events.
-    window = {
-      mappings = {
-        ["<bs>"] = "navigate_up",
-        ["."] = "set_root",
-        ["H"] = "toggle_hidden",
-        ["/"] = "fuzzy_finder",
-        ["D"] = "fuzzy_finder_directory",
-        ["#"] = "fuzzy_sorter", -- fuzzy sorting using the fzy algorithm
-        -- ["D"] = "fuzzy_sorter_directory",
-        ["f"] = "filter_on_submit",
-        ["<c-x>"] = "clear_filter",
-        ["[g"] = "prev_git_modified",
-        ["]g"] = "next_git_modified",
-      }
-    }
-  },
-  buffers = {
-    follow_current_file = true, -- This will find and focus the file in the active buffer every
-    -- time the current file is changed while the tree is open.
-    group_empty_dirs = true,    -- when true, empty folders will be grouped together
-    show_unloaded = true,
-    window = {
-      mappings = {
-        ["bd"] = "buffer_delete",
-        ["<bs>"] = "navigate_up",
-        ["."] = "set_root",
-      }
-    },
-  },
-  git_status = {
-    window = {
-      position = "float",
-      mappings = {
-        ["A"]  = "git_add_all",
-        ["gu"] = "git_unstage_file",
-        ["ga"] = "git_add_file",
-        ["gr"] = "git_revert_file",
-        ["gc"] = "git_commit",
-        ["gp"] = "git_push",
-        ["gg"] = "git_commit_and_push",
-      }
-    }
-  }
 })
 
+vim.keymap.set('n', '<leader>fe', function() require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd() }) end, { desc = 'Explorer NeoTree (root dir)' })
+vim.keymap.set('n', '<leader>fE', function() require("neo-tree.command").execute({ toggle = true, dir = Get_root() }) end, { desc = 'Explorer NeoTree (cwd)' })
 vim.cmd([[nnoremap \ :Neotree reveal<cr>]])
+-- }}}}
 
 -- Treesitter config
 
@@ -1037,11 +878,11 @@ require("noice").setup({
   messages = {
     -- NOTE: If you enable messages, then the cmdline is enabled automatically.
     -- This is a current Neovim limitation.
-    enabled = true, -- enables the Noice messages UI
-    view = "mini", -- default view for messages
-    view_error = "notify", -- view for errors
-    view_warn = "notify", -- view for warnings
-    view_history = "messages", -- view for :messages
+    enabled = true,              -- enables the Noice messages UI
+    view = "mini",               -- default view for messages
+    view_error = "notify",       -- view for errors
+    view_warn = "notify",        -- view for warnings
+    view_history = "messages",   -- view for :messages
     view_search = "virtualtext", -- view for search count messages. Set to `false` to disable
   },
   -- you can enable a preset for easier configuration
@@ -1100,7 +941,7 @@ require('gitsigns').setup({
     changedelete = { text = "▎" },
     untracked = { text = "▎" },
   },
-  signcolumn                   = true, -- Toggle with `:Gitsigns toggle_signs`
+  signcolumn                   = true,  -- Toggle with `:Gitsigns toggle_signs`
   numhl                        = false, -- Toggle with `:Gitsigns toggle_numhl`
   linehl                       = false, -- Toggle with `:Gitsigns toggle_linehl`
   word_diff                    = false, -- Toggle with `:Gitsigns toggle_word_diff`
@@ -1119,7 +960,7 @@ require('gitsigns').setup({
   current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d> - <summary>',
   sign_priority                = 6,
   update_debounce              = 100,
-  status_formatter             = nil, -- Use default
+  status_formatter             = nil,   -- Use default
   max_file_length              = 40000, -- Disable if file is longer than this (in lines)
   preview_config               = {
     -- Options passed to nvim_open_win
@@ -1174,23 +1015,23 @@ require('gitsigns').setup({
 -- Octo nvim
 require "octo".setup({
   default_remote = { "upstream", "origin" }, -- order to try remotes
-  ssh_aliases = {},                        -- SSH aliases. e.g. `ssh_aliases = {["github.com-work"] = "github.com"}`
-  reaction_viewer_hint_icon = "",       -- marker for user reactions
-  user_icon = " ",                      -- user icon
-  timeline_marker = "",                 -- timeline marker
-  timeline_indent = "2",                   -- timeline indentation
-  right_bubble_delimiter = "",          -- bubble delimiter
-  left_bubble_delimiter = "",           -- bubble delimiter
-  github_hostname = "",                    -- GitHub Enterprise host
-  snippet_context_lines = 4,               -- number or lines around commented lines
-  gh_env = {},                             -- extra environment variables to pass on to GitHub CLI, can be a table or function returning a table
-  timeout = 5000,                          -- timeout for requests between the remote server
+  ssh_aliases = {},                          -- SSH aliases. e.g. `ssh_aliases = {["github.com-work"] = "github.com"}`
+  reaction_viewer_hint_icon = "",         -- marker for user reactions
+  user_icon = " ",                        -- user icon
+  timeline_marker = "",                   -- timeline marker
+  timeline_indent = "2",                     -- timeline indentation
+  right_bubble_delimiter = "",            -- bubble delimiter
+  left_bubble_delimiter = "",             -- bubble delimiter
+  github_hostname = "",                      -- GitHub Enterprise host
+  snippet_context_lines = 4,                 -- number or lines around commented lines
+  gh_env = {},                               -- extra environment variables to pass on to GitHub CLI, can be a table or function returning a table
+  timeout = 5000,                            -- timeout for requests between the remote server
   ui = {
-    use_signcolumn = true,                 -- show "modified" marks on the sign column
+    use_signcolumn = true,                   -- show "modified" marks on the sign column
   },
   issues = {
     order_by = {
-                            -- criteria to sort results of `Octo issue list`
+      -- criteria to sort results of `Octo issue list`
       field = "CREATED_AT", -- either COMMENTS, CREATED_AT or UPDATED_AT (https://docs.github.com/en/graphql/reference/enums#issueorderfield)
       direction =
       "DESC"                -- either DESC or ASC (https://docs.github.com/en/graphql/reference/enums#orderdirection)
@@ -1198,7 +1039,7 @@ require "octo".setup({
   },
   pull_requests = {
     order_by = {
-                                             -- criteria to sort the results of `Octo pr list`
+      -- criteria to sort the results of `Octo pr list`
       field = "CREATED_AT",                  -- either COMMENTS, CREATED_AT or UPDATED_AT (https://docs.github.com/en/graphql/reference/enums#issueorderfield)
       direction =
       "DESC"                                 -- either DESC or ASC (https://docs.github.com/en/graphql/reference/enums#orderdirection)
