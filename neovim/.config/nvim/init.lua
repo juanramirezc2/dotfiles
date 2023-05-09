@@ -9,6 +9,10 @@ vim.g.maplocalleader = ' '
 -- See `:help vim.keymap.set()`
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
+-- Remap for dealing with word wrap
+vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+
 local opt = vim.opt
 
 opt.autowrite = true -- Enable auto write
@@ -75,10 +79,6 @@ nnoremap("<C-l>", "g_")
 vnoremap("<C-l>", "g_")
 nnoremap("<leader><CR>", ":nohlsearch<CR>")
 
--- Remap for dealing with word wrap
-vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-
 -- Copy to clipboard
 vnoremap("<C-c>", '"*y')
 nnoremap("<C-c>", '"*y')
@@ -96,5 +96,4 @@ vnoremap("//", [[y/\V<C-r>=escape(@",'/\')<CR><CR>]])
 nnoremap("<leader><tab>", "<C-^>")
 nnoremap("<leader>vr", ':e $MYVIMRC<CR>')
 -- plugin configs
--- local plugins = require("plugins")
 require("plugins-lite")

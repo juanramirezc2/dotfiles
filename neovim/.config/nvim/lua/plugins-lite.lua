@@ -220,7 +220,7 @@ vim.api.nvim_set_hl(0, 'Cursor2', { bg = '#ff6666' })
 vim.opt.guicursor = "n-v-c:block-Cursor1/lCursor,i-ci-ve:ver25-Cursor2/lCursor2,r-cr:hor20,o:hor50"
 
 -- require('solarized').set()
-vim.cmd [[colorscheme gruvbox]]
+vim.cmd [[colorscheme dayfox]]
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
