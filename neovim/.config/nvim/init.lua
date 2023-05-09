@@ -63,47 +63,9 @@ vim.g.markdown_recommended_style = 0
 -- }}}}}}}}}}}}}}}}}}}}}}}}}}}
 -- local env = vim.env
 local utils = require("utils")
-local fn = vim.fn
-local cmd = vim.cmd
-local g = vim.g
-local o = vim.o
--- local nmap = utils.nmap
--- local vmap = utils.vmap
-local imap = utils.imap
--- local xmap = utils.xmap
--- local omap = utils.omap
 local inoremap = utils.inoremap
 local nnoremap = utils.nnoremap
 local vnoremap = utils.vnoremap
-
--- Global Configs
--- o.background = 'light'
---Make line numbers default
-vim.wo.number       = true
-vim.o.filetype      = true
---Enable mouse mode
-vim.o.mouse         = 'a'
-vim.o.scrolloff     = 12 -- Vertical Scroll Offset
-vim.o.sidescrolloff = 8 -- Horizontal Scroll Offset
-vim.o.mouse         = 'a' -- Enable mouse mode
---Enable break indent
-vim.o.breakindent   = true
-vim.o.splitbelow    = true -- Force Split Below
-vim.o.splitright    = true -- Force Split Right
--- Enable cursor line
--- vim.wo.cursorline   = true
-vim.o.jumpoptions   = "stack"
-o.foldlevelstart    = 99
-o.autoindent        = true
-o.smartindent       = true
---Case insensitive searching UNLESS /C or capital in search
-vim.o.ignorecase    = true
-vim.o.smartcase     = true
-
---Decrease update time
-vim.o.updatetime = 250
-vim.wo.signcolumn = 'yes'
-
 
 -- Core mappings changed
 inoremap("jk", "<Esc>")
@@ -132,7 +94,6 @@ vnoremap("<leader>p", [["_dp]])
 vnoremap("//", [[y/\V<C-r>=escape(@",'/\')<CR><CR>]])
 -- Switch to alternative buffer
 nnoremap("<leader><tab>", "<C-^>")
-
 nnoremap("<leader>vr", ':e $MYVIMRC<CR>')
 -- plugin configs
 -- local plugins = require("plugins")
