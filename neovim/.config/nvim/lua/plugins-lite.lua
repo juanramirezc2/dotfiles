@@ -830,6 +830,17 @@ require('nvim-treesitter.configs').setup {
   }
 }
 
+vim.o.foldmethod = "expr"
+vim.o.foldexpr = "nvim_treesitter#foldexpr()"
+vim.o.foldlevelstart = 99
+vim.o.foldcolumn = "auto"
+vim.o.foldtext = [[v:folddashes.substitute(getline(v:foldstart),'/\\*\\\|\\*/\\\|{{{\\d\\=','','g')]]
+
+vim.api.nvim_set_hl(0, 'Folded', { bg = 'grey', fg='blue' })
+vim.api.nvim_set_hl(0, 'FoldColumn', { bg = 'darkgrey', fg='white' })
+
+
+
 require("noice").setup({
   lsp = {
     -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
