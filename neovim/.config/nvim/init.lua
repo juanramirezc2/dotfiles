@@ -1,7 +1,13 @@
 -- nvim lazy config ---- {{{{{{{{{{{{{{{{{{{{{{{{{{{
--- This file is automatically loaded by plugins.config
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
+-- Set <space> as the leader key
+-- See `:help mapleader`
+--  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+
+-- Keymaps for better default experience
+-- See `:help vim.keymap.set()`
+vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 local opt = vim.opt
 
@@ -98,12 +104,6 @@ vim.o.smartcase     = true
 vim.o.updatetime = 250
 vim.wo.signcolumn = 'yes'
 
---Remap space as leader key
-vim.api.nvim_set_keymap('', '<Space>', '<Nop>', { noremap = true, silent = true })
-
--- Keymaps for better default experience
--- See `:help vim.keymap.set()`
-vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 -- Core mappings changed
 inoremap("jk", "<Esc>")
@@ -112,6 +112,10 @@ vnoremap("<C-h>", "^")
 nnoremap("<C-l>", "g_")
 vnoremap("<C-l>", "g_")
 nnoremap("<leader><CR>", ":nohlsearch<CR>")
+
+-- Remap for dealing with word wrap
+vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- Copy to clipboard
 vnoremap("<C-c>", '"*y')

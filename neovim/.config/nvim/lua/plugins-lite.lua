@@ -201,25 +201,6 @@ vim.api.nvim_create_autocmd('BufWritePost', {
   group = packer_group,
   pattern = vim.fn.expand '$MYVIMRC',
 })
-
--- [[ Setting options ]]
--- See `:help vim.o`
-
--- Enable break indent
-vim.o.breakindent = true
-
--- Save undo history
-vim.o.undofile = true
-
--- Case insensitive searching UNLESS /C or capital in search
-vim.o.ignorecase = true
-vim.o.smartcase = true
-
--- Decrease update time
-vim.o.updatetime = 250
-vim.wo.signcolumn = 'yes'
-
-
 -- ColorScheme settings
 require("gruvbox").setup({
   contrast = "hard", -- can be "hard", "soft" or empty string
@@ -234,38 +215,12 @@ require('material').setup({
 vim.g.material_style = "lighter"
 vim.o.background = "light"
 vim.o.termguicolors = true
-vim.api.nvim_set_hl(0, 'Cursor', { bg = '#39d939' })
+vim.api.nvim_set_hl(0, 'Cursor1', { bg = '#39d939' })
 vim.api.nvim_set_hl(0, 'Cursor2', { bg = '#ff6666' })
-vim.opt.guicursor = "n-v-c:block-Cursor/lCursor,i-ci-ve:ver25-Cursor2/lCursor2,r-cr:hor20,o:hor50"
+vim.opt.guicursor = "n-v-c:block-Cursor1/lCursor,i-ci-ve:ver25-Cursor2/lCursor2,r-cr:hor20,o:hor50"
 
 -- require('solarized').set()
 vim.cmd [[colorscheme gruvbox]]
-
--- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menuone,noselect'
-
--- [[ Basic Keymaps ]]
--- Set <space> as the leader key
--- See `:help mapleader`
---  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
-
--- Keymaps for better default experience
--- See `:help vim.keymap.set()`
-vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
-
--- Remap for dealing with word wrap
-vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-
-
--- vim.api.nvim_set_keymap('n', 'k', [[v:count ? (v:count > 5 ? "m'" . v:count : '') . 'k' : 'gk']] , { noremap = true, expr = true, silent = true })
--- vim.api.nvim_set_keymap('n', 'j', [[v:count ? (v:count > 5 ? "m'" . v:count : '') . 'j' : 'gj']], { noremap = true, expr = true, silent = true })
-
--- Store relative line number jumps in the jumplist if they exceed a threshold.
--- vim.keymap.set('n', 'k', function() return (vim.v.count > 5 and "m'" .. vim.v.count or 'gk') .. 'k' end, { expr = true })
--- vim.keymap.set('n', 'j', function() return (vim.v.count > 5 and "m'" .. vim.v.count or 'gj') .. 'j' end, { expr = true })
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
@@ -399,7 +354,7 @@ end, { desc = '[/] Fuzzily search in current buffer]' })
 
 vim.api.nvim_set_keymap('n', '<leader><space>', "<cmd>Telescope buffers show_all_buffers=true<cr>",
   { desc = '[ ] Find existing buffers' })
-vim.keymap.set('n', '<leader>uC', Util("colorscheme", { enable_preview = true }), { desc = '[S]earch [C]olorscheme' })
+vim.keymap.set('n', '<leader>fc', Util("colorscheme", { enable_preview = true }), { desc = '[S]earch [C]olorscheme' })
 vim.keymap.set('n', '<leader>ff', Util("files"), { desc = '[S]earch [F]iles' })
 vim.keymap.set('n', '<leader>fF', Util("files", { cwd = false }), { desc = '[S]earch [C]olorscheme' })
 vim.api.nvim_set_keymap('n', '<leader>:', "<cmd>Telescope command_history<cr>", { desc = 'Command History' })
@@ -806,6 +761,8 @@ require("neo-tree").setup({
   window = {
     mappings = {
       ["<space>"] = "none",
+      ["l"] = "open",
+      ["h"] = "close_node",
     },
   },
   default_component_configs = {
@@ -818,9 +775,16 @@ require("neo-tree").setup({
   },
 })
 
-vim.keymap.set('n', '<leader>fe', function() require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd() }) end, { desc = 'Explorer NeoTree (root dir)' })
-vim.keymap.set('n', '<leader>fE', function() require("neo-tree.command").execute({ toggle = true, dir = Get_root() }) end, { desc = 'Explorer NeoTree (cwd)' })
-vim.cmd([[nnoremap \ :Neotree reveal<cr>]])
+-- vim.keymap.set('n', '<leader>fe', function() require("neo-tree.command").execute({ toggle = true }) end, { desc = 'Explorer NeoTree (root dir)' })
+-- vim.keymap.set('n', '<leader>fE', function() require("neo-tree.command").execute({ toggle = true, dir = Get_root() }) end, { desc = 'Explorer NeoTree (cwd)' })
+
+vim.api.nvim_set_keymap('n', [[\]], "<cmd>Neotree toggle current reveal_force_cwd<cr>", { noremap = true })
+vim.api.nvim_set_keymap('n', [[|]], "<cmd>Neotree reveal<cr>", { noremap = true })
+vim.api.nvim_set_keymap('n', [[gd]], "<cmd>Neotree float reveal_file=<cfile> reveal_force_cwd<cr>", { noremap = true })
+vim.api.nvim_set_keymap('n', [[<leader>b]], "<cmd>Neotree toggle show buffers right<cr>", { noremap = true })
+vim.api.nvim_set_keymap('n', [[<leader>s]], "<cmd>Neotree float git_status<cr>", { noremap = true })
+
+-- vim.cmd([[nnoremap \ :Neotree reveal<cr>]])
 -- }}}}
 
 -- Treesitter config
@@ -1222,7 +1186,7 @@ require("illuminate").configure(
 
 local function map(key, dir, buffer)
   vim.keymap.set("n", key, function()
-    require("illuminate")["goto_" .. dir .. "_reference"](false)
+    require("illuminate")["goto_" .. dir .. "_reference"]()
   end, { desc = dir:sub(1, 1):upper() .. dir:sub(2) .. " Reference", buffer = buffer })
 end
 
