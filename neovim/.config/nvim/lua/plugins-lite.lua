@@ -23,10 +23,6 @@ require('packer').startup(function(use)
       'folke/neodev.nvim',
     },
   }
-  use { -- Autocompletion
-    'hrsh7th/nvim-cmp',
-    requires = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
-  }
   use {
     'f-person/git-blame.nvim'
   }
@@ -97,20 +93,6 @@ require('packer').startup(function(use)
     "folke/trouble.nvim",
     requires = "nvim-tree/nvim-web-devicons",
   }
-
-  -- Packer
-  use({
-    -- Highly experimental plugin that completely replaces the UI for messages, cmdline and the popupmenu
-    "folke/noice.nvim",
-    requires = {
-      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-      "MunifTanjim/nui.nvim",
-      -- OPTIONAL:
-      --   `nvim-notify` is only needed, if you want to use the notification view.
-      --   If not available, we use `mini` as the fallback
-      "rcarriga/nvim-notify",
-    }
-  })
   -- Git related plugins
   use { -- About Edit and review GitHub issues and pull requests from the comfort of your favorite editor
     'pwntester/octo.nvim',
@@ -148,7 +130,135 @@ require('packer').startup(function(use)
   use "EdenEast/nightfox.nvim" -- Packer
   use { "catppuccin/nvim", as = "catppuccin" }
   -- use 'RRethy/nvim-base16'
+  -- Copilot
+  use {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "InsertEnter",
+    module = "copilot",
+    config = function()
+      require("copilot").setup({
+        suggestion = { enabled = false },
+        panel = { enabled = false },
+      })
+    end,
+  }
+  use {
+    "zbirenbaum/copilot-cmp",
+    after = { "copilot.lua"},
+    config = function ()
+      require("copilot_cmp").setup()
+    end
+  }
+  use { -- Autocompletion
+    'hrsh7th/nvim-cmp',
+    requires = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
+    config = function ()
+      local cmp = require 'cmp'
+      local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+      cmp.event:on(
+        'confirm_done',
+        cmp_autopairs.on_confirm_done()
+      )
+      local luasnip = require 'luasnip'
+      local lspkind = require('lspkind')
 
+      local has_words_before = function()
+        if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
+        local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+        return col ~= 0 and vim.api.nvim_buf_get_text(0, line-1, 0, line-1, col, {})[1]:match("^%s*$") == nil
+      end
+
+      local confirm = cmp.mapping.confirm({ select = true })
+      local confirm_copilot = cmp.mapping.confirm({
+        select = true,
+        behavior = cmp.ConfirmBehavior.Replace,
+      })
+      cmp.setup {
+        snippet = {
+          expand = function(args)
+            luasnip.lsp_expand(args.body)
+          end,
+        },
+        mapping = cmp.mapping.preset.insert {
+          ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+          ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+          ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+          ["<C-f>"] = cmp.mapping.scroll_docs(4),
+          ["<C-Space>"] = cmp.mapping.complete(),
+          ["<C-e>"] = cmp.mapping.abort(),
+          ["<CR>"] = function(...)
+            local entry = cmp.get_selected_entry()
+            if entry and entry.source.name == "copilot" then
+              return confirm_copilot(...)
+            end
+            return confirm(...)
+          end,
+          ["<S-CR>"] = cmp.mapping.confirm({
+            behavior = cmp.ConfirmBehavior.Replace,
+            select = true,
+          }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+          ['<Tab>'] = cmp.mapping(function(fallback)
+            if cmp.visible() and has_words_before() then
+              cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+            elseif luasnip.expand_or_jumpable() then
+              luasnip.expand_or_jump()
+            else
+              fallback()
+            end
+          end, { 'i', 's' }),
+          ['<S-Tab>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.select_prev_item()
+            elseif luasnip.jumpable(-1) then
+              luasnip.jump(-1)
+            else
+              fallback()
+            end
+          end, { 'i', 's' }),
+        },
+        sources = {
+          -- Copilot  Source
+          { name = "copilot", group_index = 2 },
+          -- Other Sources
+          { name = 'nvim_lsp', group_index = 2 },
+          { name = 'luasnip', group_index = 2 },
+        },
+        formatting = {
+          format = lspkind.cmp_format({
+            mode = 'symbol',       -- show only symbol annotations
+            maxwidth = 50,         -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+            ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+            symbol_map = { Copilot = "" }
+          })
+        },
+        experimental = {
+          ghost_text = {
+            hl_group = "LspCodeLens",
+          },
+          sorting = {
+            priority_weight = 2,
+            comparators = {
+              require("copilot_cmp.comparators").prioritize,
+
+              -- Below is the default comparitor list and order for nvim-cmp
+              cmp.config.compare.offset,
+              -- cmp.config.compare.scopes, --this is commented in nvim-cmp too
+              cmp.config.compare.exact,
+              cmp.config.compare.score,
+              cmp.config.compare.recently_used,
+              cmp.config.compare.locality,
+              cmp.config.compare.kind,
+              cmp.config.compare.sort_text,
+              cmp.config.compare.length,
+              cmp.config.compare.order,
+            },
+          },
+        },
+
+      }
+    end
+  }
   --
   use 'nvim-lualine/lualine.nvim' -- Fancier statusline
   use {                           -- Add indentation guides even on blank lines
@@ -494,62 +604,7 @@ mason_lspconfig.setup_handlers {
 require('fidget').setup()
 
 require("nvim-autopairs").setup {}
--- nvim-cmp setup
 -- If you want insert `(` after select function or method item
-local cmp = require 'cmp'
-local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-cmp.event:on(
-  'confirm_done',
-  cmp_autopairs.on_confirm_done()
-)
-local luasnip = require 'luasnip'
-local lspkind = require('lspkind')
-
-cmp.setup {
-  snippet = {
-    expand = function(args)
-      luasnip.lsp_expand(args.body)
-    end,
-  },
-  mapping = cmp.mapping.preset.insert {
-    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete(),
-    ['<c-y>'] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.insert,
-      select = true,
-    },
-    ['<Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif luasnip.expand_or_jumpable() then
-        luasnip.expand_or_jump()
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-    ['<S-Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      elseif luasnip.jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-  },
-  sources = {
-    { name = 'nvim_lsp' },
-    { name = 'luasnip' },
-  },
-  formatting = {
-    format = lspkind.cmp_format({
-      mode = 'symbol',       -- show only symbol annotations
-      maxwidth = 50,         -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-      ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
-    })
-  }
-}
 
 -- Neogit
 local neogit = require('neogit')
@@ -831,76 +886,14 @@ require('nvim-treesitter.configs').setup {
 }
 
 vim.o.foldmethod = "expr"
-vim.o.foldexpr = "nvim_treesitter#foldexpr()"
+-- vim.o.foldexpr = "nvim_treesitter#foldexpr()"
+vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.o.foldlevelstart = 99
 vim.o.foldcolumn = "auto"
 vim.o.foldtext = [[v:folddashes.substitute(getline(v:foldstart),'/\\*\\\|\\*/\\\|{{{\\d\\=','','g')]]
 
 vim.api.nvim_set_hl(0, 'Folded', { bg = 'grey', fg='blue' })
 vim.api.nvim_set_hl(0, 'FoldColumn', { bg = 'darkgrey', fg='white' })
-
-
-
-require("noice").setup({
-  lsp = {
-    -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
-    override = {
-      ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-      ["vim.lsp.util.stylize_markdown"] = true,
-      ["cmp.entry.get_documentation"] = true,
-    },
-  },
-  messages = {
-    -- NOTE: If you enable messages, then the cmdline is enabled automatically.
-    -- This is a current Neovim limitation.
-    enabled = true,              -- enables the Noice messages UI
-    view = "mini",               -- default view for messages
-    view_error = "notify",       -- view for errors
-    view_warn = "notify",        -- view for warnings
-    view_history = "messages",   -- view for :messages
-    view_search = "virtualtext", -- view for search count messages. Set to `false` to disable
-  },
-  -- you can enable a preset for easier configuration
-  presets = {
-    long_message_to_split = true, -- long messages will be sent to a split
-    bottom_search = true,
-    command_palette = true,
-  },
-  views = {
-    cmdline_popup = {
-      position = {
-        row = "50%",
-        col = "50%",
-      },
-      size = {
-        width = 60,
-        height = "auto",
-      },
-      border = {
-        style = "double",
-        padding = { 1, 2 },
-      },
-    },
-    popupmenu = {
-      relative = "editor",
-      position = {
-        row = 8,
-        col = "50%",
-      },
-      size = {
-        width = 60,
-        height = 10,
-      },
-      border = {
-        style = "double",
-        padding = { 0, 1 },
-      },
-      win_options = {
-        winhighlight = { Normal = "Normal", FloatBorder = "DiagnosticInfo" },
-      },
-    },
-  },
-})
 
 -- bufdelete.nvim mappings
 vim.keymap.set('n', '<leader>bd', function() require('bufdelete').bufdelete(0, true) end, { desc = '[B]uffer [D]elete' })

@@ -109,6 +109,26 @@ _G.packer_plugins = {
     path = "/Users/jgramirez/.local/share/nvim/site/pack/packer/start/cmp_luasnip",
     url = "https://github.com/saadparwaiz1/cmp_luasnip"
   },
+  ["copilot-cmp"] = {
+    config = { "\27LJ\2\n9\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\16copilot_cmp\frequire\0" },
+    load_after = {
+      ["copilot.lua"] = true
+    },
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/jgramirez/.local/share/nvim/site/pack/packer/opt/copilot-cmp",
+    url = "https://github.com/zbirenbaum/copilot-cmp"
+  },
+  ["copilot.lua"] = {
+    after = { "copilot-cmp" },
+    commands = { "Copilot" },
+    config = { "\27LJ\2\nu\0\0\4\0\b\0\v6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\6\0=\3\a\2B\0\2\1K\0\1\0\npanel\1\0\1\fenabled\1\15suggestion\1\0\0\1\0\1\fenabled\1\nsetup\fcopilot\frequire\0" },
+    loaded = false,
+    needs_bufread = false,
+    only_cond = false,
+    path = "/Users/jgramirez/.local/share/nvim/site/pack/packer/opt/copilot.lua",
+    url = "https://github.com/zbirenbaum/copilot.lua"
+  },
   ["diffview.nvim"] = {
     loaded = true,
     path = "/Users/jgramirez/.local/share/nvim/site/pack/packer/start/diffview.nvim",
@@ -134,10 +154,10 @@ _G.packer_plugins = {
     path = "/Users/jgramirez/.local/share/nvim/site/pack/packer/start/flit.nvim",
     url = "https://github.com/ggandor/flit.nvim"
   },
-  ["git-messenger.vim"] = {
+  ["git-blame.nvim"] = {
     loaded = true,
-    path = "/Users/jgramirez/.local/share/nvim/site/pack/packer/start/git-messenger.vim",
-    url = "https://github.com/rhysd/git-messenger.vim"
+    path = "/Users/jgramirez/.local/share/nvim/site/pack/packer/start/git-blame.nvim",
+    url = "https://github.com/f-person/git-blame.nvim"
   },
   ["gitsigns.nvim"] = {
     loaded = true,
@@ -219,11 +239,6 @@ _G.packer_plugins = {
     path = "/Users/jgramirez/.local/share/nvim/site/pack/packer/start/nightfox.nvim",
     url = "https://github.com/EdenEast/nightfox.nvim"
   },
-  ["noice.nvim"] = {
-    loaded = true,
-    path = "/Users/jgramirez/.local/share/nvim/site/pack/packer/start/noice.nvim",
-    url = "https://github.com/folke/noice.nvim"
-  },
   ["nui.nvim"] = {
     loaded = true,
     path = "/Users/jgramirez/.local/share/nvim/site/pack/packer/start/nui.nvim",
@@ -240,6 +255,7 @@ _G.packer_plugins = {
     url = "https://github.com/windwp/nvim-autopairs"
   },
   ["nvim-cmp"] = {
+    config = { "\27LJ\2\n\2\0\0\n\0\n\2(6\0\0\0009\0\1\0009\0\2\0)\2\0\0'\3\3\0B\0\3\2\a\0\4\0X\0\2€+\0\1\0L\0\2\0006\0\5\0006\2\0\0009\2\1\0029\2\6\2)\4\0\0B\2\2\0A\0\0\3\b\1\0\0X\2\17€6\2\0\0009\2\1\0029\2\a\2)\4\0\0\23\5\1\0)\6\0\0\23\a\1\0\18\b\1\0004\t\0\0B\2\a\2:\2\1\2\18\4\2\0009\2\b\2'\5\t\0B\2\3\2\n\2\0\0X\2\2€+\2\1\0X\3\1€+\2\2\0L\2\2\0\n^%s*$\nmatch\22nvim_buf_get_text\24nvim_win_get_cursor\vunpack\vprompt\fbuftype\24nvim_buf_get_option\bapi\bvim\0\2-\0\1\4\1\2\0\5-\1\0\0009\1\0\0019\3\1\0B\1\2\1K\0\1\0\2À\tbody\15lsp_expandp\2\0\4\3\4\0\15-\0\0\0009\0\0\0B\0\1\2\15\0\0\0X\1\a€9\1\1\0009\1\2\1\a\1\3\0X\1\3€-\1\1\0G\3\0\0C\1\0\0-\1\2\0G\3\0\0C\1\0\0\0À\6À\5À\fcopilot\tname\vsource\23get_selected_entryâ\1\0\1\5\3\b\0\30-\1\0\0009\1\0\1B\1\1\2\15\0\1\0X\2\r€-\1\1\0B\1\1\2\15\0\1\0X\2\t€-\1\0\0009\1\1\0015\3\4\0-\4\0\0009\4\2\0049\4\3\4=\4\5\3B\1\2\1X\1\v€-\1\2\0009\1\6\1B\1\1\2\15\0\1\0X\2\4€-\1\2\0009\1\a\1B\1\1\1X\1\2€\18\1\0\0B\1\1\1K\0\1\0\0À\4À\2À\19expand_or_jump\23expand_or_jumpable\rbehavior\1\0\0\vSelect\19SelectBehavior\21select_next_item\fvisibleŽ\1\0\1\4\2\4\0\23-\1\0\0009\1\0\1B\1\1\2\15\0\1\0X\2\4€-\1\0\0009\1\1\1B\1\1\1X\1\r€-\1\1\0009\1\2\1)\3ÿÿB\1\2\2\15\0\1\0X\2\5€-\1\1\0009\1\3\1)\3ÿÿB\1\2\1X\1\2€\18\1\0\0B\1\1\1K\0\1\0\0À\2À\tjump\rjumpable\21select_prev_item\fvisibleÇ\v\1\0\17\0R\0¥\0016\0\0\0'\2\1\0B\0\2\0026\1\0\0'\3\2\0B\1\2\0029\2\3\0\18\4\2\0009\2\4\2'\5\5\0009\6\6\1B\6\1\0A\2\2\0016\2\0\0'\4\a\0B\2\2\0026\3\0\0'\5\b\0B\3\2\0023\4\t\0009\5\n\0009\5\v\0055\a\f\0B\5\2\0029\6\n\0009\6\v\0065\b\r\0009\t\14\0009\t\15\t=\t\16\bB\6\2\0029\a\17\0005\t\21\0005\n\19\0003\v\18\0=\v\20\n=\n\22\t9\n\n\0009\n\23\n9\n\24\n5\f\29\0009\r\n\0009\r\25\r5\15\28\0009\16\26\0009\16\27\16=\16\16\15B\r\2\2=\r\30\f9\r\n\0009\r\31\r5\15 \0009\16\26\0009\16\27\16=\16\16\15B\r\2\2=\r!\f9\r\n\0009\r\"\r)\15üÿB\r\2\2=\r#\f9\r\n\0009\r\"\r)\15\4\0B\r\2\2=\r$\f9\r\n\0009\r%\rB\r\1\2=\r&\f9\r\n\0009\r'\rB\r\1\2=\r(\f3\r)\0=\r*\f9\r\n\0009\r\v\r5\15+\0009\16\14\0009\16\15\16=\16\16\15B\r\2\2=\r,\f9\r\n\0003\15-\0005\16.\0B\r\3\2=\r/\f9\r\n\0003\0150\0005\0161\0B\r\3\2=\r2\fB\n\2\2=\n\n\t4\n\4\0005\v3\0>\v\1\n5\v4\0>\v\2\n5\v5\0>\v\3\n=\n6\t5\n;\0009\v7\0035\r8\0005\0149\0=\14:\rB\v\2\2=\v<\n=\n=\t5\n?\0005\v>\0=\v@\n5\vA\0004\f\v\0006\r\0\0'\15B\0B\r\2\0029\rC\r>\r\1\f9\rD\0009\rE\r9\rF\r>\r\2\f9\rD\0009\rE\r9\rG\r>\r\3\f9\rD\0009\rE\r9\rH\r>\r\4\f9\rD\0009\rE\r9\rI\r>\r\5\f9\rD\0009\rE\r9\rJ\r>\r\6\f9\rD\0009\rE\r9\rK\r>\r\a\f9\rD\0009\rE\r9\rL\r>\r\b\f9\rD\0009\rE\r9\rM\r>\r\t\f9\rD\0009\rE\r9\rN\r>\r\n\f=\fO\v=\vP\n=\nQ\tB\a\2\0012\0\0€K\0\1\0\17experimental\fsorting\16comparators\norder\vlength\14sort_text\tkind\rlocality\18recently_used\nscore\nexact\voffset\fcompare\vconfig\15prioritize\28copilot_cmp.comparators\1\0\1\20priority_weight\3\2\15ghost_text\1\0\0\1\0\1\rhl_group\16LspCodeLens\15formatting\vformat\1\0\0\15symbol_map\1\0\1\fCopilot\bï„“\1\0\3\rmaxwidth\0032\tmode\vsymbol\18ellipsis_char\b...\15cmp_format\fsources\1\0\2\tname\fluasnip\16group_index\3\2\1\0\2\tname\rnvim_lsp\16group_index\3\2\1\0\2\tname\fcopilot\16group_index\3\2\f<S-Tab>\1\3\0\0\6i\6s\0\n<Tab>\1\3\0\0\6i\6s\0\v<S-CR>\1\0\1\vselect\2\t<CR>\0\n<C-e>\nabort\14<C-Space>\rcomplete\n<C-f>\n<C-b>\16scroll_docs\n<C-p>\1\0\0\21select_prev_item\n<C-n>\1\0\0\1\0\0\vInsert\19SelectBehavior\21select_next_item\vinsert\vpreset\fsnippet\1\0\0\vexpand\1\0\0\0\nsetup\rbehavior\fReplace\20ConfirmBehavior\1\0\1\vselect\2\1\0\1\vselect\2\fconfirm\fmapping\0\flspkind\fluasnip\20on_confirm_done\17confirm_done\aon\nevent\"nvim-autopairs.completion.cmp\bcmp\frequire\0" },
     loaded = true,
     path = "/Users/jgramirez/.local/share/nvim/site/pack/packer/start/nvim-cmp",
     url = "https://github.com/hrsh7th/nvim-cmp"
@@ -261,7 +277,7 @@ _G.packer_plugins = {
     url = "https://github.com/SmiteshP/nvim-navic"
   },
   ["nvim-notify"] = {
-    config = { "\27LJ\2\n@\0\0\3\0\5\1\a6\0\0\0009\0\1\0006\2\2\0009\2\3\0029\2\4\2\24\2\0\2D\0\2\0\nlines\6o\bvim\nfloor\tmath\1€€ ÿ\3B\0\0\3\0\5\1\a6\0\0\0009\0\1\0006\2\2\0009\2\3\0029\2\4\2\24\2\0\2D\0\2\0\fcolumns\6o\bvim\nfloor\tmath\1€€ ÿ\3w\1\0\5\0\b\0\v6\0\0\0'\2\1\0B\0\2\0029\1\2\0005\3\3\0003\4\4\0=\4\5\0033\4\6\0=\4\a\3B\1\2\1K\0\1\0\14max_width\0\15max_height\0\1\0\2\ftimeout\3¸\23\rtop_down\2\nsetup\vnotify\frequire\0" },
+    config = { "\27LJ\2\n@\0\0\3\0\5\1\a6\0\0\0009\0\1\0006\2\2\0009\2\3\0029\2\4\2\24\2\0\2D\0\2\0\nlines\6o\bvim\nfloor\tmath\1€€ ÿ\3B\0\0\3\0\5\1\a6\0\0\0009\0\1\0006\2\2\0009\2\3\0029\2\4\2\24\2\0\2D\0\2\0\fcolumns\6o\bvim\nfloor\tmath\1€€ ÿ\3w\1\0\5\0\b\0\v6\0\0\0'\2\1\0B\0\2\0029\1\2\0005\3\3\0003\4\4\0=\4\5\0033\4\6\0=\4\a\3B\1\2\1K\0\1\0\14max_width\0\15max_height\0\1\0\2\rtop_down\2\ftimeout\3¸\23\nsetup\vnotify\frequire\0" },
     loaded = true,
     path = "/Users/jgramirez/.local/share/nvim/site/pack/packer/start/nvim-notify",
     url = "https://github.com/rcarriga/nvim-notify"
@@ -280,6 +296,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/jgramirez/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
     url = "https://github.com/nvim-tree/nvim-web-devicons"
+  },
+  ["octo.nvim"] = {
+    loaded = true,
+    path = "/Users/jgramirez/.local/share/nvim/site/pack/packer/start/octo.nvim",
+    url = "https://github.com/pwntester/octo.nvim"
   },
   ["one-nvim"] = {
     loaded = true,
@@ -311,13 +332,10 @@ _G.packer_plugins = {
     path = "/Users/jgramirez/.local/share/nvim/site/pack/packer/start/solarized.nvim",
     url = "https://github.com/shaunsingh/solarized.nvim"
   },
-  ["telescope-fzf-native.nvim"] = {
-    cond = { true },
-    loaded = false,
-    needs_bufread = false,
-    only_cond = true,
-    path = "/Users/jgramirez/.local/share/nvim/site/pack/packer/opt/telescope-fzf-native.nvim",
-    url = "https://github.com/nvim-telescope/telescope-fzf-native.nvim"
+  ["telescope-file-browser.nvim"] = {
+    loaded = true,
+    path = "/Users/jgramirez/.local/share/nvim/site/pack/packer/start/telescope-file-browser.nvim",
+    url = "https://github.com/nvim-telescope/telescope-file-browser.nvim"
   },
   ["telescope.nvim"] = {
     loaded = true,
@@ -379,6 +397,34 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
+local module_lazy_loads = {
+  ["^copilot"] = "copilot.lua"
+}
+local lazy_load_called = {['packer.load'] = true}
+local function lazy_load_module(module_name)
+  local to_load = {}
+  if lazy_load_called[module_name] then return nil end
+  lazy_load_called[module_name] = true
+  for module_pat, plugin_name in pairs(module_lazy_loads) do
+    if not _G.packer_plugins[plugin_name].loaded and string.match(module_name, module_pat) then
+      to_load[#to_load + 1] = plugin_name
+    end
+  end
+
+  if #to_load > 0 then
+    require('packer.load')(to_load, {module = module_name}, _G.packer_plugins)
+    local loaded_mod = package.loaded[module_name]
+    if loaded_mod then
+      return function(modname) return loaded_mod end
+    end
+  end
+end
+
+if not vim.g.packer_custom_loader_enabled then
+  table.insert(package.loaders, 1, lazy_load_module)
+  vim.g.packer_custom_loader_enabled = true
+end
+
 -- Setup for: vim-matchup
 time([[Setup for vim-matchup]], true)
 try_loadstring("\27LJ\2\nN\0\0\2\0\4\0\0056\0\0\0009\0\1\0005\1\3\0=\1\2\0K\0\1\0\1\0\1\vmethod\npopup!matchup_matchparen_offscreen\6g\bvim\0", "setup", "vim-matchup")
@@ -388,16 +434,35 @@ vim.cmd [[packadd vim-matchup]]
 time([[packadd for vim-matchup]], false)
 -- Config for: nvim-notify
 time([[Config for nvim-notify]], true)
-try_loadstring("\27LJ\2\n@\0\0\3\0\5\1\a6\0\0\0009\0\1\0006\2\2\0009\2\3\0029\2\4\2\24\2\0\2D\0\2\0\nlines\6o\bvim\nfloor\tmath\1€€ ÿ\3B\0\0\3\0\5\1\a6\0\0\0009\0\1\0006\2\2\0009\2\3\0029\2\4\2\24\2\0\2D\0\2\0\fcolumns\6o\bvim\nfloor\tmath\1€€ ÿ\3w\1\0\5\0\b\0\v6\0\0\0'\2\1\0B\0\2\0029\1\2\0005\3\3\0003\4\4\0=\4\5\0033\4\6\0=\4\a\3B\1\2\1K\0\1\0\14max_width\0\15max_height\0\1\0\2\ftimeout\3¸\23\rtop_down\2\nsetup\vnotify\frequire\0", "config", "nvim-notify")
+try_loadstring("\27LJ\2\n@\0\0\3\0\5\1\a6\0\0\0009\0\1\0006\2\2\0009\2\3\0029\2\4\2\24\2\0\2D\0\2\0\nlines\6o\bvim\nfloor\tmath\1€€ ÿ\3B\0\0\3\0\5\1\a6\0\0\0009\0\1\0006\2\2\0009\2\3\0029\2\4\2\24\2\0\2D\0\2\0\fcolumns\6o\bvim\nfloor\tmath\1€€ ÿ\3w\1\0\5\0\b\0\v6\0\0\0'\2\1\0B\0\2\0029\1\2\0005\3\3\0003\4\4\0=\4\5\0033\4\6\0=\4\a\3B\1\2\1K\0\1\0\14max_width\0\15max_height\0\1\0\2\rtop_down\2\ftimeout\3¸\23\nsetup\vnotify\frequire\0", "config", "nvim-notify")
 time([[Config for nvim-notify]], false)
+-- Config for: nvim-cmp
+time([[Config for nvim-cmp]], true)
+try_loadstring("\27LJ\2\n\2\0\0\n\0\n\2(6\0\0\0009\0\1\0009\0\2\0)\2\0\0'\3\3\0B\0\3\2\a\0\4\0X\0\2€+\0\1\0L\0\2\0006\0\5\0006\2\0\0009\2\1\0029\2\6\2)\4\0\0B\2\2\0A\0\0\3\b\1\0\0X\2\17€6\2\0\0009\2\1\0029\2\a\2)\4\0\0\23\5\1\0)\6\0\0\23\a\1\0\18\b\1\0004\t\0\0B\2\a\2:\2\1\2\18\4\2\0009\2\b\2'\5\t\0B\2\3\2\n\2\0\0X\2\2€+\2\1\0X\3\1€+\2\2\0L\2\2\0\n^%s*$\nmatch\22nvim_buf_get_text\24nvim_win_get_cursor\vunpack\vprompt\fbuftype\24nvim_buf_get_option\bapi\bvim\0\2-\0\1\4\1\2\0\5-\1\0\0009\1\0\0019\3\1\0B\1\2\1K\0\1\0\2À\tbody\15lsp_expandp\2\0\4\3\4\0\15-\0\0\0009\0\0\0B\0\1\2\15\0\0\0X\1\a€9\1\1\0009\1\2\1\a\1\3\0X\1\3€-\1\1\0G\3\0\0C\1\0\0-\1\2\0G\3\0\0C\1\0\0\0À\6À\5À\fcopilot\tname\vsource\23get_selected_entryâ\1\0\1\5\3\b\0\30-\1\0\0009\1\0\1B\1\1\2\15\0\1\0X\2\r€-\1\1\0B\1\1\2\15\0\1\0X\2\t€-\1\0\0009\1\1\0015\3\4\0-\4\0\0009\4\2\0049\4\3\4=\4\5\3B\1\2\1X\1\v€-\1\2\0009\1\6\1B\1\1\2\15\0\1\0X\2\4€-\1\2\0009\1\a\1B\1\1\1X\1\2€\18\1\0\0B\1\1\1K\0\1\0\0À\4À\2À\19expand_or_jump\23expand_or_jumpable\rbehavior\1\0\0\vSelect\19SelectBehavior\21select_next_item\fvisibleŽ\1\0\1\4\2\4\0\23-\1\0\0009\1\0\1B\1\1\2\15\0\1\0X\2\4€-\1\0\0009\1\1\1B\1\1\1X\1\r€-\1\1\0009\1\2\1)\3ÿÿB\1\2\2\15\0\1\0X\2\5€-\1\1\0009\1\3\1)\3ÿÿB\1\2\1X\1\2€\18\1\0\0B\1\1\1K\0\1\0\0À\2À\tjump\rjumpable\21select_prev_item\fvisibleÇ\v\1\0\17\0R\0¥\0016\0\0\0'\2\1\0B\0\2\0026\1\0\0'\3\2\0B\1\2\0029\2\3\0\18\4\2\0009\2\4\2'\5\5\0009\6\6\1B\6\1\0A\2\2\0016\2\0\0'\4\a\0B\2\2\0026\3\0\0'\5\b\0B\3\2\0023\4\t\0009\5\n\0009\5\v\0055\a\f\0B\5\2\0029\6\n\0009\6\v\0065\b\r\0009\t\14\0009\t\15\t=\t\16\bB\6\2\0029\a\17\0005\t\21\0005\n\19\0003\v\18\0=\v\20\n=\n\22\t9\n\n\0009\n\23\n9\n\24\n5\f\29\0009\r\n\0009\r\25\r5\15\28\0009\16\26\0009\16\27\16=\16\16\15B\r\2\2=\r\30\f9\r\n\0009\r\31\r5\15 \0009\16\26\0009\16\27\16=\16\16\15B\r\2\2=\r!\f9\r\n\0009\r\"\r)\15üÿB\r\2\2=\r#\f9\r\n\0009\r\"\r)\15\4\0B\r\2\2=\r$\f9\r\n\0009\r%\rB\r\1\2=\r&\f9\r\n\0009\r'\rB\r\1\2=\r(\f3\r)\0=\r*\f9\r\n\0009\r\v\r5\15+\0009\16\14\0009\16\15\16=\16\16\15B\r\2\2=\r,\f9\r\n\0003\15-\0005\16.\0B\r\3\2=\r/\f9\r\n\0003\0150\0005\0161\0B\r\3\2=\r2\fB\n\2\2=\n\n\t4\n\4\0005\v3\0>\v\1\n5\v4\0>\v\2\n5\v5\0>\v\3\n=\n6\t5\n;\0009\v7\0035\r8\0005\0149\0=\14:\rB\v\2\2=\v<\n=\n=\t5\n?\0005\v>\0=\v@\n5\vA\0004\f\v\0006\r\0\0'\15B\0B\r\2\0029\rC\r>\r\1\f9\rD\0009\rE\r9\rF\r>\r\2\f9\rD\0009\rE\r9\rG\r>\r\3\f9\rD\0009\rE\r9\rH\r>\r\4\f9\rD\0009\rE\r9\rI\r>\r\5\f9\rD\0009\rE\r9\rJ\r>\r\6\f9\rD\0009\rE\r9\rK\r>\r\a\f9\rD\0009\rE\r9\rL\r>\r\b\f9\rD\0009\rE\r9\rM\r>\r\t\f9\rD\0009\rE\r9\rN\r>\r\n\f=\fO\v=\vP\n=\nQ\tB\a\2\0012\0\0€K\0\1\0\17experimental\fsorting\16comparators\norder\vlength\14sort_text\tkind\rlocality\18recently_used\nscore\nexact\voffset\fcompare\vconfig\15prioritize\28copilot_cmp.comparators\1\0\1\20priority_weight\3\2\15ghost_text\1\0\0\1\0\1\rhl_group\16LspCodeLens\15formatting\vformat\1\0\0\15symbol_map\1\0\1\fCopilot\bï„“\1\0\3\rmaxwidth\0032\tmode\vsymbol\18ellipsis_char\b...\15cmp_format\fsources\1\0\2\tname\fluasnip\16group_index\3\2\1\0\2\tname\rnvim_lsp\16group_index\3\2\1\0\2\tname\fcopilot\16group_index\3\2\f<S-Tab>\1\3\0\0\6i\6s\0\n<Tab>\1\3\0\0\6i\6s\0\v<S-CR>\1\0\1\vselect\2\t<CR>\0\n<C-e>\nabort\14<C-Space>\rcomplete\n<C-f>\n<C-b>\16scroll_docs\n<C-p>\1\0\0\21select_prev_item\n<C-n>\1\0\0\1\0\0\vInsert\19SelectBehavior\21select_next_item\vinsert\vpreset\fsnippet\1\0\0\vexpand\1\0\0\0\nsetup\rbehavior\fReplace\20ConfirmBehavior\1\0\1\vselect\2\1\0\1\vselect\2\fconfirm\fmapping\0\flspkind\fluasnip\20on_confirm_done\17confirm_done\aon\nevent\"nvim-autopairs.completion.cmp\bcmp\frequire\0", "config", "nvim-cmp")
+time([[Config for nvim-cmp]], false)
 -- Config for: nvim-colorizer.lua
 time([[Config for nvim-colorizer.lua]], true)
 try_loadstring("\27LJ\2\n7\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\14colorizer\frequire\0", "config", "nvim-colorizer.lua")
 time([[Config for nvim-colorizer.lua]], false)
--- Conditional loads
-time([[Conditional loading of telescope-fzf-native.nvim]], true)
-  require("packer.load")({"telescope-fzf-native.nvim"}, {}, _G.packer_plugins)
-time([[Conditional loading of telescope-fzf-native.nvim]], false)
+
+-- Command lazy-loads
+time([[Defining lazy-load commands]], true)
+pcall(vim.api.nvim_create_user_command, 'Copilot', function(cmdargs)
+          require('packer.load')({'copilot.lua'}, { cmd = 'Copilot', l1 = cmdargs.line1, l2 = cmdargs.line2, bang = cmdargs.bang, args = cmdargs.args, mods = cmdargs.mods }, _G.packer_plugins)
+        end,
+        {nargs = '*', range = true, bang = true, complete = function()
+          require('packer.load')({'copilot.lua'}, {}, _G.packer_plugins)
+          return vim.fn.getcompletion('Copilot ', 'cmdline')
+      end})
+time([[Defining lazy-load commands]], false)
+
+vim.cmd [[augroup packer_load_aucmds]]
+vim.cmd [[au!]]
+  -- Event lazy-loads
+time([[Defining lazy-load event autocommands]], true)
+vim.cmd [[au InsertEnter * ++once lua require("packer.load")({'copilot.lua'}, { event = "InsertEnter *" }, _G.packer_plugins)]]
+time([[Defining lazy-load event autocommands]], false)
+vim.cmd("augroup END")
 
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then
