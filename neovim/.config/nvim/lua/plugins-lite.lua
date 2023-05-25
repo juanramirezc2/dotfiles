@@ -29,7 +29,6 @@ require('packer').startup(function(use)
   use { -- vscode-like pictograms for neovim lsp completion items
     'onsails/lspkind.nvim'
   }
-
   use { 'stevearc/dressing.nvim' } -- Better UI for neovim
   use { 'NvChad/nvim-colorizer.lua',
     config = function()
@@ -152,7 +151,7 @@ require('packer').startup(function(use)
   }
   use { -- Autocompletion
     'hrsh7th/nvim-cmp',
-    requires = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
+    requires = { 'hrsh7th/cmp-nvim-lsp', 'saadparwaiz1/cmp_luasnip' },
     config = function ()
       local cmp = require 'cmp'
       local cmp_autopairs = require('nvim-autopairs.completion.cmp')
@@ -175,11 +174,6 @@ require('packer').startup(function(use)
         behavior = cmp.ConfirmBehavior.Replace,
       })
       cmp.setup {
-        snippet = {
-          expand = function(args)
-            luasnip.lsp_expand(args.body)
-          end,
-        },
         mapping = cmp.mapping.preset.insert {
           ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
           ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
@@ -187,7 +181,7 @@ require('packer').startup(function(use)
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
           ["<C-Space>"] = cmp.mapping.complete(),
           ["<C-e>"] = cmp.mapping.abort(),
-          ["<CR>"] = function(...)
+          ["<C-y>"] = function(...)
             local entry = cmp.get_selected_entry()
             if entry and entry.source.name == "copilot" then
               return confirm_copilot(...)
@@ -201,8 +195,6 @@ require('packer').startup(function(use)
           ['<Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() and has_words_before() then
               cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-            elseif luasnip.expand_or_jumpable() then
-              luasnip.expand_or_jump()
             else
               fallback()
             end
@@ -210,8 +202,6 @@ require('packer').startup(function(use)
           ['<S-Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_prev_item()
-            elseif luasnip.jumpable(-1) then
-              luasnip.jump(-1)
             else
               fallback()
             end
@@ -222,7 +212,6 @@ require('packer').startup(function(use)
           { name = "copilot", group_index = 2 },
           -- Other Sources
           { name = 'nvim_lsp', group_index = 2 },
-          { name = 'luasnip', group_index = 2 },
         },
         formatting = {
           format = lspkind.cmp_format({
@@ -847,7 +836,6 @@ vim.api.nvim_set_keymap('n', [[<leader>s]], "<cmd>Neotree float git_status<cr>",
 require('nvim-treesitter.configs').setup {
   ensure_installed = {
     "bash",
-    "help",
     "html",
     "javascript",
     'jsdoc',
@@ -1164,6 +1152,7 @@ require("illuminate").configure(
     -- See `:help mode()` for possible values
     modes_denylist = {},
     -- modes_allowlist: modes to illuminate, this is overriden by modes_denylist
+    -- See `:help mode()` for possible values
     -- See `:help mode()` for possible values
     modes_allowlist = {},
     -- providers_regex_syntax_denylist: syntax to not illuminate, this overrides providers_regex_syntax_allowlist

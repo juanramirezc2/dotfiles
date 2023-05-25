@@ -1,11 +1,12 @@
 # gitconfig
 [user]
 	name = "Juan Ramirez "
-	email = jgramirezc2@gmail.com
+	email = jugaramirez@utp.edu.co
 	username = juangabrielr4
 [alias]
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
   st = status
+  age = "!f() { git for-each-ref --sort=committerdate refs/heads $1  --format=\"%(refname:short)\" ; }; g() { for C in $(f $1) ; do git show -s --pretty=format:\"%Cgreen%ci %Cblue%cr%Creset  $C\" \"$C\" -- ; done; }; g "
 [color]
   branch = auto
   diff = auto

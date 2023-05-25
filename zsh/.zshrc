@@ -155,3 +155,6 @@ export PHP_ID=php7_3; export PATH="/Applications/DevDesktop/php7_3_x64/bin:/Appl
 # chromium in mac m1
 export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 export PUPPETEER_EXECUTABLE_PATH=`which chromium`
+export PATH="/opt/homebrew/opt/node@18/bin:$PATH"
+export PATH="/opt/homebrew/opt/node@18/bin:$PATH"
+export PATH="/opt/homebrew/opt/node@18/bin:$PATH"
