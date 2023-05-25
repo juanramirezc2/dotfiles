@@ -60,6 +60,7 @@
         "/Users/jgramirez/.local/share/nvim/site/pack/packer/start/yanky.nvim/lua",
         "/Users/jgramirez/dotfiles/neovim/.config/nvim/lua",
         "/Users/jgramirez/.local/share/nvim/mason/packages/lua-language-server/libexec/meta/30e7c947",
-        "/Users/jgramirez/.local/share/nvim/mason/packages/lua-language-server/libexec/meta/071c70e8"
+        "/Users/jgramirez/.local/share/nvim/mason/packages/lua-language-server/libexec/meta/071c70e8",
+        "${3rd}/luv/library"
     ]
 }

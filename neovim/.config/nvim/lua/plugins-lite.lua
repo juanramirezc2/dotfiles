@@ -151,7 +151,7 @@ require('packer').startup(function(use)
   }
   use { -- Autocompletion
     'hrsh7th/nvim-cmp',
-    requires = { 'hrsh7th/cmp-nvim-lsp', 'saadparwaiz1/cmp_luasnip' },
+    requires = { 'hrsh7th/cmp-nvim-lsp' },
     config = function ()
       local cmp = require 'cmp'
       local cmp_autopairs = require('nvim-autopairs.completion.cmp')
@@ -159,7 +159,6 @@ require('packer').startup(function(use)
         'confirm_done',
         cmp_autopairs.on_confirm_done()
       )
-      local luasnip = require 'luasnip'
       local lspkind = require('lspkind')
 
       local has_words_before = function()
