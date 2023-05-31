@@ -163,6 +163,8 @@ require('packer').startup(function(use)
       require("copilot_cmp").setup()
     end
   }
+  use 'hrsh7th/cmp-vsnip'
+  use 'hrsh7th/vim-vsnip'
   use { -- Autocompletion
     'hrsh7th/nvim-cmp',
     requires = { 'hrsh7th/cmp-nvim-lsp' },
@@ -180,51 +182,37 @@ require('packer').startup(function(use)
         local line, col = unpack(vim.api.nvim_win_get_cursor(0))
         return col ~= 0 and vim.api.nvim_buf_get_text(0, line-1, 0, line-1, col, {})[1]:match("^%s*$") == nil
       end
-
-      local confirm = cmp.mapping.confirm({ select = true })
-      local confirm_copilot = cmp.mapping.confirm({
-        select = true,
-        behavior = cmp.ConfirmBehavior.Replace,
-      })
       cmp.setup {
+        snippet = {
+          -- REQUIRED - you must specify a snippet engine
+          expand = function(args)
+            vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+          end,
+        },
+        window = {
+          completion = cmp.config.window.bordered(),
+          documentation = cmp.config.window.bordered(),
+        },
         mapping = cmp.mapping.preset.insert {
-          ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-          ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
           ["<C-b>"] = cmp.mapping.scroll_docs(-4),
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
           ["<C-Space>"] = cmp.mapping.complete(),
           ["<C-e>"] = cmp.mapping.abort(),
-          ["<C-y>"] = function(...)
-            local entry = cmp.get_selected_entry()
-            if entry and entry.source.name == "copilot" then
-              return confirm_copilot(...)
-            end
-            return confirm(...)
-          end,
-          ["<S-CR>"] = cmp.mapping.confirm({
-            behavior = cmp.ConfirmBehavior.Replace,
-            select = true,
-          }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-          ['<Tab>'] = cmp.mapping(function(fallback)
+          ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+          ["<Tab>"] = vim.schedule_wrap(function(fallback)
             if cmp.visible() and has_words_before() then
               cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
             else
               fallback()
             end
-          end, { 'i', 's' }),
-          ['<S-Tab>'] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_prev_item()
-            else
-              fallback()
-            end
-          end, { 'i', 's' }),
+          end),
         },
         sources = {
           -- Copilot  Source
           { name = "copilot", group_index = 2 },
           -- Other Sources
           { name = 'nvim_lsp', group_index = 2 },
+          { name = 'vsnip', group_index = 2 }, -- For vsnip users.
         },
         formatting = {
           format = lspkind.cmp_format({
@@ -526,16 +514,16 @@ keymap("n","gt", "<cmd>Lspsaga goto_type_definition<CR>")
 -- Show line diagnostics
 -- You can pass argument ++unfocus to
 -- unfocus the show_line_diagnostics floating window
-keymap("n", "<leader>sl", "<cmd>Lspsaga show_line_diagnostics<CR>")
+-- keymap("n", "<leader>sl", "<cmd>Lspsaga show_line_diagnostics<CR>")
 
 -- Show buffer diagnostics
-keymap("n", "<leader>sb", "<cmd>Lspsaga show_buf_diagnostics<CR>")
+-- keymap("n", "<leader>sb", "<cmd>Lspsaga show_buf_diagnostics<CR>")
 
 -- Show workspace diagnostics
-keymap("n", "<leader>sw", "<cmd>Lspsaga show_workspace_diagnostics<CR>")
+-- keymap("n", "<leader>sw", "<cmd>Lspsaga show_workspace_diagnostics<CR>")
 
 -- Show cursor diagnostics
-keymap("n", "<leader>sc", "<cmd>Lspsaga show_cursor_diagnostics<CR>")
+-- keymap("n", "<leader>sc", "<cmd>Lspsaga show_cursor_diagnostics<CR>")
 
 -- Diagnostic jump
 -- You can use <C-o> to jump back to your previous location
