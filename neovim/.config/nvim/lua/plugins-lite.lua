@@ -163,8 +163,16 @@ require('packer').startup(function(use)
       require("copilot_cmp").setup()
     end
   }
-  use 'hrsh7th/cmp-vsnip'
-  use 'hrsh7th/vim-vsnip'
+  use({
+    "L3MON4D3/LuaSnip",
+    -- follow latest release.
+    tag = "v<CurrentMajor>.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+    -- install jsregexp (optional!:).
+  --run = "make install_jsregexp"
+  })
+  use "hrsh7th/cmp-buffer"
+  use "hrsh7th/cmp-path"
+  use "hrsh7th/cmp-cmdline"
   use { -- Autocompletion
     'hrsh7th/nvim-cmp',
     requires = { 'hrsh7th/cmp-nvim-lsp' },
@@ -186,7 +194,7 @@ require('packer').startup(function(use)
         snippet = {
           -- REQUIRED - you must specify a snippet engine
           expand = function(args)
-            vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+            require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
           end,
         },
         window = {
@@ -207,13 +215,13 @@ require('packer').startup(function(use)
             end
           end),
         },
-        sources = {
-          -- Copilot  Source
+        sources = cmp.config.sources({
           { name = "copilot", group_index = 2 },
-          -- Other Sources
           { name = 'nvim_lsp', group_index = 2 },
-          { name = 'vsnip', group_index = 2 }, -- For vsnip users.
-        },
+          { name = 'luasnip', group_index = 2 }, -- For luasnip users.
+        }, {
+            { name = 'buffer' },
+          }),
         formatting = {
           format = lspkind.cmp_format({
             mode = 'symbol',       -- show only symbol annotations
@@ -245,8 +253,23 @@ require('packer').startup(function(use)
             },
           },
         },
-
       }
+      -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+      cmp.setup.cmdline({ '/', '?' }, {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = {
+          { name = 'buffer' }
+        }
+      })
+      -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+      cmp.setup.cmdline(':', {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({
+          { name = 'path' }
+        }, {
+            { name = 'cmdline' }
+          })
+      })
     end
   }
   --
@@ -485,7 +508,7 @@ keymap("n", "gh", "<cmd>Lspsaga lsp_finder<CR>")
 keymap({"n","v"}, "<leader>ca", "<cmd>Lspsaga code_action<CR>")
 
 -- Rename all occurrences of the hovered word for the entire file
-keymap("n", "gr", "<cmd>Lspsaga rename<CR>")
+-- keymap("n", "gr", "<cmd>Lspsaga rename<CR>")
 
 -- Rename all occurrences of the hovered word for the selected files
 keymap("n", "gr", "<cmd>Lspsaga rename ++project<CR>")
