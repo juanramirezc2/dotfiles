@@ -35,3 +35,4 @@ tags
 .Trashes
 ehthumbs.db
 Thumbs.db
+packer_compiled.lua
