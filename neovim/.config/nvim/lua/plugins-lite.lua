@@ -29,14 +29,14 @@ require('packer').startup(function(use)
     branch = "main",
     event = "LspAttach",
     config = function()
-        require("lspsaga").setup({})
+      require("lspsaga").setup({})
     end,
     requires = {
-        {"nvim-tree/nvim-web-devicons"},
-        --Please make sure you install markdown and markdown_inline parser
-        {"nvim-treesitter/nvim-treesitter"}
+      {"nvim-tree/nvim-web-devicons"},
+      --Please make sure you install markdown and markdown_inline parser
+      {"nvim-treesitter/nvim-treesitter"}
     }
-})
+  })
   use {
     'f-person/git-blame.nvim'
   }
@@ -327,6 +327,12 @@ vim.api.nvim_create_autocmd('BufWritePost', {
 -- ColorScheme settings
 require("gruvbox").setup({
   contrast = "hard", -- can be "hard", "soft" or empty string
+  italic = {
+    strings = true,
+    comments = true,
+    operators = true,
+    folds = true,
+  },
 })
 require('material').setup({
   high_visibility = {
@@ -453,9 +459,17 @@ require('telescope').setup {
       i = {
         ["<c-t>"] = trouble.open_with_trouble,
         ["<c-d>"] = actions.delete_buffer + actions.move_to_top,
+        ["<C-j>"] = actions.move_selection_next,
+        ["<C-k>"] = actions.move_selection_previous,
         ["<C-u>"] = false,
         ["<C-d>"] = false,
+        ["<c-n>"] = false,
+        ["<c-p>"] = false
       },
+      n = {
+        ["j"] = actions.move_selection_next,
+        ["k"] = actions.move_selection_previous,
+      }
     },
   },
 }
@@ -511,7 +525,7 @@ keymap({"n","v"}, "<leader>ca", "<cmd>Lspsaga code_action<CR>")
 -- keymap("n", "gr", "<cmd>Lspsaga rename<CR>")
 
 -- Rename all occurrences of the hovered word for the selected files
-keymap("n", "gr", "<cmd>Lspsaga rename ++project<CR>")
+keymap("n", "rn", "<cmd>Lspsaga rename ++project<CR>")
 
 -- Peek definition
 -- You can edit the file containing the definition in the floating window
@@ -532,7 +546,6 @@ keymap("n", "gt", "<cmd>Lspsaga peek_type_definition<CR>")
 
 -- Go to type definition
 keymap("n","gt", "<cmd>Lspsaga goto_type_definition<CR>")
-
 
 -- Show line diagnostics
 -- You can pass argument ++unfocus to
@@ -571,13 +584,6 @@ keymap("n","<leader>o", "<cmd>Lspsaga outline<CR>")
 -- To disable it just use ":Lspsaga hover_doc ++quiet"
 -- Pressing the key twice will enter the hover window
 keymap("n", "K", "<cmd>Lspsaga hover_doc<CR>")
-
--- If you want to keep the hover window in the top right hand corner,
--- you can pass the ++keep argument
--- Note that if you use hover with ++keep, pressing this key again will
--- close the hover window. If you want to jump to the hover window
--- you should use the wincmd command "<C-w>w"
-keymap("n", "K", "<cmd>Lspsaga hover_doc ++keep<CR>")
 
 -- Call hierarchy
 keymap("n", "<Leader>ci", "<cmd>Lspsaga incoming_calls<CR>")
@@ -721,9 +727,6 @@ neogit.setup {
 -- nvim tree
 
 -- Yanky
-local utils = require("yanky.utils")
-local mapping = require("yanky.telescope.mapping")
-
 vim.keymap.set({ "n", "x" }, "p", "<Plug>(YankyPutAfter)")
 vim.keymap.set({ "n", "x" }, "P", "<Plug>(YankyPutBefore)")
 vim.keymap.set({ "n", "x" }, "gp", "<Plug>(YankyGPutAfter)")
@@ -732,28 +735,38 @@ vim.keymap.set({ "n", "x" }, "gP", "<Plug>(YankyGPutBefore)")
 vim.keymap.set("n", "<c-n>", "<Plug>(YankyCycleForward)")
 vim.keymap.set("n", "<c-p>", "<Plug>(YankyCycleBackward)")
 
+local utils = require("yanky.utils")
+local mapping = require("yanky.telescope.mapping")
+
 require("yanky").setup({
   ring = {
     history_length = 100,
     storage = "shada",
     sync_with_numbered_registers = true,
     cancel_event = "update",
+    ignore_registers = { "_" },
   },
   system_clipboard = {
     sync_with_ring = true,
   },
+  highlight = {
+    on_put = true,
+    on_yank = true,
+    timer = 500,
+  },
   picker = {
     telescope = {
+      use_default_mappings = false,
       mappings = {
         default = mapping.put("p"),
         i = {
-          ["<c-p>"] = nil,
-          ["<c-k>"] = mapping.put("P"),
-          ["<c-x>"] = mapping.delete(),
+          ["<c-p>"] = mapping.put("p"),
+          ["<c-l>"] = mapping.put("P"),
+          ["<c-d>"] = mapping.delete(),
           ["<c-r>"] = mapping.set_register(utils.get_default_register()),
         },
         n = {
-          p = nil,
+          p = mapping.put("p"),
           P = mapping.put("P"),
           d = mapping.delete(),
           r = mapping.set_register(utils.get_default_register())
@@ -819,29 +832,14 @@ require("null-ls").setup({
 })
 
 -- trouble
-require("trouble").setup(
-  { use_diagnostic_signs = true }
-)
+require("trouble").setup( { use_diagnostic_signs = true })
 -- Lua
-vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>",
-  { silent = true, noremap = true }
-)
-vim.keymap.set("n", "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>",
-  { silent = true, noremap = true }
-)
-vim.keymap.set("n", "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>",
-  { silent = true, noremap = true }
-)
-vim.keymap.set("n", "<leader>xl", "<cmd>TroubleToggle loclist<cr>",
-  { silent = true, noremap = true }
-)
-vim.keymap.set("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>",
-  { silent = true, noremap = true }
-)
-vim.keymap.set("n", "gR", "<cmd>TroubleToggle lsp_references<cr>",
-  { silent = true, noremap = true }
-)
-
+vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>", { silent = true, noremap = true })
+vim.keymap.set("n", "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>", { silent = true, noremap = true }) 
+vim.keymap.set("n", "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>", { silent = true, noremap = true })
+vim.keymap.set("n", "<leader>xl", "<cmd>TroubleToggle loclist<cr>", { silent = true, noremap = true })
+vim.keymap.set("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", { silent = true, noremap = true })
+vim.keymap.set("n", "gr", "<cmd>TroubleToggle lsp_references<cr>", { silent = true, noremap = true })
 
 -- Unless you are still migrating, remove the deprecated commands from v1.x
 vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
