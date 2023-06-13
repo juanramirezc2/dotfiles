@@ -459,12 +459,10 @@ require('telescope').setup {
       i = {
         ["<c-t>"] = trouble.open_with_trouble,
         ["<c-d>"] = actions.delete_buffer + actions.move_to_top,
-        ["<C-j>"] = actions.move_selection_next,
-        ["<C-k>"] = actions.move_selection_previous,
         ["<C-u>"] = false,
         ["<C-d>"] = false,
-        ["<c-n>"] = false,
-        ["<c-p>"] = false
+        ["<c-n>"] = actions.move_selection_next,
+        ["<c-p>"] = actions.move_selection_previous
       },
       n = {
         ["j"] = actions.move_selection_next,
@@ -563,8 +561,8 @@ keymap("n","gt", "<cmd>Lspsaga goto_type_definition<CR>")
 
 -- Diagnostic jump
 -- You can use <C-o> to jump back to your previous location
-keymap("n", "[e", "<cmd>Lspsaga diagnostic_jump_prev<CR>")
-keymap("n", "]e", "<cmd>Lspsaga diagnostic_jump_next<CR>")
+keymap("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>")
+keymap("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>")
 
 -- Diagnostic jump with filters such as only jumping to an error
 keymap("n", "[E", function()
@@ -760,8 +758,8 @@ require("yanky").setup({
       mappings = {
         default = mapping.put("p"),
         i = {
-          ["<c-p>"] = mapping.put("p"),
-          ["<c-l>"] = mapping.put("P"),
+          ["<c-l>"] = mapping.put("p"),
+          ["<c-k>"] = mapping.put("P"),
           ["<c-d>"] = mapping.delete(),
           ["<c-r>"] = mapping.set_register(utils.get_default_register()),
         },
