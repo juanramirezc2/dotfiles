@@ -858,6 +858,8 @@ require("neo-tree").setup({
     use_libuv_file_watcher = true,
   },
   window = {
+    position = "right",
+    width = 60,
     mappings = {
       ["<space>"] = "none",
       ["l"] = "open",
