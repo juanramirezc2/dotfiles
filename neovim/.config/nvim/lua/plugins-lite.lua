@@ -35,9 +35,7 @@ require('packer').startup(function(use)
       {"nvim-treesitter/nvim-treesitter"}
     }
   })
-  use {
-    'f-person/git-blame.nvim'
-  }
+  -- use { 'f-person/git-blame.nvim' }
   use { -- vscode-like pictograms for neovim lsp completion items
     'onsails/lspkind.nvim'
   }
@@ -744,8 +742,8 @@ require("null-ls").setup({
     null_ls.builtins.formatting.prettier,
     null_ls.builtins.diagnostics.eslint_d,
     null_ls.builtins.diagnostics.commitlint,
-    null_ls.builtins.diagnostics.cspell,
-    null_ls.builtins.code_actions.cspell
+    -- null_ls.builtins.diagnostics.cspell,
+    -- null_ls.builtins.code_actions.cspell
     -- null_ls.builtins.completion.spell,
   },
   -- you can reuse a shared lspconfig on_attach callback here
@@ -793,7 +791,7 @@ require("neo-tree").setup({
   },
   window = {
     position = "right",
-    width = 60,
+    width = 40,
     mappings = {
       ["<space>"] = "none",
       ["l"] = "open",
@@ -880,11 +878,11 @@ vim.keymap.set('n', '<leader>bd', function() require('bufdelete').bufdelete(0, t
 -- Git signs setup
 require('gitsigns').setup({
   debug_mode                   = true,
-  signs                        = {
+  signs = {
     add = { text = "▎" },
     change = { text = "▎" },
-    delete = { text = "契" },
-    topdelete = { text = "契" },
+    delete = { text = "" },
+    topdelete = { text = "" },
     changedelete = { text = "▎" },
     untracked = { text = "▎" },
   },
@@ -897,14 +895,14 @@ require('gitsigns').setup({
     follow_files = true
   },
   attach_to_untracked          = true,
-  current_line_blame           = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
+  current_line_blame           = true, -- Toggle with `:Gitsigns toggle_current_line_blame`
   current_line_blame_opts      = {
     virt_text = true,
     virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
-    delay = 1000,
-    ignore_whitespace = false,
+    delay = 700,
+    ignore_whitespace = true,
   },
-  current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d> - <summary>',
+  current_line_blame_formatter = '<author>, <author_time:%R> - <summary>',
   sign_priority                = 6,
   update_debounce              = 100,
   status_formatter             = nil,   -- Use default
@@ -1192,8 +1190,8 @@ vim.api.nvim_set_hl(0, 'IlluminatedWordWrite', { link = 'Visual' })
 
 -- git blame shorter
 -- vim.g.gitblame_message_template = '   <summary> • <date> • <author>'
-vim.g.gitblame_message_template = '  • <author> • <date>'
-vim.g.gitblame_date_format = '%r'
-vim.g.gitblame_delay = 1000
+-- vim.g.gitblame_message_template = '   <author> • <date>'
+-- vim.g.gitblame_date_format = '%r'
+-- vim.g.gitblame_delay = 500
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
