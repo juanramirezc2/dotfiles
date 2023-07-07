@@ -81,14 +81,14 @@ vnoremap("<C-l>", "g_")
 nnoremap("<leader><CR>", ":nohlsearch<CR>")
 
 -- Copy to clipboard
-vnoremap("<C-c>", '"*y')
-nnoremap("<C-c>", '"*y')
-
-vnoremap('<C-v>', '"*p')
-nnoremap("<C-v>", '"*p')
-
-vnoremap('<C-x>', '"+d')
-nnoremap('<C-x>', '"+d')
+-- vnoremap("<C-c>", '"*y')
+-- nnoremap("<C-c>", '"*y')
+--
+-- vnoremap('<C-v>', '"*p')
+-- nnoremap("<C-v>", '"*p')
+--
+-- vnoremap('<C-x>', '"+d')
+-- nnoremap('<C-x>', '"+d')
 -- replace without deleting in visual
 vnoremap("<leader>p", [["_dp]])
 -- Search Selection

@@ -170,7 +170,6 @@ require('packer').startup(function(use)
   use "hrsh7th/cmp-buffer"
   use "hrsh7th/cmp-path"
   use "hrsh7th/cmp-cmdline"
-  
   use { -- Autocompletion
     'hrsh7th/nvim-cmp',
     requires = { 'hrsh7th/cmp-nvim-lsp' },
@@ -233,24 +232,25 @@ require('packer').startup(function(use)
           ghost_text = {
             hl_group = "CmpGhostText",
           },
-          sorting = {
-            priority_weight = 2,
-            comparators = {
-              require("copilot_cmp.comparators").prioritize,
+          sorting = 
+            {
+              priority_weight = 2,
+              comparators = {
+                require("copilot_cmp.comparators").prioritize,
 
-              -- Below is the default comparitor list and order for nvim-cmp
-              cmp.config.compare.offset,
-              -- cmp.config.compare.scopes, --this is commented in nvim-cmp too
-              cmp.config.compare.exact,
-              cmp.config.compare.score,
-              cmp.config.compare.recently_used,
-              cmp.config.compare.locality,
-              cmp.config.compare.kind,
-              cmp.config.compare.sort_text,
-              cmp.config.compare.length,
-              cmp.config.compare.order,
+                -- Below is the default comparitor list and order for nvim-cmp
+                cmp.config.compare.offset,
+                -- cmp.config.compare.scopes, --this is commented in nvim-cmp too
+                cmp.config.compare.exact,
+                cmp.config.compare.score,
+                cmp.config.compare.recently_used,
+                cmp.config.compare.locality,
+                cmp.config.compare.kind,
+                cmp.config.compare.sort_text,
+                cmp.config.compare.length,
+                cmp.config.compare.order,
+              },
             },
-          },
         },
       }
       -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
@@ -709,8 +709,7 @@ require("yanky").setup({
   }
 })
 
-vim.keymap.set('n', '<leader>sy', require("telescope").extensions.yank_history.yank_history,
-  { desc = '[S]earch current [W]ord' })
+vim.keymap.set('n', '<leader>p', function() require("telescope").extensions.yank_history.yank_history({ }) end, { desc = 'Open Yank History' })
 require("telescope").load_extension("yank_history")
 -- Leap config
 require('leap').add_default_mappings()
@@ -935,13 +934,13 @@ require('gitsigns').setup({
     -- Actions
     map({ "n", "v" }, "<leader>ghs", ":Gitsigns stage_hunk<CR>", "Stage Hunk")
     map({ "n", "v" }, "<leader>ghr", ":Gitsigns reset_hunk<CR>", "Reset Hunk")
-    map("n", "<leader>ghS", gs.stage_buffer, "Stage Buffer")
-    map("n", "<leader>ghu", gs.undo_stage_hunk, "Undo Stage Hunk")
-    map("n", "<leader>ghR", gs.reset_buffer, "Reset Buffer")
-    map("n", "<leader>ghp", gs.preview_hunk, "Preview Hunk")
-    map("n", "<leader>ghb", function() gs.blame_line({ full = true }) end, "Blame Line")
-    map("n", "<leader>ghd", gs.diffthis, "Diff This")
-    map("n", "<leader>ghD", function() gs.diffthis("~") end, "Diff This ~")
+    map("n", "<leader>hS", gs.stage_buffer, "Stage Buffer")
+    map("n", "<leader>hu", gs.undo_stage_hunk, "Undo Stage Hunk")
+    map("n", "<leader>hR", gs.reset_buffer, "Reset Buffer")
+    map("n", "<leader>hp", gs.preview_hunk, "Preview Hunk")
+    map("n", "<leader>hb", function() gs.blame_line({ full = true }) end, "Blame Line")
+    map("n", "<leader>hd", gs.diffthis, "Diff This")
+    map("n", "<leader>hD", function() gs.diffthis("~") end, "Diff This ~")
     map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
 
     -- Text object
