@@ -169,10 +169,12 @@ require('packer').startup(function(use)
   use "hrsh7th/cmp-buffer"
   use "hrsh7th/cmp-path"
   use "hrsh7th/cmp-cmdline"
+  
   use { -- Autocompletion
     'hrsh7th/nvim-cmp',
     requires = { 'hrsh7th/cmp-nvim-lsp' },
     config = function ()
+      vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
       local cmp = require 'cmp'
       local cmp_autopairs = require('nvim-autopairs.completion.cmp')
       cmp.event:on(
