@@ -36,3 +36,5 @@ tags
 ehthumbs.db
 Thumbs.db
 packer_compiled.lua
+# Packer compile file
+neovim/.config/nvim/plugin/
