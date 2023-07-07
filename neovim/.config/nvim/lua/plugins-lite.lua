@@ -6,6 +6,7 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
   vim.fn.system { 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path }
   vim.cmd [[packadd packer.nvim]]
 end
+
 require('packer').startup(function(use)
   -- Package manager
   use 'wbthomason/packer.nvim'
@@ -230,7 +231,7 @@ require('packer').startup(function(use)
         },
         experimental = {
           ghost_text = {
-            hl_group = "LspCodeLens",
+            hl_group = "CmpGhostText",
           },
           sorting = {
             priority_weight = 2,
