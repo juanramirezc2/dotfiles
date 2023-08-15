@@ -119,11 +119,11 @@ require('packer').startup(function(use)
   use { 'jose-elias-alvarez/null-ls.nvim', requires = 'nvim-lua/plenary.nvim' }
   use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
   use { 'TimUntersberger/neogit', requires = {
-    'nvim-lua/plenary.nvim',
-    'sindrets/diffview.nvim'
-  } }
+    "nvim-lua/plenary.nvim",         -- required
+    "nvim-telescope/telescope.nvim", -- optional
+    "sindrets/diffview.nvim",        -- optional
+  }}
   use "SmiteshP/nvim-navic"
-
   -- colorschemes
   use 'folke/tokyonight.nvim'
   use 'navarasu/onedark.nvim' -- Theme inspired by Atom
@@ -597,10 +597,6 @@ vim.api.nvim_set_keymap('n', '<leader>gs', ':Neogit<CR>', {})
 vim.api.nvim_set_keymap('n', '<leader>gd', ':DiffviewOpen<CR>', {})
 vim.api.nvim_set_keymap('n', '<leader>gD', ':DiffviewOpen main<CR>', {})
 neogit.setup {
-  disable_commit_confirmation = true,
-  disable_signs = false,
-  disable_hint = false,
-  disable_context_highlighting = false,
   -- Neogit refreshes its internal state after specific events, which can be expensive depending on the repository size.
   -- Disabling `auto_refresh` will make it so you have to manually refresh the status after you open it.
   auto_refresh = true,
@@ -609,52 +605,9 @@ neogit.setup {
   commit_popup = {
     kind = "split",
   },
-  -- Change the default way of opening neogit
-  kind = "tab",
-  -- customize displayed signs
-  signs = {
-    -- { CLOSED, OPENED }
-    section = { ">", "v" },
-    item = { ">", "v" },
-    hunk = { "", "" },
-  },
   integrations = {
     diffview = true
   },
-  -- Setting any section to `false` will make the section not render at all
-  sections = {
-    untracked = {
-      folded = false
-    },
-    unstaged = {
-      folded = false
-    },
-    staged = {
-      folded = false
-    },
-    stashes = {
-      folded = true
-    },
-    unpulled = {
-      folded = true
-    },
-    unmerged = {
-      folded = false
-    },
-    recent = {
-      folded = true
-    },
-  },
-  -- override/add mappings
-  mappings = {
-    -- modify status buffer mappings
-    status = {
-      -- Adds a mapping with "B" as key that does the "BranchPopup" command
-      ["w"] = "StashPopup",
-      -- Removes the default mapping of "s"
-      ["Z"] = "",
-    }
-  }
 }
 
 -- nvim tree
@@ -868,7 +821,7 @@ vim.o.foldmethod = "expr"
 -- vim.o.foldexpr = "nvim_treesitter#foldexpr()"
 vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.o.foldlevelstart = 99
-vim.o.foldcolumn = "auto"
+--vim.o.foldcolumn = "auto"
 vim.o.foldtext = [[v:folddashes.substitute(getline(v:foldstart),'/\\*\\\|\\*/\\\|{{{\\d\\=','','g')]]
 
 vim.api.nvim_set_hl(0, 'Folded', { bg = 'grey', fg='blue' })
@@ -933,7 +886,7 @@ require('gitsigns').setup({
 
     -- Actions
     map({ "n", "v" }, "<leader>ghs", ":Gitsigns stage_hunk<CR>", "Stage Hunk")
-    map({ "n", "v" }, "<leader>ghr", ":Gitsigns reset_hunk<CR>", "Reset Hunk")
+    map({ "n", "v" }, "<leader>hr", ":Gitsigns reset_hunk<CR>", "Reset Hunk")
     map("n", "<leader>hS", gs.stage_buffer, "Stage Buffer")
     map("n", "<leader>hu", gs.undo_stage_hunk, "Undo Stage Hunk")
     map("n", "<leader>hR", gs.reset_buffer, "Reset Buffer")
