@@ -108,7 +108,7 @@ require('packer').startup(function(use)
     "nvim-lua/plenary.nvim",         -- required
     "nvim-telescope/telescope.nvim", -- optional
     "sindrets/diffview.nvim",        -- optional
-  }}
+  } }
   use "SmiteshP/nvim-navic"
   -- colorschemes
   use 'folke/tokyonight.nvim'
@@ -141,8 +141,10 @@ require('packer').startup(function(use)
   }
   use {
     "zbirenbaum/copilot-cmp",
-    after = { "copilot.lua"},
-    config = function ()
+    after = { "copilot.lua" },
+    event = { "InsertEnter", "LspAttach" },
+    fix_pairs = true,
+    config = function()
       require("copilot_cmp").setup()
     end
   }
@@ -159,7 +161,7 @@ require('packer').startup(function(use)
   use { -- Autocompletion
     'hrsh7th/nvim-cmp',
     requires = { 'hrsh7th/cmp-nvim-lsp' },
-    config = function ()
+    config = function()
       vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
       local cmp = require 'cmp'
       local cmp_autopairs = require('nvim-autopairs.completion.cmp')
@@ -172,7 +174,7 @@ require('packer').startup(function(use)
       local has_words_before = function()
         if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
         local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-        return col ~= 0 and vim.api.nvim_buf_get_text(0, line-1, 0, line-1, col, {})[1]:match("^%s*$") == nil
+        return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
       end
       cmp.setup {
         snippet = {
@@ -200,12 +202,12 @@ require('packer').startup(function(use)
           end),
         },
         sources = cmp.config.sources({
-          { name = "copilot", group_index = 2 },
+          { name = "copilot",  group_index = 2 },
           { name = 'nvim_lsp', group_index = 2 },
-          { name = 'luasnip', group_index = 2 }, -- For luasnip users.
+          { name = 'luasnip',  group_index = 2 }, -- For luasnip users.
         }, {
-            { name = 'buffer' },
-          }),
+          { name = 'buffer' },
+        }),
         formatting = {
           format = lspkind.cmp_format({
             mode = 'symbol',       -- show only symbol annotations
@@ -218,25 +220,25 @@ require('packer').startup(function(use)
           ghost_text = {
             hl_group = "CmpGhostText",
           },
-          sorting = 
-            {
-              priority_weight = 2,
-              comparators = {
-                require("copilot_cmp.comparators").prioritize,
+          sorting =
+          {
+            priority_weight = 2,
+            comparators = {
+              require("copilot_cmp.comparators").prioritize,
 
-                -- Below is the default comparitor list and order for nvim-cmp
-                cmp.config.compare.offset,
-                -- cmp.config.compare.scopes, --this is commented in nvim-cmp too
-                cmp.config.compare.exact,
-                cmp.config.compare.score,
-                cmp.config.compare.recently_used,
-                cmp.config.compare.locality,
-                cmp.config.compare.kind,
-                cmp.config.compare.sort_text,
-                cmp.config.compare.length,
-                cmp.config.compare.order,
-              },
+              -- Below is the default comparitor list and order for nvim-cmp
+              cmp.config.compare.offset,
+              -- cmp.config.compare.scopes, --this is commented in nvim-cmp too
+              cmp.config.compare.exact,
+              cmp.config.compare.score,
+              cmp.config.compare.recently_used,
+              cmp.config.compare.locality,
+              cmp.config.compare.kind,
+              cmp.config.compare.sort_text,
+              cmp.config.compare.length,
+              cmp.config.compare.order,
             },
+          },
         },
       }
       -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
@@ -252,14 +254,18 @@ require('packer').startup(function(use)
         sources = cmp.config.sources({
           { name = 'path' }
         }, {
-            { name = 'cmdline' }
-          })
+          { name = 'cmdline' }
+        })
       })
     end
   }
   --
-  use 'nvim-lualine/lualine.nvim' -- Fancier statusline
-  use {                           -- Add indentation guides even on blank lines
+  use {
+    'nvim-lualine/lualine.nvim',
+    requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+  }
+
+  use { -- Add indentation guides even on blank lines
     'lukas-reineke/indent-blankline.nvim',
   }
 
@@ -349,13 +355,9 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 -- Set lualine as statusline
 -- See `:help lualine.txt`
-require('lualine').setup {
-  options = {
-    icons_enabled = false,
-    component_separators = '|',
-    section_separators = '',
-  },
-}
+require('lualine').setup({
+  sections = { lualine_c = { "%{expand('%')}" }, lualine_x ={ "%{getcwd()}"} }
+})
 
 -- Enable Comment.nvim
 require('Comment').setup()
@@ -410,9 +412,11 @@ vim.keymap.set('n', '<leader>/', function()
   })
 end, { desc = '[/] Fuzzily search in current buffer]' })
 
+-- Telescope Mappings
 vim.api.nvim_set_keymap('n', '<leader><space>', "<cmd>Telescope buffers show_all_buffers=true<cr>",
   { desc = '[ ] Find existing buffers' })
-vim.keymap.set('n', '<leader>fc', function() require('telescope.builtin').colorscheme({ enable_preview = true }) end,  { desc = '[S]earch [C]olorscheme' })
+vim.keymap.set('n', '<leader>fc', function() require('telescope.builtin').colorscheme({ enable_preview = true }) end,
+  { desc = '[S]earch [C]olorscheme' })
 vim.keymap.set('n', '<leader>fg', require('telescope.builtin').git_files, { desc = 'Search [G]it [F]iles' })
 vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
 vim.api.nvim_set_keymap('n', '<leader>:', "<cmd>Telescope command_history<cr>", { desc = 'Command History' })
@@ -426,18 +430,55 @@ vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc
 -- vim.keymap.set('n', '<leader>sG', Util("live_grep", { cwd = false }), { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 
+-- Diagnostic keymaps
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
+vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
 -- LSP settings ------------------------{{{{{{{{{{{{{{{{{{{{{{{{
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(client, bufnr)
+  if client.name == "tsserver" then
+    -- stylua: ignore
+    vim.keymap.set("n", "<leader>co", "<cmd>TypescriptOrganizeImports<CR>", { buffer = bufnr, desc = "Organize Imports" })
+    vim.keymap.set("n", "<leader>cR", "<cmd>TypescriptRenameFile<CR>", { desc = "Rename File", buffer = bufnr })
+  end
+  -- In this case, we create a function that lets us more easily define mappings specific
+  -- for LSP related items. It sets the mode, buffer and description for us each time.
+  local nmap = function(keys, func, desc)
+    if desc then
+      desc = 'LSP: ' .. desc
+    end
 
-if client.name == "tsserver" then
-  -- stylua: ignore
-  vim.keymap.set("n", "<leader>co", "<cmd>TypescriptOrganizeImports<CR>", { buffer = bufnr, desc = "Organize Imports" })
-  vim.keymap.set("n", "<leader>cR", "<cmd>TypescriptRenameFile<CR>", { desc = "Rename File", buffer = bufnr })
-end
+    vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
+  end
+  nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+  nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
+  nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+  nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+  nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
+  nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
+  nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+  nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
+  -- See `:help K` for why this keymap
+  nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
+  nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+
+  -- Lesser used LSP functionality
+  nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+  nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
+  nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
+  nmap('<leader>wl', function()
+    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  end, '[W]orkspace [L]ist Folders')
+
+  -- Create a command `:Format` local to the LSP buffer
+  vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
+    vim.lsp.buf.format()
+  end, { desc = 'Format current buffer with LSP' })
 end
 
 -- Enable the following language servers
@@ -567,7 +608,8 @@ require("yanky").setup({
   }
 })
 
-vim.keymap.set('n', '<leader>p', function() require("telescope").extensions.yank_history.yank_history({ }) end, { desc = 'Open Yank History' })
+vim.keymap.set('n', '<leader>p', function() require("telescope").extensions.yank_history.yank_history({}) end,
+  { desc = 'Open Yank History' })
 require("telescope").load_extension("yank_history")
 -- Leap config
 require('leap').add_default_mappings()
@@ -585,10 +627,6 @@ require('indent_blankline').setup {
   show_current_context = true,
   show_current_context_start = true,
 }
--- Show invisible characters
--- vim.opt.list = true
--- vim.opt.listchars:append "eol:↴"
--- nvim-navic
 
 
 -- null ls nvim
@@ -622,7 +660,7 @@ require("null-ls").setup({
 })
 
 -- trouble
-require("trouble").setup( { use_diagnostic_signs = true })
+require("trouble").setup({ use_diagnostic_signs = true })
 -- Lua
 vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>", { silent = true, noremap = true })
 vim.keymap.set("n", "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>", { silent = true, noremap = true })
@@ -650,7 +688,6 @@ require("neo-tree").setup({
     use_libuv_file_watcher = true,
   },
   window = {
-    position = "right",
     width = 40,
     mappings = {
       ["<space>"] = "none",
@@ -660,7 +697,7 @@ require("neo-tree").setup({
   },
   default_component_configs = {
     indent = {
-      with_expanders = true,     -- if nil and file nesting is enabled, will enable expanders
+      with_expanders = true, -- if nil and file nesting is enabled, will enable expanders
       expander_collapsed = "",
       expander_expanded = "",
       expander_highlight = "NeoTreeExpander",
@@ -729,8 +766,8 @@ vim.o.foldlevelstart = 99
 --vim.o.foldcolumn = "auto"
 vim.o.foldtext = [[v:folddashes.substitute(getline(v:foldstart),'/\\*\\\|\\*/\\\|{{{\\d\\=','','g')]]
 
-vim.api.nvim_set_hl(0, 'Folded', { bg = 'grey', fg='blue' })
-vim.api.nvim_set_hl(0, 'FoldColumn', { bg = 'darkgrey', fg='white' })
+vim.api.nvim_set_hl(0, 'Folded', { bg = 'grey', fg = 'blue' })
+vim.api.nvim_set_hl(0, 'FoldColumn', { bg = 'darkgrey', fg = 'white' })
 
 -- bufdelete.nvim mappings
 vim.keymap.set('n', '<leader>bd', function() require('bufdelete').bufdelete(0, true) end, { desc = '[B]uffer [D]elete' })
@@ -738,7 +775,7 @@ vim.keymap.set('n', '<leader>bd', function() require('bufdelete').bufdelete(0, t
 -- Git signs setup
 require('gitsigns').setup({
   debug_mode                   = true,
-  signs = {
+  signs                        = {
     add = { text = "▎" },
     change = { text = "▎" },
     delete = { text = "" },
@@ -808,19 +845,19 @@ require('gitsigns').setup({
 -- Octo nvim
 require "octo".setup({
   default_remote = { "upstream", "origin" }, -- order to try remotes
-  ssh_aliases = {},                          -- SSH aliases. e.g. `ssh_aliases = {["github.com-work"] = "github.com"}`
-  reaction_viewer_hint_icon = "",         -- marker for user reactions
-  user_icon = " ",                        -- user icon
-  timeline_marker = "",                   -- timeline marker
-  timeline_indent = "2",                     -- timeline indentation
-  right_bubble_delimiter = "",            -- bubble delimiter
-  left_bubble_delimiter = "",             -- bubble delimiter
-  github_hostname = "",                      -- GitHub Enterprise host
-  snippet_context_lines = 4,                 -- number or lines around commented lines
-  gh_env = {},                               -- extra environment variables to pass on to GitHub CLI, can be a table or function returning a table
-  timeout = 5000,                            -- timeout for requests between the remote server
+  ssh_aliases = {}, -- SSH aliases. e.g. `ssh_aliases = {["github.com-work"] = "github.com"}`
+  reaction_viewer_hint_icon = "", -- marker for user reactions
+  user_icon = " ", -- user icon
+  timeline_marker = "", -- timeline marker
+  timeline_indent = "2", -- timeline indentation
+  right_bubble_delimiter = "", -- bubble delimiter
+  left_bubble_delimiter = "", -- bubble delimiter
+  github_hostname = "", -- GitHub Enterprise host
+  snippet_context_lines = 4, -- number or lines around commented lines
+  gh_env = {}, -- extra environment variables to pass on to GitHub CLI, can be a table or function returning a table
+  timeout = 5000, -- timeout for requests between the remote server
   ui = {
-    use_signcolumn = true,                   -- show "modified" marks on the sign column
+    use_signcolumn = true, -- show "modified" marks on the sign column
   },
   issues = {
     order_by = {
