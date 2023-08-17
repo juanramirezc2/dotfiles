@@ -356,7 +356,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 -- Set lualine as statusline
 -- See `:help lualine.txt`
 require('lualine').setup({
-  sections = { lualine_c = { "%{expand('%')}" }, lualine_x ={ "%{getcwd()}"} }
+  sections = { lualine_c = { "%{expand('%:~:.')}" }, lualine_x ={ "%{fnamemodify(getcwd(), ':t')}"} }
 })
 
 -- Enable Comment.nvim
