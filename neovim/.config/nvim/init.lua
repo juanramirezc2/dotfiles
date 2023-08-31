@@ -67,7 +67,7 @@ end
 vim.g.markdown_recommended_style = 0
 -- }}}}}}}}}}}}}}}}}}}}}}}}}}}
 -- local env = vim.env
-local utils = require("utils")
+local utils = require("util")
 local inoremap = utils.inoremap
 local nnoremap = utils.nnoremap
 local vnoremap = utils.vnoremap
