@@ -158,3 +158,7 @@ export PUPPETEER_EXECUTABLE_PATH=`which chromium`
 export PATH="/opt/homebrew/opt/node@18/bin:$PATH"
 export PATH="/opt/homebrew/opt/node@18/bin:$PATH"
 export PATH="/opt/homebrew/opt/node@18/bin:$PATH"
+
+
+# NR AWS Profile
+export AWS_PROFILE=mgmt
