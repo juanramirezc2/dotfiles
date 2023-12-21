@@ -159,6 +159,9 @@ export PATH="/opt/homebrew/opt/node@18/bin:$PATH"
 export PATH="/opt/homebrew/opt/node@18/bin:$PATH"
 export PATH="/opt/homebrew/opt/node@18/bin:$PATH"
 
+# github
+export GITHUB_TOKEN=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
+
 
 # NR AWS Profile
 export AWS_PROFILE=mgmt
