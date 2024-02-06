@@ -11,7 +11,7 @@ return {
         },
       },
       window = {
-        width = 30,
+        width = 50,
         mappings = {
           ["<space>"] = false, -- disable space until we figure out which-key disabling
           l = "child_or_open",
