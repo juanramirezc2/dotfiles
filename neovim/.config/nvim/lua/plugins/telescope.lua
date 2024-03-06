@@ -18,6 +18,15 @@ return {
         layout_config = { prompt_position = "top" },
         sorting_strategy = "ascending",
         winblend = 0,
+        mappings = {
+          i = {
+            ["<c-d>"] = require("telescope.actions").delete_buffer,
+          },
+          n = {
+            ["<C-h>"] = "which_key",
+            ["<c-d>"] = require("telescope.actions").delete_buffer,
+          },
+        },
       },
     },
   },

@@ -8,7 +8,7 @@ return {
       preserve_cursor_position = {
         enabled = false,
       },
-      --   ring = { storage = jit.os:find("Windows") and "shada" or "sqlite" },
+      -- ring = { storage = jit.os:find("Windows") and "shada" or "sqlite" },
     },
     keys = {
         -- stylua: ignore
