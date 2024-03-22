@@ -14,8 +14,9 @@ return {
         width = 50,
         mappings = {
           ["<space>"] = false, -- disable space until we figure out which-key disabling
-          l = "child_or_open",
-          o = "open",
+          ["l"] = "open",
+          ["o"] = "open",
+          ["h"] = "close_node",
         },
         fuzzy_finder_mappings = { -- define keymaps for filter popup window in fuzzy_finder_mode
           ["<C-j>"] = "move_cursor_down",
