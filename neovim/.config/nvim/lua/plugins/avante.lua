@@ -15,7 +15,11 @@ return {
   },
   opts = {
     provider = "copilot",
-    cursor_applying_provider = "ollama",
+    cursor_applying_provider = "groq",
+    debug = true,
+    rag_service = {
+      enabled = true, -- Enables the rag service, requires OPENAI_API_KEY to be set
+    },
     vendors = {
       openrouter = {
         __inherited_from = "openai",
@@ -25,12 +29,14 @@ return {
         model = "deepseek/deepseek-r1",
         max_tokens = 8192,
       },
-      ollama = {
+      lmstudio = {
         __inherited_from = "openai",
         api_key_name = "",
-        endpoint = "http://127.0.0.1:11434/v1",
+        endpoint = "http://127.0.0.1:1234/v1",
+        -- model = "fastapply-7b-v1.0",
         -- model = "hf.co/Kortix/FastApply-7B-v1.0_GGUF:Q4_K_M",
-        model = "hf.co/Kortix/FastApply-1.5B-v1.0_GGUF:Q4_K_M",
+        model = "fastapply-1.5b-v1.0_gguf",
+        max_tokens = 32768,
       },
       groq = {
         __inherited_from = "openai",
@@ -41,7 +47,7 @@ return {
       },
     },
     copilot = {
-      model = "claude-3.5-sonnet", -- or "gpt-4o"
+      model = "claude-3.7-sonnet", -- or "gpt-4o"
       -- model = "claude-3.7-sonnet" -- uncomment this when enabled
       temperature = 0,
       max_tokens = 8192,
