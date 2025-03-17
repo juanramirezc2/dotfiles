@@ -47,8 +47,8 @@ return {
       },
     },
     copilot = {
-      model = "claude-3.7-sonnet", -- or "gpt-4o"
-      -- model = "claude-3.7-sonnet" -- uncomment this when enabled
+      -- model = "claude-3.7-sonnet", -- or "gpt-4o"
+      model = "claude-3.7-sonnet-thought", -- uncomment this when enabled
       temperature = 0,
       max_tokens = 8192,
     },
