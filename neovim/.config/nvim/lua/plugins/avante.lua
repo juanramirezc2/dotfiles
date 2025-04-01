@@ -14,12 +14,12 @@ return {
     },
   },
   opts = {
-    provider = "copilot",
-    cursor_applying_provider = "groq",
+    provider = "gemini",
+    cursor_applying_provider = "ollama",
     debug = true,
-    rag_service = {
-      enabled = true, -- Enables the rag service, requires OPENAI_API_KEY to be set
-    },
+    -- rag_service = {
+    --   enabled = true, -- Enables the rag service, requires OPENAI_API_KEY to be set
+    -- },
     vendors = {
       openrouter = {
         __inherited_from = "openai",
@@ -45,6 +45,12 @@ return {
         model = "llama-3.3-70b-versatile",
         max_tokens = 32768, -- remember to increase this value, otherwise it will stop generating halfway
       },
+    },
+    ollama = {
+      model = "hf.co/Kortix/FastApply-7B-v1.0_GGUF:Q4_K_M",
+    },
+    gemini = {
+      model = "gemini-2.5-pro-exp-03-25"
     },
     copilot = {
       -- model = "claude-3.7-sonnet", -- or "gpt-4o"
