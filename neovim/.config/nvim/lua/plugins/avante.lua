@@ -15,7 +15,7 @@ return {
   },
   opts = {
     provider = "gemini",
-    cursor_applying_provider = "ollama",
+    cursor_applying_provider = "groq",
     debug = true,
     -- rag_service = {
     --   enabled = true, -- Enables the rag service, requires OPENAI_API_KEY to be set
@@ -44,13 +44,16 @@ return {
         endpoint = "https://api.groq.com/openai/v1/",
         model = "llama-3.3-70b-versatile",
         max_tokens = 32768, -- remember to increase this value, otherwise it will stop generating halfway
+        -- model = "qwen-2.5-coder-32b",
+        -- max_tokens = 131072,
       },
     },
     ollama = {
       model = "hf.co/Kortix/FastApply-7B-v1.0_GGUF:Q4_K_M",
     },
     gemini = {
-      model = "gemini-2.5-pro-exp-03-25"
+      -- model = "gemini-2.5-pro-exp-03-25",
+      model = "gemini-2.5-pro-preview-05-06",
     },
     copilot = {
       -- model = "claude-3.7-sonnet", -- or "gpt-4o"
