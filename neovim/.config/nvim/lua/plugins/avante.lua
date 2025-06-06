@@ -32,7 +32,7 @@ return {
     -- rag_service = {
     --   enabled = true, -- Enables the rag service, requires OPENAI_API_KEY to be set
     -- },
-    vendors = {
+    providers = {
       openrouter = {
         __inherited_from = "openai",
         disable_tools = true,
@@ -59,19 +59,21 @@ return {
         -- model = "qwen-2.5-coder-32b",
         -- max_tokens = 131072,
       },
-    },
-    ollama = {
-      model = "hf.co/Kortix/FastApply-7B-v1.0_GGUF:Q4_K_M",
-    },
-    gemini = {
-      -- model = "gemini-2.5-pro-exp-03-25",
-      model = "gemini-2.5-pro-preview-05-06",
-    },
-    copilot = {
-      -- model = "claude-3.7-sonnet", -- or "gpt-4o"
-      model = "claude-3.7-sonnet-thought", -- uncomment this when enabled
-      temperature = 0,
-      max_tokens = 8192,
+      copilot = {
+        -- model = "claude-3.7-sonnet", -- or "gpt-4o"
+        model = "claude-3.7-sonnet-thought", -- uncomment this when enabled
+        extra_resquest_body = {
+          temperature = 0,
+          max_tokens = 8192,
+        },
+      },
+      gemini = {
+        -- model = "gemini-2.5-pro-exp-03-25",
+        model = "gemini-2.5-pro-preview-05-06",
+      },
+      ollama = {
+        model = "hf.co/Kortix/FastApply-7B-v1.0_GGUF:Q4_K_M",
+      },
     },
     behaviour = {
       auto_suggestions = false, -- Experimental stage
@@ -84,6 +86,10 @@ return {
       enable_cursor_planning_mode = true,
       show_diff_preview = true,
       format_on_apply = true,
+      -- auto_approve_tool_permissions = true, -- Default: show permission prompts for all tools
+      -- Examples:
+      -- auto_approve_tool_permissions = true,                -- Auto-approve all tools (no prompts)
+      -- auto_approve_tool_permissions = { "bash", "replace_in_file" }, -- Auto-approve specific tools only
     },
     mappings = {
       --- @class AvanteConflictMappings
