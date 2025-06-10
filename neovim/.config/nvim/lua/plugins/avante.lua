@@ -26,7 +26,7 @@ return {
         require("mcphub.extensions.avante").mcp_tool(),
       }
     end,
-    provider = "gemini",
+    provider = "copilot",
     cursor_applying_provider = "groq",
     debug = true,
     -- rag_service = {
@@ -60,12 +60,9 @@ return {
         -- max_tokens = 131072,
       },
       copilot = {
-        -- model = "claude-3.7-sonnet", -- or "gpt-4o"
-        model = "claude-3.7-sonnet-thought", -- uncomment this when enabled
-        extra_resquest_body = {
-          temperature = 0,
-          max_tokens = 8192,
-        },
+        -- model = "claude-opus-4",
+        model = "claude-sonnet-4",
+        -- model = "gemini-2.5-pro", -- uncomment this when enabled
       },
       gemini = {
         -- model = "gemini-2.5-pro-exp-03-25",
