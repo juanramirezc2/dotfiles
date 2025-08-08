@@ -61,7 +61,8 @@ return {
       },
       copilot = {
         -- model = "claude-opus-4",
-        model = "claude-sonnet-4",
+        -- model = "claude-sonnet-4",
+        model = "gpt-5",
         -- model = "gemini-2.5-pro", -- uncomment this when enabled
       },
       gemini = {
