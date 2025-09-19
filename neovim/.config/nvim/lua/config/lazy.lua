@@ -73,5 +73,6 @@ require("lazy").setup({
   dev = {
     path = "~/Personal/",
     patterns = { "avante" },
+    patterns = { "LazyVim" },
   },
 })
