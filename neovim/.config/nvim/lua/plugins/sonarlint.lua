@@ -3,16 +3,17 @@ return {
   dependencies = {
     "neovim/nvim-lspconfig",
   },
+  -- it requires JRE 17+
   opts = {
     server = {
       cmd = {
         "sonarlint-language-server",
         "-stdio",
         "-analyzers",
-        vim.fn.expand("~/.local/share/nvim/mason/share/sonarlint-analyzers/sonarhtml.jar"),
-        vim.fn.expand("~/.local/share/nvim/mason/share/sonarlint-analyzers/sonariac.jar"),
-        vim.fn.expand("~/.local/share/nvim/mason/share/sonarlint-analyzers/sonarjs.jar"),
-        vim.fn.expand("~/.local/share/nvim/mason/share/sonarlint-analyzers/sonartext.jar"),
+        vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarhtml.jar"),
+        vim.fn.expand("$MASON/share/sonarlint-analyzers/sonariac.jar"),
+        vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarjs.jar"),
+        vim.fn.expand("$MASON/share/sonarlint-analyzers/sonartext.jar"),
       },
     },
     filetypes = {
