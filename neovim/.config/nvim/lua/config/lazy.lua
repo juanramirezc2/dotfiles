@@ -20,6 +20,7 @@ require("lazy").setup({
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
     -- import any extras modules here
     { import = "lazyvim.plugins.extras.lang.typescript" },
+    { import = "lazyvim.plugins.extras.lang.svelte" },
     { import = "lazyvim.plugins.extras.lang.json" },
     -- { import = "lazyvim.plugins.extras.lang.ruby" },
     -- { import = "lazyvim.plugins.extras.lang.python" },
@@ -75,7 +76,6 @@ require("lazy").setup({
   -- https://github.com/dpetka2001/dotfiles/blob/5a73f6dcb1e02c70597942db4583a7b4c3139547/dot_config/nvim/lua/config/lazy.lua#L65-L68
   dev = {
     path = "~/Personal/",
-    patterns = { "avante" },
     patterns = { "LazyVim" },
   },
 })

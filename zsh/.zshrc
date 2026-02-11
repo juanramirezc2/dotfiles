@@ -101,3 +101,11 @@ export XDG_CURRENT_SESSION_TYPE=wayland
 export GDK_BACKEND="wayland,x11"
 export MOZ_ENABLE_WAYLAND=1
 export ELECTRON_OZONE_PLATFORM_HINT=wayland
+# pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init - zsh)"
+alias awsconfig="/Users/juanramirez/Work/nrdev/utility-scripts/awsconfig_wizard.rb"
+export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+export EDITOR=nvim

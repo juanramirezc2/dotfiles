@@ -1,9 +1,10 @@
 # gitconfig
 [core]
   ignorecase = false
+  excludesfile = ~/Work/nr_react_app/.claude/
 [user]
 	name = "Juan Ramirez "
-	email = jugaramirez@utp.edu.co
+	email = juan.ramirez@boldin.com
 	username = juangabrielr4
 [alias]
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
