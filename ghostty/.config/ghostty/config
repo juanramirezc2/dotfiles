@@ -1,0 +1,14 @@
+# Font
+font-family = JetBrains Mono
+font-size = 14
+
+# Colors
+background = 1e1e2e
+foreground = cdd6f4
+
+# Theme
+theme = catppuccin-mocha
+
+# Window
+window-padding-x = 12
+window-padding-y = 12

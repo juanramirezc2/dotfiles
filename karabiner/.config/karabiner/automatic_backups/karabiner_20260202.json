@@ -169,15 +169,6 @@
                         "vendor_id": 5426
                     },
                     "ignore": true
-                },
-                {
-                    "identifiers": {
-                        "is_keyboard": true,
-                        "is_pointing_device": true,
-                        "product_id": 4,
-                        "vendor_id": 18003
-                    },
-                    "ignore": false
                 }
             ],
             "name": "Default profile",
