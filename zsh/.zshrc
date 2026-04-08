@@ -3,6 +3,10 @@ HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=1000
 setopt SHARE_HISTORY
+# Don't add commands starting with ":" to history
+zshaddhistory() {
+  [[ $1 != ':'* ]]
+}
 # Load version control information
 autoload -Uz vcs_info
 # Format the vcs_info_msg_0_ variable
@@ -109,3 +113,34 @@ alias awsconfig="/Users/juanramirez/Work/nrdev/utility-scripts/awsconfig_wizard.
 export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export EDITOR=nvim
+export WIKI="/Users/juanramirez/Library/Mobile Documents/iCloud~md~obsidian/Documents/Wiki"
+alias wiki='cd "$WIKI"'
+alias farmer='cd "/Users/juanramirez/Library/Application Support/com.TheFarmerWasReplaced.TheFarmerWasReplaced/Saves/Save0"'
+export SEMAPHORE_API_TOKEN=xj4pWnTqmn-mi8lB93II
+
+# >>> forge initialize >>>
+# !! Contents within this block are managed by 'forge zsh setup' !!
+# !! Do not edit manually - changes will be overwritten !!
+
+# Add required zsh plugins if not already present
+if [[ ! " ${plugins[@]} " =~ " zsh-autosuggestions " ]]; then
+    plugins+=(zsh-autosuggestions)
+fi
+if [[ ! " ${plugins[@]} " =~ " zsh-syntax-highlighting " ]]; then
+    plugins+=(zsh-syntax-highlighting)
+fi
+
+# Load forge shell plugin (commands, completions, keybindings) if not already loaded
+if [[ -z "$_FORGE_PLUGIN_LOADED" ]]; then
+    eval "$(forge zsh plugin)"
+fi
+
+# Load forge shell theme (prompt with AI context) if not already loaded
+if [[ -z "$_FORGE_THEME_LOADED" ]]; then
+    eval "$(forge zsh theme)"
+fi
+
+# Editor for editing prompts (set during setup)
+# To change: update FORGE_EDITOR or remove to use $EDITOR
+export FORGE_EDITOR="nvim"
+# <<< forge initialize <<<

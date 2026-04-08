@@ -3,7 +3,9 @@
 # Colors
 
 # Theme
-theme = light:Gruvbox Material Light,dark:Gruvbox Material Dark
+# theme = light:Gruvbox Material Light,dark:Gruvbox Material Dark
+# Ghostty 1.2+ requires exact Title Case for built-in themes
+theme = "dark:Catppuccin Macchiato,light:Catppuccin Latte"
 window-theme = auto
 # Window
 # window-padding-x = 12

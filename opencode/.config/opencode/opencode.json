@@ -6,16 +6,6 @@
       "command": ["npx", "-y", "@knip/mcp"],
       "enabled": true
     },
-    "playwright": {
-      "type": "local",
-      "command": [
-        "npx",
-        "@playwright/mcp@latest",
-        "--storage-state",
-        "/Users/juanramirez/Work/nr_react_app/.playwright-auth.json"
-      ],
-      "enabled": true
-    },
     "figma": {
       "type": "remote",
       "url": "http://127.0.0.1:3845/mcp",
