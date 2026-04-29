@@ -17,5 +17,6 @@
       "url": "https://mcp.atlassian.com/v1/mcp",
       "enabled": true
     }
-  }
+  },
+  "plugin": ["opencode-claude-auth@latest"]
 }
