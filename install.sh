@@ -8,7 +8,7 @@
 #   DOTFILES_REPO=https://github.com/juanramirezc2/dotfiles.git
 #   DOTFILES_BRANCH=                       defaults to repo default branch
 #   DOTFILES_PACKAGES=zsh,git,neovim       skip the interactive menu
-#   DOTFILES_ADOPT=1                       use `stow --adopt` (absorbs existing files)
+#   DOTFILES_ADOPT=1                       use `dot-link.sh --adopt` (absorbs existing files)
 
 set -euo pipefail
 
@@ -18,7 +18,7 @@ DOTFILES_BRANCH="${DOTFILES_BRANCH:-}"
 DOTFILES_PACKAGES="${DOTFILES_PACKAGES:-}"
 DOTFILES_ADOPT="${DOTFILES_ADOPT:-}"
 
-# Packages excluded from the menu — not normal stow targets, or unused.
+# Packages excluded from the menu — not normal link targets, or unused.
 EXCLUDED_PACKAGES=(fonts tmuxinator wakatime)
 
 # ---------------------------------------------------------------------------
@@ -88,21 +88,6 @@ require_git() {
     Linux)  err "Install git via your package manager (apt/dnf/pacman)." ;;
   esac
   exit 1
-}
-
-require_stow() {
-  if command -v stow >/dev/null 2>&1; then return; fi
-  warn "GNU stow is not installed."
-  if ! command -v brew >/dev/null 2>&1; then
-    err "Homebrew is required to auto-install stow."
-    err "Install Homebrew from https://brew.sh and re-run, or install stow manually."
-    exit 1
-  fi
-  if confirm "Install stow via Homebrew?" Y; then
-    brew install stow
-  else
-    die "stow is required. Aborting."
-  fi
 }
 
 # ---------------------------------------------------------------------------
@@ -253,32 +238,37 @@ select_packages() {
 }
 
 # ---------------------------------------------------------------------------
-# Stow: dry-run conflict check, then real run
+# dot-link: dry-run conflict check, then real run
 # ---------------------------------------------------------------------------
 
-stow_packages() {
+link_packages() {
   local -a pkgs=("$@")
   if [ "${#pkgs[@]}" -eq 0 ]; then
-    info "Nothing selected — skipping stow."
+    info "Nothing selected — skipping link step."
     return
   fi
 
+  local linker="$DOTFILES_DIR/dot-link.sh"
+  if [ ! -f "$linker" ]; then
+    die "dot-link.sh not found at $linker"
+  fi
+
   info "Selected: ${pkgs[*]}"
-  if [ "$INTERACTIVE" -eq 1 ] && ! confirm "Stow these packages into $HOME?" Y; then
+  if [ "$INTERACTIVE" -eq 1 ] && ! confirm "Link these packages into $HOME?" Y; then
     warn "Aborted by user."
     exit 0
   fi
 
-  local stow_args=(--target="$HOME")
+  local link_args=(-d "$DOTFILES_DIR" -t "$HOME")
   if [ -n "$DOTFILES_ADOPT" ]; then
-    warn "DOTFILES_ADOPT=1 — using 'stow --adopt'. Existing files in \$HOME will be absorbed into $DOTFILES_DIR."
-    stow_args+=(--adopt)
+    warn "DOTFILES_ADOPT=1 — using '--adopt'. Existing files in \$HOME will be absorbed into $DOTFILES_DIR."
+    link_args+=(--adopt)
   fi
 
   info "Checking for conflicts (dry-run)..."
   local dry
-  if ! dry="$(cd "$DOTFILES_DIR" && stow -n -v "${stow_args[@]}" "${pkgs[@]}" 2>&1)"; then
-    err "stow dry-run reported conflicts:"
+  if ! dry="$(bash "$linker" -n "${link_args[@]}" "${pkgs[@]}" 2>&1)"; then
+    err "dot-link dry-run reported conflicts:"
     printf '%s\n' "$dry" >&2
     err ""
     err "Resolve the conflicts and re-run, or re-run with DOTFILES_ADOPT=1 to absorb"
@@ -286,11 +276,11 @@ stow_packages() {
     exit 1
   fi
 
-  info "Stowing for real..."
-  ( cd "$DOTFILES_DIR" && stow -v "${stow_args[@]}" "${pkgs[@]}" )
+  info "Linking for real..."
+  bash "$linker" "${link_args[@]}" "${pkgs[@]}"
 
-  ok "Done. Stowed: ${pkgs[*]}"
-  info "If you stowed zsh, start a new shell (or run: exec \$SHELL -l) to pick up the changes."
+  ok "Done. Linked: ${pkgs[*]}"
+  info "If you linked zsh, start a new shell (or run: exec \$SHELL -l) to pick up the changes."
 }
 
 # ---------------------------------------------------------------------------
@@ -301,7 +291,6 @@ main() {
   printf '%sDotfiles installer%s — %s\n' "$C_BOLD" "$C_RESET" "$DOTFILES_REPO"
 
   require_git
-  require_stow
   sync_repo
 
   local -a available=()
@@ -310,7 +299,7 @@ main() {
     available+=("$line")
   done < <(discover_packages)
   if [ "${#available[@]}" -eq 0 ]; then
-    die "No stow packages found in $DOTFILES_DIR"
+    die "No packages found in $DOTFILES_DIR"
   fi
 
   # Capture via command substitution (not process substitution) so that an
@@ -324,7 +313,7 @@ main() {
     [ -n "$line" ] && selected+=("$line")
   done <<< "$raw"
 
-  stow_packages "${selected[@]+"${selected[@]}"}"
+  link_packages "${selected[@]+"${selected[@]}"}"
 }
 
 main "$@"
