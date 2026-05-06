@@ -19,13 +19,13 @@ The Neovim setup is a local [LazyVim](https://github.com/LazyVim/LazyVim) config
 One-liner — clones the repo, installs `stow` if missing, then opens an interactive picker so you can choose which packages to stow:
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/juanramirezc2/dotfiles/local-lazy/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/juanramirezc2/dotfiles/master/install.sh | bash
 ```
 
 Non-interactive (skip the picker):
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/juanramirezc2/dotfiles/local-lazy/install.sh \
+curl -fsSL https://raw.githubusercontent.com/juanramirezc2/dotfiles/master/install.sh \
   | DOTFILES_PACKAGES=zsh,git,neovim,tmux bash
 ```
 
