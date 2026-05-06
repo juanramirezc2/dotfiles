@@ -16,6 +16,23 @@ The Neovim setup is a local [LazyVim](https://github.com/LazyVim/LazyVim) config
 
 ## Install
 
+One-liner — clones the repo, installs `stow` if missing, then opens an interactive picker so you can choose which packages to stow:
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/juanramirezc2/dotfiles/local-lazy/install.sh | bash
+```
+
+Non-interactive (skip the picker):
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/juanramirezc2/dotfiles/local-lazy/install.sh \
+  | DOTFILES_PACKAGES=zsh,git,neovim,tmux bash
+```
+
+Env-var overrides: `DOTFILES_DIR` (default `~/dotfiles`), `DOTFILES_REPO`, `DOTFILES_BRANCH`, `DOTFILES_PACKAGES`, `DOTFILES_ADOPT=1` (use `stow --adopt` to absorb existing files).
+
+Manual install:
+
 ```sh
 git clone git@github.com:juanramirezc2/dotfiles.git ~/dotfiles
 brew install stow
