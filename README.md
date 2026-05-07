@@ -12,7 +12,7 @@ Examples:
 
 The Neovim setup is a local [LazyVim](https://github.com/LazyVim/LazyVim) config, not because I'm lazy, but because I take doing absolutely nothing very seriously.
 
-![Dotfiles screenshot](./zsh.png)
+![Dotfiles screenshot](./shell.png)
 
 ## Installation
 
