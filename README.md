@@ -1,8 +1,8 @@
 # Dotfiles
 
-Personal dotfiles managed with [GNU Stow](https://www.gnu.org/software/stow/).
+Personal dotfiles managed with the local `dot-link.sh` script.
 
-Each top-level folder is a Stow package that symlinks files into `$HOME`.
+Each top-level folder is a package that symlinks files into `$HOME`.
 
 Examples:
 
@@ -16,7 +16,7 @@ The Neovim setup is a local [LazyVim](https://github.com/LazyVim/LazyVim) config
 
 ## Install
 
-One-liner — clones the repo, installs `stow` if missing, then opens an interactive picker so you can choose which packages to stow:
+One-liner — clones the repo, then opens an interactive picker so you can choose which packages to link:
 
 ```sh
 curl -fsSL https://raw.githubusercontent.com/juanramirezc2/dotfiles/master/install.sh | bash
@@ -29,32 +29,37 @@ curl -fsSL https://raw.githubusercontent.com/juanramirezc2/dotfiles/master/insta
   | DOTFILES_PACKAGES=zsh,git,neovim,tmux bash
 ```
 
-Env-var overrides: `DOTFILES_DIR` (default `~/dotfiles`), `DOTFILES_REPO`, `DOTFILES_BRANCH`, `DOTFILES_PACKAGES`, `DOTFILES_ADOPT=1` (use `stow --adopt` to absorb existing files).
+Env-var overrides: `DOTFILES_DIR` (default `~/dotfiles`), `DOTFILES_REPO`, `DOTFILES_BRANCH`, `DOTFILES_PACKAGES`, `DOTFILES_ADOPT=1` (use `dot-link.sh --adopt` to absorb existing files).
 
 Manual install:
 
 ```sh
 git clone git@github.com:juanramirezc2/dotfiles.git ~/dotfiles
-brew install stow
 cd ~/dotfiles
 ```
 
 ## Usage
 
-Stow the packages you want:
+Link the packages you want:
 
 ```sh
-stow --target="$HOME" zsh git neovim tmux
+./dot-link.sh zsh git neovim tmux
 ```
 
-Stow a single package:
+Link a single package:
 
 ```sh
-stow --target="$HOME" ghostty
+./dot-link.sh ghostty
 ```
 
-Remove a package:
+Preview changes before linking:
 
 ```sh
-stow -D --target="$HOME" neovim
+./dot-link.sh --dry-run zsh git neovim tmux
+```
+
+Absorb existing files into the repo before linking:
+
+```sh
+./dot-link.sh --adopt zsh git neovim tmux
 ```
