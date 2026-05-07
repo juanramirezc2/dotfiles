@@ -7,18 +7,44 @@ setopt SHARE_HISTORY
 zshaddhistory() {
   [[ $1 != ':'* ]]
 }
-# Load version control information
-autoload -Uz vcs_info
-# Format the vcs_info_msg_0_ variable
-zstyle ':vcs_info:git*' formats "%F{011} %b %m%u%c "
-precmd() { vcs_info }
 # Enable colors and change prompt:
 autoload -U colors && colors
 setopt PROMPT_SUBST
-#PROMPT="%n in ${PWD/#$HOME/~} ${vcs_info_msg_0_} > "
-PROMPT='%(?.%F{green}√.%F{red}?%?)%f %B%F{magenta}%2~%f%b %# ($(node --version)) ❯'
-RPROMPT=\$vcs_info_msg_0_
-#PROMPT="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%3~%{$fg[red]%}]%{$reset_color%}$%b ${vcs_info_msg_0_}"
+
+__dotfiles_git_prompt() {
+  git rev-parse --is-inside-work-tree >/dev/null 2>&1 || return
+
+  local branch git_status line index_state worktree_state git_state
+  branch="$(git symbolic-ref --quiet --short HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null)" || return
+  git_status="$(git status --porcelain 2>/dev/null)"
+  git_state=""
+
+  while IFS= read -r line; do
+    [[ -z "$line" ]] && continue
+
+    if [[ "$line" == '?? '* ]]; then
+      [[ "$git_state" != *\?* ]] && git_state+="?"
+      continue
+    fi
+
+    index_state="${line[1,1]}"
+    worktree_state="${line[2,2]}"
+
+    if [[ "$index_state" != " " && "$git_state" != *+* ]]; then
+      git_state+="+"
+    fi
+    if [[ "$worktree_state" != " " && "$git_state" != *\!* ]]; then
+      git_state+="!"
+    fi
+  done <<< "$git_status"
+
+  printf ' %%F{240}on%%f %%B%%F{24}%s%%f%%b' "$branch"
+  [[ -n "$git_state" ]] && printf ' %%F{96}[%s]%%f' "$git_state"
+}
+
+PROMPT='%B%F{130}%n%f%b %F{240}at%f %B%F{136}%m%f%b %F{240}in%f %B%F{64}%~%f%b$(__dotfiles_git_prompt)
+%F{240}$%f '
+RPROMPT=''
 setopt autocd		# Automatically cd into typed directory.
 stty stop undef		# Disable ctrl-s to freeze terminal.
 
@@ -135,10 +161,11 @@ if [[ -z "$_FORGE_PLUGIN_LOADED" ]]; then
     eval "$(forge zsh plugin)"
 fi
 
-# Load forge shell theme (prompt with AI context) if not already loaded
-if [[ -z "$_FORGE_THEME_LOADED" ]]; then
-    eval "$(forge zsh theme)"
-fi
+# Forge's theme overrides PROMPT. Keep the plugin loaded, but let this file own
+# the prompt style.
+# if [[ -z "$_FORGE_THEME_LOADED" ]]; then
+#     eval "$(forge zsh theme)"
+# fi
 
 # Editor for editing prompts (set during setup)
 # To change: update FORGE_EDITOR or remove to use $EDITOR
