@@ -96,6 +96,20 @@ Absorb existing files into the repo before linking:
 
 This repo does not currently source a private override file. Keep machine-specific changes in untracked local files, or fork and edit the packages intentionally.
 
+## Daily routines (`binaries/`)
+
+Optional common routines I run on a daily basis. Currently:
+
+- `binaries/.local/bin/update.sh` — upgrades Homebrew formulae and casks, then npm globals.
+
+Linking the `binaries` package symlinks each script into `~/.local/bin/`, which is on `$PATH`, so you can call it by name (e.g. `update.sh`) from any shell.
+
+**The executable bit is required.** If it's missing after cloning, restore it before first use:
+
+```sh
+chmod +x ~/dotfiles/binaries/.local/bin/*.sh
+```
+
 ## Sensible macOS defaults
 
 When setting up a new Mac, you may want to apply the macOS defaults:
