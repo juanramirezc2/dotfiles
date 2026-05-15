@@ -21,7 +21,7 @@ if command -v brew >/dev/null 2>&1; then
     brew update
 
     print_header "Homebrew: upgrade formulae"
-    brew upgrade
+    brew upgrade --fetch-HEAD
 
     print_header "Homebrew: upgrade casks"
     brew upgrade --cask --greedy
