@@ -56,6 +56,12 @@ Then link the packages you want:
 ./dot-link.sh zsh git neovim tmux
 ```
 
+**The executable bit is required on `dot-link.sh`.** If it's missing after cloning, restore it before first use:
+
+```sh
+chmod +x dot-link.sh
+```
+
 ### Updating
 
 To update, pull the latest changes and rerun the installer or link command:
