@@ -1,5 +1,8 @@
 # Font
-# font-size = 14
+font-size = 13.5
+confirm-close-surface = false
+macos-option-as-alt = true
+window-save-state = always
 # Colors
 
 # Theme
