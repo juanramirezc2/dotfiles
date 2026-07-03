@@ -1,8 +1,13 @@
 #!/usr/bin/env bash
 
 # Daily update: Homebrew formulae/casks and global npm packages.
+# Runs fully non-interactive: prompts (passwords, Y/N confirmations) fail
+# fast and that update is skipped instead of blocking the script.
 
 set -u
+
+export NONINTERACTIVE=1
+exec </dev/null
 
 print_header() {
     printf "\n\033[1;34m==> %s\033[0m\n" "$1"

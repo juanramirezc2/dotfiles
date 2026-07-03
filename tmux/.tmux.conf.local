@@ -311,6 +311,11 @@ tmux_conf_copy_to_os_clipboard=false
 # -- user customizations -------------------------------------------------------
 # this is the place to override or undo settings
 
+# enable extended keys (CSI u) so terminals/apps can distinguish key combos
+# such as Ctrl+Enter, Ctrl+Shift+key, etc.
+set -s extended-keys on
+set -as terminal-features 'xterm*:extkeys'
+
 # increase history size
 #set -g history-limit 10000
 
