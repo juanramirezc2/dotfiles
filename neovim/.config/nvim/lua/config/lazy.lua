@@ -72,8 +72,8 @@ require("lazy").setup({
     },
   },
   -- https://github.com/dpetka2001/dotfiles/blob/5a73f6dcb1e02c70597942db4583a7b4c3139547/dot_config/nvim/lua/config/lazy.lua#L65-L68
-  dev = {
-    path = "~/Personal/",
-    patterns = { "LazyVim" },
-  },
+  -- dev = {
+  --   path = "~/Personal/",
+  --   patterns = { "LazyVim" },
+  -- },
 })

@@ -28,8 +28,12 @@ if command -v brew >/dev/null 2>&1; then
     print_header "Homebrew: upgrade formulae"
     brew upgrade --fetch-HEAD
 
-    print_header "Homebrew: upgrade casks"
-    brew upgrade --cask --greedy
+    print_header "Homebrew: upgrade casks (skipping google-chrome)"
+    casks=$(brew list --cask 2>/dev/null | grep -vx "google-chrome" || true)
+    if [ -n "$casks" ]; then
+        # shellcheck disable=SC2086
+        brew upgrade --cask --greedy $casks
+    fi
 
     print_header "Homebrew: cleanup"
     brew cleanup -s
