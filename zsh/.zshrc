@@ -110,6 +110,7 @@ export VISUAL=/usr/local/bin/nvim
 # todo.sh alias
 export TODOTXT_DEFAULT_ACTION=ls
 alias lg='lazygit'
+alias lazy='lazygit'
 # NVM for managing node versions
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
@@ -171,3 +172,5 @@ fi
 # To change: update FORGE_EDITOR or remove to use $EDITOR
 export FORGE_EDITOR="nvim"
 # <<< forge initialize <<<
+
+alias diff='revdiff --theme=auto'

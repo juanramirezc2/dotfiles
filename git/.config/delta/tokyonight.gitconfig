@@ -1,0 +1,42 @@
+# TokyoNight themes for delta.
+#
+# Diff colors come from folke/tokyonight.nvim (extras/delta); the decoration and
+# blame colors are the matching palette entries. The syntax theme is not built
+# into delta -- it lives in ~/.config/bat/themes and is picked up from bat's
+# cache, so after adding/updating a .tmTheme there run:
+#
+#     bat cache --build
+#
+# Verify with: delta --list-syntax-themes | grep tokyonight
+
+[delta "tokyonight-day"]
+	blame-palette = "#e1e2e7 #e9e9ec #d0d5e3 #c4c8da #a8aecb"
+	commit-decoration-style = none
+	light = true
+	file-decoration-style = none
+	file-style = "#3760bf"
+	hunk-header-decoration-style = none
+	hunk-header-file-style = bold
+	hunk-header-line-number-style = bold "#68709a"
+	hunk-header-style = file line-number syntax
+	line-numbers-left-style = "#8990b3"
+	line-numbers-minus-style = bold "#c47981"
+	line-numbers-plus-style = bold "#4197a4"
+	line-numbers-right-style = "#8990b3"
+	line-numbers-zero-style = "#a8aecb"
+	minus-style = syntax "#dababe"
+	minus-non-emph-style = syntax "#dababe"
+	minus-emph-style = bold syntax "#d59a9d"
+	minus-empty-line-marker-style = syntax "#dababe"
+	plus-style = syntax "#b7ced5"
+	plus-non-emph-style = syntax "#b7ced5"
+	plus-emph-style = bold syntax "#95bec7"
+	plus-empty-line-marker-style = syntax "#b7ced5"
+	whitespace-error-style = "#f52a65" reverse
+	map-styles = \
+		bold purple => syntax "#d8cdf5", \
+		bold blue => syntax "#c5daf9", \
+		bold cyan => syntax "#bcd9e2", \
+		bold yellow => syntax "#e3d8c4"
+	# Must match the name bat reports for the .tmTheme file
+	syntax-theme = tokyonight_day

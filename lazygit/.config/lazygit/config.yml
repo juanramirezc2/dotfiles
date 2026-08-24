@@ -1,0 +1,32 @@
+gui:
+  theme:
+    # ANSI colors inherit Ghostty's active Catppuccin Latte/Macchiato palette.
+    activeBorderColor:
+      - green
+      - bold
+    inactiveBorderColor:
+      - default
+    searchingActiveBorderColor:
+      - cyan
+      - bold
+    optionsTextColor:
+      - blue
+    # Reverse uses Ghostty's foreground/background for strong contrast in both
+    # light and dark mode instead of placing dark text on a blue background.
+    selectedLineBgColor:
+      - reverse
+      - bold
+    inactiveViewSelectedLineBgColor:
+      - reverse
+    cherryPickedCommitFgColor:
+      - blue
+    cherryPickedCommitBgColor:
+      - cyan
+    markedBaseCommitFgColor:
+      - blue
+    markedBaseCommitBgColor:
+      - yellow
+    unstagedChangesColor:
+      - red
+    defaultFgColor:
+      - default

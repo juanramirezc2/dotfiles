@@ -37,7 +37,7 @@
     default = current
 [core]
     excludesfile = ~/.gitignore_global
-    pager = less -FXRS -x2
+    pager = delta
     editor = nvim
     whitespace = cr-at-eol
 [filter "lfs"]
@@ -45,3 +45,14 @@
 	required = true
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
+[interactive]
+    diffFilter = delta --color-only
+[include]
+    path = ~/.config/delta/catppuccin.gitconfig
+    path = ~/.config/delta/tokyonight.gitconfig
+[delta]
+    features = tokyonight-day
+    navigate = true
+    tabs = 2
+[merge]
+    conflictStyle = zdiff3
