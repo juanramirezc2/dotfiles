@@ -7,6 +7,10 @@
 set -u
 
 export NONINTERACTIVE=1
+export HOMEBREW_NO_ASK=1
+export HOMEBREW_NO_AUTO_UPDATE=1
+# Make Homebrew's sudo calls fail immediately instead of prompting.
+export SUDO_ASKPASS=/usr/bin/false
 exec </dev/null
 
 print_header() {
@@ -22,17 +26,32 @@ print_error() {
 }
 
 if command -v brew >/dev/null 2>&1; then
+    homebrew_update_failed=0
+
     print_header "Homebrew: update"
-    brew update
+    if ! brew update; then
+        print_error "Homebrew metadata update failed"
+        homebrew_update_failed=1
+    fi
 
     print_header "Homebrew: upgrade formulae"
-    brew upgrade --fetch-HEAD
+    if ! brew upgrade --formula --fetch-HEAD --no-ask; then
+        print_error "Some formulae failed to update"
+        homebrew_update_failed=1
+    fi
 
-    print_header "Homebrew: upgrade casks (skipping google-chrome)"
-    casks=$(brew list --cask 2>/dev/null | grep -vx "google-chrome" || true)
+    print_header "Homebrew: upgrade casks without password prompts"
+    casks=$(brew outdated --cask --greedy --quiet 2>/dev/null || true)
     if [ -n "$casks" ]; then
-        # shellcheck disable=SC2086
-        brew upgrade --cask --greedy $casks
+        while IFS= read -r cask; do
+            [ -n "$cask" ] || continue
+            if brew upgrade --cask --greedy --no-ask "$cask" </dev/null; then
+                print_success "$cask updated"
+            else
+                print_error "$cask skipped (upgrade failed or needs administrator access)"
+                homebrew_update_failed=1
+            fi
+        done <<< "$casks"
     fi
 
     print_header "Homebrew: cleanup"
@@ -42,7 +61,11 @@ if command -v brew >/dev/null 2>&1; then
     print_header "Homebrew: doctor"
     brew doctor || true
 
-    print_success "Homebrew up to date"
+    if [ "$homebrew_update_failed" -eq 0 ]; then
+        print_success "Homebrew up to date"
+    else
+        print_error "Homebrew finished with skipped or failed updates"
+    fi
 else
     print_error "Homebrew not installed, skipping"
 fi
