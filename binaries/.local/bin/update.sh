@@ -34,6 +34,30 @@ if command -v brew >/dev/null 2>&1; then
         homebrew_update_failed=1
     fi
 
+    print_header "Claude Code: ensure fast-track cask"
+    # The default `claude-code` cask lags behind Anthropic's releases (it was
+    # stuck at 2.1.236 while 2.1.260 was out). `claude-code@latest` tracks new
+    # releases quickly, so make sure that's the cask installed before the
+    # greedy upgrade loop runs.
+    if brew list --cask claude-code >/dev/null 2>&1; then
+        if brew uninstall --cask claude-code; then
+            print_success "Removed slow-track claude-code cask"
+        else
+            print_error "Failed to remove slow-track claude-code cask"
+            homebrew_update_failed=1
+        fi
+    fi
+    if ! brew list --cask claude-code@latest >/dev/null 2>&1; then
+        if brew install --cask claude-code@latest; then
+            print_success "Installed claude-code@latest"
+        else
+            print_error "Failed to install claude-code@latest"
+            homebrew_update_failed=1
+        fi
+    else
+        print_success "claude-code@latest already installed"
+    fi
+
     print_header "Homebrew: upgrade formulae"
     if ! brew upgrade --formula --fetch-HEAD --no-ask; then
         print_error "Some formulae failed to update"

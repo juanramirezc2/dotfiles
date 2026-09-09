@@ -1,4 +1,12 @@
 gui:
+  sidePanelWidth: 0.28
+  expandFocusedSidePanel: true
+  shrinkSidePanelsToContent: true
+  showNumstatInFilesView: true
+  showDivergenceFromBaseBranch: arrowAndNumber
+  filterMode: fuzzy
+  showRandomTip: false
+
   theme:
     # ANSI colors inherit Ghostty's active Catppuccin Latte/Macchiato palette.
     activeBorderColor:
@@ -30,3 +38,15 @@ gui:
       - red
     defaultFgColor:
       - default
+
+git:
+  diffRenderers:
+    - name: delta
+      command: delta --paging=never
+  localBranchSortOrder: recency
+
+update:
+  # Homebrew manages Lazygit updates.
+  method: never
+
+disableStartupPopups: true

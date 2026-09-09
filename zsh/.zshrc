@@ -42,9 +42,17 @@ __dotfiles_git_prompt() {
   [[ -n "$git_state" ]] && printf ' %%F{96}[%s]%%f' "$git_state"
 }
 
+__dotfiles_git_worktree_prompt() {
+  local worktree
+  worktree="$(git rev-parse --show-toplevel 2>/dev/null)" || return
+  worktree="${worktree:t}"
+
+  printf '%%F{240}worktree%%f %%B%%F{24}%s%%f%%b' "${worktree//\%/%%}"
+}
+
 PROMPT='%B%F{130}%n%f%b %F{240}at%f %B%F{136}%m%f%b %F{240}in%f %B%F{64}%~%f%b$(__dotfiles_git_prompt)
 %F{240}$%f '
-RPROMPT=''
+RPROMPT='$(__dotfiles_git_worktree_prompt)'
 setopt autocd		# Automatically cd into typed directory.
 stty stop undef		# Disable ctrl-s to freeze terminal.
 
