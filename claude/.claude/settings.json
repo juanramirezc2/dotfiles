@@ -1,0 +1,8 @@
+{
+  "model": "claude-fable-5-1[1m]",
+  "autoUpdatesChannel": "latest",
+  "tui": "fullscreen",
+  "theme": "auto",
+  "remoteControlAtStartup": true,
+  "agentPushNotifEnabled": true
+}
