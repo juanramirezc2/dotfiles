@@ -121,17 +121,12 @@ alias lg='lazygit'
 alias lazy='lazygit'
 # NVM for managing node versions
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-export PATH="/usr/local/opt/ruby/bin:$PATH"
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh" # This loads nvm
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion
 # FZF key bindings and completions
 # source /usr/share/fzf/key-bindings.zsh
 # source /usr/share/fzf/completion.zsh
 source <(fzf --zsh)
-# source RVM scripts
-source "$HOME/.rvm/scripts/rvm" # $HOME installation
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
 # Wayland variables
 export QT_QPA_PLATFORM=wayland
 export XDG_CURRENT_DESKTOP=sway
@@ -145,8 +140,20 @@ export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init - zsh)"
 alias awsconfig="/Users/juanramirez/Work/nrdev/utility-scripts/awsconfig_wizard.rb"
-export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
+export PATH="/opt/homebrew/opt/openjdk@21/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
+# Postgres.app client tools (psql, pg_dump). Pinned to 17 to match CI and prod.
+export PATH="/Applications/Postgres.app/Contents/Versions/17/bin:$PATH"
+# mise — runtime version manager (ruby). Keep after PATH exports so its shims win.
+# Interactive terminals get full activation (PATH is re-resolved on every cd).
+# Non-interactive shells and Claude Code (CLAUDECODE=1) get shims only: they
+# snapshot PATH once and never run the cd hook, so a version-specific
+# installs/ruby/X/bin entry would stick. Shims resolve per-cwd at exec time.
+if [[ -o interactive && -z "$CLAUDECODE" ]]; then
+  eval "$(mise activate zsh)"
+else
+  eval "$(mise activate zsh --shims)"
+fi
 export EDITOR=nvim
 export WIKI="/Users/juanramirez/Library/Mobile Documents/iCloud~md~obsidian/Documents/Wiki"
 alias wiki='cd "$WIKI"'
