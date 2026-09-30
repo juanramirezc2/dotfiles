@@ -29,6 +29,9 @@ sudo apt-get install -y silversearcher-ag  # brew: the_silver_searcher
 sudo apt-get install -y tmux             # brew: tmux
 sudo apt-get install -y tmuxinator       # brew: tmuxinator
 
+# App sandbox. Not in brew.zsh. Noninteractive so an existing /etc/fuse.conf does not stop the script.
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -o Dpkg::Options::=--force-confold flatpak
+
 # In the Debian archive, but not the same tool.
 sudo apt-get install -y nodejs           # closest to brew: nvm; this is the distro runtime, not a version manager
 sudo apt-get install -y google-chrome-stable  # brew cask: google-chrome (needs Google's apt repo)
