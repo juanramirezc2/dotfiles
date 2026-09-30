@@ -12,8 +12,7 @@ __dotfiles_share_history() {
 }
 PROMPT_COMMAND=__dotfiles_share_history
 
-# Standard XDG base directory. Set explicitly because macOS Go/TUI tools
-# (lazygit, etc.) otherwise default to ~/Library/Application Support.
+# Standard XDG base directory.
 export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 
 __dotfiles_git_prompt() {
@@ -79,7 +78,7 @@ alias tmux="tmux -u"
 alias ag='ag --path-to-ignore ~/.ignore'
 alias gs='git status'
 alias gl='git log --graph --oneline --all'
-alias ls='ls -FHG'
+alias ls='ls -FH --color=auto'
 alias n='nvim'
 alias luamake="$HOME/.code/lua-language-server/3rd/luamake/luamake"
 export VISUAL=/usr/local/bin/nvim
@@ -89,8 +88,6 @@ alias lg='lazygit'
 alias lazy='lazygit'
 # NVM for managing node versions
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh" # This loads nvm
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 # FZF key bindings and completions
@@ -107,15 +104,8 @@ export ELECTRON_OZONE_PLATFORM_HINT=wayland
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init - bash)"
-alias awsconfig="/Users/juanramirez/Work/nrdev/utility-scripts/awsconfig_wizard.rb"
-export PATH="/opt/homebrew/opt/openjdk@21/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
-# Postgres.app client tools (psql, pg_dump). Pinned to 17 to match CI and prod.
-export PATH="/Applications/Postgres.app/Contents/Versions/17/bin:$PATH"
 export EDITOR=nvim
-export WIKI="/Users/juanramirez/Library/Mobile Documents/iCloud~md~obsidian/Documents/Wiki"
-alias wiki='cd "$WIKI"'
-alias farmer='cd "/Users/juanramirez/Library/Application Support/com.TheFarmerWasReplaced.TheFarmerWasReplaced/Saves/Save0"'
 export SEMAPHORE_API_TOKEN=xj4pWnTqmn-mi8lB93II
 
 # >>> forge initialize >>>
