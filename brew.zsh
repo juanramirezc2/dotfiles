@@ -21,18 +21,26 @@ brew install --HEAD universal-ctags/universal-ctags/universal-ctags
 brew install tree-sitter --HEAD
 brew install tree-sitter-cli
 brew install --cask 1password
+brew install --cask 1password-cli
 brew install --cask brave-browser
 brew install --cask claude
 brew install --cask claude-code@latest
+brew install --cask discord
 brew install --cask ghostty
+brew install --cask github-copilot-app
 brew install --cask google-chrome
+brew install --cask google-gemini
+brew install --cask grammarly-desktop
+brew install --cask grok-bot
 brew install --cask karabiner-elements
 brew install --cask obsidian
 brew install --cask orbstack
+brew install --cask readdle-spark
 brew install --cask rectangle
 brew install --cask slack
 brew install --cask steam
 brew install --cask visual-studio-code
+brew install --cask whatsapp
 brew install --cask zoom
 brew install fd
 brew install fzf
