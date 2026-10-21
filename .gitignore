@@ -1,2 +1,7 @@
 # Playwright CLI output (may contain credentials)
 .playwright-cli/
+
+# Claude Code runtime state written through the linked ~/.claude/skills
+# (org-synced skills and deleted-skill backups); not portable config
+claude/.claude/skills/synced/
+claude/.claude/skills/.trash/

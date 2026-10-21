@@ -1,8 +1,65 @@
 {
-  "model": "claude-fable-5-1[1m]",
+  "statusLine": {
+    "type": "command",
+    "command": "bash \"$HOME/.claude/statusline-command.sh\""
+  },
+  "enabledPlugins": {
+    "pr-review-toolkit@claude-plugins-official": true,
+    "feature-dev@claude-plugins-official": true,
+    "atlassian@claude-plugins-official": true
+  },
+  "modelSettings": {
+    "claude-opus-5-5": {
+      "effortLevel": "xhigh"
+    }
+  },
   "autoUpdatesChannel": "latest",
   "tui": "fullscreen",
+  "voice": {
+    "enabled": true,
+    "mode": "hold"
+  },
   "theme": "auto",
   "remoteControlAtStartup": true,
-  "agentPushNotifEnabled": true
+  "agentPushNotifEnabled": true,
+  "voiceEnabled": true,
+  "autoMode": {
+    "environment": [
+      "### Org-wide",
+      "**Organization**: the user's employer; work repos are private GitHub repos owned by the employer's GitHub org",
+      "**Cloud provider(s)**: GCP and AWS (Terraform-managed infra); CI holds credentials for both",
+      "**Repository visibility**: work repos are private; the user's dotfiles repo is public, so never commit internal or sensitive material there",
+      "**Internal sharing / snippet hosting**: None configured — treat public paste/gist services as outside the trust boundary",
+      "**Secrets management**: CI secrets are referenced by name only in workflow files; never print, copy, or commit their values",
+      "**Default / protected branches**: main (default), master-old (protected); treat any branch covered by a repository ruleset as protected too",
+      "**CI/CD deploy targets**: GitHub Actions workflows whose names contain `prod` deploy to or test production",
+      "**Network posture**: None configured",
+      "**Host containment**: None configured — assume Claude Code runs on an ordinary developer machine or CI runner with open internet",
+      "**Source control**: the work repo in the working directory and its origin remote in the employer's GitHub org — no additional orgs configured",
+      "**Trusted internal domains**: localhost and the employer's `local.` and `staging.` dev/staging hosts, as named in the work repo's config",
+      "**Trusted cloud buckets**: None configured",
+      "**Key internal services**: None configured",
+      "**Internal package registry**: npm.fontawesome.com, npm.pkg.github.com (package registry hosts found in config)",
+      "**Sensitive data locations & audiences**: `.env*` files in a work repo's apps and widgets, and e2e auth setup files that target production (`*prod-setup*`) — any file or store holding personal data, confidential business data, credentials, regulated data, or similarly sensitive material; share only with audiences cleared at the [named+specifics] bar",
+      "**Data retention / declassification**: None configured",
+      "**Sensitive remote targets**: any namespace, host, or container whose name carries `prod` or `production` as a whole word or name segment, including deploy workflows and e2e setup files named that way",
+      "**Protected deployment namespaces / environments**: None configured — fall back to the Sensitive remote targets heuristic",
+      "**Protected IaC scopes**: IAM, RBAC, networking, quota, and node-pool resources; anything whose name or tag carries `prod` or `production` as a whole word or name segment",
+      "### User-specific",
+      "**Primary use of Claude Code**: software development (React/TypeScript monorepo and Rails work repos)",
+      "**Trusted repo**: the work repo in the working directory and its origin remote — private, so confidential material is fine to commit there, but secrets/credentials are never cleared by visibility alone",
+      "**Org-specific CLIs**: playwright-cli",
+      "Playwright E2E test authoring and debugging under `apps/*/e2e/` is routine"
+    ],
+    "allow": [
+      "$defaults",
+      "Bash(playwright-cli:*)"
+    ],
+    "soft_deny": [
+      "$defaults",
+      "Bash(git push * master-old)",
+      "Read(**/.env*)",
+      "Read(**/e2e/*prod-setup*)"
+    ]
+  }
 }

@@ -1,12 +1,13 @@
 ---
 name: create-pr
-description: Open a GitHub pull request for the current feature branch. Reads the commits and diff against the base branch to work out what changed, captures browser screenshots of the affected UI with playwright-cli, and creates the PR with gh, attaching the screenshots via --attach. Use when asked to "create a PR", "open a pull request", or "put this up for review".
+description: Open a GitHub pull request for the current feature branch. Reads the commits and diff against the base branch to work out what changed, writes a short plain-language description a reviewer can take in quickly, captures browser screenshots of the affected UI with playwright-cli, and creates the PR with gh, attaching the screenshots via --attach. Use when asked to "create a PR", "open a pull request", or "put this up for review".
 ---
 
 # Create a pull request
 
 Create a PR for the current branch with `gh`, describing the change in plain
-prose and attaching screenshots of the UI that changed.
+language a reviewer can take in quickly, and attaching screenshots of the UI
+that changed.
 
 ## Requirements
 
@@ -93,22 +94,88 @@ Guidance:
 
 ### 5. Write the description
 
-Write in natural language, as one engineer explaining the change to another.
-Short paragraphs. Say what changed and why. Mention anything a reviewer should
-pay attention to, such as a behavior change, a migration, or a trade-off.
+The reader is a reviewer who knows the codebase but has not seen this branch.
+After one read, they should be able to say what changed, why, and where to look
+closely. Write for that person, in plain language.
 
-Reference each screenshot inline where it belongs, with meaningful alt text.
-`gh` rewrites the local path to the uploaded asset:
+**How to write it**
+
+- Write the way you would explain the change to a teammate sitting next to you:
+  short sentences, everyday words, active voice.
+- Start with what changes for the user, or for the code that depends on this,
+  and why. Bring in implementation details only where the reviewer needs them
+  to judge the change.
+- Say it once. Don't restate the diff, the commit messages, or the list of
+  changed files: the reviewer has all three a click away.
+- Link the Jira ticket. Name files, components, and functions in backticks when
+  you point the reviewer at them.
+- Spell out an abbreviation the first time you use it. Avoid jargon ("spike",
+  "plumbing", "wire up", "cache buster") and sales words ("robust", "seamless",
+  "comprehensive").
+- State facts directly. Don't hedge, and don't oversell.
+
+**What to include**, in this order, skipping anything that doesn't apply:
+
+1. What changed and why, in one or two sentences.
+2. What a user, or another part of the code, will notice working differently.
+3. What deserves a careful look: the risky or non-obvious part, a decision and
+   the alternative you turned down, a known limitation, or a follow-up ticket.
+4. How to read a large change, such as "each ticket is its own commit" or
+   "start with `use-plan-limits.ts`".
+
+**How long**
+
+Match the size of the change. A small fix is two or three sentences. A branch
+that covers several tickets gets one short paragraph per ticket, each starting
+with its linked ticket key in bold. A reviewer should be able to read the whole
+description in about two minutes. If it runs longer, cut the detail the diff
+already shows.
+
+Too technical, and the point gets lost:
+
+> Refactors `PlanSelectorModal` into an inline `PlanSelector` with controlled
+> expanded state, and moves limit fetching into a new `usePlanLimits` hook.
+
+Plain and useful:
+
+> Choosing a plan on the billing page no longer opens a modal. The plan
+> selector now sits on the page itself, and opening a plan shows its limits
+> before you pick it. Limits load when a plan is opened instead of when the
+> page loads, so the page appears sooner. `usePlanLimits` is new and worth a
+> careful look, because the checkout page will use it next.
+
+**Screenshots**
+
+Reference each screenshot where it belongs, inside a collapsed `<details>`
+block. The `<summary>` is a short description of the screenshot, five words at
+most. Inside the block, reference the image with meaningful alt text. `gh`
+rewrites the local path to the uploaded asset:
 
 ```markdown
 The billing page now shows the plan selector inline instead of behind a modal.
 
+<details>
+<summary>Inline plan selector</summary>
+
 ![Billing page with the new inline plan selector](./billing-page-new-plan-selector.png)
+
+</details>
 
 Opening a plan shows its limits before you commit to it.
 
+<details>
+<summary>Plan limits expanded</summary>
+
 ![Plan selector expanded showing limits](./plan-selector-open.png)
+
+</details>
 ```
+
+Keep the blank line after `</summary>` and before `</details>`. GitHub does not
+render Markdown inside an HTML block unless a blank line separates them, so
+without it the image shows as raw text. Give every attached screenshot a block
+like this: `gh` appends an image the body does not reference to the end of the
+description, outside any `<details>`.
 
 Hard rules for the body:
 
@@ -118,9 +185,15 @@ Hard rules for the body:
   PR.** No "Created with Claude", no "Generated with Claude Code", no
   Co-Authored-By or attribution footer of any kind in the PR body.
 - No headings for the sake of structure. If the change is one paragraph, the
-  body is one paragraph.
+  body is one paragraph. For several tickets, start each paragraph with the
+  bold ticket key instead of a heading.
+- No tables and no nested bullet lists. Prose is faster for a reviewer to read.
 - No bullet lists that just re-list the commits or the changed files.
 - No filler like "This PR", "In this pull request", "Summary of changes".
+
+Before creating the PR, reread the body as the reviewer would. Rewrite any
+sentence that takes a second read, and delete any sentence that tells the
+reviewer nothing they need.
 
 Write the body to a file rather than passing it inline, so quoting is not an
 issue and it is easy to review:
@@ -136,6 +209,7 @@ MD
 
 ```bash
 gh pr create \
+  --draft \
   --base "$base" \
   --title "ND-1234: Show plan selector inline on the billing page" \
   --body-file "$body" \
@@ -146,9 +220,11 @@ gh pr create \
 - One `--attach` per file, up to 50. Alt text goes after `#`. When the body
   already references the file with `![alt](./name.png)`, that reference is
   rewritten in place and keeps the body's alt text; otherwise the image is
-  appended at the end.
+  appended at the end, outside any `<details>` block, so reference every file
+  as step 5 shows.
 - Run from the scratch directory or use paths that match the body references.
-- Add `--draft` only if the user asked for a draft.
+- Always pass `--draft`. Every PR this skill creates is a draft, regardless
+  of whether the user asked for one.
 - Push the branch first if it has no upstream: `git push -u origin "$branch"`.
 
 If some attachments fail, `gh` still creates the PR and prints its URL but exits
