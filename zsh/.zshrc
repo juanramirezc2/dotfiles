@@ -152,8 +152,22 @@ export PATH="/Applications/Postgres.app/Contents/Versions/17/bin:$PATH"
 if [[ -o interactive && -z "$CLAUDECODE" ]]; then
   eval "$(mise activate zsh)"
 else
+  # A parent shell with full activation (e.g. the terminal Claude Code was
+  # launched from) leaks its version-specific installs/<tool>/<ver>/bin entry
+  # and __MISE_* session vars into this shell. `mise activate --shims` is a
+  # no-op when the shims dir is already in PATH, so it never fixes that: drop
+  # the leaked entries and force the shims dir to the front ourselves.
+  path=(${path:#*/mise/installs/*})
+  unset __MISE_SESSION __MISE_DIFF __MISE_ORIG_PATH __MISE_ZSH_PRECMD_RUN __MISE_ZSH_CHPWD_RAN
   eval "$(mise activate zsh --shims)"
+  _mise_shims="${MISE_DATA_DIR:-$HOME/.local/share/mise}/shims"
+  path=("$_mise_shims" ${path:#$_mise_shims})
+  unset _mise_shims
 fi
+# macOS: Puma (and anything else that forks after loading ObjC/Foundation) dies
+# with "objc ... fork() was called" unless this is set before the process starts.
+# Setting it here covers every shell, including the ones Claude Code spawns.
+[[ "$OSTYPE" == darwin* ]] && export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 export EDITOR=nvim
 export WIKI="/Users/juanramirez/Library/Mobile Documents/iCloud~md~obsidian/Documents/Wiki"
 alias wiki='cd "$WIKI"'
