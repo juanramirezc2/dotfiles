@@ -31,6 +31,7 @@ brew install --cask github-copilot-app
 brew install --cask google-chrome
 brew install --cask google-gemini
 brew install --cask grammarly-desktop
+brew install --cask granola
 brew install --cask grok-bot
 brew install --cask karabiner-elements
 brew install --cask obsidian

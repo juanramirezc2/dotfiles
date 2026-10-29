@@ -22,8 +22,17 @@
   "theme": "auto",
   "remoteControlAtStartup": true,
   "agentPushNotifEnabled": true,
-  "voiceEnabled": true,
   "autoMode": {
+    "allow": [
+      "$defaults",
+      "Bash(playwright-cli:*)"
+    ],
+    "soft_deny": [
+      "$defaults",
+      "Bash(git push * master-old)",
+      "Read(**/.env*)",
+      "Read(**/e2e/*prod-setup*)"
+    ],
     "environment": [
       "### Org-wide",
       "**Organization**: the user's employer; work repos are private GitHub repos owned by the employer's GitHub org",
@@ -50,16 +59,7 @@
       "**Trusted repo**: the work repo in the working directory and its origin remote — private, so confidential material is fine to commit there, but secrets/credentials are never cleared by visibility alone",
       "**Org-specific CLIs**: playwright-cli",
       "Playwright E2E test authoring and debugging under `apps/*/e2e/` is routine"
-    ],
-    "allow": [
-      "$defaults",
-      "Bash(playwright-cli:*)"
-    ],
-    "soft_deny": [
-      "$defaults",
-      "Bash(git push * master-old)",
-      "Read(**/.env*)",
-      "Read(**/e2e/*prod-setup*)"
     ]
-  }
+  },
+  "voiceEnabled": true
 }
