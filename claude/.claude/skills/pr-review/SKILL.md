@@ -322,10 +322,25 @@ posting.
 
 ### 9. Clean up after the review is submitted
 
-Only after `gh pr review` (or equivalent) succeeds: stop every server you
-started for this PR, then delete the worktree. Leave the report artifacts
+Only after `gh pr review` (or equivalent) succeeds: if the review was an
+**Approve** (including approve-with-comment / **should fix** notes), unsubscribe
+from that PR's notifications; then stop every server you started for this PR
+and delete the worktree. Leave the report artifacts
 (`pr-<number>-deep-review.md`, `pr-<number>-browser-validate.md`,
 `pr-<number>-review-draft.md`, `pr-<number>-shots/`) in place.
+
+```bash
+# After a successful approve only — stop watching the PR thread
+# (PRs use the issues subscription API)
+owner_repo=$(gh pr view <number> --json repository --jq .repository.nameWithOwner)
+gh api -X PUT "repos/$owner_repo/issues/<number>/subscription" \
+  -f subscribed=false -f ignored=true
+# Fallback if PUT is rejected:
+# gh api -X DELETE "repos/$owner_repo/issues/<number>/subscription"
+```
+
+Do **not** unsubscribe after request-changes or comment-only reviews — you still
+need the follow-up notifications.
 
 ```bash
 # Stop servers started from this worktree (pid files, nohup jobs, known ports).
@@ -366,4 +381,7 @@ stops.
   review rules come from the repo and its `deep-review` skill.
 - **Clean up after submit.** Once the GitHub review is posted successfully,
   stop servers started for this PR and delete the worktree. Keep the markdown
-  reports and screenshots.
+  reports and screenshots. If the posted review was an **Approve**, also
+  unsubscribe from that PR's notifications (`gh api` issues subscription
+  `subscribed=false` / `ignored=true`). Do not unsubscribe after
+  request-changes or comment-only.
