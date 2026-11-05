@@ -212,17 +212,37 @@ Put the two reports side by side and sort every item into one of four buckets:
 | --- | --- |
 | **Agree** | Code finding and browser result point the same way. Highest confidence. |
 | **Disagree** | Code review flagged it but the browser shows it working, or the browser failed where the code looked fine. Dig in before the draft: re-read the diff, re-run the check, find out which is right. |
-| **Browser only** | A browser FAIL with no matching code finding. Trace it to a line in the diff if you can. |
-| **Untested** | A claim neither report could confirm. List it plainly. |
+| **Browser only** | A browser FAIL or regression with no matching code finding. Trace it to a line in the diff if you can. |
+| **Untested** | A claim from the PR description that browser-validate did not cover (skipped, forgotten, or marked UNTESTED without a hard reason such as "no browser surface"). |
 
 Resolve every Disagree before writing the draft. A review that contradicts
 itself is worse than one that says "unverified".
 
-Then decide the recommendation using deep-review's rule: any `critical` or
-`important` finding introduced by the PR, or any browser FAIL on a claimed
-behavior, means **Request changes**. Suggestions only means **Approve with
-comment**. Nothing means **Approve**. AC completeness gaps are advisory and
-go in their own line; they do not drive the recommendation on their own.
+**Mandatory blockers from browser-validate (treat as `important` Blocking
+items, even when deep-review found nothing):**
+
+1. **Missed PR-description features.** Every user-facing behavior the PR body
+   claims to add, fix, or change must appear as a row in the browser-validate
+   report. If a claimed feature was never exercised in browser-validate
+   (absent from the table, or left UNTESTED without a hard reason such as
+   backend-only / no UI surface / blocked by missing credentials the author
+   did not provide), add a Blocking item naming the claim and that it was not
+   browser-validated. Do not bury these under "Untested claims" only — they
+   are blockers.
+2. **Regressions found in browser-validate.** Any FAIL that shows broken
+   behavior introduced or worsened by this PR (including broken adjacent
+   flows you hit while checking claims, even if the author did not list them)
+   is a Blocking item. Cite the screenshot or reproduction steps. Pre-existing
+   broken behavior that this PR did not touch stays Pre-existing
+   (informational), not Blocking.
+
+Then decide the recommendation using deep-review's rule plus those browser
+rules: any `critical` or `important` finding introduced by the PR, any
+browser FAIL / regression above, or any missed PR-description feature above,
+means **Request changes**. Suggestions only means **Approve with comment**.
+Nothing means **Approve**. True AC completeness gaps that are not claimed
+behaviors in the PR body remain advisory and do not drive the recommendation
+on their own.
 
 ### 7. Draft the review for the user
 
@@ -264,7 +284,12 @@ Rules for the draft:
   Plain prose, specific file and line references, no hedging where the
   evidence is clear.
 - Every blocking item names the evidence: a line in the diff, a failing
-  test, or a screenshot. No blocking item on vibes.
+  test, a screenshot, or — for a missed claim — the exact PR-description
+  sentence that was never browser-validated. No blocking item on vibes.
+- Blocking must include: (a) deep-review critical/important findings
+  introduced by the PR, (b) every PR-description feature not covered in
+  browser-validate without a hard skip reason, and (c) every regression or
+  FAIL found during browser-validate that this PR introduced or worsened.
 - Empty sections are removed, except **Blocking**, which says "None found"
   when empty so the reader knows it was looked for.
 - **Never mention Claude, an AI, an assistant, or skill names** in the draft.
@@ -283,7 +308,8 @@ until the user answers **yes** or asks you to post. On **edit**, apply the
 change to the draft file, reprint it, and ask again. On **no**, leave all
 files in place and say where they are.
 
-When the user says yes, post with the body from the draft file and the
+When the user says yes (or standing instructions already authorize posting
+without asking), post with the body from the draft file and the
 recommendation they confirmed:
 
 ```bash
@@ -292,12 +318,34 @@ gh pr review <number> --request-changes --body-file /workspace/pr-<number>-revie
 ```
 
 Strip the `# Review draft:` header line and the `Sources:` footer before
-posting. Keep the worktree; the user may want to iterate on the author's
-fixes. Remove it only when asked:
+posting.
+
+### 9. Clean up after the review is submitted
+
+Only after `gh pr review` (or equivalent) succeeds: stop every server you
+started for this PR, then delete the worktree. Leave the report artifacts
+(`pr-<number>-deep-review.md`, `pr-<number>-browser-validate.md`,
+`pr-<number>-review-draft.md`, `pr-<number>-shots/`) in place.
 
 ```bash
-git -C <main-clone> worktree remove /workspace/pr-<number>
+# Stop servers started from this worktree (pid files, nohup jobs, known ports).
+# Prefer recorded PIDs from the run; fall back to matching the worktree cwd.
+for pidfile in /workspace/pr-<number>-*.pid /workspace/pr-<number>/**/*.pid; do
+  [ -f "$pidfile" ] || continue
+  kill "$(cat "$pidfile")" 2>/dev/null || true
+  rm -f "$pidfile"
+done
+# Kill anything still serving from the worktree path
+pkill -f "/workspace/pr-<number>" 2>/dev/null || true
+
+# Remove the worktree (force if the branch is dirty from local certs/state)
+git -C <main-clone> worktree remove --force /workspace/pr-<number> \
+  || rm -rf /workspace/pr-<number>
 ```
+
+If posting failed or was skipped (user said no / edit), leave servers and the
+worktree running so the review can continue. Do not clean up on draft-only
+stops.
 
 ## Hard rules
 
@@ -306,10 +354,16 @@ git -C <main-clone> worktree remove /workspace/pr-<number>
 - **Decline deep-review's own submit prompt** with "no". This skill owns the
   submit step.
 - **Browser checks come from the PR body**, not from a generic checklist.
-  Every claimed behavior gets a PASS, FAIL, or UNTESTED.
+  Every claimed behavior gets a PASS, FAIL, or UNTESTED. A claimed feature
+  missing from browser-validate (or UNTESTED without a hard skip reason) is
+  a **Blocking** item. A regression or FAIL found in browser-validate that
+  this PR introduced or worsened is also **Blocking**.
 - **Resolve disagreements** between code findings and browser results before
   drafting. Do not ship both sides.
 - **Name the SHA** in every artifact. Reviews of a moving branch are useless
   without it.
 - **Nothing product-specific lives here.** Hostnames, ports, env names, and
   review rules come from the repo and its `deep-review` skill.
+- **Clean up after submit.** Once the GitHub review is posted successfully,
+  stop servers started for this PR and delete the worktree. Keep the markdown
+  reports and screenshots.
