@@ -330,13 +330,17 @@ and delete the worktree. Leave the report artifacts
 `pr-<number>-review-draft.md`, `pr-<number>-shots/`) in place.
 
 ```bash
-# After a successful approve only — stop watching the PR thread
-# (PRs use the issues subscription API)
-owner_repo=$(gh pr view <number> --json repository --jq .repository.nameWithOwner)
-gh api -X PUT "repos/$owner_repo/issues/<number>/subscription" \
-  -f subscribed=false -f ignored=true
-# Fallback if PUT is rejected:
-# gh api -X DELETE "repos/$owner_repo/issues/<number>/subscription"
+# After a successful approve only — stop watching the PR thread via GraphQL
+# Set owner_repo to the PR's repository (owner/name).
+PR_ID=$(gh pr view <number> --repo "$owner_repo" --json id --jq .id)
+gh api graphql \
+  -f query='mutation($id: ID!) {
+    updateSubscription(input: {subscribableId: $id, state: UNSUBSCRIBED}) {
+      subscribable { viewerSubscription }
+    }
+  }' \
+  -f id="$PR_ID"
+# Verify the returned viewerSubscription is UNSUBSCRIBED.
 ```
 
 Do **not** unsubscribe after request-changes or comment-only reviews — you still
@@ -382,6 +386,7 @@ stops.
 - **Clean up after submit.** Once the GitHub review is posted successfully,
   stop servers started for this PR and delete the worktree. Keep the markdown
   reports and screenshots. If the posted review was an **Approve**, also
-  unsubscribe from that PR's notifications (`gh api` issues subscription
-  `subscribed=false` / `ignored=true`). Do not unsubscribe after
+  unsubscribe from that PR's notifications using GraphQL `updateSubscription`
+  with its PR node ID and `state: UNSUBSCRIBED`; verify `viewerSubscription`
+  is `UNSUBSCRIBED`. Do not unsubscribe after
   request-changes or comment-only.
